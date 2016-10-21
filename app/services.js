@@ -31,7 +31,7 @@
             },
             verifyDocument: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.member.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.member.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -40,7 +40,7 @@
             },
             updateMembershipForMember: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.member.update + '/' + data._id + '/' + APIEndPoint.member.membershipForMember, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.member.update + '/' + data._id + '/' + APIEndPoint.member.membershipForMember, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -49,7 +49,7 @@
             },
             updateSmartCardForMember: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.member.update + '/' + data._id + '/' + APIEndPoint.member.smartCardForMember, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.member.update + '/' + data._id + '/' + APIEndPoint.member.smartCardForMember, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -58,7 +58,7 @@
             },
             addCredit: function (id, data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.credit, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.credit, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

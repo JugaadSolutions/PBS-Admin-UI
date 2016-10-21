@@ -799,7 +799,7 @@
                     growl.error(response.data.description);
                 });
             });
-        };
+            };
 
         $scope.cancelSmartCardChange = function () {
             $uibModalInstance.dismiss();
@@ -812,7 +812,7 @@
 
         $scope.member = {
             credit: 0,
-            creditType: '',
+            creditMode: '',
             transactionNumber: '',
             comments: '',
             createdBy: loggedInUser.assignedUser
@@ -3643,14 +3643,14 @@
 
         $scope.smartCard = {
             cardNumber: '',
-            cardRFID:'',
+            cardRFID:''/*,
             cardType: '',
             cardLevel: ''
-        };
+*/        };
 
         $scope.addSmartCard = function () {
-            $scope.smartCard.cardLevel = parseInt($scope.smartCard.cardLevel);
-            $scope.smartCard.cardType = parseInt($scope.smartCard.cardType);
+           /* $scope.smartCard.cardLevel = parseInt($scope.smartCard.cardLevel);
+            $scope.smartCard.cardType = parseInt($scope.smartCard.cardType);*/
             DataService.saveSmartCard($scope.smartCard).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);

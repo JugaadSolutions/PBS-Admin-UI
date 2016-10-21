@@ -4,6 +4,6 @@
 git clean -f
 git reset --hard HEAD
 git pull
-perl -pi -e 's/admin-ui\///' app/config.js
+perl -pi -e 's/PBS-Admin-UI\///' app/config.js
 cp /etc/pbs/uienv.js ./app/env.js
 service nginx restart

@@ -10,8 +10,8 @@
     app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
 
         /* Views Path */
-        var adminViewPath = "/admin-ui/app/admin/modules/";
-        var loginViewPath = "/admin-ui/app/login/";
+        var adminViewPath = "/PBS-Admin-UI/app/admin/modules/";
+        var loginViewPath = "/PBS-Admin-UI/app/login/";
 
         $urlRouterProvider.otherwise("/login");
 
@@ -33,7 +33,7 @@
 
             .state('403', {
                 url: '/403',
-                templateUrl: '/admin-ui/app/admin/common/403.html',
+                templateUrl: '/PBS-Admin-UI/app/admin/common/403.html',
                 controller: '403Controller',
                 containerClass: 'four-zero-content'
             })
@@ -397,14 +397,14 @@
             // Temporary Simulator Routes
             .state("checkout", {
                 url: "/simulator/checkout",
-                templateUrl: '/admin-ui/app/simulator/checkout.html',
+                templateUrl: '/PBS-Admin-UI/app/simulator/checkout.html',
                 controller: 'SimulateCheckout',
                 containerClass: 'sw-toggled'
             })
 
             .state("checkin", {
                 url: "/simulator/checkin",
-                templateUrl: '/admin-ui/app/simulator/checkin.html',
+                templateUrl: '/PBS-Admin-UI/app/simulator/checkin.html',
                 controller: 'SimulateCheckin',
                 containerClass: 'sw-toggled'
             })
