@@ -218,9 +218,9 @@
     app.controller('AddMember', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet) {
 
         $scope.member = {
-            name: '',
+            Name: '',
             lastName: '',
-            givenName: '',
+           /* givenName: '',*/
             fatherName: '',
             education: '',
             occupation: '',
@@ -235,7 +235,8 @@
             smartCardNumber: '',
             profilePic: '',
             emergencyContact: {countryCode: '91'},
-            documents: []
+            documents: [],
+            smartCardKey:'key'
         };
 
         $scope.addNewDocument = function () {
@@ -470,7 +471,7 @@
                 }
                 $scope.member.documents.forEach(function (document) {
                     //document.documentProof = AWS + 'Member/' + $scope.member.memberId + '/' + document.documentCopy + '.png';
-                    document.documentProof = "http://user.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member.memberId + '/' + document.documentCopy + '.png';
+                    document.documentProof = "http://user.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member._id + '/' + document.documentCopy + '.png';
                 });
                 if ($scope.member.membershipId) {
                     var membershipName = $scope.member.membershipId.subscriptionType;
@@ -1608,6 +1609,8 @@
 
         $scope.dockingStation = {
             stationNumber: '',
+            noofUnits:'',
+            noofPorts:'',
             modelType: '',
             gpsCoordinates: {
                 longitude: '',
@@ -2908,7 +2911,8 @@
     app.controller('AddRedistributionVehicle', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet) {
 
         $scope.redistributionVehicle = {
-            vehicleNumber: '',
+            Name: '',
+            name:'',
             vehiclePlate: '',
             driverId: '',
             modelType: '',
@@ -3639,6 +3643,7 @@
 
         $scope.smartCard = {
             cardNumber: '',
+            cardRFID:'',
             cardType: '',
             cardLevel: ''
         };

@@ -27,7 +27,7 @@
                 <table ng-table="holdingAreasTable" class="table table-striped" show-filter="true">
                     <tr ng-repeat="holdingArea in $data">
                         <td data-title="'Area Name'" filter="{ 'areaName': 'text'}">
-                            <a ui-sref="admin.holding-areas.edit({id: holdingArea._id})">{{holdingArea.areaName}}</a>
+                            <a ui-sref="admin.holding-areas.edit({id: holdingArea._id})">{{holdingArea.name}}</a>
                         </td>
                         <td data-title="'Area Capacity'" filter="{ 'areaCapacity': 'text'}">
                             {{holdingArea.areaCapacity}}

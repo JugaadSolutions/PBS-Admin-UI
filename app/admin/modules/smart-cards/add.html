@@ -37,24 +37,42 @@
                         <h2><i class="zmdi zmdi-card m-r-10"></i>Smart Card Information</h2>
                     </div>
                     <div class="pmbb-body p-l-30">
+
                         <dl class="dl-horizontal required">
-                            <dt class="p-t-10">Card RFID</dt>
+                            <dt class="p-t-10">Card Number</dt>
                             <dd>
                                 <div class="fg-line"
                                      ng-class="{ 'has-error': AddSmartCard.cardNumber.$touched && AddSmartCard.cardNumber.$invalid }">
                                     <input type="text" name="cardNumber" ng-model="smartCard.cardNumber"
                                            class="form-control"
                                            placeholder="eg. 8989831293" required>
-                                            <span class="help-block"
-                                                  ng-messages="AddSmartCard.cardNumber.$error"
-                                                  ng-show="AddSmartCard.cardNumber.$touched">
-                                                <small ng-message="required">Smart Card Name is required</small>
+                                    <span class="help-block"
+                                          ng-messages="AddSmartCard.cardNumber.$error"
+                                          ng-show="AddSmartCard.cardNumber.$touched">
+                                                <small ng-message="required">Smart Card Number is required</small>
                                             </span>
                                 </div>
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal">
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Card RFID</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': AddSmartCard.cardRFID.$touched && AddSmartCard.cardRFID.$invalid }">
+                                    <input type="text" name="cardRFID" ng-model="smartCard.cardRFID"
+                                           class="form-control"
+                                           placeholder="eg. 8989831293" required>
+                                            <span class="help-block"
+                                                  ng-messages="AddSmartCard.cardRFID.$error"
+                                                  ng-show="AddSmartCard.cardRFID.$touched">
+                                                <small ng-message="required">Smart Card RFID is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                       <!-- <dl class="dl-horizontal">
                             <dt class="p-t-10">Card Type</dt>
                             <dd>
                                 <div class="fg-line">
@@ -65,9 +83,9 @@
                                     </select>
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
-                        <dl class="dl-horizontal">
+                      <!--  <dl class="dl-horizontal">
                             <dt class="p-t-10">Card Level</dt>
                             <dd>
                                 <div class="fg-line">
@@ -75,14 +93,14 @@
                                             name="cardType">
                                         <option ng-if="smartCard.cardType == 1" ng-value="0">Regular Employee Card
                                         </option>
-                                        <option ng-value="1">Check Out Card</option>
+                                        <option ng-value="1" >Check Out Card</option>
                                         <option ng-if="smartCard.cardType == 1" ng-value="2">Port Close Card</option>
                                         <option ng-if="smartCard.cardType == 1" ng-value="3">Bicycle Lock Card</option>
                                         <option ng-if="smartCard.cardType == 1" ng-value="4">Port Ready Card</option>
                                     </select>
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
                         <!--<dl class="dl-horizontal required">
                             <dt class="p-t-10">Issuing Employee</dt>

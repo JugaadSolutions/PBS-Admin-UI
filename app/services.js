@@ -11,7 +11,7 @@
         return {
             getMembers: function (filters) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.member.getAll, {
+                $http.get(APINew + APIEndPoint.member.getAll, {
                     params: filters
                 }).then(function (result) {
                     deferred.resolve(result.data);
@@ -22,7 +22,7 @@
             },
             saveMember: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.member.save, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.member.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -76,7 +76,7 @@
             },
             getMember: function (data, filters) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.member.get + '/' + data, {
+                $http.get(APINew + APIEndPoint.member.get + '/' + data, {
                     params: filters
                 }).then(function (result) {
                     deferred.resolve(result.data);
@@ -188,7 +188,7 @@
             },
             getMemberships: function (filters) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.membership.getAll, {
+                $http.get(APINew + APIEndPoint.membership.getAll, {
                     params: filters
                 }).then(function (result) {
                     deferred.resolve(result.data);
@@ -210,7 +210,7 @@
             },
             saveMembership: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.membership.save, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.membership.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -228,7 +228,7 @@
             },
             getDockingStations: function () {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.dockingStations.getAll).then(function (result) {
+                $http.get(APINew + APIEndPoint.dockingStations.getAll).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -314,7 +314,7 @@
             },
             getDockingPorts: function (filters) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.dockingPorts.getAll,
+                $http.get(APINew + APIEndPoint.dockingPorts.getAll,
                     {
                         params: filters
                     }).then(function (result) {
@@ -414,7 +414,7 @@
             },
             saveRedistributionVehicle: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.redistributionVehicles.save, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.redistributionVehicles.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -441,7 +441,7 @@
             },
             getFarePlans: function () {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.farePlan.getAll).then(function (result) {
+                $http.get(APINew + APIEndPoint.farePlan.getAll).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -450,7 +450,7 @@
             },
             saveFarePlan: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.farePlan.save, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.farePlan.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -477,7 +477,7 @@
             },
             getHoldingAreas: function () {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.holdingArea.getAll).then(function (result) {
+                $http.get(APINew + APIEndPoint.holdingArea.getAll).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -524,7 +524,7 @@
             },
             getMaintenanceCentres: function () {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.maintenanceCentre.getAll).then(function (result) {
+                $http.get(APINew + APIEndPoint.maintenanceCentre.getAll).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -560,7 +560,7 @@
             },
             getSmartCards: function (filters) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.smartCard.getAll, {
+                $http.get(APINew + APIEndPoint.smartCard.getAll, {
                     params: filters
                 }).then(function (result) {
                     deferred.resolve(result.data);
@@ -598,7 +598,7 @@
             },
             saveSmartCard: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.smartCard.save, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.smartCard.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

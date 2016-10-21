@@ -23,7 +23,7 @@
                             <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>
                         <td data-title="'Full Name'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
-                            <a ui-sref="admin.members.edit({id: member._id})">{{member.name}} {{member.lastName}}</a>
+                            <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
                         </td>
                         <td data-title="'Email'" filter="{ emailAddress: 'text'}">
                             {{member.emailAddress}}

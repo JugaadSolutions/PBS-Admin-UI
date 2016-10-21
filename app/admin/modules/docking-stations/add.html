@@ -69,7 +69,42 @@
                                 </div>
                             </dd>
                         </dl>
+
                         <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Number of Units</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': AddDockingStation.noofUnits.$touched && AddDockingStation.noofUnits.$invalid }">
+                                    <input type="text" name="noofUnits" ng-model="dockingStation.noofUnits"
+                                           class="form-control"
+                                           placeholder="eg. 1" required>
+                                    <span class="help-block"
+                                          ng-messages="AddDockingStation.noofUnits.$error"
+                                          ng-show="AddDockingStation.noofUnits.$touched">
+                                                <small ng-message="required">Number of Units is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Number of Ports</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': AddDockingStation.noofPorts.$touched && AddDockingStation.noofPorts.$invalid }">
+                                    <input type="text" name="noofPorts" ng-model="dockingStation.noofPorts"
+                                           class="form-control"
+                                           placeholder="eg. 1" required>
+                                    <span class="help-block"
+                                          ng-messages="AddDockingStation.noofPorts.$error"
+                                          ng-show="AddDockingStation.noofPorts.$touched">
+                                                <small ng-message="required">Number of Ports is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                      <!--  <dl class="dl-horizontal required">
                             <dt class="p-t-10">Model Type</dt>
                             <dd>
                                 <div class="fg-line m-t-10">
@@ -87,7 +122,7 @@
                                     </label>
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
                         <dl class="dl-horizontal required">
                             <dt class="p-t-10">GPS Coordinates</dt>

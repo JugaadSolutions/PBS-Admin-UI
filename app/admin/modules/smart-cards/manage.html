@@ -22,19 +22,23 @@
             <div class="table-responsive" ng-if="smartCards.length > 0">
                 <table ng-table="smartCardsTable" class="table table-striped" show-filter="true">
                     <tr ng-repeat="smartCard in $data">
-                        <td data-title="'Card RFID'" filter="{ 'cardNumber': 'text'}">
+
+                        <td data-title="'Card Number'" filter="{ 'cardNumber': 'text'}">
                             <a ui-sref="admin.smart-cards.edit({id: smartCard._id})">{{smartCard.cardNumber}}</a>
                         </td>
-                        <td data-title="'Card Type'" filter="{ 'cardType': 'text'}">
+                        <td data-title="'Card RFID'" filter="{ 'cardRFID': 'text'}">
+                            <a ui-sref="admin.smart-cards.edit({id: smartCard._id})">{{smartCard.cardRFID}}</a>
+                        </td>
+                        <!--<td data-title="'Card Type'" filter="{ 'cardType': 'text'}">
                             {{smartCard.cardType}}
-                        </td>
-                        <td data-title="'Card Level'" filter="{ 'cardLevel': 'text'}">
+                        </td>-->
+                       <!-- <td data-title="'Card Level'" filter="{ 'cardLevel': 'text'}">
                             {{smartCard.cardLevel}}
-                        </td>
-                        <td data-title="'Assigned to'" filter="{ 'name': 'text'}" filter="{ 'lastName': 'text'}">
+                        </td>-->
+                        <!--<td data-title="'Assigned to'" filter="{ 'name': 'text'}" filter="{ 'lastName': 'text'}">
                             <a ui-sref="admin.members.edit({id: smartCard.assignedTo._id})">{{smartCard.name}}
                                 {{smartCard.lastName}}</a>
-                        </td>
+                        </td>-->
                         `
                         <td class="text-center">
                             <span uib-tooltip="{{smartCard.status}}" tooltip-placement="top" ng-class="{

@@ -109,7 +109,7 @@
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': MemberForm.name.$touched && MemberForm.name.$invalid }">
-                                            <input type="text" name="name" ng-model="member.name" class="form-control"
+                                            <input type="text" name="name" ng-model="member.Name" class="form-control"
                                                    placeholder="eg. Ashok" required>
                                             <span class="help-block" ng-messages="MemberForm.name.$error"
                                                   ng-show="MemberForm.name.$touched">
@@ -133,7 +133,7 @@
                                         </div>
                                     </dd>
                                 </dl>
-                                <dl class="dl-horizontal required">
+                                <!--<dl class="dl-horizontal required">
                                     <dt class="p-t-10">Given Name</dt>
                                     <dd>
                                         <div class="fg-line"
@@ -147,7 +147,7 @@
                                             </span>
                                         </div>
                                     </dd>
-                                </dl>
+                                </dl>-->
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">Father's Name</dt>
                                     <dd>
@@ -191,7 +191,7 @@
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': MemberForm.emailAddress.$touched && MemberForm.emailAddress.$invalid }">
-                                            <input type="email" name="emailAddress" ng-model="member.emailAddress"
+                                            <input type="email" name="emailAddress" ng-model="member.email"
                                                    disabled
                                                    class="form-control" required>
                                             <span class="help-block" ng-messages="MemberForm.emailAddress.$error"

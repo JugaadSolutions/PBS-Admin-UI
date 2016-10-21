@@ -45,7 +45,7 @@
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': AddRedistributionVehicle.number.$touched && AddRedistributionVehicle.number.$invalid }">
                                             <input type="text" name="number"
-                                                   ng-model="redistributionVehicle.vehicleNumber"
+                                                   ng-model="redistributionVehicle.Name"
                                                    class="form-control"
                                                    placeholder="eg. RV10" required>
                                             <span class="help-block"
@@ -56,6 +56,26 @@
                                         </div>
                                     </dd>
                                 </dl>
+
+                                <!--Redistribution Area Name-->
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10">Redistribution Area Name</dt>
+                                    <dd>
+                                        <div class="fg-line"
+                                             ng-class="{ 'has-error': AddRedistributionVehicle.redistributionAreaName.$touched && AddRedistributionVehicle.redistributionAreaName.$invalid }">
+                                            <input type="text" name="redistributionAreaName"
+                                                   ng-model="redistributionVehicle.name"
+                                                   class="form-control"
+                                                   placeholder="eg. Mysuru Redistribution Vehicle" required>
+                                            <span class="help-block"
+                                                  ng-messages="AddRedistributionVehicle.redistributionAreaName.$error"
+                                                  ng-show="AddRedistributionVehicle.redistributionAreaName.$touched">
+                                                <small ng-message="required">Redistribution Area Name is required</small>
+                                            </span>
+                                        </div>
+                                    </dd>
+                                </dl>
+
                                 <dl class="dl-horizontal required">
                                     <dt class="p-t-10">Vehicle Number Plate</dt>
                                     <dd>
@@ -74,6 +94,7 @@
                                     </dd>
                                 </dl>
 
+
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">Driver ID</dt>
                                     <dd>
@@ -86,7 +107,7 @@
                                     </dd>
                                 </dl>
 
-                                <dl class="dl-horizontal">
+                               <!-- <dl class="dl-horizontal">
                                     <dt class="p-t-10">Model Type</dt>
                                     <dd>
                                         <div class="fg-line">
@@ -96,7 +117,7 @@
                                                    placeholder="eg. LORRY">
                                         </div>
                                     </dd>
-                                </dl>
+                                </dl>-->
 
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">Holding Capacity</dt>
@@ -110,7 +131,7 @@
                                     </dd>
                                 </dl>
 
-                                <dl class="dl-horizontal">
+                                <!--<dl class="dl-horizontal">
                                     <dt class="p-t-10">Total Bicycles</dt>
                                     <dd>
                                         <div class="fg-line">
@@ -120,9 +141,9 @@
                                                    placeholder="eg. 10">
                                         </div>
                                     </dd>
-                                </dl>
+                                </dl>-->
 
-                                <dl class="dl-horizontal">
+                              <!--  <dl class="dl-horizontal">
                                     <dt class="p-t-10">GPS Coordinates</dt>
                                     <dd>
                                         <div class="col-sm-6 p-r-10">
@@ -142,7 +163,7 @@
                                             </div>
                                         </div>
                                     </dd>
-                                </dl>
+                                </dl>-->
                             </div>
                         </div>
                     </uib-tab>

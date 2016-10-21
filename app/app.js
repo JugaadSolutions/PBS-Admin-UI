@@ -70,7 +70,7 @@
             post: 'member/test'
         },
         dockingStations: {
-            getAll: 'dockingstation',
+            getAll: 'dockstation',
             get: 'dockingstation',
             post: 'dockstation',
             sync: 'dockingstation/sync',
@@ -89,7 +89,7 @@
             delete: 'dockingunit'
         },
         dockingPorts: {
-            getAll: 'dockingport',
+            getAll: 'dockport',
             get: 'dockingport',
             post: 'dockingport',
             save: 'dockingport',
@@ -109,7 +109,8 @@
             bicycleLifeCycle: 'bicycleLifeCycle'
         },
         redistributionVehicles: {
-            getAll: 'redistributionport'
+            getAll: 'redistributionvehicle',
+            save: 'redistributionvehicle'
            /* get: 'redistributionvehicle',
             save: 'redistributionvehicle',
             update: 'redistributionvehicle',
@@ -130,7 +131,7 @@
             delete: 'holdingarea'
         },
         maintenanceCentre: {
-            getAll: 'maintenancecentre',
+            getAll: 'maintenancecenter',
             get: 'maintenancecentre',
             save: 'maintenancecentre',
             update: 'maintenancecentre',

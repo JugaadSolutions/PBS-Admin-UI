@@ -22,13 +22,13 @@
                 <table ng-table="dockingPortsTable" class="table table-striped" show-filter="true">
                     <tr ng-repeat="dockingPort in $data">
                         <td data-title="'Port Number'" filter="{ 'portNumber': 'text'}">
-                            <a ui-sref="admin.docking-ports.edit({id: dockingPort._id})">{{dockingPort.portNumber}}</a>
+                            <a ui-sref="admin.docking-ports.edit({id: dockingPort._id})">{{dockingPort.PortID}}</a>
                         </td>
                         <td data-title="'FPGA Address'" filter="{ 'unitNumber': 'text'}">
-                            <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingUnitId._id})">{{dockingPort.unitNumber}}</a>
+                            <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingUnitId._id})">{{dockingPort.FPGA}}</a>
                         </td>
                         <td data-title="'Station Name'" filter="{ 'name': 'text'}">
-                            <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingStationId._id})">{{dockingPort.name}}</a>
+                            <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingStationId._id})">{{dockingPort.Name}}</a>
                         </td>
                         <td data-title="'Model Type'" filter="{ 'modelType': 'text'}">
                             {{dockingPort.modelType}}
