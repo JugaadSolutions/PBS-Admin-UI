@@ -34,7 +34,7 @@
             <a ui-sref="admin.fare-plans.manage"><i class="zmdi zmdi-money-box"></i> Fare Plans</a>
         </li>
         <li class="sub-menu"
-            ng-class="{'active toggled': $state.includes('admin.docking-stations') || $state.includes('admin.docking-units') || $state.includes('admin.docking-ports') || $state.includes('admin.bicycles') || $state.includes('admin.redistribution-vehicles') || $state.includes('admin.holding-areas') || $state.includes('admin.maintenance-centres') || $state.includes('admin.smart-cards')}">
+            ng-class="{'active toggled': $state.includes('admin.docking-stations') || $state.includes('admin.docking-units') || $state.includes('admin.docking-ports') || $state.includes('admin.bicycles') || $state.includes('admin.redistribution-vehicles') || $state.includes('admin.holding-areas') || $state.includes('admin.maintenance-centres') || $state.includes('admin.registration-centres') || $state.includes('admin.smart-cards')}">
             <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Assets</a>
             <ul>
                 <li><a ng-class="{'active': $state.includes('admin.docking-stations')}"
@@ -62,6 +62,11 @@
                 <li>
                     <a ng-class="{active: $state.includes('admin.maintenance-centres')}"
                        ui-sref="admin.maintenance-centres.manage">Maintenance Centres</a>
+                </li>
+                <!--registration centre-->
+                <li>
+                    <a ng-class="{active: $state.includes('admin.registration-centres')}"
+                       ui-sref="admin.registration-centres.manage">Registration Centres</a>
                 </li>
                 <li>
                     <a ng-class="{active: $state.includes('admin.smart-cards')}" ui-sref="admin.smart-cards.manage">Smart

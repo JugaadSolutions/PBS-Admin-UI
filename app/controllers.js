@@ -3446,6 +3446,42 @@
 
     }]);
 
+    // Registratiob Centres
+    app.controller('ManageRegistrationCentres', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
+        $scope.registrationCentres = [];
+
+        $scope.addNewRegistrationCentre = function () {
+            $state.go('admin.registration-centres.add');
+        };
+    }]);
+
+    app.controller('AddRegistrationCentre', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet) {
+
+        $scope.registrationCentre = {
+            centreName: '',
+            centreLocation:'' ,
+            assignedTo:'' ,
+            gpsCoordinates: {
+                latitude: '',
+                longitude: ''
+            },
+            status: 0
+        };
+
+        $scope.addRegistrationCentre = function () {
+            DataService.saveRegistrationCentre($scope.registrationCentre).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    $state.go('admin.registration-centres.edit', {'id': response.data._id});
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+    }]);
+
 // Maintenance Centre Status Controller
     app.controller('MaintenanceCentreStatus', ['$scope', '$state', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'maintenanceCentre', function ($scope, $state, DataService, growl, sweet, $uibModalInstance, maintenanceCentre) {
 

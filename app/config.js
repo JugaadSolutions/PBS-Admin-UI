@@ -341,6 +341,34 @@
                 containerClass: 'sw-toggled'
             })
 
+            /*Registration centres*/
+            .state("admin.registration-centres",{
+                url:"/registration-centres",
+                templateUrl:adminViewPath + 'registration-centres/registration-centres.html',
+                containerClass:'sw-toggled'
+                })
+
+            .state("admin.registration-centres.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'registration-centres/manage.html',
+                controller: 'ManageRegistrationCentres',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.registration-centres.add", {
+                url: "/add",
+                templateUrl: adminViewPath + 'registration-centres/add.html',
+                controller: 'AddRegistrationCentre',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.registration-centres.edit", {
+                url: "/edit/:id",
+                templateUrl: adminViewPath + 'registration-centres/edit.html',
+                controller: '',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.smart-cards", {
                 url: "/smart-cards",
                 templateUrl: adminViewPath + "smart-cards/smart-cards.html"

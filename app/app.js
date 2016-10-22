@@ -48,7 +48,7 @@
             membershipForMember: 'assignmembership',
             smartCardForMember: 'assigncard',
             delete: 'member',
-            memberPaymentTransaction: 'memberpaymenttransaction',
+            memberPaymentTransaction: 'paymenttransaction',
             memberTransaction: 'membertransaction/member'
         },
         employee: {
@@ -137,6 +137,11 @@
             update: 'maintenancecentre',
             delete: 'maintenancecentre'
         },
+
+        registrationCentre: {
+            save:'registrationcentre'
+        },
+
         smartCard: {
             getAll: 'card',
             get: 'card',

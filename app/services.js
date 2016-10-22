@@ -540,6 +540,18 @@
                 });
                 return deferred.promise;
             },
+
+            /*Registration Centres*/
+            saveRegistrationCentre: function (data) {
+                var deferred = $q.defer();
+                $http.post(API + APIEndPoint.maintenanceCentre.save, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getMaintenanceCentre: function (data) {
                 var deferred = $q.defer();
                 $http.get(API + APIEndPoint.maintenanceCentre.get + '/' + data).then(function (result) {
@@ -652,7 +664,7 @@
             },
             getMemberPaymentTransaction: function (filters) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.member.memberPaymentTransaction, {
+                $http.get(APINew + APIEndPoint.member.memberPaymentTransaction, {
                     params: filters
                 }).then(function (result) {
                     deferred.resolve(result.data);
