@@ -7,7 +7,7 @@
         </h2>
         <div class="actions m-t-10">
             <button type="button" class="btn btn-icon-text btn-default waves-effect m-r-5"
-                    ng-click="cancelAddMaintenanceCentre();">
+                    ng-click="cancelAddRegistrationCentre();">
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
@@ -71,7 +71,7 @@
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal required">
+                       <!-- <dl class="dl-horizontal required">
                             <dt class="p-t-10">Assigned To</dt>
                             <dd>
                                 <div class="fg-line"
@@ -86,7 +86,25 @@
                                             </span>
                                 </div>
                             </dd>
+                        </dl>-->
+
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Assigned To</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control" ng-model="registrationCentre.assignedTo"
+                                            data-placeholder-text-single="'Select Assigned To'"
+                                            name="assignedTo">
+                                        <option value="Employee1">Employee1</option>
+                                        <option value="Employee2">Employee2</option>
+                                        <option value="Employee3">Employee3</option>
+                                        <!--  <option value="Cheque">Cheque</option>-->
+                                    </select>
+                                </div>
+                            </dd>
                         </dl>
+
 
                         <dl class="dl-horizontal">
                             <dt class="p-t-10">GPS</dt>

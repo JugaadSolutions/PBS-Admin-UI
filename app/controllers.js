@@ -3468,6 +3468,19 @@
             status: 0
         };
 
+        $scope.cancelAddRegistrationCentre = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.registration-centres.manage');
+            });
+        };
+
         $scope.addRegistrationCentre = function () {
             DataService.saveRegistrationCentre($scope.registrationCentre).then(function (response) {
                 if (!response.error) {

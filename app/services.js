@@ -1138,7 +1138,8 @@
             var token = self.getToken();
             if (token) {
                 var params = self.parseToken(token);
-                return params.role;
+                /*return params.role;*/
+                return params._type;
             } else {
                 return false;
             }
@@ -1211,5 +1212,19 @@
         };
 
     }]);
+
+    app.factory('MyService',function () {
+       var saveData={}
+        function set(data) {
+            saveData=data;
+        }
+        function get() {
+            return savedData;
+        }
+        return {
+            set: set,
+            get: get
+        }
+    });
 
 })();
