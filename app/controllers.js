@@ -7,12 +7,18 @@
 
     var app = angular.module('pbs');
 
+    /*newly added*/
+    var login_email;
+
     app.controller('PBSController', ['$scope', '$state', 'auth', 'AWS', '$rootScope', function ($scope, $state, auth, AWS, $rootScope) {
 
         $scope.$on('userInfo', function (event, user) {
             $scope.profileName = user.profileName;
             $scope.admin = user.role !== 'employee';
             $scope.role = user.role;
+            /*newly added*/
+            $scope.email=user.email;
+            login_email = user.email;
             //$scope.profilePic = AWS + 'Employee/' + user._id + '/' + member.picture + '.png';
         });
 
@@ -114,7 +120,14 @@
             }
         };
 
+        login_email;
+
+      /*  $scope.auth(function(response){
+            var test=  params.email;
+        })*/
+
         DataService.getMembers(filters).then(function (response) {
+            login_email;
             if (!response.error) {
                 $scope.membersData = response.data;
                 $scope.membersData.forEach(function (member) {
@@ -176,6 +189,11 @@
         $scope.addNewMember = function () {
             $state.go('admin.members.add');
         };
+
+        $scope.auth=function(){
+
+        };
+
 
     }]);
 
@@ -3701,6 +3719,7 @@
            /* $scope.smartCard.cardLevel = parseInt($scope.smartCard.cardLevel);
             $scope.smartCard.cardType = parseInt($scope.smartCard.cardType);*/
             DataService.saveSmartCard($scope.smartCard).then(function (response) {
+                login_email;
                 if (!response.error) {
                     growl.success(response.message);
                     $state.go('admin.smart-cards.edit', {'id': response.data._id});

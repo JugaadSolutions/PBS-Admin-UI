@@ -178,7 +178,9 @@
         profileName: "",
         assignedUser: "",
         role: "",
-        loggedIn: false
+        loggedIn: false,
+        /*newly added*/
+        email:''
     });
 
     app.run(function ($rootScope, $state, auth, DataService, growl, loggedInUser) {
@@ -202,6 +204,8 @@
                 loggedInUser.role = auth.returnRole();
                 loggedInUser.assignedUser = auth.returnUserId();
                 loggedInUser.loggedIn = true;
+                /*newly added*/
+                loggedInUser.email=auth.returnEmail();
 
                 if (toState.name === "admin.employees" || toState.name === "admin.employees.manage" || toState.name === "admin.employees.add" || toState.name === "admin.employees.edit") {
                     if (loggedInUser.role == 'employee') {

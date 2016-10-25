@@ -609,6 +609,7 @@
                 return deferred.promise;
             },
             saveSmartCard: function (data) {
+
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.smartCard.save, data).then(function (result) {
                     deferred.resolve(result.data);
@@ -1140,6 +1141,18 @@
                 var params = self.parseToken(token);
                 /*return params.role;*/
                 return params._type;
+                return params.email;
+            } else {
+                return false;
+            }
+        };
+
+        /*newly added*/
+        self.returnEmail=function(){
+            var token = self.getToken();
+            if (token) {
+                var params = self.parseToken(token);
+                return params.email;
             } else {
                 return false;
             }
