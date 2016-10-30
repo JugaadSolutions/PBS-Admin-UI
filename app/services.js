@@ -96,7 +96,7 @@
             },
             getEmployees: function (filters) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.employee.getAll, {
+                $http.get(APINew + APIEndPoint.employee.getAll + '/' + 'registrationstaff', {
                     params: filters
                 }).then(function (result) {
                     deferred.resolve(result.data);
@@ -143,7 +143,30 @@
             },
             saveEmployee: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.employee.save, data).then(function (result) {
+                var _department = data.department;
+                var _url;
+                if (_department  === 'Registration Member Staff')
+                {
+                    _url = 'registrationstaff';
+                }
+                else if (_department === 'Redistribution Member Staff')
+                {
+                }
+                else if (_department === 'Information Technology Staff')
+                {
+                }
+                else if (_department === 'Office Staff')
+                {
+                }
+                else if (_department === 'Docking Station Repair Staff')
+                {
+                }
+                else
+                {
+
+                }
+
+                $http.post(APINew + APIEndPoint.employee.save + '/' + _url  , data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -448,6 +471,17 @@
                 });
                 return deferred.promise;
             },
+
+            getStaffs: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.staffSelection.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             saveFarePlan: function (data) {
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.farePlan.save, data).then(function (result) {
@@ -541,10 +575,31 @@
                 return deferred.promise;
             },
 
+            getRegistrationCentres: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.registrationCentre.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             /*Registration Centres*/
             saveRegistrationCentre: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.maintenanceCentre.save, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.registrationCentre.save, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            saveTicketDetails:function(data)
+            {
+                var deferred = $q.defer();
+                $http.post(API + APIEndPoint.ticketsDetails.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -947,6 +1002,23 @@
                 }
                 return status;
             },
+            getRegistrationCentresStatus: function (code) {
+                var status = '';
+                switch (code) {
+                    case  0:
+                        status = "Operational";
+                        break;
+                    case  1:
+                        status = "Non Operational";
+                        break;
+                    case -1:
+                        status = "Shutdown";
+                        break;
+                    default:
+                        break;
+                }
+                return status;
+            },
             getSmartCardStatus: function (code) {
                 var status = '';
                 switch (code) {
@@ -1218,12 +1290,11 @@
         var self = this;
 
         self.login = function (username, password) {
-            return $http.post(APINew + 'auth/login', {
-                username: username,
-                password: password
-            });
-        };
-
+                return $http.post(APINew + 'auth/login', {
+                    username: username,
+                    password: password
+                });
+            };
     }]);
 
     app.factory('MyService',function () {

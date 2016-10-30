@@ -14,12 +14,19 @@
 
         $scope.$on('userInfo', function (event, user) {
             $scope.profileName = user.profileName;
-            $scope.admin = user.role !== 'employee';
+           /* $scope.admin = user.role !== 'employee';*/
+            $scope.admin = user.role !== 'member';
             $scope.role = user.role;
             /*newly added*/
             $scope.email=user.email;
             login_email = user.email;
             //$scope.profilePic = AWS + 'Employee/' + user._id + '/' + member.picture + '.png';
+
+            /*if ($scope.role=="member")
+            {
+                $state.go("403");
+                return false;
+            }*/
         });
 
         $scope.logout = function () {
@@ -89,6 +96,8 @@
 
         var self = this;
 
+
+
         $scope.username = "";
         $scope.password = "";
 
@@ -102,12 +111,19 @@
             }
         }
 
-        $scope.loginUser = function (username, password) {
+        $scope.loginUser = function (username, password)
+        {
+            if(username == "" || username == null || password == "" || password == null)
+            {
+                growl.error("Please enter username and password");
+            }
+            else
+            {
             user.login(username, password)
                 .then(handleRequest, handleRequest);
             $state.reload();
-        };
-
+            };
+        }
     }]);
 
     // Manage Members Controller
@@ -996,7 +1012,8 @@
     // Add Employees Controller
     app.controller('AddEmployees', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet) {
         $scope.employee = {
-            name: '',
+            /*name: '',*/
+            Name:'',
             lastName: '',
             givenName: '',
             fatherName: '',
@@ -1015,9 +1032,9 @@
             smartCardDetails: [],
             position: '',
             department: '',
-            experience: '',
+            experiance: '',
             joiningDate: '',
-            additionalInformation: ''
+            additionalInfo: ''
         };
 
         $scope.addNewDocument = function () {
@@ -3465,25 +3482,74 @@
     }]);
 
     // Registratiob Centres
-    app.controller('ManageRegistrationCentres', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
+    app.controller('ManageRegistrationCentres', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
         $scope.registrationCentres = [];
+
+        /*fetching registration center table details*/
+        DataService.getRegistrationCentres().then(function (response) {
+            if (!response.error) {
+                $scope.registrationCentres = response.data;
+                $scope.registrationCentres.forEach(function (registrationCentre) {
+                    registrationCentre.status = StatusService.getRegistrationCentresStatus(registrationCentre.status);
+                    registrationCentre.longitude = registrationCentre.gpsCoordinates.longitude;
+                    registrationCentre.latitude = registrationCentre.gpsCoordinates.latitude;
+                });
+                $scope.registrationCentresTable.reload();
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.registrationCentresTable = new NgTableParams(
+            {
+                count: 6
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.registrationCentres, params.filter()) : $scope.registrationCentres;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
 
         $scope.addNewRegistrationCentre = function () {
             $state.go('admin.registration-centres.add');
         };
     }]);
 
-    app.controller('AddRegistrationCentre', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet) {
-
+    app.controller('AddRegistrationCentre', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
+    {
         $scope.registrationCentre = {
-            centreName: '',
-            centreLocation:'' ,
-            assignedTo:'' ,
+            name: '',
+            location: '',
+            assignedTo: '',
             gpsCoordinates: {
                 latitude: '',
                 longitude: ''
             },
             status: 0
+        };
+
+        $scope.staffSelections = [];
+
+        DataService.getStaffs().then(function (response) {
+                if (!response.error) {
+                    $scope.staffSelections = response.data;
+                } else {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedStaff = function (data) {
+            $scope.registrationCentre.assignedTo = data.id;
         };
 
         $scope.cancelAddRegistrationCentre = function () {
@@ -3501,6 +3567,50 @@
 
         $scope.addRegistrationCentre = function () {
             DataService.saveRegistrationCentre($scope.registrationCentre).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    $state.go('admin.registration-centres.edit', {'id': response.data._id});
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+    }]);
+
+    /*Tickets*/
+    app.controller('ManageTicketsDetails', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
+        $scope.ticketsDetails = [];
+
+        $scope.addNewTicketDetails = function () {
+            $state.go('admin.tickets.add');
+        };
+    }]);
+
+
+    app.controller('AddTicketsDetails', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet) {
+
+        $scope.ticketsDetails = {
+            type: '',
+            description:''
+        };
+
+        $scope.cancelAddTickets = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.tickets.manage');
+            });
+        };
+
+        $scope.addNewTicketDetails = function () {
+            DataService.saveTicketDetails($scope.ticketsDetails).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
                     $state.go('admin.registration-centres.edit', {'id': response.data._id});

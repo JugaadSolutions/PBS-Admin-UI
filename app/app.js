@@ -59,6 +59,13 @@
             update: 'employee',
             delete: 'employee'
         },
+
+        registrationstaff:{
+            save: 'registrationstaff',
+            get:'registrationstaff',
+            getAll:'registrationstaff'
+        },
+
         membership: {
             getAll: 'membership',
             get: 'membership',
@@ -123,6 +130,13 @@
             update: 'farePlan',
             delete: 'farePlan'
         },
+
+        /*Registration centre staff assignment*/
+        staffSelection:
+        {
+            getAll:'employee/registrationstaff'
+        },
+
         holdingArea: {
             getAll: 'holdingarea',
             get: 'holdingarea',
@@ -139,7 +153,12 @@
         },
 
         registrationCentre: {
-            save:'registrationcentre'
+            save:'registrationcenter',
+            getAll:'registrationcenter'
+        },
+
+        ticketsDetails:{
+          save:'ticketdetails'
         },
 
         smartCard: {
@@ -183,6 +202,7 @@
         email:''
     });
 
+
     app.run(function ($rootScope, $state, auth, DataService, growl, loggedInUser) {
         $rootScope.$state = $state;
 
@@ -207,7 +227,8 @@
                 /*newly added*/
                 loggedInUser.email=auth.returnEmail();
 
-                if (toState.name === "admin.employees" || toState.name === "admin.employees.manage" || toState.name === "admin.employees.add" || toState.name === "admin.employees.edit") {
+                if (toState.name === "admin.employees" || toState.name === "admin.employees.manage" || toState.name === "admin.employees.add" || toState.name === "admin.employees.edit" )
+                {
                     if (loggedInUser.role == 'employee') {
                         event.preventDefault();
                         $state.go('403');
@@ -222,6 +243,7 @@
                     growl.info("You are logged in")
                 }
             }
+            loggedInUser.role='';
         });
     });
 

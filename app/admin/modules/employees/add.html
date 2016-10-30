@@ -53,7 +53,7 @@
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': EmployeeForm.name.$touched && EmployeeForm.name.$invalid }">
-                                            <input type="text" name="name" ng-model="employee.name" class="form-control"
+                                            <input type="text" name="name" ng-model="employee.Name" class="form-control"
                                                    placeholder="eg. Ashok" required>
                                             <span class="help-block" ng-messages="EmployeeForm.name.$error"
                                                   ng-show="EmployeeForm.name.$touched">
@@ -135,7 +135,7 @@
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': EmployeeForm.emailAddress.$touched && EmployeeForm.emailAddress.$invalid }">
-                                            <input type="email" name="emailAddress" ng-model="employee.emailAddress"
+                                            <input type="email" name="emailAddress" ng-model="employee.email"
                                                    class="form-control" placeholder="eg. ashok@gmail.com" required>
                                             <span class="help-block" ng-messages="EmployeeForm.emailAddress.$error"
                                                   ng-show="EmployeeForm.emailAddress.$touched">
@@ -1082,9 +1082,17 @@
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': EmployeeForm.department.$touched && EmployeeForm.department.$invalid }">
-                                            <input type="text" name="department" ng-model="employee.department"
+                                           <!-- <input type="text" name="department" ng-model="employee.department"
                                                    class="form-control"
-                                                   placeholder="eg. Maintenance" required>
+                                                   placeholder="eg. Maintenance" required>-->
+                                            <select chosen class="form-control" ng-model="employee.department"
+                                                    name="department"  placeholder="eg. Maintenance" required >
+                                                <option ng-value="RegisteredMemberStaff">Registration Member Staff</option>
+                                                <option ng-value="RedistributionMemberStaff">Redistribution Member Staff</option>
+                                                <option ng-value="InformationTechnologyStaff">Information Technology Staff</option>
+                                                <option ng-value="OfficeStaff">Office Staff</option>
+                                                <option ng-value="DockingStationRepairStaff">Docking Station Repair Staff</option>
+                                            </select>
                                             <span class="help-block"
                                                   ng-messages="EmployeeForm.department.$error"
                                                   ng-show="EmployeeForm.department.$touched">
@@ -1097,7 +1105,7 @@
                                     <dt class="p-t-10">Experience</dt>
                                     <dd>
                                         <div class="fg-line">
-                                            <input type="number" name="experience" ng-model="employee.experience"
+                                            <input type="number" name="experience" ng-model="employee.experiance"
                                                    class="form-control" placeholder="eg. 5" min="0">
                                         </div>
                                     </dd>
@@ -1125,7 +1133,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <textarea name="additionalInformation"
-                                                      ng-model="employee.additionalInformation" class="form-control"
+                                                      ng-model="employee.additionalInfo" class="form-control"
                                                       rows="4"
                                                       placeholder="Provide some additional information about your employment">
                                             </textarea>

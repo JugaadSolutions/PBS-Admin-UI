@@ -11,16 +11,16 @@
         </a>
 
         <ul class="main-menu">
-            <li ng-class="{active: $state.includes('admin.profile.edit')}" ng-show="{{role == 'employee'}}">
+           <!-- <li ng-class="{active: $state.includes('admin.profile.edit')}">
                 <a ui-sref="admin.profile.edit"><i class="zmdi zmdi-account"></i> View Profile</a>
-            </li>
+            </li>-->
             <li>
                 <a href="javascript:void(0);" ng-click="logout()"><i class="zmdi zmdi-time-restore"></i> Logout</a>
             </li>
         </ul>
     </div>
 
-    <ul class="main-menu">
+    <ul class="main-menu" ng-if="role=='admin'">
         <li ng-class="{active: $state.includes('admin.members')}">
             <a ui-sref="admin.members.manage"><i class="zmdi zmdi-mood"></i> Members</a>
         </li>
@@ -92,4 +92,15 @@
             </ul>
         </li>
     </ul>
+
+    <ul class="main-menu" ng-if="role=='registration-employee'" >
+        <li ng-class="{active: $state.includes('admin.members')}">
+         <!--   <a ui-sref="403"><i class="zmdi zmdi-mood"></i> Members</a>-->
+            <a ui-sref="admin.members.manage"><i class="zmdi zmdi-mood"></i> Members</a>
+        </li>
+        <li ng-class="{active: $state.includes('admin.members')}">
+            <a ui-sref="admin.tickets.manage"><i class="zmdi zmdi-labels"></i> Tickets</a>
+        </li>
+    </ul>
+
 </div>
