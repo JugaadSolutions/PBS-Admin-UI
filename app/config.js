@@ -396,6 +396,20 @@
                 containerClass: 'sw-toggled'
             })
 
+            /*Ports test*/
+            .state("admin.ports-testing",{
+                url:"/ports-testing",
+                templateUrl:adminViewPath + 'ports-testing/porttest-manage.html',
+                containerClass:'sw-toggled'
+            })
+
+            .state("admin.ports-testing.test", {
+                url: "/test",
+                templateUrl: adminViewPath + 'ports-testing/test.html',
+                controller: 'AddCheckInCheckOut',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.smart-cards", {
                 url: "/smart-cards",
                 templateUrl: adminViewPath + "smart-cards/smart-cards.html"

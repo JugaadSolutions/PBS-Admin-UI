@@ -161,6 +161,14 @@
           save:'ticketdetails'
         },
 
+        checkIncheckOut:{
+            save:'transactions/checkout/app'
+        },
+
+        checkIn:{
+            save:'transactions/checkin/app'
+        },
+
         smartCard: {
             getAll: 'card',
             get: 'card',

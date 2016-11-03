@@ -268,6 +268,7 @@
             pinCode: '',
             smartCardNumber: '',
             profilePic: '',
+            cardNum:'',
             emergencyContact: {countryCode: '91'},
             documents: [],
             smartCardKey:'key'
@@ -3589,7 +3590,8 @@
     }]);
 
 
-    app.controller('AddTicketsDetails', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet) {
+    app.controller('AddTicketsDetails', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
+    {
 
         $scope.ticketsDetails = {
             type: '',
@@ -3614,6 +3616,132 @@
                 if (!response.error) {
                     growl.success(response.message);
                     $state.go('admin.registration-centres.edit', {'id': response.data._id});
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+    }]);
+
+    //check in check out
+    app.controller('ManagePortsTest', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        /*$scope.checkIncheckOut = [];*/
+        $scope.checkIncheckOut = [];
+
+        $scope.addCheckInCheckOut = function ()
+        {
+        };
+        $scope.addCheckIn = function ()
+        {
+        };
+    }]);
+
+    app.controller('AddCheckInCheckOut', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
+    {
+        var datetime = new Date();
+
+        $scope.checkInOut = {
+            vehicleId:'',
+            cardId:'',
+            fromPort:'',
+            checkOutTime : new Date()
+        };
+
+        $scope.members =[];
+        $scope.bicycleNums=[];
+        $scope.dockingStationSelections = [];
+        $scope.portSelections =[];
+
+
+        DataService.getDockingStations().then(function (response) {
+                if (!response.error) {
+                    $scope.dockingStationSelections = response.data;
+                } else {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        DataService.getDockingPorts().then(function (response) {
+                if (!response.error) {
+                    $scope.portSelections = response.data;
+                } else {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        DataService.getMembers().then(function (response) {
+            if (!response.error) {
+                $scope.members = response.data;
+            }
+            else {
+                growl.error(response.message);
+            }
+        },
+            function (response)
+            {
+                growl.error(response.data);
+        });
+
+        DataService.getBicycles().then(function (response) {
+            if (!response.error) {
+                $scope.bicycleNums = response.data;
+            }
+            else {
+                growl.error(response.message)
+            }
+        },
+            function(response)
+            {
+                growl.error(response.data);
+        });
+
+        $scope.selectedDockingStation = function (data) {
+           /* $scope.checkInOut.dockingStation = data.id;*/
+            /*$scope.checkInOut.dockingStation = data.name;*/
+        };
+
+        $scope.selectedPort = function (data) {
+            $scope.checkInOut.fromPort = data._id;
+        };
+
+        $scope.selectedMembers =function(data){
+            $scope.checkInOut.cardId=data.cardNum;
+        };
+
+        $scope.selectedBicycleNumber = function (data) {
+            $scope.checkInOut.vehicleId=data.vehicleNumber;
+        };
+
+        $scope.addCheckInCheckOut = function ()
+        {
+                DataService.saveCheckInCheckOut($scope.checkInOut).then(function (response) {
+                    var test = $scope.checkInOut.cardId;
+                    if (!response.error) {
+                        growl.success(response.message);
+                        $state.go('', {'id': response.data._id});
+                    } else {
+                        growl.error(response.message);
+                    }
+                }, function (response) {
+                    growl.error(response.data.description['0']);
+                })
+        };
+
+        $scope.addCheckIn = function ()
+        {
+            DataService.saveCheckIn($scope.checkInOut).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    $state.go('', {'id': response.data._id});
                 } else {
                     growl.error(response.message);
                 }

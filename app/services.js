@@ -87,7 +87,7 @@
             },
             updateMember: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.member.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.member.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -482,6 +482,8 @@
                 return deferred.promise;
             },
 
+
+
             saveFarePlan: function (data) {
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.farePlan.save, data).then(function (result) {
@@ -600,6 +602,36 @@
             {
                 var deferred = $q.defer();
                 $http.post(API + APIEndPoint.ticketsDetails.save, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            /*check in check out*/
+            saveCheckInCheckOut:function(data)
+            {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.checkIncheckOut.save, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            saveCheckIn:function(data)
+            {
+                var deferred = $q.defer();
+                var _toPort = data.fromPort;
+                var CheckIn = {
+                    cardId:data.cardId,
+                    vehicleId:data.vehicleId,
+                    toPort:data.fromPort,
+                    checkInTime : new Date()
+                };
+                $http.post(APINew + APIEndPoint.checkIn.save, CheckIn).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
