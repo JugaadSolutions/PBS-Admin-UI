@@ -410,6 +410,20 @@
                 containerClass: 'sw-toggled'
             })
 
+            /*KPI*/
+            .state("admin.kpi",{
+                url:"/kpi",
+                templateUrl:adminViewPath+'kpi/kpi-manage.html',
+                containerClass:'sw-toggled'
+            })
+
+            .state("admin.kpi.dash-board",{
+                url:"/dash-board",
+                templateUrl: adminViewPath + 'kpi/dash-board.html',
+                controller: 'kpiDetails',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.smart-cards", {
                 url: "/smart-cards",
                 templateUrl: adminViewPath + "smart-cards/smart-cards.html"

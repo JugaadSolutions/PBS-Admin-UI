@@ -31,21 +31,24 @@
     </div>
 
     <div class="pm-body clearfix">
-        <form class="pmbb-edit" name="AddRegistrationCentre">
+        <form class="pmbb-edit" name="checkIncheckOut">
             <div class="pmb-block">
                 <div class="pmbb-header m-t-15">
                     <h2><i class="zmdi zmdi-local-store m-r-10"></i>Ports Test</h2>
                 </div>
-                <div class="pmbb-body p-l-30">
 
+                <div class="pmbb-body p-l-30">
                     <dl class="dl-horizontal required">
                         <dt class="p-t-10">Card Number</dt>
                         <dd>
-                            <div class="fg-line">
+                            <div class="fg-line"
+                                 ng-class="{ 'has-error': checkIncheckOut.CardNo.$touched && checkIncheckOut.CardNo.$invalid }">
                                 <select chosen class="form-control"
+                                        data-placeholder-text-single="'SELECT THE OPTIONS'"
                                         ng-options="member as member.cardNum for member in members"
                                         ng-model="checkMember"
-                                        ng-change="selectedMembers(checkMember)" required>
+                                        ng-change="selectedMembers(checkMember)" name="CardNo"  required>
+                                    <option value="0">SELECT THE OPTIONS</option>
                                 </select>
                             </div>
                         </dd>
@@ -54,11 +57,14 @@
                     <dl class="dl-horizontal required">
                         <dt class="p-t-10">Bicycle Number</dt>
                         <dd>
-                            <div class="fg-line">
+                            <div class="fg-line"
+                                 ng-class="{ 'has-error': checkIncheckOut.CardNo.$touched && checkIncheckOut.CardNo.$invalid }">
                                  <select chosen class="form-control"
+                                         data-placeholder-text-single="'SELECT THE OPTIONS'"
                                          ng-options="bicycleNum as bicycleNum.vehicleNumber for bicycleNum in bicycleNums"
                                          ng-model="bicycleNo"
                                          ng-change="selectedBicycleNumber(bicycleNo)" required>
+                                     <option value="0">SELECT THE OPTIONS</option>
                                  </select>
                             </div>
                         </dd>
@@ -69,16 +75,12 @@
                         <dd>
                             <div class="fg-line">
                                 <select chosen class="form-control"
+                                        data-placeholder-text-single="'SELECT THE OPTIONS'"
                                         ng-options="dockingStationSelection as dockingStationSelection.name for dockingStationSelection in dockingStationSelections"
                                         ng-model="dockingStationName"
                                         ng-change="selectedDockingStation(dockingStationName)" required>
+                                    <option value="0">SELECT THE OPTIONS</option>
                                 </select>
-                               <!-- <select chosen="form-control" ng-model="checkInOut.dockingStation" required>
-                                    <option value="Docking station1">Docking station1</option>
-                                    <option value="Docking station2">Docking station2</option>
-                                    <option value="Docking station3">Docking station3</option>
-                                </select>-->
-
                             </div>
                         </dd>
                     </dl>
@@ -87,27 +89,24 @@
                         <dt class="p-t-10">Ports</dt>
                         <dd>
                             <div class="fg-line">
-                                <!--<select chosen="form-control" ng-model="checkInOut.ports" required>
-                                    <option value="Port1">Port1</option>
-                                    <option value="Port2">Port2</option>
-                                    <option value="Port3">Port3</option>
-                                </select>-->
                                 <select chosen class="form-control"
+                                        data-placeholder-text-single="'SELECT THE OPTIONS'"
                                         ng-options="portSelection as portSelection.Name for portSelection in portSelections"
                                         ng-model="portsName"
                                         ng-change="selectedPort(portsName)" required>
+                                    <option value="0">SELECT THE OPTIONS</option>
                                 </select>
                             </div>
                         </dd>
                     </dl>
 
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="addCheckInCheckOut();" >
+                            ng-click="addCheckInCheckOut();" ng-disabled="checkIncheckOut.$invalid" >
                         <i class="zmdi zmdi-save"></i> Check Out
                     </button>
 
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="addCheckIn();" >
+                            ng-click="addCheckIn();" ng-disabled="checkIncheckOut.$invalid">
                         <i class="zmdi zmdi-save"></i> Check In
                     </button>
                 </div>

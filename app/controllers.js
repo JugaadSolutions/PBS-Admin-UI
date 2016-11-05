@@ -3656,10 +3656,13 @@
         $scope.portSelections =[];
 
 
-        DataService.getDockingStations().then(function (response) {
-                if (!response.error) {
+        DataService.getDockingStations().then(function (response)
+            {
+                if (!response.error)
+                {
                     $scope.dockingStationSelections = response.data;
-                } else {
+                } else
+                {
                     growl.error(response.message);
                 }
             },
@@ -3667,7 +3670,7 @@
                 growl.error(response.message);
             });
 
-        DataService.getDockingPorts().then(function (response) {
+       /* DataService.getDockingPorts().then(function (response) {
                 if (!response.error) {
                     $scope.portSelections = response.data;
                 } else {
@@ -3676,7 +3679,7 @@
             },
             function (response) {
                 growl.error(response.message);
-            });
+            });*/
 
         DataService.getMembers().then(function (response) {
             if (!response.error) {
@@ -3704,9 +3707,16 @@
                 growl.error(response.data);
         });
 
-        $scope.selectedDockingStation = function (data) {
-           /* $scope.checkInOut.dockingStation = data.id;*/
-            /*$scope.checkInOut.dockingStation = data.name;*/
+        $scope.selectedDockingStation = function (data)
+        {
+            for(var i = 0; i < data.portIds.length ; i++)
+            {
+                var portInfo = {
+                    Name:data.portIds[i].dockingPortId.Name,
+                    _id:data.portIds[i].dockingPortId._id
+                }
+                $scope.portSelections.push(portInfo);
+            }
         };
 
         $scope.selectedPort = function (data) {
@@ -3725,10 +3735,16 @@
         {
                 DataService.saveCheckInCheckOut($scope.checkInOut).then(function (response) {
                     var test = $scope.checkInOut.cardId;
-                    if (!response.error) {
+                    if (!response.error)
+                    {
                         growl.success(response.message);
-                        $state.go('', {'id': response.data._id});
-                    } else {
+                        $scope.checkMember=$scope.members[0].value;
+                        $scope.bicycleNo=$scope.bicycleNums[0].value;
+                        $scope.dockingStationName=$scope.dockingStationSelections[0].value;
+                        $scope.portsName=$scope.portSelections[0].value;
+                    }
+                    else
+                    {
                         growl.error(response.message);
                     }
                 }, function (response) {
@@ -3738,10 +3754,15 @@
 
         $scope.addCheckIn = function ()
         {
-            DataService.saveCheckIn($scope.checkInOut).then(function (response) {
-                if (!response.error) {
+            DataService.saveCheckIn($scope.checkInOut).then(function (response)
+            {
+                if (!response.error)
+                {
                     growl.success(response.message);
-                    $state.go('', {'id': response.data._id});
+                    $scope.checkMember=$scope.members[0].value;
+                    $scope.bicycleNo=$scope.bicycleNums[0].value;
+                    $scope.dockingStationName=$scope.dockingStationSelections[0].value;
+                    $scope.portsName=$scope.portSelections[0].value;
                 } else {
                     growl.error(response.message);
                 }
@@ -3749,6 +3770,28 @@
                 growl.error(response.data.description['0']);
             })
         };
+    }]);
+
+
+    //kpi
+    app.controller('ManageKPI', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+
+    }]);
+
+    app.controller('kpiDetails', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
+    {
+        $scope.toDate = new Date();
+
+       /* $scope.Quater_Month = [1,4,7,10];
+
+        $scope.test={
+            Jan:'1,2,3',
+            April:'4,5,6',
+            July:'7,8,9',
+            Oct:'10,11,12'
+        };*/
+
     }]);
 
 // Maintenance Centre Status Controller
