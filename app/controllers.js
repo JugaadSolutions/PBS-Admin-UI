@@ -4088,7 +4088,8 @@
 
     }]);
 
-    app.controller('MonitorTransactions', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal) {
+    app.controller('MonitorTransactions', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    {
         var filters = {
             filter: {
                 populate: {path: 'bicycle fromPort member'}
@@ -4157,6 +4158,28 @@
                 }
             });
         };
+
+    }]);
+
+    /*Accounts*/
+
+    app.controller('CashCollectionSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    {
+
+    }]);
+
+    app.controller('dayWiseCollectionSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    {
+
+    }]);
+
+    app.controller('refundsSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    {
+
+    }]);
+
+    app.controller('registrationDetails', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    {
 
     }]);
 

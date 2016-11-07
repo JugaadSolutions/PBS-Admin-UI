@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header ch-alt m-b-20">
+            <h2>Refunds
+                <small>Refund Details</small>
+                <br>
+                <label>From</label>&nbsp;&nbsp;
+                <input type="text" name="joiningDate1" ng-model="" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
+                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
+                <br>
+                <label>To</label>
+                <input type="text" name="joiningDate2" ng-model=""  ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
+                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
+                <br>
+
+                <dl class="dl-horizontal ">
+                    <dt class="p-t-10">Locations</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <select chosen class="form-control"
+                                    ng-options=""
+                                    ng-model=""
+                                    ng-change="">
+                                <option value="Mysuru">Mysuru</option>
+                                <option value="Mysuru">Bengaluru</option>
+                                <option value="Mysuru">mangaluru</option>
+                                <option value="Mysuru">Hubli</option>
+                                <option value="Mysuru">Dharwad</option>
+                            </select>
+                        </div>
+                    </dd>
+                </dl>
+
+                <dl class="dl-horizontal ">
+                    <dt class="p-t-10">All</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <select chosen class="form-control"
+                                    ng-options=""
+                                    ng-model=""
+                                    ng-change="">
+                                <option value="Mysuru">All1</option>
+                                <option value="Mysuru">All1</option>
+                                <option value="Mysuru">All1</option>
+                                <option value="Mysuru">All1</option>
+                                <option value="Mysuru">All1</option>
+                            </select>
+                        </div>
+                    </dd>
+                </dl>
+
+                <br>
+
+                <button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="">
+                    <i class="zmdi zmdi-save"></i> Get Details
+                </button>
+            </h2>
+
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive" >
+                <table ng-table="" class="table table-striped table-vmiddle" show-filter="true">
+                    <tr ng-repeat="member in $data">
+                        <td>
+                            <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
+                        </td>
+                        <td data-title="'Date'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
+                            <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
+                        </td>
+                        <td data-title="'Name '" filter="{ emailAddress: 'text'}">
+                            {{member.emailAddress}}
+                        </td>
+                        <td data-title="'Member Type'" filter="{ phoneNumber: 'text'}">
+                            {{member.phoneNumber}}
+                        </td>
+                        <td data-title="'Expiry'" filter="{ 'subscriptionType': 'text'}">
+                            {{member.subscriptionType}}
+                        </td>
+                        <td data-title="'Amount'" filter="{ creditBalance: 'text'}">
+                            &#8377; {{member.creditBalance}}
+                        </td>
+                        <td data-title="'Payment Mode'" filter="{ creditBalance: 'text'}">
+                            &#8377; {{member.creditBalance}}
+                        </td>
+                        <td data-title="'Location'" filter="{ creditBalance: 'text'}">
+                            &#8377; {{member.creditBalance}}
+                        </td>
+                        <td data-title="'Employee'" filter="{ creditBalance: 'text'}">
+                            &#8377; {{member.creditBalance}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

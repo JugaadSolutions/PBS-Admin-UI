@@ -424,6 +424,63 @@
                 containerClass: 'sw-toggled'
             })
 
+            /*Accounts*/
+            .state("admin.accounts", {
+                url: "/accounts",
+                templateUrl: adminViewPath + 'accounts/accounts.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.cash-collectionsummary", {
+                url: "/cash-collectionsummary",
+                templateUrl: adminViewPath + 'accounts/cash-collectionsummary.html',
+                controller: 'CashCollectionSummary',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.daywise-collectionsummary", {
+                url: "/daywise-collectionsummary",
+                templateUrl: adminViewPath + 'accounts/daywise-collectionsummary.html',
+                controller: 'dayWiseCollectionSummary',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.refunds", {
+                url: "/refunds",
+                templateUrl: adminViewPath + 'accounts/refunds.html',
+                controller: 'refundsSummary',
+                containerClass: 'sw-toggled'
+            })
+
+            /*Registration details*/
+            .state("admin.registration-details", {
+                url: "/registration-details",
+                templateUrl: adminViewPath + 'registration-details/registrationdetails-manage.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.registration-details.registration-details", {
+                url: "/registration-details",
+                templateUrl: adminViewPath + 'registration-details/registration-details.html',
+                controller: 'registrationDetails',
+                containerClass: 'sw-toggled'
+            })
+
+           /* .state("admin.ports-testing",{
+                url:"/ports-testing",
+                templateUrl:adminViewPath + 'ports-testing/porttest-manage.html',
+                containerClass:'sw-toggled'
+            })
+
+            .state("admin.ports-testing.test", {
+                url: "/test",
+                templateUrl: adminViewPath + 'ports-testing/test.html',
+                controller: 'AddCheckInCheckOut',
+                containerClass: 'sw-toggled'
+            })*/
+
+
+
             .state("admin.smart-cards", {
                 url: "/smart-cards",
                 templateUrl: adminViewPath + "smart-cards/smart-cards.html"

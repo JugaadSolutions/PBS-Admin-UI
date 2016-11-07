@@ -98,6 +98,29 @@
             <a ui-sref="admin.ports-testing.test"><i class="zmdi zmdi-badge-check"></i>Check In Check Out Test</a>
         </li>
         <!--new-->
+       <!-- <li ng-class="{active: $state.includes('admin')}">
+            <a ui-sref="admin"><i class="zmdi zmdi-balance-wallet"></i>Accounts</a>
+        </li>-->
+        <li class="sub-menu"
+            ng-class="{'active toggled': $state.includes('admin.accounts') || $state.includes('admin.accounts.daywise-collectionsummary') || $state.includes('admin.accounts.refunds')}">
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Accounts</a>
+            <ul>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.cash-collectionsummary')}"
+                       ui-sref="admin.accounts.cash-collectionsummary">Cash Collections Summary</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.daywise-collectionsummary')}"
+                       ui-sref="admin.accounts.daywise-collectionsummary">Daywise Collection Summary</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.refunds')}"
+                       ui-sref="admin.accounts.refunds">Refunds</a>
+                </li>
+            </ul>
+        </li>
+
+        <li ng-class="{active: $state.includes('admin.registratiom-details')}">
+            <a ui-sref="admin.registration-details.registration-details"><i class="zmdi zmdi-info "></i>Registration Details</a>
+        </li>
+
         <li ng-class="{active: $state.includes('admin.kpi')}">
             <a ui-sref="admin.kpi.dash-board"><i class="zmdi zmdi-star"></i>Key Performance Indicator</a>
         </li>
