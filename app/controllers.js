@@ -4176,6 +4176,7 @@
     app.controller('refundsSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
 
+
     }]);
 
     app.controller('registrationDetails', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)

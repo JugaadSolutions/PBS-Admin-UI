@@ -5,11 +5,11 @@
                 <small>Refund Details</small>
                 <br>
                 <label>From</label>&nbsp;&nbsp;
-                <input type="text" name="joiningDate1" ng-model="" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
+                <input type="text" name="joiningDate1" ng-model="fromDate" ng-change="fromDate" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
                        uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
                 <br>
                 <label>To</label>
-                <input type="text" name="joiningDate2" ng-model=""  ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
+                <input type="text" name="joiningDate2" ng-model="toDate" ng-change="toDate"  ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
                        uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
                 <br>
 
@@ -19,31 +19,31 @@
                         <div class="fg-line">
                             <select chosen class="form-control"
                                     ng-options=""
-                                    ng-model=""
-                                    ng-change="">
+                                    ng-model="Location"
+                                    ng-change="Location">
                                 <option value="Mysuru">Mysuru</option>
-                                <option value="Mysuru">Bengaluru</option>
-                                <option value="Mysuru">mangaluru</option>
-                                <option value="Mysuru">Hubli</option>
-                                <option value="Mysuru">Dharwad</option>
+                                <option value="Bengaluru">Bengaluru</option>
+                                <option value="mangaluru">mangaluru</option>
+                                <option value="Hubli">Hubli</option>
+                                <option value="Dharwad">Dharwad</option>
                             </select>
                         </div>
                     </dd>
                 </dl>
 
                 <dl class="dl-horizontal ">
-                    <dt class="p-t-10">All</dt>
+                    <dt class="p-t-10">Centers</dt>
                     <dd>
                         <div class="fg-line">
                             <select chosen class="form-control"
                                     ng-options=""
-                                    ng-model=""
-                                    ng-change="">
-                                <option value="Mysuru">All1</option>
-                                <option value="Mysuru">All1</option>
-                                <option value="Mysuru">All1</option>
-                                <option value="Mysuru">All1</option>
-                                <option value="Mysuru">All1</option>
+                                    ng-model="Reg_Center"
+                                    ng-change="Reg_Center">
+                                <option value="Registration center1">Registration center 1</option>
+                                <option value="Registration center2">Registration center 2</option>
+                                <option value="Registration center3">Registration center 3</option>
+                                <option value="Registration center4">Registration center 4</option>
+                                <option value="Registration center5">Registration center 5</option>
                             </select>
                         </div>
                     </dd>
@@ -89,6 +89,7 @@
                         <td data-title="'Employee'" filter="{ creditBalance: 'text'}">
                             &#8377; {{member.creditBalance}}
                         </td>
+
                     </tr>
                 </table>
             </div>

@@ -5,11 +5,11 @@
                 <small>Cash Details</small>
                 <br>
                 <label>From</label>&nbsp;&nbsp;
-                <input type="text" name="joiningDate1" ng-model="" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
+                <input type="text" name="joiningDate1" ng-model="fromDateCashCollection" ng-change="fromDateCashCollection" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
                        uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
                 <br>
                 <label>To</label>
-                <input type="text" name="joiningDate2" ng-model=""  ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
+                <input type="text" name="joiningDate2" ng-model="toDateCashCollection"  ng-change="toDateCashCollection" ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
                        uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
                 <br>
                 <button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="">

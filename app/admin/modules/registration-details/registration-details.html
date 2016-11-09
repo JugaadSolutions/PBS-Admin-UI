@@ -5,26 +5,26 @@
                 <small>Cash Details</small>
                 <br>
                 <label>From</label>&nbsp;&nbsp;
-                <input type="text" name="joiningDate1" ng-model="" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
-                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
+                <input type="text" name="joiningDateFrom" ng-model="FromDateRegDetails" ng-change="FromDateRegDetails" ng-focus="joiningDateFrom=true" ng-click="joiningDateFrom=true"
+                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDateFrom" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
                 <br>
                 <label>To</label>
-                <input type="text" name="joiningDate2" ng-model=""  ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
-                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
+                <input type="text" name="joiningDateTo" ng-model="ToDateRegDetails" ng-change="ToDateRegDetails"  ng-focus="joiningDateTo=true" ng-click="joiningDateTo=true"
+                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDateTo" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
                 <br>
                 <dl class="dl-horizontal ">
-                    <dt class="p-t-10">Center</dt>
+                    <dt class="p-t-10">Centers</dt>
                     <dd>
                         <div class="fg-line">
                             <select chosen class="form-control"
                                     ng-options=""
-                                    ng-model=""
-                                    ng-change="">
-                                <option value="Mysuru">All1</option>
-                                <option value="Mysuru">All1</option>
-                                <option value="Mysuru">All1</option>
-                                <option value="Mysuru">All1</option>
-                                <option value="Mysuru">All1</option>
+                                    ng-model="regname"
+                                    ng-change="regname">
+                                <option value="Registration center1">Registration center 1</option>
+                                <option value="Registration center2">Registration center 2</option>
+                                <option value="Registration center3">Registration center 3</option>
+                                <option value="Registration center4">Registration center 4</option>
+                                <option value="Registration center5">Registration center 5</option>
                             </select>
                         </div>
                     </dd>
@@ -78,6 +78,52 @@
                             &#8377; {{member.creditBalance}}
                         </td>
                     </tr>
+
+                    <tr>
+                        <td>1</td>
+                        <td>21/10/16</td>
+                        <td>Shivu</td>
+                        <td>1234567890</td>
+                        <td>shiv.mytrintrin@gmail.com</td>
+                        <td>Casual User</td>
+                        <td>250</td>
+                        <td>90</td>
+                        <td>10</td>
+                        <td>20</td>
+                        <td>21/11/16</td>
+                        <td>3700000000000000000000</td>
+                    </tr>
+
+                    <tr>
+                        <td>1</td>
+                        <td>21/10/16</td>
+                        <td>Shivu</td>
+                        <td>1234567890</td>
+                        <td>shiv.mytrintrin@gmail.com</td>
+                        <td>Casual User</td>
+                        <td>250</td>
+                        <td>90</td>
+                        <td>10</td>
+                        <td>20</td>
+                        <td>21/11/16</td>
+                        <td>3700000000000000000000</td>
+                    </tr>
+
+                    <tr>
+                        <td>1</td>
+                        <td>21/10/16</td>
+                        <td>Shivu</td>
+                        <td>1234567890</td>
+                        <td>shiv.mytrintrin@gmail.com</td>
+                        <td>Casual User</td>
+                        <td>250</td>
+                        <td>90</td>
+                        <td>10</td>
+                        <td>20</td>
+                        <td>21/11/16</td>
+                        <td>3700000000000000000000</td>
+                    </tr>
+
                 </table>
             </div>
         </div>
