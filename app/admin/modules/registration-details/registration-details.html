@@ -2,38 +2,76 @@
     <div class="card">
         <div class="card-header ch-alt m-b-20">
             <h2>Registration Details
-                <small>Cash Details</small>
+                <small>Cash Details</small></h2>
                 <br>
-                <label>From</label>&nbsp;&nbsp;
-                <input type="text" name="joiningDateFrom" ng-model="FromDateRegDetails" ng-change="FromDateRegDetails" ng-focus="joiningDateFrom=true" ng-click="joiningDateFrom=true"
-                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDateFrom" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
+
+            <!-- <label>From</label>&nbsp;&nbsp;
+              <input type="text" name="joiningDateFrom" ng-model="FromDateRegDetails" ng-change="FromDateRegDetails" ng-focus="joiningDateFrom=true" ng-click="joiningDateFrom=true"
+                     uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDateFrom" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >-->
+            <form class="pmbb-edit" name="RegistrationDetailsForm" novalidate>
+
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10">From</dt>
+                <dd>
+                    <div class="fg-line"
+                         ng-class="{ 'has-error': RegistrationDetailsForm.joiningDateFrom.$touched && RegistrationDetailsForm.joiningDateFrom.$invalid }">
+                        <input type="text" name="joiningDateFrom" ng-model="registrationDetails.FromDateRegDetails" ng-change="FromDateRegDetails" ng-focus="joiningDateFrom=true" ng-click="joiningDateFrom=true"
+                               uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDateFrom" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                        <span class="help-block"
+                              ng-messages="RegistrationDetailsForm.joiningDateFrom.$error"
+                              ng-show="RegistrationDetailsForm.joiningDateFrom.$touched">
+                                <small ng-message="required">To Date is required</small>
+                            </span>
+                    </div>
+                </dd>
+            </dl>
+
                 <br>
-                <label>To</label>
+               <!-- <label>To</label>
                 <input type="text" name="joiningDateTo" ng-model="ToDateRegDetails" ng-change="ToDateRegDetails"  ng-focus="joiningDateTo=true" ng-click="joiningDateTo=true"
-                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDateTo" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
+                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDateTo" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >-->
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10">To</dt>
+                    <dd>
+                        <div class="fg-line"
+                             ng-class="{ 'has-error': RegistrationDetailsForm.joiningDateTo.$touched && RegistrationDetailsForm.joiningDateTo.$invalid }">
+                            <input type="text" name="joiningDateTo" ng-model="registrationDetails.ToDateRegDetails" ng-change="ToDateRegDetails" ng-focus="joiningDateTo=true" ng-click="joiningDateTo=true"
+                                   uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDateTo" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                            <span class="help-block"
+                                  ng-messages="RegistrationDetailsForm.joiningDateTo.$error"
+                                  ng-show="RegistrationDetailsForm.joiningDateTo.$touched">
+                                <small ng-message="required">To Date is required</small>
+                            </span>
+                        </div>
+                    </dd>
+                </dl>
                 <br>
-                <dl class="dl-horizontal ">
-                    <dt class="p-t-10">Centers</dt>
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10">Registration Centers</dt>
                     <dd>
                         <div class="fg-line">
                             <select chosen class="form-control"
-                                    ng-options=""
-                                    ng-model="regname"
-                                    ng-change="regname">
-                                <option value="Registration center1">Registration center 1</option>
+                                    ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
+                                    ng-model="RegCenters"
+                                    ng-change="selectedRegistrationCenter(RegCenters)" required>
+                                <!--<option value="Registration center1">Registration center 1</option>
                                 <option value="Registration center2">Registration center 2</option>
                                 <option value="Registration center3">Registration center 3</option>
                                 <option value="Registration center4">Registration center 4</option>
-                                <option value="Registration center5">Registration center 5</option>
+                                <option value="Registration center5">Registration center 5</option>-->
                             </select>
                         </div>
                     </dd>
                 </dl>
                 <br>
-                <button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="">
+                <!--<button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="">
+                    <i class="zmdi zmdi-save"></i> Get Details
+                </button>-->
+                <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                        ng-click="sendDetails()" ng-disabled="RegistrationDetailsForm.$invalid">
                     <i class="zmdi zmdi-save"></i> Get Details
                 </button>
-            </h2>
+            </form>
 
         </div>
         <div class="card-body">

@@ -598,6 +598,50 @@
                 return deferred.promise;
             },
 
+            /*Registration details*/
+            SendRegistrationDetails:function (data) {
+              var deferred = $q.defer();
+                $http.post(API + APIEndPoint.registrationDetails.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+            /*Refunds Details (post)*/
+            SendRefundDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(API + APIEndPoint.refundDetails.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+            /*Cash Collection Details*/
+            SendCashCollectionDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(API + APIEndPoint.cashCollection.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+            /*Daywise cash collections*/
+            SendDaywiseCashCollectionDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(API + APIEndPoint.daywiseCollection.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
             saveTicketDetails:function(data)
             {
                 var deferred = $q.defer();

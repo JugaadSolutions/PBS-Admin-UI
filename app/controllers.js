@@ -4165,24 +4165,134 @@
 
     app.controller('CashCollectionSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
+        $scope.cashCollection={
+            fromDateCashCollection:'',
+            toDateCashCollection:''
+        };
+
+        $scope.sendDetails = function () {
+            DataService.SendCashCollectionDetails($scope.cashCollection).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
 
     }]);
 
     app.controller('dayWiseCollectionSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
+        $scope.daywiseCollection={
+            fromDateCashCollection:'',
+            toDateDaywise:''
+        };
+
+        $scope.sendDaywiseDetails = function () {
+            DataService.SendDaywiseCashCollectionDetails($scope.daywiseCollection).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
 
     }]);
 
     app.controller('refundsSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
+        $scope.RegistrationCenters=[];
 
+        $scope.refundDetails={
+            fromDate:'',
+            toDate:'',
+            RegCenter:''
+        };
+
+        DataService.getRegistrationCentres().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RegistrationCenters = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRegistrationCenters = function (data) {
+            $scope.refundDetails.RegCenter = data.location;
+        };
+
+        $scope.sendDetails = function () {
+            DataService.SendRefundDetails($scope.refundDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
 
     }]);
 
     app.controller('registrationDetails', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
+        /*$scope.registrationDetails=[];*/
+
+        $scope.registrationDetails = {
+            FromDateRegDetails: '',
+            ToDateRegDetails: '',
+            RegCenters: ''
+        };
+
+        $scope.RegistrationCenters=[];
+
+        DataService.getRegistrationCentres().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RegistrationCenters = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRegistrationCenter = function (data) {
+            $scope.registrationDetails.RegCenters = data.location;
+        };
+
+        $scope.sendDetails = function () {
+            DataService.SendRegistrationDetails($scope.registrationDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
 
     }]);
+
+
 
     // Smart Card Status Controller
     app.controller('TransactionDetails', ['$scope', '$state', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'transactionId', function ($scope, $state, DataService, growl, sweet, $uibModalInstance, transactionId) {

@@ -3,20 +3,60 @@
         <div class="card-header ch-alt m-b-20">
             <h2>Daywise Collection Summary
                 <small>Cash Details</small>
-                <br>
-                <label>From</label>&nbsp;&nbsp;
+                <br> </h2>
+                <!--<label>From</label>&nbsp;&nbsp;
                 <input type="text" name="joiningDate1" ng-model="fromDateDaywise" ng-change="fromDateDaywise" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
-                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
+                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >-->
+
+            <form class="pmbb-edit" name="DaywiseCashForm" novalidate>
+
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10">From</dt>
+                    <dd>
+                        <div class="fg-line"
+                             ng-class="{ 'has-error': DaywiseCashForm.joiningDate1.$touched && DaywiseCashForm.joiningDate1.$invalid }">
+                            <input type="text" name="joiningDate1" ng-model="daywiseCollection.fromDateCashCollection" ng-change="fromDateCashCollection" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
+                                   uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                            <span class="help-block"
+                                  ng-messages="DaywiseCashForm.joiningDate1.$error"
+                                  ng-show="DaywiseCashForm.joiningDate1.$touched">
+                                <small ng-message="required">From Date is required</small>
+                            </span>
+                        </div>
+                    </dd>
+                </dl>
+
                 <br>
-                <label>To</label>
+              <!--  <label>To</label>
                 <input type="text" name="joiningDate2" ng-model="toDateDaywise" ng-change="toDateDaywise"  ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
-                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >
+                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >-->
+
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10">To</dt>
+                    <dd>
+                        <div class="fg-line"
+                             ng-class="{ 'has-error': DaywiseCashForm.joiningDate2.$touched && DaywiseCashForm.joiningDate2.$invalid }">
+                            <input type="text" name="joiningDate2" ng-model="daywiseCollection.toDateDaywise" ng-change="toDateDaywise" ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
+                                   uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                            <span class="help-block"
+                                  ng-messages="DaywiseCashForm.joiningDate2.$error"
+                                  ng-show="DaywiseCashForm.joiningDate2.$touched">
+                                <small ng-message="required">To Date is required</small>
+                            </span>
+                        </div>
+                    </dd>
+                </dl>
+
                 <br>
-                <button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="">
+                <!--<button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="">
+                    <i class="zmdi zmdi-save"></i> Get Details
+                </button>-->
+                <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                        ng-click="sendDaywiseDetails()" ng-disabled="DaywiseCashForm.$invalid">
                     <i class="zmdi zmdi-save"></i> Get Details
                 </button>
-            </h2>
 
+            </form>
         </div>
         <div class="card-body">
 

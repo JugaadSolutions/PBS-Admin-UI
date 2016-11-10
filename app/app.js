@@ -169,6 +169,22 @@
             save:'transactions/checkin/app'
         },
 
+        registrationDetails:{
+            getAll: 'registrationdetails'
+        },
+
+        refundDetails:{
+            getAll: 'refunddetails'
+        },
+
+        cashCollection:{
+           getAll:'cashcollectiondetails'
+        },
+
+        daywiseCollection:{
+            getAll:'daywisecashcollection'
+        },
+
         smartCard: {
             getAll: 'card',
             get: 'card',
