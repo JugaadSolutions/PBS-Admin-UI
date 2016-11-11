@@ -185,6 +185,10 @@
             getAll:'daywisecashcollection'
         },
 
+        kpiDetails:{
+         getAll:'kpidetails'
+        },
+
         smartCard: {
             getAll: 'card',
             get: 'card',

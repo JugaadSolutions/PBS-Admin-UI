@@ -78,6 +78,8 @@
        <!-- <small>KPI</small>-->
         <br>
 
+        <form class="pmbb-edit" name="KPI" novalidate>
+
         <div class="card" >
             <div class="card-header ch-alt m-b-20" style="background-color:#88afa8; color:#fff;" >
                 <i class="fa fa-bell fa-fw"></i> <b>Key performance indicators for the month of September </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -87,7 +89,47 @@
 
         <div class="card" >
             <div class="card-header ch-alt m-b-20" style="background-color:white; color:black;" >
-                <b><label>From</label></b>&nbsp;&nbsp; <input type="text" class="textbox"   ng-model="fromDate | date:'dd/MM/yyyy'" value="" /> &nbsp;&nbsp;<b><label>To</label></b> &nbsp;&nbsp;<input type="text" class="textbox"  ng-model="toDate | date:'dd/MM/yyyy'" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-icon-text btn-success waves-effect">Get Details</button>
+
+              <!--  <b><label>From</label></b>&nbsp;&nbsp;
+                <input type="text" class="textbox"   ng-model="fromDate | date:'dd/MM/yyyy'" value="" /> &nbsp;&nbsp;-->
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10">From</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <input type="text" name="KpiFromDate" ng-model="kpiDetails.fromDateKPI" ng-change="fromDateKPI" ng-focus="KpiFromDate=true" ng-click="KpiFromDate=true"
+                                   uib-datepicker-popup="dd/MM/yyyy" is-open="KpiFromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                           <!-- <span class="help-block"
+                                  ng-messages="DaywiseCashForm.joiningDate1.$error"
+                                  ng-show="DaywiseCashForm.joiningDate1.$touched">
+                                <small ng-message="required">From Date is required</small>
+                            </span>-->
+                        </div>
+                    </dd>
+                </dl>
+
+
+               <!-- <b><label>To</label></b> &nbsp;&nbsp;
+                <input type="text" class="textbox"  ng-model="toDate | date:'dd/MM/yyyy'" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-icon-text btn-success waves-effect">Get Details</button>-->
+
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10">To</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <input type="text" name="KpiToDate" ng-model="toDateKPI" ng-change="toDateKPI" ng-focus="KpiToDate=true" ng-click="KpiToDate=true"
+                                   uib-datepicker-popup="dd/MM/yyyy" is-open="KpiToDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                        </div>
+                    </dd>
+                </dl>
+                <br>
+
+                <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                        ng-click="sendKpiDetails()" ng-disabled="KPI.$invalid">
+                    <i class="zmdi zmdi-save"></i> Get Details
+                </button>
+
+                </form>
+
             </div>
         </div>
 

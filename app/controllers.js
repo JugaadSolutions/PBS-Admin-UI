@@ -3709,6 +3709,7 @@
 
         $scope.selectedDockingStation = function (data)
         {
+
             for(var i = 0; i < data.portIds.length ; i++)
             {
                 var portInfo = {
@@ -3781,16 +3782,24 @@
 
     app.controller('kpiDetails', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
     {
-        $scope.toDate = new Date();
+        $scope.toDateKPI = new Date();
 
-       /* $scope.Quater_Month = [1,4,7,10];
+        $scope.kpiDetails={
+            fromDateKPI:'',
+            toDateKPI:''
+        };
 
-        $scope.test={
-            Jan:'1,2,3',
-            April:'4,5,6',
-            July:'7,8,9',
-            Oct:'10,11,12'
-        };*/
+        $scope.sendKpiDetails = function () {
+            DataService.SendKPIDetails($scope.kpiDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
 
     }]);
 
@@ -4233,17 +4242,6 @@
             $scope.refundDetails.RegCenter = data.location;
         };
 
-        $scope.sendDetails = function () {
-            DataService.SendRefundDetails($scope.refundDetails).then(function (response) {
-                if (!response.error) {
-                    growl.success(response.message);
-                } else {
-                    growl.error(response.message);
-                }
-            }, function (response) {
-                growl.error(response.data.description['0']);
-            })
-        };
 
     }]);
 
