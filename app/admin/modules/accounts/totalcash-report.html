@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header ch-alt m-b-20">
+            <h2>Total Cash Report
+                <small>Cash Details</small>
+                <br> </h2>
+            <!--<label>From</label>&nbsp;&nbsp;
+            <input type="text" name="joiningDate1" ng-model="fromDateCashCollection" ng-change="fromDateCashCollection" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
+                   uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >-->
+
+            <form class="pmbb-edit" name="TotalCashReport" novalidate>
+
+                <div ng-hide="test">
+
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10">From</dt>
+                    <dd>
+                        <div class="fg-line"
+                             ng-class="{ 'has-error': TotalCashReport.TotalCashFrom.$touched && TotalCashReport.TotalCashFrom.$invalid }">
+                            <input type="text" name="TotalCashFrom" ng-model="totalCashInput.fromdate" ng-change="totalCashReportFrom" ng-focus="TotalCashFrom=true" ng-click="TotalCashFrom=true"
+                                   uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashFrom" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                            <span class="help-block"
+                                  ng-messages="TotalCashReport.TotalCashFrom.$error"
+                                  ng-show="TotalCashReport.TotalCashFrom.$touched">
+                                                <small ng-message="required">From Date is required</small>
+                                            </span>
+                        </div>
+                    </dd>
+                </dl>
+
+
+                <br>
+                <!--<label>To</label>
+                <input type="text" name="joiningDate2" ng-model="toDateCashCollection"  ng-change="toDateCashCollection" ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
+                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >-->
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10">To</dt>
+                    <dd>
+                        <div class="fg-line"
+                             ng-class="{ 'has-error': TotalCashReport.TotalCashTo.$touched && TotalCashReport.TotalCashTo.$invalid }">
+                            <input type="text" name="TotalCashTo" ng-model="totalCashInput.todate" ng-change="totalCashReportTo" ng-focus="TotalCashTo=true" ng-click="TotalCashTo=true"
+                                   uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashTo" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                            <span class="help-block"
+                                  ng-messages="TotalCashReport.TotalCashTo.$error"
+                                  ng-show="TotalCashReport.TotalCashTo.$touched">
+                                                <small ng-message="required">To Date is required</small>
+                                            </span>
+                        </div>
+                    </dd>
+                </dl>
+
+                <br>
+
+                <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                        ng-click="sendTotalCashDetails()" ng-disabled="TotalCashReport.$invalid">
+                    <i class="zmdi zmdi-save"></i> Get Details
+                </button>
+                <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                        ng-click="MyFunction()" ng-disabled="TotalCashReport.$invalid" >
+                    <i class="zmdi zmdi-save"></i> Download
+                </button>
+
+                </div>
+
+            </form>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive" >
+                <table ng-table="totalCashTable" class="table table-striped table-vmiddle" show-filter="true">
+                    <tr ng-repeat="cashTotals in $data">
+                        <td>
+                            <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
+                        </td>
+                        <!--  <td data-title="'Deposit Date'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
+                              <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
+                          </td>-->
+                        <td data-title="'Date'" filter="{ emailAddress: 'text'}">
+                            {{cashTotals.date}}
+                        </td>
+                        <td data-title="'POS Collection Amount'" filter="{ emailAddress: 'text'}">
+                            {{cashTotals.pos}}
+                        </td>
+                        <td data-title="'PG Collection Amount'" filter="{ phoneNumber: 'text'}">
+                            {{cashTotals.gateway}}
+                        </td>
+                        <td data-title="'Cash Collection Amount'" filter="{ 'subscriptionType': 'text'}">
+                            {{cashTotals.cash}}
+                        </td>
+                        <td data-title="'Total'" filter="{ 'subscriptionType': 'text'}">
+                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+

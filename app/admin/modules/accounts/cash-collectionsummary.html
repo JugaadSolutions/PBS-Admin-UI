@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header ch-alt m-b-20">
-            <h2>Cash Collection Summary
+            <h2>Cash Balance Report
                 <small>Cash Details</small>
                 <br> </h2>
                 <!--<label>From</label>&nbsp;&nbsp;
@@ -48,6 +48,23 @@
            </dl>
 
                 <br>
+
+           <dl class="dl-horizontal required">
+               <dt class="p-t-10">Registration Centres</dt>
+               <dd>
+                   <div class="fg-line">
+                       <select chosen class="form-control" ng-model="cashCollection.RegCentre"
+                               name="RegCentre"  placeholder="eg. Registration Centre" required >
+                           <option ng-value="RegistrationCentre1">Registration Centre1</option>
+                           <option ng-value="RegistrationCentre2">Registration Centre2</option>
+                           <option ng-value="RegistrationCentre3">Registration Centre3</option>
+                           <option ng-value="RegistrationCentre4">Registration Centre4</option>
+                           <option ng-value="RegistrationCentre5">Registration Centre5</option>
+                       </select>
+                   </div>
+               </dd>
+           </dl>
+           <br>
                <!-- <button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="">
                     <i class="zmdi zmdi-save"></i> Get Details
                 </button>-->
@@ -55,7 +72,7 @@
                    ng-click="sendDetails()" ng-disabled="CashForm.$invalid">
                <i class="zmdi zmdi-save"></i> Get Details
            </button>
-
+<p><h2>You have chosen : From Date - {{cashCollection.fromDateCashCollection | date : dd/MM/YYYY}} </h2> <h2>To Date - {{cashCollection.toDateCashCollection | date : dd/MM/YYYY}}</h2> <h2>Registration Centre - {{cashCollection.RegCentre}}</h2></p>
             </form>
 
         </div>
@@ -70,16 +87,28 @@
                         <td data-title="'Date'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
                             <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
                         </td>
-                        <td data-title="'Registration Center 1 '" filter="{ emailAddress: 'text'}">
-                            {{member.emailAddress}}
-                        </td>
-                        <td data-title="'Registration Center 2'" filter="{ phoneNumber: 'text'}">
+                        <td data-title="'Opening Balance'" filter="{ phoneNumber: 'text'}">
                             {{member.phoneNumber}}
                         </td>
-                        <td data-title="'Registration Center 3'" filter="{ 'subscriptionType': 'text'}">
+                        <td data-title="'Collection'" filter="{ 'subscriptionType': 'text'}">
                             {{member.subscriptionType}}
                         </td>
-                        <td data-title="'Total'" filter="{ creditBalance: 'text'}">
+                        <td data-title="'Refund'" filter="{ creditBalance: 'text'}">
+                            &#8377; {{member.creditBalance}}
+                        </td>
+                        <td data-title="'Balance'" filter="{ creditBalance: 'text'}">
+                            &#8377; {{member.creditBalance}}
+                        </td>
+                        <td data-title="'Deposit Status'" filter="{ creditBalance: 'text'}">
+                            &#8377; {{member.creditBalance}}
+                        </td>
+                        <td data-title="'Deposited Amount'" filter="{ creditBalance: 'text'}">
+                            &#8377; {{member.creditBalance}}
+                        </td>
+                        <td data-title="'Deposited Transaction ID'" filter="{ creditBalance: 'text'}">
+                            &#8377; {{member.creditBalance}}
+                        </td>
+                        <td data-title="'Closing Balance'" filter="{ creditBalance: 'text'}">
                             &#8377; {{member.creditBalance}}
                         </td>
                     </tr>

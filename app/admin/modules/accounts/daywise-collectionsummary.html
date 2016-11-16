@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header ch-alt m-b-20">
-            <h2>Daywise Collection Summary
+            <h2>Daywise Transaction Report
                 <small>Cash Details</small>
                 <br> </h2>
                 <!--<label>From</label>&nbsp;&nbsp;
@@ -48,6 +48,40 @@
                 </dl>
 
                 <br>
+
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10">Registration Centres</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <select chosen class="form-control" ng-model="daywiseCollection.RegCentre"
+                                    name="RegCentre"  placeholder="eg. Registration Centre" required >
+                                <option ng-value="RegistrationCentre1">Registration Centre1</option>
+                                <option ng-value="RegistrationCentre2">Registration Centre2</option>
+                                <option ng-value="RegistrationCentre3">Registration Centre3</option>
+                                <option ng-value="RegistrationCentre4">Registration Centre4</option>
+                                <option ng-value="RegistrationCentre5">Registration Centre5</option>
+                            </select>
+                        </div>
+                    </dd>
+                </dl>
+
+                <br>
+
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10">Transaction Type</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <select chosen class="form-control" ng-model="daywiseCollection.TransactionType"
+                                    name="TransactionType"  placeholder="eg. Transaction ID" required >
+                                <option ng-value="RegistrationCentre1">Registration</option>
+                                <option ng-value="RegistrationCentre2">Refund</option>
+                                <option ng-value="RegistrationCentre3">Replenishment</option>
+                            </select>
+                        </div>
+                    </dd>
+                </dl>
+
+                <br>
                 <!--<button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="">
                     <i class="zmdi zmdi-save"></i> Get Details
                 </button>-->
@@ -66,19 +100,22 @@
                         <td>
                             <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>
-                        <td data-title="'Date'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
+                        <td data-title="'Transaction No'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
                             <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
                         </td>
-                        <td data-title="'Cash '" filter="{ emailAddress: 'text'}">
+                        <td data-title="'Transaction Type '" filter="{ emailAddress: 'text'}">
                             {{member.emailAddress}}
                         </td>
-                        <td data-title="'Credit Card'" filter="{ phoneNumber: 'text'}">
+                        <td data-title="'Paymode'" filter="{ phoneNumber: 'text'}">
                             {{member.phoneNumber}}
                         </td>
-                        <td data-title="'Payment Gateway'" filter="{ 'subscriptionType': 'text'}">
+                        <td data-title="'Amount'" filter="{ 'subscriptionType': 'text'}">
                             {{member.subscriptionType}}
                         </td>
-                        <td data-title="'Total'" filter="{ creditBalance: 'text'}">
+                        <td data-title="'Date'" filter="{ creditBalance: 'text'}">
+                            &#8377; {{member.creditBalance}}
+                        </td>
+                        <td data-title="'Payer'" filter="{ creditBalance: 'text'}">
                             &#8377; {{member.creditBalance}}
                         </td>
                     </tr>

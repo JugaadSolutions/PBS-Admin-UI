@@ -452,6 +452,44 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.accounts.totalcash-report", {
+                url: "/totalcash-report",
+                templateUrl: adminViewPath + 'accounts/totalcash-report.html',
+                controller: 'totalCashReport',
+                containerClass: 'sw-toggled'
+            })
+
+            /*bank*/
+            .state("admin.accounts.bankcashdeposits", {
+                url: "/accounts/bankcashdeposits",
+                templateUrl: adminViewPath + 'accounts/bankcashdeposits/bankcash.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.bankcashdeposits.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'accounts/bankcashdeposits/manage.html',
+                controller: 'ManageBankCashDeposits',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.bankcashdeposits.add", {
+                url: "/add",
+                templateUrl: adminViewPath + 'accounts/bankcashdeposits/add.html',
+                controller: 'AddBankCashDeposits',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.bankcashdeposits.bankcashdeposit-report", {
+            url: "/bankcashdeposit-report",
+            templateUrl: adminViewPath + 'accounts/bankcashdeposits/bankcashdeposit-report.html',
+            controller: 'BankCashDepositReport',
+            containerClass: 'sw-toggled'
+            })
+
+
+
+
             /*Registration details*/
             .state("admin.registration-details", {
                 url: "/registration-details",

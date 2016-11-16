@@ -111,7 +111,8 @@
             delete: 'bicycle',
             initiateSync: 'bicycleavailability',
             bicycleAvailability: 'bicycleavailability/latest',
-            bicycleAvailabilityLocal: 'bicycleavailability/local',
+          /*  bicycleAvailabilityLocal: 'bicycleavailability/local',*/
+            bicycleAvailabilityLocal: 'dockstation',
             moveBicycle: 'bicyclelifecycle',
             bicycleLifeCycle: 'bicycleLifeCycle'
         },
@@ -147,7 +148,7 @@
         maintenanceCentre: {
             getAll: 'maintenancecenter',
             get: 'maintenancecentre',
-            save: 'maintenancecentre',
+            save: 'maintenancecenter',
             update: 'maintenancecentre',
             delete: 'maintenancecentre'
         },
@@ -185,6 +186,21 @@
             getAll:'daywisecashcollection'
         },
 
+        totalCashCollection:{
+          /*  getAll:'totalcashcollection'*/
+            getAll:'paymenttransaction/totalcollection'
+        },
+
+        bankCashDeposit: {
+            /*save:'bankcashdeposit'*/
+            save:'paymenttransaction/deposit',
+            getAll:'deposit'
+        },
+
+        bankCashDepositReport:{
+            getAll:'paymenttransaction/depositinfo'
+        },
+
         kpiDetails:{
          getAll:'kpidetails'
         },
@@ -204,7 +220,8 @@
         },
         reports: {
             transactions: {
-                getAll: 'memberTransaction',
+               /* getAll: 'memberTransaction',*/
+                getAll: 'transactions',
                 get: 'memberTransaction',
                 save: 'member/transaction',
                 update: 'member/checkin',

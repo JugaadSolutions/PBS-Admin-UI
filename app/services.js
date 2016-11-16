@@ -533,7 +533,7 @@
 
             saveHoldingArea: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.holdingArea.save, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.holdingArea.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -569,7 +569,7 @@
             },
             saveMaintenanceCentre: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.maintenanceCentre.save, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.maintenanceCentre.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -580,6 +580,17 @@
             getRegistrationCentres: function () {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.registrationCentre.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            /*bank cash deposit details*/
+            getBankCashDepositDetails: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.bankCashDeposit.getAll).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -641,6 +652,39 @@
                 });
                 return deferred.promise;
             },
+
+            /*Total Cash Details*/
+            SendTotalCashCollectionDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.totalCashCollection.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+            SendBankCashDepositDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.bankCashDepositReport.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+            /*Bank cash deposit details*/
+            saveBankCashDepositDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.bankCashDeposit.save,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
 
             /*KPI details*/
             SendKPIDetails:function (data) {
@@ -780,7 +824,7 @@
             },
             getAllMemberTransactions: function (filters) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.reports.transactions.getAll, {params: filters}).then(function (result) {
+                $http.get(APINew + APIEndPoint.reports.transactions.getAll, {params: filters}).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -845,7 +889,8 @@
             },
             getBicycleAvailability: function () {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.bicycle.bicycleAvailabilityLocal).then(function (result) {
+                $http.get(APINew + APIEndPoint.bicycle.bicycleAvailabilityLocal).then(function (result)
+                {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

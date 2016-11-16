@@ -10,6 +10,8 @@
                      uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDateFrom" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >-->
             <form class="pmbb-edit" name="RegistrationDetailsForm" novalidate>
 
+
+
             <dl class="dl-horizontal required">
                 <dt class="p-t-10">From</dt>
                 <dd>
@@ -71,6 +73,11 @@
                         ng-click="sendDetails()" ng-disabled="RegistrationDetailsForm.$invalid">
                     <i class="zmdi zmdi-save"></i> Get Details
                 </button>
+                <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                        ng-click="MyFunction()" ng-disabled="">
+                    <i class="zmdi zmdi-save"></i> Report
+                </button>
+
             </form>
 
         </div>

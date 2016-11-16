@@ -4109,6 +4109,7 @@
         DataService.getAllMemberTransactions(filters).then(function (response) {
             if (!response.error) {
                 $scope.transactions = response.data;
+                var ToDate = transaction.toPort;
                 $scope.transactions.forEach(function (transaction) {
                     transaction.checkOutTime = new Date(transaction.checkOutTime);
                     transaction.checkOutTime = transaction.checkOutTime.toLocaleDateString();
@@ -4176,7 +4177,8 @@
     {
         $scope.cashCollection={
             fromDateCashCollection:'',
-            toDateCashCollection:''
+            toDateCashCollection:'',
+            RegCentre:''
         };
 
         $scope.sendDetails = function () {
@@ -4197,7 +4199,9 @@
     {
         $scope.daywiseCollection={
             fromDateCashCollection:'',
-            toDateDaywise:''
+            toDateDaywise:'',
+            RegCentre:'',
+            TransactionType:''
         };
 
         $scope.sendDaywiseDetails = function () {
@@ -4245,6 +4249,227 @@
 
     }]);
 
+    app.controller('totalCashReport', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    {
+        $scope.totalCashInput=
+        {
+            fromdate:'',
+            todate:''
+        };
+
+        $scope.cashTotals =[];
+
+        $scope.sendTotalCashDetails = function ()
+        {
+            DataService.SendTotalCashCollectionDetails($scope.totalCashInput).then(function (response) {
+                if (!response.error)
+                    {
+                    growl.success(response.message);
+
+                    $scope.cashTotals = response.data;
+
+                    $scope.totalCashTable = new NgTableParams(
+                        {
+                            count: 6
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.cashTotals, params.filter()) : $scope.cashTotals;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+                    }
+                    else
+                    {
+                    growl.error(response.message);
+                    }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+
+
+
+        $scope.MyFunction = function ()
+        {
+            alert("hi");
+            window.print();
+        };
+
+        /*$scope.Demo=function ()
+        {
+            $scope.test = true;
+            $scope.MyFunction = function ()
+            {
+                $scope.test=$scope.test ? false : true;
+            }
+            window.print();
+        };*/
+
+
+    }]);
+
+    /*app.controller('BaskCashDeposits', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    {
+
+    }]);*/
+
+    // Manage Members Controller
+    app.controller('ManageBankCashDeposits', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    {
+
+        $scope.bankcashdepositsDetails = [];
+
+        /*fetching registration center table details*/
+        DataService.getBankCashDepositDetails().then(function (response) {
+            if (!response.error) {
+                $scope.bankcashdepositsDetails = response.data;
+                $scope.bankcashdepositsDetails.forEach(function (bankCashDeposit)
+                {
+                    bankCashDeposit.status = StatusService.getRegistrationCentresStatus(bankCashDeposit.status);
+                    bankCashDeposit.longitude = bankCashDeposit.gpsCoordinates.longitude;
+                    bankCashDeposit.latitude = bankCashDeposit.gpsCoordinates.latitude;
+                });
+                $scope.bankCashDepositTable.reload();
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.bankCashDepositTable = new NgTableParams(
+            {
+                count: 6
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.bankcashdepositsDetails, params.filter()) : $scope.bankcashdepositsDetails;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+
+        $scope.addNewRegistrationCentre = function () {
+            $state.go('admin.registration-centres.add');
+        };
+
+
+        $scope.addNewBankCashDetails = function () {
+            $state.go('admin.accounts.bankcashdeposits.add');
+        };
+    }]);
+
+    app.controller('AddBankCashDeposits', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
+    {
+        $scope.bankCashDeposit=[];
+
+      /*  var test = cashCollectionDate;*/
+
+        $scope.bankCashDeposit =
+        {
+            cashCollectionDate:'',
+            depositDate:'',
+            regCentreName:'',
+            amount:'',
+            bankName:'',
+            branch:'',
+            transactionId:'',
+            depositedBy:'',
+            remarks:''
+        };
+
+
+        $scope.addNewBankCashDetails = function () {
+            DataService.saveBankCashDepositDetails($scope.bankCashDeposit).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                   /* $state.go('admin.registration-centres.edit', {'id': response.data._id});*/
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.cancelAddBankCashDeposits = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.accounts.bankcashdeposits.manage');
+            });
+        };
+
+
+
+    }]);
+
+    app.controller('BankCashDepositReport', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+
+        /*$scope.bankCashDepositReport =
+        {
+            fromdate:'',
+            todate:''
+        };*/
+
+        $scope.bankDepositsInput=
+        {
+            fromdate:'',
+            todate:''
+        };
+
+        $scope.bankDeposits =[];
+
+        $scope.sendBankCaskDetails = function () {
+            DataService.SendBankCashDepositDetails($scope.bankDepositsInput).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+
+                    $scope.bankDeposits = response.data;
+
+                    $scope.bankDepositsTable = new NgTableParams(
+                        {
+                            count: 6
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.bankDeposits, params.filter()) : $scope.bankDeposits;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+
+                }else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.MyFunction = function ()
+        {
+            alert("hi");
+            window.print();
+        };
+
+    }]);
+
+
+
     app.controller('registrationDetails', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
         /*$scope.registrationDetails=[];*/
@@ -4286,7 +4511,6 @@
                 growl.error(response.data.description['0']);
             })
         };
-
 
     }]);
 
@@ -4807,18 +5031,21 @@
 
         $scope.stations = [];
 
+        $scope.dockingStationDetails =[];
+
         DataService.getBicycleAvailability().then(function (response) {
             if (!response.error) {
-                if (response.data.requests) {
-                    $scope.stations = response.data.requests;
+               // if (response.data.requests) {
+                if (!response.error) {
+                    $scope.stations = response.data;
                     $scope.stations.forEach(function (requests) {
-                        requests.status = StatusService.getDockingStationStatus(requests.status);
+                        requests.status = StatusService.getDockingStationStatus(requests.stationStatus);
                     });
                     var lastModifiedAt = new Date(response.data.lastModifiedAt);
-                    $scope.stations.lastModifiedAt = lastModifiedAt.getDate() + '-' + lastModifiedAt.getMonth() + '-' + lastModifiedAt.getFullYear();
-                    $scope.stations.forEach(function (station) {
+                   // $scope.stations.lastModifiedAt = lastModifiedAt.getDate() + '-' + lastModifiedAt.getMonth() + '-' + lastModifiedAt.getFullYear();
+                   /* $scope.stations.forEach(function (station) {
                         station.dockingStationDetails.forEach(function (dockingStationDetail) {
-                            if (dockingStationDetail.portStatus == 0) {
+                            if (dockingStationDetail.stationStatus == 0) {
                                 dockingStationDetail.tooltipMessage = dockingStationDetail.cycleRFID;
                             }
 
@@ -4826,7 +5053,7 @@
                                 dockingStationDetail.tooltipMessage = "Empty Port";
                             }
 
-                            if (dockingStationDetail.portStatus == 2) {
+                            if (dockingStationDetail.stationStatus == 2) {
                                 dockingStationDetail.tooltipMessage = "Bicycle Locked";
                             }
 
@@ -4838,14 +5065,14 @@
                                 dockingStationDetail.tooltipMessage = "Non Operational";
                             }
                         })
-                    });
+                    });*/
                     $scope.dockingStationsTable.reload();
                 }
             } else {
                 growl.error(response.message);
             }
         }, function (response) {
-            growl.error(response.data.description);
+/*            growl.error(response.data.description);*/
         });
 
         $scope.dockingStationsTable = new NgTableParams(

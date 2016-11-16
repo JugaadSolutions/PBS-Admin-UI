@@ -102,14 +102,23 @@
             <a ui-sref="admin"><i class="zmdi zmdi-balance-wallet"></i>Accounts</a>
         </li>-->
         <li class="sub-menu"
-            ng-class="{'active toggled': $state.includes('admin.accounts') || $state.includes('admin.accounts.daywise-collectionsummary') || $state.includes('admin.accounts.refunds')}">
+            ng-class="{'active toggled': $state.includes('admin.accounts') || $state.includes('admin.accounts.daywise-collectionsummary') || $state.includes('admin.accounts.refunds') || $state.includes('admin.accounts.bankcash-deposits')}">
             <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Accounts</a>
             <ul>
-                <li><a ng-class="{'active': $state.includes('admin.accounts.cash-collectionsummary')}"
-                       ui-sref="admin.accounts.cash-collectionsummary">Cash Collections Summary</a>
-                </li>
                 <li><a ng-class="{'active': $state.includes('admin.accounts.daywise-collectionsummary')}"
-                       ui-sref="admin.accounts.daywise-collectionsummary">Daywise Collection Summary</a>
+                       ui-sref="admin.accounts.daywise-collectionsummary">Daywise Transaction Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.cash-collectionsummary')}"
+                       ui-sref="admin.accounts.cash-collectionsummary">Cash Balance Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.totalcash-report')}"
+                       ui-sref="admin.accounts.totalcash-report">Total Cash Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.bankcashdeposits')}"
+                       ui-sref="admin.accounts.bankcashdeposits.bankcashdeposit-report">Bank Cash Deposit Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.bankcashdeposits')}"
+                       ui-sref="admin.accounts.bankcashdeposits.manage">Add Bank Cash Deposit</a>
                 </li>
                 <li><a ng-class="{'active': $state.includes('admin.accounts.refunds')}"
                        ui-sref="admin.accounts.refunds">Refunds</a>
