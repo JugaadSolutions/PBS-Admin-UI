@@ -76,7 +76,7 @@
                               <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
                           </td>-->
                         <td data-title="'Date'" filter="{ emailAddress: 'text'}">
-                            {{cashTotals.date}}
+                            {{cashTotals.date | date : "dd MMM yy"}}
                         </td>
                         <td data-title="'POS Collection Amount'" filter="{ emailAddress: 'text'}">
                             {{cashTotals.pos}}

@@ -53,13 +53,18 @@
                <dt class="p-t-10">Registration Centres</dt>
                <dd>
                    <div class="fg-line">
-                       <select chosen class="form-control" ng-model="cashCollection.RegCentre"
+                      <!-- <select chosen class="form-control" ng-model="cashCollection.RegCentre"
                                name="RegCentre"  placeholder="eg. Registration Centre" required >
                            <option ng-value="RegistrationCentre1">Registration Centre1</option>
                            <option ng-value="RegistrationCentre2">Registration Centre2</option>
                            <option ng-value="RegistrationCentre3">Registration Centre3</option>
                            <option ng-value="RegistrationCentre4">Registration Centre4</option>
                            <option ng-value="RegistrationCentre5">Registration Centre5</option>
+                       </select>-->
+                       <select chosen class="form-control"
+                               ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
+                               ng-model="RegCenter"
+                               ng-change="selectedRegistrationCenters(RegCenter)" required>
                        </select>
                    </div>
                </dd>

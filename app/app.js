@@ -183,7 +183,8 @@
         },
 
         daywiseCollection:{
-            getAll:'daywisecashcollection'
+           /* getAll:'daywisecashcollection'*/
+            getAll:'paymenttransaction/daywisecollection'
         },
 
         totalCashCollection:{

@@ -15,7 +15,7 @@
                     <dd>
                         <div class="fg-line"
                              ng-class="{ 'has-error': DaywiseCashForm.joiningDate1.$touched && DaywiseCashForm.joiningDate1.$invalid }">
-                            <input type="text" name="joiningDate1" ng-model="daywiseCollection.fromDateCashCollection" ng-change="fromDateCashCollection" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
+                            <input type="text" name="joiningDate1" ng-model="daywiseCollection.fromdate" ng-change="fromdate" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
                                    uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
                             <span class="help-block"
                                   ng-messages="DaywiseCashForm.joiningDate1.$error"
@@ -36,7 +36,7 @@
                     <dd>
                         <div class="fg-line"
                              ng-class="{ 'has-error': DaywiseCashForm.joiningDate2.$touched && DaywiseCashForm.joiningDate2.$invalid }">
-                            <input type="text" name="joiningDate2" ng-model="daywiseCollection.toDateDaywise" ng-change="toDateDaywise" ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
+                            <input type="text" name="joiningDate2" ng-model="daywiseCollection.todate" ng-change="todate" ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
                                    uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
                             <span class="help-block"
                                   ng-messages="DaywiseCashForm.joiningDate2.$error"
@@ -53,13 +53,18 @@
                     <dt class="p-t-10">Registration Centres</dt>
                     <dd>
                         <div class="fg-line">
-                            <select chosen class="form-control" ng-model="daywiseCollection.RegCentre"
+                           <!-- <select chosen class="form-control" ng-model="daywiseCollection.RegCentre"
                                     name="RegCentre"  placeholder="eg. Registration Centre" required >
                                 <option ng-value="RegistrationCentre1">Registration Centre1</option>
                                 <option ng-value="RegistrationCentre2">Registration Centre2</option>
                                 <option ng-value="RegistrationCentre3">Registration Centre3</option>
                                 <option ng-value="RegistrationCentre4">Registration Centre4</option>
                                 <option ng-value="RegistrationCentre5">Registration Centre5</option>
+                            </select>-->
+                            <select chosen class="form-control"
+                                    ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
+                                    ng-model="location"
+                                    ng-change="selectedRegistrationCenters(location)" required>
                             </select>
                         </div>
                     </dd>
@@ -71,8 +76,8 @@
                     <dt class="p-t-10">Transaction Type</dt>
                     <dd>
                         <div class="fg-line">
-                            <select chosen class="form-control" ng-model="daywiseCollection.TransactionType"
-                                    name="TransactionType"  placeholder="eg. Transaction ID" required >
+                            <select chosen class="form-control" ng-model="daywiseCollection.transactionType"
+                                    name="TransactionType"  placeholder="eg. Transaction ID"  required >
                                 <option ng-value="RegistrationCentre1">Registration</option>
                                 <option ng-value="RegistrationCentre2">Refund</option>
                                 <option ng-value="RegistrationCentre3">Replenishment</option>
@@ -95,28 +100,29 @@
         <div class="card-body">
 
             <div class="table-responsive" >
-                <table ng-table="" class="table table-striped table-vmiddle" show-filter="true">
-                    <tr ng-repeat="member in $data">
+                <table ng-table="daywiseTable" class="table table-striped table-vmiddle" show-filter="false">
+                    <tr ng-repeat="daywises in $data">
                         <td>
                             <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>
-                        <td data-title="'Transaction No'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
-                            <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
-                        </td>
-                        <td data-title="'Transaction Type '" filter="{ emailAddress: 'text'}">
-                            {{member.emailAddress}}
-                        </td>
-                        <td data-title="'Paymode'" filter="{ phoneNumber: 'text'}">
-                            {{member.phoneNumber}}
-                        </td>
-                        <td data-title="'Amount'" filter="{ 'subscriptionType': 'text'}">
-                            {{member.subscriptionType}}
-                        </td>
                         <td data-title="'Date'" filter="{ creditBalance: 'text'}">
-                            &#8377; {{member.creditBalance}}
+                            {{daywises.createdAt |  date : "dd MMM yy"}}
                         </td>
                         <td data-title="'Payer'" filter="{ creditBalance: 'text'}">
-                            &#8377; {{member.creditBalance}}
+                            {{daywises.memberId.Name}}
+                        </td>
+                        <td data-title="'Transaction No'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
+                            <a ui-sref="admin.members.edit({id: member._id})">{{daywises.invoiceNo}}</a>
+                        </td>
+                       <!-- <td data-title="'Transaction Type '" filter="{ emailAddress: 'text'}" ng-if="daywises.paymentDescription == 'Credit note'">
+                            {{daywises.paymentDescription == 'Registration'}}
+                        </td>-->
+                        <td data-title="'Transaction Type '" filter="{ emailAddress: 'text'}" ng-bind="daywises.paymentDescription = daywises.paymentDescription === 'Credit note'? '-': 'Registration'"></td>
+                        <td data-title="'Paymode'" filter="{ phoneNumber: 'text'}">
+                            {{daywises.paymentMode}}
+                        </td>
+                        <td data-title="'Amount'" filter="{ 'subscriptionType': 'text'}">
+                            {{daywises.credit}}
                         </td>
                     </tr>
                 </table>

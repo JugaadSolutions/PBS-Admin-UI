@@ -1016,7 +1016,7 @@
             /*name: '',*/
             Name:'',
             lastName: '',
-            givenName: '',
+           /* givenName: '',*/
             fatherName: '',
             education: '',
             occupation: '',
@@ -1061,7 +1061,7 @@
                     growl.error(response.message);
                 }
             }, function (response) {
-                growl.error(response.data.description['0']);
+               /* growl.error(response.data.description['0']);*/
             })
         };
 
@@ -3718,6 +3718,7 @@
                 }
                 $scope.portSelections.push(portInfo);
             }
+            $scope.portSelections=[];
         };
 
         $scope.selectedPort = function (data) {
@@ -4193,18 +4194,38 @@
             })
         };
 
+        $scope.RegistrationCenters=[];
+
+        DataService.getRegistrationCentres().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RegistrationCenters = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRegistrationCenters = function (data) {
+            $scope.cashCollection.RegCentre = data.location;
+        };
+
     }]);
 
     app.controller('dayWiseCollectionSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
         $scope.daywiseCollection={
-            fromDateCashCollection:'',
-            toDateDaywise:'',
-            RegCentre:'',
-            TransactionType:''
+            fromdate:'',
+            todate:'',
+            location:'',
+            transactionType:''
         };
 
-        $scope.sendDaywiseDetails = function () {
+        /*$scope.sendDaywiseDetails = function () {
             DataService.SendDaywiseCashCollectionDetails($scope.daywiseCollection).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
@@ -4214,8 +4235,61 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
+        };*/
+
+
+        $scope.daywises =[];
+
+        $scope.sendDaywiseDetails = function ()
+        {
+            DataService.SendDaywiseCashCollectionDetails($scope.daywiseCollection).then(function (response) {
+                if (!response.error)
+                {
+                    growl.success(response.message);
+
+                    $scope.daywises = response.data;
+
+                    $scope.daywiseTable = new NgTableParams(
+                        {
+                            count: 6
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.daywises, params.filter()) : $scope.daywises;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
         };
 
+        $scope.RegistrationCenters=[];
+
+        DataService.getRegistrationCentres().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RegistrationCenters = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRegistrationCenters = function (data) {
+            $scope.daywiseCollection.location = data.location;
+        };
     }]);
 
     app.controller('refundsSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)

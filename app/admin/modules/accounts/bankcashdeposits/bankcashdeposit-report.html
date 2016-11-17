@@ -72,7 +72,7 @@
                             <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
                         </td>-->
                         <td data-title="'Deposited Date'" filter="{ emailAddress: 'text'}">
-                            {{bankDeposits.depositDate}}
+                            {{bankDeposits.depositDate | date : "dd MMM yy"}}
                         </td>
                         <td data-title="'Deposited Transaction ID'" filter="{ emailAddress: 'text'}">
                             {{bankDeposits.transactionId}}

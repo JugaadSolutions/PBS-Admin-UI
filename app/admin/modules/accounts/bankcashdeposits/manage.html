@@ -18,7 +18,7 @@
                 </p>
             </div>
             <div class="table-responsive" ng-if="bankcashdepositsDetails.length > 0">
-                <table ng-table="bankCashDepositTable" class="table table-striped table-vmiddle" show-filter="true">
+                <table ng-table="bankCashDepositTable" class="table table-striped table-vmiddle" show-filter="false">
                     <tr ng-repeat="bankcashdepositsDetails in $data">
 
                         <td data-title="'Deposited Date'" filter="{ 'centreName': 'text'}">

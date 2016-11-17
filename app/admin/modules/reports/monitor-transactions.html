@@ -34,16 +34,15 @@
                         <td data-title="'From'">
                             <a ui-sref="admin.docking-stations.edit({id: transaction.fromPort.dockingStationId._id})">{{transaction.fromPort.Name}}</a>
                         </td>
+                        <td data-title="'Checkout'">
+                            {{transaction.checkOutTime | date : "dd MMM yy', ' h:mma"}}
+                        </td>
                         <td data-title="'To'">
                             <a ng-if="transaction.status != 'Canceled'"
                                ui-sref="admin.docking-stations.edit({id: transaction.toPort.dockingStationId._id})">{{transaction.toPort.Name}}</a>
                             <a ng-if="transaction.status != 'Canceled' && transaction.temporaryPort">{{transaction.temporaryPort.name}}</a>
                             <a ng-if="transaction.status == 'Canceled'">--</a>
                         </td>
-                        <td data-title="'Checkout'">
-                            {{transaction.checkOutTime | date : "dd MMM yy', ' h:mma"}}
-                        </td>
-
                         <td data-title="'Checkin'">
                             {{transaction.checkInTime | date : "dd MMM yy', ' h:mma"}}
                         </td>

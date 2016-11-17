@@ -645,7 +645,19 @@
             /*Daywise cash collections*/
             SendDaywiseCashCollectionDetails:function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.daywiseCollection.getAll,data).then(function (result) {
+                var _transaction_type = data.transactionType;
+                var test;
+                if (_transaction_type  === 'Registration')
+                {
+                    test = 'Credit note'
+                }
+                var daywiseCollection = {
+                    fromdate:data.fromdate,
+                    todate:data.todate,
+                    location:data.location,
+                    transactionType : test
+                };
+                $http.post(APINew + APIEndPoint.daywiseCollection.getAll,daywiseCollection).then(function (result) {
                     deferred.resolve(result.data);
                 },function (error) {
                     deferred.reject(error)
