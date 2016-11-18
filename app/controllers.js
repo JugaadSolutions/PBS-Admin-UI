@@ -859,15 +859,18 @@
 
         $scope.addCredit = function () {
             DataService.addCredit($stateParams.id, $scope.member).then(function (response) {
-                if (!response.error) {
+                if (!response.error && response.data != null) {
                     growl.success(response.message);
                     $uibModalInstance.dismiss();
                     $state.reload();
-                } else {
+                }
+                else
+                {
                     growl.error(response.message);
                 }
             }, function (response) {
-                growl.error(response.data.description['0']);
+               /* growl.error(response.data.description['0']);*/
+                growl.error(response.data.description);
             });
         }
 
@@ -3709,7 +3712,6 @@
 
         $scope.selectedDockingStation = function (data)
         {
-
             for(var i = 0; i < data.portIds.length ; i++)
             {
                 var portInfo = {
@@ -3718,7 +3720,8 @@
                 }
                 $scope.portSelections.push(portInfo);
             }
-            $scope.portSelections=[];
+
+
         };
 
         $scope.selectedPort = function (data) {
