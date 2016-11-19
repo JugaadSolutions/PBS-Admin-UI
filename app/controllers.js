@@ -506,7 +506,7 @@
                 }
                 $scope.member.documents.forEach(function (document) {
                     //document.documentProof = AWS + 'Member/' + $scope.member.memberId + '/' + document.documentCopy + '.png';
-                    document.documentProof = "http://user.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member._id + '/' + document.documentCopy + '.png';
+                    document.documentProof = "http://www.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member._id + '/' + document.documentCopy + '.png';
                 });
                 if ($scope.member.membershipId) {
                     var membershipName = $scope.member.membershipId.subscriptionType;
@@ -573,11 +573,11 @@
 
         $scope.updateMember = function () {
             $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
-            if ($scope.member.emergencyContact.contactNumber) {
+           /* if ($scope.member.emergencyContact.contactNumber) { Prashanth commented if comdition 19.11.16
                 $scope.member.emergencyContact.contactNumber = $scope.member.emergencyContact.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
             } else {
                 $scope.member.emergencyContact.contactNumber = "";
-            }
+            }*/
             DataService.updateMember($scope.member).then(function (response) {
                 if (!response.error) {
                     if ($scope.member.membershipChanged) {
