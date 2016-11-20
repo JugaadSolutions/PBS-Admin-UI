@@ -261,7 +261,7 @@
             sex: '',
             phoneNumber: '',
             address: '',
-            city: 'Mysore',
+            city: 'Mysore11',
             state: 'Karnataka',
             country: 'India',
             countryCode: '91',
@@ -333,7 +333,10 @@
 
     // Edit Member Controller
     app.controller('EditMember', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModal', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModal, NgTableParams) {
-        $scope.member = {};
+        $scope.member = {
+            countryCode: '91',
+            emergencyContact: {countryCode: '91'}
+        };
 
         $scope.addNewDocument = function () {
             $scope.member.documents.push({});
