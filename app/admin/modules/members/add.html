@@ -105,27 +105,22 @@
                                 <dl class="dl-horizontal"><!--prashanth removed required on 19.11.16-->
                                     <dt class="p-t-10">Gender</dt>
                                     <dd>
-                                        <div class="fg-line m-t-10"
-                                             ng-class="{ 'has-error': MemberForm.sex.$touched && MemberForm.sex.$invalid }">
+                                        <div class="fg-line m-t-10">
                                             <label class="radio radio-inline m-r-20">
-                                                <input type="radio" name="sex" ng-model="member.sex" value="Male" required>
+                                                <input type="radio" name="sex" ng-model="member.sex" value="Male" >
                                                 <i class="input-helper"></i>
                                                 Male
                                             </label>
                                             <label class="radio radio-inline m-r-20">
-                                                <input type="radio" name="sex" ng-model="member.sex" value="Female" required>
+                                                <input type="radio" name="sex" ng-model="member.sex" value="Female" >
                                                 <i class="input-helper"></i>
                                                 Female
                                             </label>
                                             <label class="radio radio-inline m-r-20">
-                                                <input type="radio" name="sex" ng-model="member.sex" value="Other" required>
+                                                <input type="radio" name="sex" ng-model="member.sex" value="Other" >
                                                 <i class="input-helper"></i>
                                                 Other
                                             </label>
-                                            <!--<span class="help-block" ng-messages="MemberForm.sex.$error"
-                                                  ng-show="MemberForm.sex.$touched">
-                                                <small ng-message="required">Gender is required</small>
-                                            </span>-->
                                         </div>
                                     </dd>
                                 </dl>
@@ -538,7 +533,7 @@
                                                            ng-model="member.phoneNumber"
                                                            class="form-control width-100"
                                                            input-mask="{mask: '00000-00000'}"
-                                                           placeholder="eg. 00000-00000">
+                                                           placeholder="eg. 00000-00000" >
                                                 </div>
                                             </div>
                                            <!-- <span class="help-block"

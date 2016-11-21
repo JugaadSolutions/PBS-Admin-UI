@@ -118,18 +118,17 @@
                                         </div>
                                     </dd>
                                 </dl>
-                                <dl class="dl-horizontal required">
+                                <dl class="dl-horizontal ">
                                     <dt class="p-t-10">Last Name</dt>
                                     <dd>
-                                        <div class="fg-line"
-                                             ng-class="{ 'has-error': MemberForm.lastName.$touched && MemberForm.lastName.$invalid }">
+                                        <div class="fg-line">
                                             <input type="text" name="lastName" ng-model="member.lastName"
                                                    class="form-control"
-                                                   placeholder="eg. Kumar" required>
-                                            <span class="help-block" ng-messages="MemberForm.lastName.$error"
+                                                   placeholder="eg. Kumar" >
+                                           <!-- <span class="help-block" ng-messages="MemberForm.lastName.$error"
                                                   ng-show="MemberForm.lastName.$touched">
                                                 <small ng-message="required">Last is required</small>
-                                            </span>
+                                            </span>-->
                                         </div>
                                     </dd>
                                 </dl>
@@ -157,7 +156,7 @@
                                         </div>
                                     </dd>
                                 </dl>
-                                <dl class="dl-horizontal required">
+                                <dl class="dl-horizontal">
                                     <dt class="p-t-10">Gender</dt>
                                     <dd>
                                         <div class="fg-line m-t-10">
@@ -186,7 +185,7 @@
                                 <h2><i class="zmdi zmdi-map m-r-5"></i> Contact Information</h2>
                             </div>
                             <div class="pmbb-body p-l-30">
-                                <dl class="dl-horizontal required">
+                                <dl class="dl-horizontal ">
                                     <dt class="p-t-10">Email</dt>
                                     <dd>
                                         <div class="fg-line"
@@ -202,15 +201,14 @@
                                         </div>
                                     </dd>
                                 </dl>
-                                <dl class="dl-horizontal required">
+                                <dl class="dl-horizontal ">
                                     <dt class="p-t-10">Phone Number</dt>
                                     <dd>
-                                        <div class="form-inline"
-                                             ng-class="{ 'has-error': MemberForm.phoneNumber.$touched && MemberForm.phoneNumber.$invalid }">
+                                        <div class="form-inline">
                                             <div class="fg-line dp-inline-block width-43 m-r-20">
                                                 <select chosen name="countryCode" ng-model="member.countryCode"
                                                         data-placeholder-text-single="'Country Code'"
-                                                        class="form-control w-100" required>
+                                                        class="form-control w-100">
                                                     <option data-countryCode="IN" value="91">India (+91)</option>
                                                     <option data-countryCode="DZ" value="213">Algeria (+213)
                                                     </option>
@@ -591,14 +589,14 @@
                                                            ng-model="member.phoneNumber"
                                                            class="form-control width-100"
                                                            input-mask="{mask: '00000-00000'}"
-                                                           placeholder="eg. 00000-00000" required>
+                                                           placeholder="eg. 00000-00000">
                                                 </div>
                                             </div>
-                                            <span class="help-block"
+                                            <!--<span class="help-block"
                                                   ng-messages="MemberForm.phoneNumber.$error"
                                                   ng-show="MemberForm.phoneNumber.$touched">
                                                 <small ng-message="required">Phone Number is required</small>
-                                            </span>
+                                            </span>-->
                                         </div>
                                     </dd>
                                 </dl>

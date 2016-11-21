@@ -365,7 +365,7 @@
             .state("admin.registration-centres.edit", {
                 url: "/edit/:id",
                 templateUrl: adminViewPath + 'registration-centres/edit.html',
-                controller: '',
+                controller: 'EditRegistrationCentre',
                 containerClass: 'sw-toggled'
             })
 

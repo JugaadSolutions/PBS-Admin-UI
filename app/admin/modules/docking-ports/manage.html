@@ -37,7 +37,7 @@
                             {{dockingPort.portPosition}}
                         </td>
                         <td data-title="'Bicycle RFID'" filter="{ 'cycleRFID': 'text'}">
-                            <a class="pointer" ng-click="cycle(dockingPort.cycleRFID)">{{dockingPort.cycleRFID}}</a>
+                            <a class="pointer" ng-click="cycle(dockingPort.cycleRFID)">{{dockingPort.vehicleId.vehicleid.vehicleRFID}}</a>
                         </td>
                         <td class="text-center">
                             <span uib-tooltip="{{dockingPort.status}}" tooltip-placement="top" ng-class="{

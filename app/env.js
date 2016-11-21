@@ -28,7 +28,7 @@
     // In your application this can be a url like https://api.github.com
     // window.__env.apiUrl = 'http://192.168.0.164:3001/api/';
   //  window.__env.apiUrl = 'http://43.251.80.79:3001/api/';
-    window.__env.apiUrlNew = 'http://43.251.80.79:13055/api/';
+    window.__env.apiUrlNew = 'http://43.251.80.79:13056/api/';
     window.__env.awsUrl = 'https://mytrintrin.s3.amazonaws.com/mytrintrin/';
     window.__env.googleMapsUrl = 'https://www.google.com/maps/dir/Current+Location/';
 

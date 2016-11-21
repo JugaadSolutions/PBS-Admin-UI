@@ -26,13 +26,13 @@
                             <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
                         </td>
                         <td data-title="'Email'" filter="{ emailAddress: 'text'}">
-                            {{member.emailAddress}}
+                            {{member.email}}
                         </td>
                         <td data-title="'Phone'" filter="{ phoneNumber: 'text'}">
                             {{member.phoneNumber}}
                         </td>
                         <td data-title="'Membership'" filter="{ 'subscriptionType': 'text'}">
-                            {{member.subscriptionType}}
+                            {{member.membershipId.subscriptionType}}
                         </td>
                         <td data-title="'Balance'" filter="{ creditBalance: 'text'}">
                             &#8377; {{member.creditBalance}}

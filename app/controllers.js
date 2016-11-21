@@ -299,11 +299,11 @@
 
         $scope.addMember = function () {
             $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
-            if ($scope.member.emergencyContact.contactNumber) {
-                $scope.member.emergencyContact.contactNumber = $scope.member.emergencyContact.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
+            /*if ($scope.member.emergencyContact.contactNumber) {
+                $scope.member.emergencyContact.contactNumber = $scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
             } else {
                 $scope.member.emergencyContact.contactNumber = "";
-            }
+            }*/
             DataService.saveMember($scope.member).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
@@ -352,11 +352,11 @@
                 closeOnConfirm: true
             }, function () {
                 $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
-                if ($scope.member.emergencyContact.contactNumber) {
-                    $scope.member.emergencyContact.contactNumber = $scope.member.emergencyContact.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
+                /*if ($scope.member.emergencyContact.contactNumber) {
+                    $scope.member.emergencyContact.contactNumber = $scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
                 } else {
                     $scope.member.emergencyContact.contactNumber = "";
-                }
+                }*/
                 $scope.member.documents.splice($index, 1);
                 DataService.updateMember($scope.member).then(function (response) {
                     if (!response.error) {
@@ -423,11 +423,11 @@
             }, function () {
                 $scope.member.status = 1;
                 $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
-                if ($scope.member.emergencyContact.contactNumber) {
-                    $scope.member.emergencyContact.contactNumber = $scope.member.emergencyContact.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
+                /*if ($scope.member.emergencyContact.contactNumber) {
+                    $scope.member.emergencyContact.contactNumber = $scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
                 } else {
                     $scope.member.emergencyContact.contactNumber = "";
-                }
+                }*/
                 DataService.verifyDocument($scope.member).then(function (response) {
                     if (!response.error) {
                         growl.success(response.message);
@@ -494,14 +494,14 @@
                 $scope.member.countryCode = splitArr[0];
                 $scope.member.phoneNumber = phone.split('-').slice(1).join('-');
 
-                if ($scope.member.emergencyContact.contactNumber) {
+                /*if ($scope.member.emergencyContact.contactNumber) {
                     var contactPhone = $scope.member.emergencyContact.contactNumber;
                     var contactSplit = contactPhone.split("-");
-                    $scope.member.emergencyContact.countryCode = contactSplit[0];
+                    /!*$scope.member.emergencyContact.countryCode = contactSplit[0];*!/
                     $scope.member.emergencyContact.contactNumber = contactPhone.split('-').slice(1).join('-');
                 } else {
                     $scope.member.emergencyContact.contactNumber = "";
-                }
+                }*/
                 if (!$scope.member.picture || $scope.member.picture == '') {
                     $scope.profilePicUrl = 'assets/images/no-avatar.png'
                 } else {
@@ -541,11 +541,11 @@
                 closeOnConfirm: true
             }, function () {
                 $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
-                if ($scope.member.emergencyContact.contactNumber) {
-                    $scope.member.emergencyContact.contactNumber = $scope.member.emergencyContact.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
+               /* if ($scope.member.emergencyContact.contactNumber) {
+                    $scope.member.emergencyContact.contactNumber =$scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
                 } else {
                     $scope.member.emergencyContact.contactNumber = "";
-                }
+                }*/
                 $scope.member.picture = '';
                 DataService.updateMember($scope.member).then(function (response) {
                     if (!response.error) {
@@ -576,8 +576,8 @@
 
         $scope.updateMember = function () {
             $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
-           /* if ($scope.member.emergencyContact.contactNumber) { Prashanth commented if comdition 19.11.16
-                $scope.member.emergencyContact.contactNumber = $scope.member.emergencyContact.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
+            /*if ($scope.member.emergencyContact.contactNumber) {
+                $scope.member.emergencyContact.contactNumber = $scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
             } else {
                 $scope.member.emergencyContact.contactNumber = "";
             }*/
@@ -3586,6 +3586,74 @@
         };
     }]);
 
+    app.controller('EditRegistrationCentre', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal) {
+
+        $scope.registrationCentre = {};
+
+        $scope.registrationCentreMap = {
+            center: {
+                latitude: 0,
+                longitude: 0
+            },
+            zoom: 15
+        };
+
+        DataService.getRegistrationCentres($stateParams.id).then(function (response) {
+            if (!response.error)
+            {
+                $scope.registrationCentre = response.data;
+                $scope.registrationCentre.name;
+             /*   $scope.registrationCentreMap.center.latitude = parseFloat($scope.registrationCentre.gpsCoordinates.latitude);
+                $scope.registrationCentreMap.center.longitude = parseFloat($scope.registrationCentre.gpsCoordinates.longitude);*/
+            }
+            else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        /*$scope.changeMaintenanceCentreStatus = function () {
+            return $uibModal.open({
+                templateUrl: 'maintenance-centre-status-modal.html',
+                controller: 'MaintenanceCentreStatus',
+                size: 'md',
+                resolve: {
+                    maintenanceCentre: function () {
+                        return $scope.maintenanceCentre;
+                    }
+                }
+            });
+        };*/
+
+        $scope.updateMaintenanceCentre = function () {
+            DataService.updateMaintenanceCentre($scope.maintenanceCentre).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    $state.reload();
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.message);
+            })
+        };
+
+        $scope.cancelUpdateRegistrationCentre = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.registration-centres.manage');
+            });
+        };
+
+    }]);
+
     /*Tickets*/
     app.controller('ManageTicketsDetails', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
         $scope.ticketsDetails = [];
@@ -3790,6 +3858,33 @@
     app.controller('kpiDetails', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
     {
         $scope.toDateKPI = new Date();
+
+        var CurrentDate = new Date();
+     //   alert(CurrentDate);
+       var test = CurrentDate.getMonth() + 1;
+     //   alert(test);
+        var demo = CurrentDate.getDate();
+       // alert(demo);
+
+        if(test == 10)
+        {
+            var aa= new Date(CurrentDate.setDate(CurrentDate.getDate() - demo));
+            $scope.fromDateKPI  = new Date(CurrentDate.setMonth(CurrentDate.getMonth()));
+        }
+
+        else if(test == 11)
+        {
+            var aa1= new Date(CurrentDate.setDate(CurrentDate.getDate() - demo));
+            $scope.fromDateKPI  = new Date(CurrentDate.setMonth(CurrentDate.getMonth() - 1));
+        }
+        else {
+           // var test2;
+            $scope.fromDateKPI   = new Date(CurrentDate.setMonth(CurrentDate.getMonth() - 2));
+           alert($scope.fromDateKPI);
+        }
+
+       /* if (test == )*/
+
 
         $scope.kpiDetails={
             fromDateKPI:'',
