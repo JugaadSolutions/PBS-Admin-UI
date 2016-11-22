@@ -26,7 +26,7 @@
             <div class="table-responsive" ng-if="holdingAreas.length > 0">
                 <table ng-table="holdingAreasTable" class="table table-striped" show-filter="true">
                     <tr ng-repeat="holdingArea in $data">
-                        <td data-title="'Area Name'" filter="{ 'areaName': 'text'}">
+                        <td data-title="'Area Name'" filter="{ 'name': 'text'}">
                             <a ui-sref="admin.holding-areas.edit({id: holdingArea._id})">{{holdingArea.name}}</a>
                         </td>
                         <td data-title="'Area Capacity'" filter="{ 'areaCapacity': 'text'}">

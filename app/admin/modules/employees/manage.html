@@ -26,18 +26,21 @@
                             <a ui-sref="admin.employees.edit({id: employee._id})">{{employee.name}}
                                 {{employee.lastName}}</a>
                         </td>
-                        <td data-title="'Email'" filter="{ 'emailAddress': 'text'}">
+                        <td data-title="'Email'" filter="{ 'email': 'text'}">
                             {{employee.email}}
                         </td>
                         <td data-title="'Phone'" filter="{ 'phoneNumber': 'text'}">
                             {{employee.phoneNumber}}
                         </td>
                         <td data-title="'Smart Cards'" filter="{ 'smartCardNumber': 'text'}">
+                            {{employee.smartCardNumber}}
+                        </td>
+                     <!--   <td data-title="'Smart Cards'" filter="{ 'smartCardNumber': 'text'}">
                             <div class="fare-plan-chips">
                                 <span class="fare-plan-chip" ng-repeat="card in employee.smartCardDetails"
                                       uib-tooltip="{{card.cardLevel}}">{{card.smartCardNumber}}</span>
                             </div>
-                        </td>
+                        </td>-->
                         <td class="text-center">
                             <span uib-tooltip="{{employee.status}}" tooltip-placement="top" ng-class="{
                              'status-color bgm-green': employee.status == 'Active',

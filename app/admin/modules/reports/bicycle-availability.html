@@ -55,9 +55,9 @@
                           <!--  <td data-title="'Locked Ports'">
                                 {{requests.lockedPort}}
                             </td>-->
-                            <!--<td data-title="'Fleet %'">
+                            <td data-title="'Fleet %'">
                                 {{((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)}}%
-                            </td>-->
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -74,7 +74,7 @@
                                 <div>
                                     <span uib-tooltip="{{ports.tooltipMessage}}"
                                           ng-class="{'led bgm-green': ports.portStatus == 0, 'led bgm-blue': ports.portStatus == 1, 'led bgm-red': ports.portStatus == 4, 'led bgm-orange': ports.portStatus == 2, 'led bgm-yellow': ports.portStatus == 3}"
-                                          ng-repeat="ports in requests.dockingStationDetails">{{ports.portNumber}}</span>
+                                          ng-repeat="ports in requests.dockingStationDetails.dockingPortId.ePortNumber">{{ports.ePortNumber}}</span>
                                 </div>
                             </td>
                         </tr>

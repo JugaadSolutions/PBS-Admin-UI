@@ -36,6 +36,7 @@
         vehicle:
         {
             getAll:'vehicle',
+            get:'vehicle',
             save: 'vehicle'
         },
         member: {

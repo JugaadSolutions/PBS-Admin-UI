@@ -222,7 +222,7 @@
             },
             getMembership: function (data, filters) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.membership.get + '/' + data, {
+                $http.get(APINew + APIEndPoint.membership.get + '/' + data, {
                     params: filters
                 }).then(function (result) {
                     deferred.resolve(result.data);
@@ -399,7 +399,7 @@
             },
             getBicycle: function (data) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.bicycle.get + '/' + data).then(function (result) {
+                $http.get(APINew + APIEndPoint.vehicle.get + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -950,7 +950,7 @@
         }
     }]);
 
-    app.factory('StatusService', ['API', function (API) {
+    app.factory('StatusService', ['APINew', function (APINew) {
         return {
             getDockingStationStatus: function (code) {
                 var status = '';

@@ -20,13 +20,13 @@
             <div class="table-responsive" ng-if="registrationCentres.length > 0">
                 <table ng-table="registrationCentresTable" class="table table-striped table-vmiddle" show-filter="true">
                     <tr ng-repeat="registrationCentres in $data">
-                        <td data-title="'Centre Name'" filter="{ 'centreName': 'text'}">
+                        <td data-title="'Centre Name'" filter="{ 'name': 'text'}">
                             <a ui-sref="admin.registration-centres.edit({id: registrationCentres._id})">{{registrationCentres.name}}</a>
                         </td>
                         <td data-title="'Centre Location'" filter="{ 'location': 'text'}">
                             {{registrationCentres.location}}
                         </td>
-                        <td data-title="'Assigned To'" filter="{ 'assignedTo': 'text'}">
+                        <td data-title="'Assigned To'" filter="{ 'assignedTo.Name': 'text'}">
                             {{registrationCentres.assignedTo.Name + ' ' + registrationCentres.assignedTo.lastName}}
                         </td>
                         <!--<td data-title="'GPS'" filter="{ 'latitude': 'text'}" filter="{ 'longitude': 'text'}">

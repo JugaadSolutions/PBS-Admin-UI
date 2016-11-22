@@ -55,7 +55,7 @@
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': BicycleForm.bicycleNumber.$touched && BicycleForm.bicycleNumber.$invalid }">
-                                            <input type="text" name="bicycleNumber" ng-model="bicycle.bicycleNumber"
+                                            <input type="text" name="bicycleNumber" ng-model="bicycle.vehicleNumber"
                                                    disabled
                                                    class="form-control"
                                                    placeholder="eg. B101" required>
@@ -71,7 +71,7 @@
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': BicycleForm.cycleRFID.$touched && BicycleForm.cycleRFID.$invalid }">
-                                            <input type="text" name="cycleRFID" ng-model="bicycle.cycleRFID"
+                                            <input type="text" name="cycleRFID" ng-model="bicycle.vehicleRFID"
                                                    class="form-control"
                                                    minlength="16"
                                                    maxlength="16"

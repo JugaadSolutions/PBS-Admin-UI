@@ -23,16 +23,16 @@
                         <td>
                             <img ng-src="{{bicycle.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>
-                        <td data-title="'Bicycle Number'" filter="{ bicycleNumber: 'text'}">
+                        <td data-title="'Bicycle Number'" filter="{ vehicleNumber: 'text'}">
                             <a ui-sref="admin.bicycles.edit({id: bicycle._id})">{{bicycle.vehicleNumber}}</a>
                         </td>
-                        <td data-title="'RFID'" filter="{ cycleRFID: 'text'}">
+                        <td data-title="'RFID'" filter="{ vehicleRFID: 'text'}">
                             {{bicycle.vehicleRFID}}
                         </td>
-                        <td data-title="'With'" filter="{ currentLocationName: 'text'}">
-                            {{bicycle.currentAssociationType}}
+                        <td data-title="'With'" filter="{ currentAssociationType: 'text'}">
+                            {{bicycle.currentAssociationType.toUpperCase()}}
                         </td>
-                        <td data-title="'Name'" filter="{ location: 'text'}">
+                        <td data-title="'Name'" filter="{ currentAssociationName: 'text'}">
                             {{bicycle.currentAssociationName}}
                         </td>
                         <td class="text-center">

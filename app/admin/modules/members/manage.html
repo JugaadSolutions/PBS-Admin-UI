@@ -22,10 +22,10 @@
                         <td>
                             <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>
-                        <td data-title="'Full Name'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
+                        <td data-title="'Full Name'" filter="{ Name: 'text'}" filter="{ lastName: 'text'}">
                             <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
                         </td>
-                        <td data-title="'Email'" filter="{ emailAddress: 'text'}">
+                        <td data-title="'Email'" filter="{ email: 'text'}">
                             {{member.email}}
                         </td>
                         <td data-title="'Phone'" filter="{ phoneNumber: 'text'}">

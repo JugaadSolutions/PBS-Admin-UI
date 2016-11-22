@@ -1502,6 +1502,7 @@
                     if (!response.error) {
                         $scope.farePlans = response.data;
                         $scope.farePlans.forEach(function (farePlan) {
+                            $scope.selectPlan = farePlan.planName;
                             if (farePlan.planName === farePlanName) {
                                 $scope.selectPlan = farePlan._id;
                             }
@@ -2779,12 +2780,13 @@
                 } else {
                     $scope.profilePicUrl = AWS + 'Bicycle/' + response.data.picture + '.png';
                 }
-                if ($scope.bicycle.purchaseDetails) {
+                /*if ($scope.bicycle.purchaseDetails) {
                     $scope.bicycle.purchaseDetails.manufacturingDate = new Date($scope.bicycle.purchaseDetails.manufacturingDate);
                     $scope.bicycle.purchaseDetails.invoiceDate = new Date($scope.bicycle.purchaseDetails.invoiceDate);
                     $scope.bicycle.purchaseDetails.receivedAt = new Date($scope.bicycle.purchaseDetails.receivedAt);
-                }
-            } else {
+                }*/
+            }
+            else {
                 growl.error(response.message);
             }
         }, function (response) {
@@ -4352,7 +4354,7 @@
 
                     $scope.daywiseTable = new NgTableParams(
                         {
-                            count: 6
+                            count: 10
                         },
                         {
                             getData: function ($defer, params) {
@@ -4445,7 +4447,7 @@
 
                     $scope.totalCashTable = new NgTableParams(
                         {
-                            count: 6
+                            count: 10
                         },
                         {
                             getData: function ($defer, params) {
@@ -5217,19 +5219,20 @@
                         requests.status = StatusService.getDockingStationStatus(requests.stationStatus);
                     });
                     var lastModifiedAt = new Date(response.data.lastModifiedAt);
-                   // $scope.stations.lastModifiedAt = lastModifiedAt.getDate() + '-' + lastModifiedAt.getMonth() + '-' + lastModifiedAt.getFullYear();
-                   /* $scope.stations.forEach(function (station) {
-                        station.dockingStationDetails.forEach(function (dockingStationDetail) {
-                            if (dockingStationDetail.stationStatus == 0) {
-                                dockingStationDetail.tooltipMessage = dockingStationDetail.cycleRFID;
+                    $scope.stations.lastModifiedAt = lastModifiedAt.getDate() + '-' + lastModifiedAt.getMonth() + '-' + lastModifiedAt.getFullYear();
+                    $scope.stations.forEach(function (station) {
+                        station.portIds.forEach(function (dockingStationDetail) {
+                            if (dockingStationDetail.dockingPortId.portStatus == 0) {
+                             /*   dockingStationDetail.tooltipMessage = dockingStationDetail.cycleRFID;*/
                             }
 
                             if (dockingStationDetail.portStatus == 1) {
                                 dockingStationDetail.tooltipMessage = "Empty Port";
                             }
 
-                            if (dockingStationDetail.stationStatus == 2) {
+                            if (dockingStationDetail.dockingPortId.portStatus== 2) {
                                 dockingStationDetail.tooltipMessage = "Bicycle Locked";
+                                dockingStationDetail.dockingPortId.ePortNumber = 2;
                             }
 
                             if (dockingStationDetail.portStatus == 3) {
@@ -5239,8 +5242,8 @@
                             if (dockingStationDetail.portStatus == 4) {
                                 dockingStationDetail.tooltipMessage = "Non Operational";
                             }
-                        })
-                    });*/
+                       })
+                    });
                     $scope.dockingStationsTable.reload();
                 }
             } else {
