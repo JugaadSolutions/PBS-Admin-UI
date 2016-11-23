@@ -3850,6 +3850,12 @@
         };
     }]);
 
+    /*check in check out - bridge*/
+    app.controller('CheckInCheckOutBridge', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+
+    }]);
+
 
     //kpi
     app.controller('ManageKPI', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
@@ -5208,6 +5214,8 @@
 
         $scope.stations = [];
 
+        $scope.test1 =[];
+
         $scope.dockingStationDetails =[];
 
         DataService.getBicycleAvailability().then(function (response) {
@@ -5215,33 +5223,37 @@
                // if (response.data.requests) {
                 if (!response.error) {
                     $scope.stations = response.data;
+                   /* $scope.test1= $filter('orderBy')($scope.stations.portIds,'dockingPortId.FPGA');*/
                     $scope.stations.forEach(function (requests) {
                         requests.status = StatusService.getDockingStationStatus(requests.stationStatus);
                     });
                     var lastModifiedAt = new Date(response.data.lastModifiedAt);
                     $scope.stations.lastModifiedAt = lastModifiedAt.getDate() + '-' + lastModifiedAt.getMonth() + '-' + lastModifiedAt.getFullYear();
                     $scope.stations.forEach(function (station) {
-                        station.portIds.forEach(function (dockingStationDetail) {
-                            if (dockingStationDetail.dockingPortId.portStatus == 0) {
-                             /*   dockingStationDetail.tooltipMessage = dockingStationDetail.cycleRFID;*/
+                        station.portIds.forEach(function (dockingPortId) {
+                            /*if (dockingPortId.dockingPortId.portStatus == 0) {
+                                dockingPortId.tooltipMessage = dockingPortId.vehicleRFID;
+                            }*/
+
+                            if (dockingPortId.dockingPortId.portStatus == 1) {
+                                dockingPortId.tooltipMessage = dockingPortId.vehicleRFID;
                             }
 
-                            if (dockingStationDetail.portStatus == 1) {
-                                dockingStationDetail.tooltipMessage = "Empty Port";
+                            if (dockingPortId.dockingPortId.portStatus== 2) {
+                                dockingPortId.tooltipMessage = "Empty";
                             }
 
-                            if (dockingStationDetail.dockingPortId.portStatus== 2) {
-                                dockingStationDetail.tooltipMessage = "Bicycle Locked";
-                                dockingStationDetail.dockingPortId.ePortNumber = 2;
+                           /* if(dockingPortId.dockingPortId.FPGA == 3 || dockingPortId.dockingPortId.FPGA == 4)
+                            {
+                                dockingPortId.tooltipMessage = "FPGA";
+                            }*/
+                           /* if (dockingPortId.dockingPortId.portStatus == 3) {
+                                dockingPortId.tooltipMessage = "Port Locked";
                             }
 
-                            if (dockingStationDetail.portStatus == 3) {
-                                dockingStationDetail.tooltipMessage = "Port Locked";
-                            }
-
-                            if (dockingStationDetail.portStatus == 4) {
-                                dockingStationDetail.tooltipMessage = "Non Operational";
-                            }
+                            if (dockingPortId.dockingPortId.portStatus == 4) {
+                                dockingPortId.tooltipMessage = "Non Operational";
+                            }*/
                        })
                     });
                     $scope.dockingStationsTable.reload();
@@ -5250,7 +5262,7 @@
                 growl.error(response.message);
             }
         }, function (response) {
-/*            growl.error(response.data.description);*/
+         /*growl.error(response.data.description);*/
         });
 
         $scope.dockingStationsTable = new NgTableParams(

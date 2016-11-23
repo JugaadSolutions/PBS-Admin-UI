@@ -410,6 +410,21 @@
                 containerClass: 'sw-toggled'
             })
 
+            /*check in check out - bridge*/
+            .state("admin.checkincheckout-bridge",{
+                url:"/checkincheckout-bridge",
+                templateUrl:adminViewPath + 'checkincheckout-bridge/manage.html',
+                containerClass:'sw-toggled'
+            })
+
+            .state("admin.checkincheckout-bridge.checkincheckout", {
+                url: "/checkincheckout",
+                templateUrl: adminViewPath + 'checkincheckout-bridge/checkincheckout.html',
+                controller: 'CheckInCheckOutBridge',
+                containerClass: 'sw-toggled'
+            })
+
+
             /*KPI*/
             .state("admin.kpi",{
                 url:"/kpi",

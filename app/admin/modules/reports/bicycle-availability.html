@@ -72,9 +72,15 @@
                             </td>
                             <td data-title="'Port Status'">
                                 <div>
+                                     <!--<span uib-tooltip="{{ports.tooltipMessage}}"
+                                           ng-class="{'led bgm-red': ports.dockingPortId.FPGA == 3,'led bgm-yellow': ports.dockingPortId.FPGA == 4}"
+                                           ng-repeat="ports in requests.portIds | orderBy:'dockingPortId.ePortNumber' | orderBy:'dockingPortId.FPGA'">{{ports.dockingPortId.FPGA}}
+                                    </span>-->
+
                                     <span uib-tooltip="{{ports.tooltipMessage}}"
-                                          ng-class="{'led bgm-green': ports.portStatus == 0, 'led bgm-blue': ports.portStatus == 1, 'led bgm-red': ports.portStatus == 4, 'led bgm-orange': ports.portStatus == 2, 'led bgm-yellow': ports.portStatus == 3}"
-                                          ng-repeat="ports in requests.dockingStationDetails.dockingPortId.ePortNumber">{{ports.ePortNumber}}</span>
+                                          ng-class="{'led bgm-green': ports.dockingPortId.portStatus == 1, 'led bgm-blue': ports.dockingPortId.portStatus == 2}"
+                                          ng-repeat="ports in requests.portIds | orderBy:'dockingPortId.ePortNumber' | orderBy:'dockingPortId.FPGA'">{{ports.dockingPortId.ePortNumber}}
+                                    </span>
                                 </div>
                             </td>
                         </tr>
