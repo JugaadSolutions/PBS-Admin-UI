@@ -580,6 +580,13 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.reports.port-status",{
+                url:"/port-status",
+                templateUrl: adminViewPath + 'reports/port-status.html',
+                controller:'PortStatus',
+                containerClass:'sw-toggled'
+            })
+
             .state("admin.reports.bicycle-life-cycle", {
                 url: "/bicycle-life-cycle",
                 templateUrl: adminViewPath + 'reports/bicycle-life-cycle.html',

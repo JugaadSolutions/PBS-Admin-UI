@@ -750,6 +750,36 @@
                 return deferred.promise;
             },
 
+            saveCheckOutBridge:function(data)
+            {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.checkOutBridge.save, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            saveCheckInBridge:function(data)
+            {
+                var deferred = $q.defer();
+                var _toPort = data.fromPort;
+                var CheckIn = {
+                    cardId:data.cardId,
+                    vehicleId:data.vehicleId,
+                    toPort:data.fromPort,
+                    checkInTime : new Date()
+                };
+                $http.post(APINew + APIEndPoint.checkInBridge.save, CheckIn).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+
             getMaintenanceCentre: function (data) {
                 var deferred = $q.defer();
                 $http.get(API + APIEndPoint.maintenanceCentre.get + '/' + data).then(function (result) {

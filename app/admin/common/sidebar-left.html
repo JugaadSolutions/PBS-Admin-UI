@@ -77,7 +77,7 @@
         </li>
         <li class="sub-menu"
             ng-class="{'active toggled': $state.includes('admin.reports')}">
-            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-chart"></i> Reports</a>
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-chart"></i>Live Data</a>
             <ul>
                 <li><a ng-class="{'active': $state.includes('admin.reports.monitor-transactions')}"
                        ui-sref="admin.reports.monitor-transactions">Bicycle Transactions</a>
@@ -85,6 +85,10 @@
                 <li>
                     <a ng-class="{'active': $state.includes('admin.reports.bicycle-availability') || $state.includes('admin.reports.port-information')}"
                        ui-sref="admin.reports.bicycle-availability">Bicycle Availability</a>
+                </li>
+                <li>
+                    <a ng-class="{'active': $state.includes('admin.reports.port-status')}"
+                       ui-sref="admin.reports.port-status">Port Status</a>
                 </li>
                 <li>
                     <a ng-class="{'active': $state.includes('admin.reports.bicycle-life-cycle')}"

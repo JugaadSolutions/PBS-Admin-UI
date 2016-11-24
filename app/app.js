@@ -171,6 +171,14 @@
             save:'transactions/checkin/app'
         },
 
+        checkOutBridge:{
+            save:'transactions/checkout/bridge'
+        },
+
+        checkInBridge:{
+            save:'transactions/checkin/bridge'
+        },
+
         registrationDetails:{
             getAll: 'registrationdetails'
         },

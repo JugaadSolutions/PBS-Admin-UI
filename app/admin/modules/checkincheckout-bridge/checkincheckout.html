@@ -31,7 +31,7 @@
     </div>
 
     <div class="pm-body clearfix">
-        <form class="pmbb-edit" name="checkIncheckOut">
+        <form class="pmbb-edit" name="checkIncheckOutBridge">
             <div class="pmb-block">
                 <div class="pmbb-header m-t-15">
                     <h2><i class="zmdi zmdi-local-store m-r-10"></i>Bridge Test</h2>
@@ -39,17 +39,17 @@
 
                 <div class="pmbb-body p-l-30">
                     <dl class="dl-horizontal required">
-                        <dt class="p-t-10">Card Number</dt>
+                        <dt class="p-t-10">User ID</dt>
                         <dd>
                             <div class="fg-line"
-                                 ng-class="{ 'has-error': checkIncheckOut.CardNo.$touched && checkIncheckOut.CardNo.$invalid }">
-                              <!--  <select chosen class="form-control"
+                                 ng-class="{ 'has-error': checkIncheckOutBridge.CardNo.$touched && checkIncheckOutBridge.CardNo.$invalid }">
+                                <select chosen class="form-control"
                                         data-placeholder-text-single="'SELECT THE OPTIONS'"
-                                        ng-options="member as member.cardNum for member in members"
-                                        ng-model="checkMember"
-                                        ng-change="selectedMembers(checkMember)" name="CardNo"  required>
+                                        ng-options="member as member.UserID for member in members"
+                                        ng-model="userId"
+                                        ng-change="selectedUserID(userId)" name="CardNo"  required>
                                     <option value="0">SELECT THE OPTIONS</option>
-                                </select>-->
+                                </select>
                             </div>
                         </dd>
                     </dl>
@@ -58,14 +58,14 @@
                         <dt class="p-t-10">Bicycle Number</dt>
                         <dd>
                             <div class="fg-line"
-                                 ng-class="{ 'has-error': checkIncheckOut.CardNo.$touched && checkIncheckOut.CardNo.$invalid }">
-                               <!-- <select chosen class="form-control"
+                                 ng-class="{ 'has-error': checkIncheckOutBridge.BicycleNo.$touched && checkIncheckOutBridge.BicycleNo.$invalid }">
+                                <select chosen class="form-control"
                                         data-placeholder-text-single="'SELECT THE OPTIONS'"
-                                        ng-options="bicycleNum as bicycleNum.vehicleNumber for bicycleNum in bicycleNums"
+                                        ng-options="bicycleNum as bicycleNum.vehicleUid for bicycleNum in bicycleNums"
                                         ng-model="bicycleNo"
-                                        ng-change="selectedBicycleNumber(bicycleNo)" required>
+                                        ng-change="selectedBicycle(bicycleNo)" name="BicycleNo"  required>
                                     <option value="0">SELECT THE OPTIONS</option>
-                                </select>-->
+                                </select>
                             </div>
                         </dd>
                     </dl>
@@ -74,13 +74,13 @@
                         <dt class="p-t-10">Docking Stations</dt>
                         <dd>
                             <div class="fg-line">
-                              <!--  <select chosen class="form-control"
+                                <select chosen class="form-control"
                                         data-placeholder-text-single="'SELECT THE OPTIONS'"
                                         ng-options="dockingStationSelection as dockingStationSelection.name for dockingStationSelection in dockingStationSelections"
                                         ng-model="dockingStationName"
                                         ng-change="selectedDockingStation(dockingStationName)" required>
                                     <option value="0">SELECT THE OPTIONS</option>
-                                </select>-->
+                                </select>
                             </div>
                         </dd>
                     </dl>
@@ -91,7 +91,7 @@
                             <div class="fg-line">
                                 <select chosen class="form-control"
                                         data-placeholder-text-single="'SELECT THE OPTIONS'"
-                                        ng-options="portSelection as portSelection.Name for portSelection in portSelections"
+                                        ng-options="portSelection as portSelection.PortID for portSelection in portSelections"
                                         ng-model="portsName"
                                         ng-change="selectedPort(portsName)" required>
                                     <option value="0">SELECT THE OPTIONS</option>
@@ -101,12 +101,12 @@
                     </dl>
 
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="addCheckInCheckOut();" ng-disabled="checkIncheckOut.$invalid" >
+                            ng-click="addCheckInCheckOutBridge();" ng-disabled="checkIncheckOutBridge.$invalid" >
                         <i class="zmdi zmdi-save"></i> Check Out
                     </button>
 
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="addCheckIn();" ng-disabled="checkIncheckOut.$invalid">
+                            ng-click="addCheckInBridge();" ng-disabled="checkIncheckOutBridge.$invalid">
                         <i class="zmdi zmdi-save"></i> Check In
                     </button>
                 </div>

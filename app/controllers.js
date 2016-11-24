@@ -3793,8 +3793,6 @@
                 }
                 $scope.portSelections.push(portInfo);
             }
-
-
         };
 
         $scope.selectedPort = function (data) {
@@ -3853,6 +3851,123 @@
     /*check in check out - bridge*/
     app.controller('CheckInCheckOutBridge', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
+        $scope.checkInOutBridge = {
+            vehicleId:'',
+            cardId:'',
+            fromPort:'',
+            checkOutTime : new Date()
+        };
+
+        $scope.members =[];
+
+        DataService.getMembers().then(function (response) {
+                if (!response.error) {
+                    $scope.members = response.data;
+                }
+                else {
+                    growl.error(response.message);
+                }
+            },
+            function (response)
+            {
+                growl.error(response.data);
+            });
+
+        $scope.selectedUserID = function (data) {
+            $scope.checkInOutBridge.cardId=data.UserID;
+        };
+
+        $scope.bicycleNums=[];
+
+        DataService.getBicycles().then(function (response) {
+                if (!response.error) {
+                    $scope.bicycleNums = response.data;
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
+
+        $scope.selectedBicycle = function (data) {
+            $scope.checkInOutBridge.vehicleId=data.vehicleUid;
+        };
+
+        $scope.dockingStationSelections = [];
+
+        DataService.getDockingStations().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.dockingStationSelections = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.portSelections =[];
+
+        $scope.selectedDockingStation = function (data)
+        {
+            for(var i = 0; i < data.portIds.length ; i++)
+            {
+                var portInfo = {
+                    PortID:data.portIds[i].dockingPortId.PortID
+                  /*  _id:data.portIds[i].dockingPortId._id*/
+                }
+                $scope.portSelections.push(portInfo);
+            }
+        };
+
+        $scope.selectedPort = function (data) {
+            $scope.checkInOutBridge.fromPort = data.PortID;
+        };
+
+        $scope.addCheckInCheckOutBridge = function ()
+        {
+            DataService.saveCheckOutBridge($scope.checkInOutBridge).then(function (response) {
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                    $scope.userId=$scope.members[0].value;
+                    $scope.bicycleNo=$scope.bicycleNums[0].value;
+                    $scope.dockingStationName=$scope.dockingStationSelections[0].value;
+                    $scope.portsName=$scope.portSelections[0].value;
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.addCheckInBridge = function ()
+        {
+            DataService.saveCheckInBridge($scope.checkInOutBridge).then(function (response)
+            {
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                    $scope.userId=$scope.members[0].value;
+                    $scope.bicycleNo=$scope.bicycleNums[0].value;
+                    $scope.dockingStationName=$scope.dockingStationSelections[0].value;
+                    $scope.portsName=$scope.portSelections[0].value;
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
 
     }]);
 
@@ -5166,7 +5281,7 @@
             center: {
                 latitude: 12.3024314,
                 longitude: 76.6615633
-            }, zoom: 12
+            }, zoom: 13
         };
 
         $scope.options = {scrollwheel: false};
@@ -5277,6 +5392,156 @@
             }
         );
 
+    }]);
+
+    app.controller('PortStatus', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal) {
+        var multiDockingStations = [];
+
+        $scope.view = 0;
+        $scope.dockingStationsData = [];
+
+        DataService.getDockingStations().then(function (response) {
+            if (!response.error) {
+                $scope.dockingStationsData = response.data;
+                $scope.dockingStations = response.data;
+                for (var i = 0; i < $scope.dockingStations.length; i++) {
+                    var longAndLat = {
+                        longitude: $scope.dockingStations[i].gpsCoordinates.longitude,
+                        latitude: $scope.dockingStations[i].gpsCoordinates.latitude,
+                        mapUrl: GOOGLEMAPURL,
+                        show: false,
+                        title: $scope.dockingStations[i].name,
+                        bicycleCount: $scope.dockingStations[i].bicycleCount,
+                        bicycleCapacity: $scope.dockingStations[i].bicycleCapacity,
+                        dockingStationStatus: StatusService.getDockingStationStatus($scope.dockingStations[i].status),
+                        id: i
+                    };
+                    multiDockingStations.push(longAndLat);
+                }
+
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description);
+        });
+
+        $scope.map = {
+            center: {
+                latitude: 12.3024314,
+                longitude: 76.6615633
+            }, zoom: 12
+        };
+
+        $scope.options = {scrollwheel: false};
+        $scope.markers = multiDockingStations;
+
+        $scope.windowOptions = {
+            visible: false
+        };
+
+        $scope.onClick = function (marker, eventName, model) {
+            model.show = !model.show;
+        };
+
+        $scope.closeClick = function () {
+            $scope.windowOptions.visible = false;
+        };
+
+        $scope.swapView = function (viewType) {
+            $scope.view = viewType;
+        };
+
+        $scope.initiateSync = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'Initiating a sync is a performance-intensive operation. Use this sparingly!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, initiate sync!',
+                closeOnConfirm: true
+            }, function () {
+                var data = {
+                    employeeId: loggedInUser.assignedUser
+                };
+                DataService.initiateSync(data).then(function (response) {
+                    if (!response.error) {
+                        growl.success(response.message);
+                    } else {
+                        growl.error(response.message);
+                    }
+                }, function (response) {
+                    growl.error(response.data.description);
+                });
+            });
+        };
+
+        $scope.stations = [];
+
+        $scope.test1 =[];
+
+        $scope.dockingStationDetails =[];
+
+        DataService.getBicycleAvailability().then(function (response) {
+            if (!response.error) {
+                // if (response.data.requests) {
+                if (!response.error) {
+                    $scope.stations = response.data;
+                    /* $scope.test1= $filter('orderBy')($scope.stations.portIds,'dockingPortId.FPGA');*/
+                    $scope.stations.forEach(function (requests) {
+                        requests.status = StatusService.getDockingStationStatus(requests.stationStatus);
+                    });
+                    var lastModifiedAt = new Date(response.data.lastModifiedAt);
+                    $scope.stations.lastModifiedAt = lastModifiedAt.getDate() + '-' + lastModifiedAt.getMonth() + '-' + lastModifiedAt.getFullYear();
+                    $scope.stations.forEach(function (station) {
+                        station.portIds.forEach(function (dockingPortId) {
+                            /*if (dockingPortId.dockingPortId.portStatus == 0) {
+                             dockingPortId.tooltipMessage = dockingPortId.vehicleRFID;
+                             }*/
+                            if (dockingPortId.dockingPortId.portStatus == 1) {
+                                var _data= { };
+                                _data=dockingPortId.dockingPortId.vehicleId;
+
+                                dockingPortId.tooltipMessage = _data[0].vehicleid.vehicleNumber;
+                            }
+
+                            if (dockingPortId.dockingPortId.portStatus== 2) {
+                                dockingPortId.tooltipMessage = "Empty";
+                            }
+
+                            /* if(dockingPortId.dockingPortId.FPGA == 3 || dockingPortId.dockingPortId.FPGA == 4)
+                             {
+                             dockingPortId.tooltipMessage = "FPGA";
+                             }*/
+                            /* if (dockingPortId.dockingPortId.portStatus == 3) {
+                             dockingPortId.tooltipMessage = "Port Locked";
+                             }
+
+                             if (dockingPortId.dockingPortId.portStatus == 4) {
+                             dockingPortId.tooltipMessage = "Non Operational";
+                             }*/
+                        })
+                    });
+                    $scope.dockingStationsTable.reload();
+                }
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            /*growl.error(response.data.description);*/
+        });
+
+        $scope.dockingStationsTable = new NgTableParams(
+            {
+                count: 50
+            },
+            {
+                getData: function ($defer, params) {
+                    params.total($scope.stations.length);
+                    $defer.resolve($scope.stations.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
     }]);
 
     app.controller('BicycleLifeCycle', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal) {
