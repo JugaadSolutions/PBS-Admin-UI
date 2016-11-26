@@ -332,7 +332,7 @@
     }]);
 
     // Edit Member Controller
-    app.controller('EditMember', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModal', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModal, NgTableParams) {
+    app.controller('EditMember', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModal','$filter', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModal, $filter, NgTableParams) {
         $scope.member = {
             countryCode: '91',
             emergencyContact: {countryCode: '91'}
@@ -658,14 +658,15 @@
 
         $scope.paymentsData = [];
 
-        var filtersPayments = {
+        /*var filtersPayments = {
             filter: {
-                where: {'member': $stateParams.id},
+               /!* where: {'member': $stateParams.id},*!/
+                where: {'memberId': $stateParams.id},
                 order: {'createdAt': -1}
             }
-        };
+        };*/
 
-        DataService.getMemberPaymentTransaction(filtersPayments).then(function (response) {
+        DataService.getMemberPaymentTransaction1($stateParams.id).then(function (response) {
             if (!response.error) {
                 $scope.paymentsData = response.data;
                 $scope.transactionCount = response.data.length;
@@ -3719,11 +3720,16 @@
     {
         var datetime = new Date();
 
+       /* var myDate=new Date(datetime).toLocaleString();*/
+
+        var myDate= new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+        var Mydate = myDate.toString();
+
         $scope.checkInOut = {
             vehicleId:'',
             cardId:'',
             fromPort:'',
-            checkOutTime : new Date()
+            checkOutTime : Mydate
         };
 
         $scope.members =[];
@@ -3855,7 +3861,7 @@
             vehicleId:'',
             cardId:'',
             fromPort:'',
-            checkOutTime : new Date()
+            checkOutTime : $filter('datetime')(new Date(),'HH:mm:ss:SSS')
         };
 
         $scope.members =[];

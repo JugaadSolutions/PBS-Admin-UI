@@ -884,7 +884,7 @@
             },
             getRidesAdmin: function (data) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.member.memberTransaction + '/' + data).then(function (result) {
+                $http.get(APINew + APIEndPoint.member.memberTransaction + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -902,6 +902,17 @@
                 });
                 return deferred.promise;
             },
+
+            getMemberPaymentTransaction1: function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.member.memberIndividualPaymentTransation + '/' + data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             saveMemberTransaction: function (data) {
                 var deferred = $q.defer();
                 $http.post(API + APIEndPoint.reports.transactions.checkOut, data).then(function (result) {

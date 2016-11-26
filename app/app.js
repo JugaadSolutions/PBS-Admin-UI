@@ -49,8 +49,11 @@
             membershipForMember: 'assignmembership',
             smartCardForMember: 'assigncard',
             delete: 'member',
-            memberPaymentTransaction: 'paymenttransaction',
-            memberTransaction: 'membertransaction/member'
+           /* memberPaymentTransaction: 'paymenttransaction',*/
+         /*   memberPaymentTransaction: 'paymenttransaction',*/
+            memberIndividualPaymentTransation:'paymenttransaction/member',
+           /* memberTransaction: 'membertransaction/member'*/
+            memberTransaction: 'transactions/myrides/member'
         },
         employee: {
             getAll: 'employee',

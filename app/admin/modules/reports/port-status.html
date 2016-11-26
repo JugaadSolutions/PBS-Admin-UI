@@ -1,9 +1,17 @@
 <div class="container">
     <div class="card">
         <div class="card-header ch-alt ">
-            <h2>Port Status
+            <h2>Port Status </h2>
                 <small>Find out what bicycles are available</small>
-            </h2>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span
+                    ng-class="{'led bgm-green':'A'}">
+                </span>
+            <label>Available</label>
+            <span
+                    ng-class="{'led bgm-blue':'B'}">
+                </span>
+            <label>Empty</label>
            <!-- <ul class="actions">
                 <li>
                     <a href="javascript:void(0);" uib-tooltip="Docking Station View" tooltip-placement="left"
@@ -110,7 +118,6 @@
                     </table>
                 </div>
             </div>
-
         <!--    <div class="map-view" ng-if="view == 2">
                 <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
                     <ui-gmap-markers models="markers" coords="'self'" icon="'icon'">

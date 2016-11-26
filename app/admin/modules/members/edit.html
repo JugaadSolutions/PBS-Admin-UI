@@ -20,7 +20,7 @@
                 <i class="zmdi zmdi-card-membership"></i> Add Membership
             </button>
             <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
-                    ng-if="member.status == 1 && !member.smartCardNumber && member.membershipId && !member.cardChanged"
+                    ng-if="member.status == 1 && !member.smartCardNumber && member.membershipId && !member.cardChanged && !member.creditBalance <= 0"
                     ng-click="addSmartCard()">
                 <i class="zmdi zmdi-card-membership"></i> Add Smart Card
             </button>
@@ -90,6 +90,16 @@
                     </li>
                     <li><i class="zmdi zmdi-card-sim"></i><a ui-sref="admin.smart-cards.edit({id: member.smartCardId})"
                                                              class="text-muted">{{member.smartCardNumber}}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pmo-block pmo-contact hidden-xs">
+                <h2>Validity</h2>
+                <ul>
+                    <li><i class="zmdi zmdi-card-sim"></i>
+                        <a ui-sref=""
+                           class="text-muted">{{member.validity | date}}</a>
                     </li>
                 </ul>
             </div>
@@ -1242,11 +1252,10 @@
                                             <tbody>
                                             <tbody>
                                             <tr ng-repeat="rides in $data | limitTo : 5">
-                                                <td class="f-500 c-cyan ng-binding">{{rides.transactionDate |
-                                                    date:dd/MM/yy}}
+                                                <td class="f-500 c-cyan ng-binding">{{rides.checkOutTime | date : "dd MMM yy"}}
                                                 </td>
-                                                <td class="f-500 c-cyan ng-binding">{{rides.duration}} mins</td>
-                                                <td class="f-500 c-cyan ng-binding">&#8377; {{rides.creditsUsed}}</td>
+                                                <td class="f-500 c-cyan ng-binding">{{(rides.duration).toFixed(0)}} mins</td>
+                                                <td class="f-500 c-cyan ng-binding">&#8377; {{rides.fare}}</td>
                                             </tr>
                                             </tbody>
                                             </tbody>
@@ -1274,8 +1283,8 @@
                                             <tbody>
                                             <tr ng-repeat="payments in $data | limitTo : 5">
                                                 <td class="f-500 c-cyan ng-binding">{{payments.invoiceNo}}</td>
-                                                <td class="ng-binding">{{payments.paymentDate | date:dd/MM/yy}}</td>
-                                                <td class="f-500 c-cyan ng-binding">&#8377; {{payments.amount}}</td>
+                                                <td class="ng-binding">{{payments.createdAt |  date : "dd MMM yy"}}</td>
+                                                <td class="f-500 c-cyan ng-binding">&#8377; {{payments.credit}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
