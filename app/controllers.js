@@ -167,7 +167,7 @@
 
         $scope.membersTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
