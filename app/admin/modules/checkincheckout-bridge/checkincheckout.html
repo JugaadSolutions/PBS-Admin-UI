@@ -100,6 +100,37 @@
                         </dd>
                     </dl>
 
+                    <dl class="dl-horizontal required">
+                        <dt class="p-t-10">Date</dt>
+                        <dd>
+                            <div class="fg-line"
+                                 ng-class="{ 'has-error': checkIncheckOutBridge.BridgeDate.$touched && checkIncheckOutBridge.BridgeDate.$invalid }">
+                                <input type="text" name="BridgeDate" ng-model="checkInOutBridge.bridgeDate" ng-change="bridgeDate" ng-focus="BridgeDate=true" ng-click="BridgeDate=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="BridgeDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                <span class="help-block"
+                                      ng-messages="checkIncheckOutBridge.BridgeDate.$error"
+                                      ng-show="checkIncheckOutBridge.BridgeDate.$touched">
+                                                <small ng-message="required">Date is required</small>
+                                            </span>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl class="dl-horizontal required">
+                        <dt class="p-t-10">Time</dt>
+                        <dd>
+                            <div class="fg-line"
+                                 ng-class="{ 'has-error': checkIncheckOutBridge.BridgeTime.$touched && checkIncheckOutBridge.BridgeTime.$invalid }">
+                                <input type="text" name="BridgeTime" ng-model="checkInOutBridge.bridgeTime" class="form-control"
+                                       placeholder="eg. 10:15:59:123" required>
+                                <span class="help-block" ng-messages="checkIncheckOutBridge.BridgeTime.$error"
+                                      ng-show="checkIncheckOutBridge.BridgeTime.$touched">
+                                                <small ng-message="required">Time is required</small>
+                                            </span>
+                            </div>
+                        </dd>
+                    </dl>
+
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
                             ng-click="addCheckInCheckOutBridge();" ng-disabled="checkIncheckOutBridge.$invalid" >
                         <i class="zmdi zmdi-save"></i> Check Out

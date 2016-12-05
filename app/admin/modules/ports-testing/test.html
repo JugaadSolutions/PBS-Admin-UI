@@ -100,6 +100,37 @@
                         </dd>
                     </dl>
 
+                   <!-- <dl class="dl-horizontal required">
+                        <dt class="p-t-10">Date</dt>
+                        <dd>
+                            <div class="fg-line"
+                                 ng-class="{ 'has-error': checkIncheckOut.Date.$touched && checkIncheckOut.Date.$invalid }">
+                                <input type="text" name="Date" ng-model="checkInOut.checkIncheckOutDate" ng-change="checkIncheckOutDate" ng-focus="Date=true" ng-click="Date=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="Date" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                <span class="help-block"
+                                      ng-messages="checkIncheckOut.Date.$error"
+                                      ng-show="checkIncheckOut.Date.$touched">
+                                                <small ng-message="required">Date is required</small>
+                                            </span>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl class="dl-horizontal required">
+                        <dt class="p-t-10">Time</dt>
+                        <dd>
+                            <div class="fg-line"
+                                 ng-class="{ 'has-error': checkIncheckOut.Time.$touched && checkIncheckOut.Time.$invalid }">
+                                <input type="text" name="Time" ng-model="checkInOut.checkIncheckOutTime" class="form-control"
+                                       placeholder="eg. 09:00 am" required>
+                                <span class="help-block" ng-messages="checkIncheckOut.Time.$error"
+                                      ng-show="checkIncheckOut.Time.$touched">
+                                    <small ng-message="required">Time is required</small>
+                                </span>
+                            </div>
+                        </dd>
+                    </dl>-->
+
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
                             ng-click="addCheckInCheckOut();" ng-disabled="checkIncheckOut.$invalid" >
                         <i class="zmdi zmdi-save"></i> Check Out

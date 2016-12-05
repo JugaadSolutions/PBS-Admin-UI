@@ -1574,7 +1574,7 @@
 
         $scope.dockingStationsTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
@@ -2148,7 +2148,7 @@
 
         $scope.dockingPortsTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
@@ -2461,7 +2461,7 @@
 
         $scope.bicyclesTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
@@ -2867,7 +2867,7 @@
 
         $scope.redistributionVehiclesTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
@@ -3245,7 +3245,7 @@
 
         $scope.holdingAreasTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
@@ -3451,7 +3451,7 @@
 
         $scope.maintenanceCentresTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
@@ -3515,7 +3515,7 @@
 
         $scope.registrationCentresTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
@@ -3671,8 +3671,12 @@
     {
 
         $scope.ticketsDetails = {
-            type: '',
-            description:''
+            memberName:'',
+            ticketSubject:'',
+            ticketDescription:'',
+            priorityName:'',
+            departmentName:'',
+            type:''
         };
 
         $scope.cancelAddTickets = function () {
@@ -3699,6 +3703,22 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
+        };
+    }]);
+
+    app.controller('EditTickets', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
+
+        $scope.cancelUpdateTickets = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.tickets.manage');
+            });
         };
     }]);
 
@@ -3861,7 +3881,10 @@
             vehicleId:'',
             cardId:'',
             fromPort:'',
-            checkOutTime : $filter('datetime')(new Date(),'HH:mm:ss:SSS')
+            bridgeDate:'',
+            bridgeTime:'',
+           /* checkOutTime : $filter('datetime')(new Date(),'HH:mm:ss:SSS')*/
+             checkOutTime : new Date()
         };
 
         $scope.members =[];
@@ -4206,7 +4229,7 @@
 
         $scope.smartCardsTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
@@ -4364,7 +4387,7 @@
 
         $scope.transactionsTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
@@ -4594,12 +4617,10 @@
             })
         };
 
-
-
-
+        $scope.IsVisible = false;
         $scope.MyFunction = function ()
         {
-            alert("hi");
+            $scope.IsVisible = $scope.IsVisible ? false : true;
             window.print();
         };
 
@@ -4647,7 +4668,7 @@
 
         $scope.bankCashDepositTable = new NgTableParams(
             {
-                count: 6
+                count: 10
             },
             {
                 getData: function ($defer, params) {
@@ -4745,7 +4766,7 @@
 
                     $scope.bankDepositsTable = new NgTableParams(
                         {
-                            count: 6
+                            count: 10
                         },
                         {
                             getData: function ($defer, params) {
@@ -5386,6 +5407,7 @@
          /*growl.error(response.data.description);*/
         });
 
+
         $scope.dockingStationsTable = new NgTableParams(
             {
                 count: 50
@@ -5536,7 +5558,9 @@
         }, function (response) {
             /*growl.error(response.data.description);*/
         });
-
+        $scope.loadPorts = function () {
+         $state.reload();
+         };
         $scope.dockingStationsTable = new NgTableParams(
             {
                 count: 50

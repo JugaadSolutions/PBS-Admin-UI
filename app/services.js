@@ -752,24 +752,88 @@
 
             saveCheckOutBridge:function(data)
             {
+                var currentDate = data.checkOutTime;
+                var enteredDate = data.bridgeDate;
+                var enterTime=data.bridgeTime;
+                var _Date= enteredDate.getDate();
+                if (_Date.toString().length === 1)
+                {
+                    _Date = 0 + "" + enteredDate.getDate();
+                }
+                else
+                {
+                    _Date= enteredDate.getDate();
+                }
+                var _Month = enteredDate.getMonth()+1;
+                if (_Month.toString().length === 1)
+                {
+                    _Month = 0 + "" + enteredDate.getMonth();
+                }
+                else
+                {
+                    _Month= enteredDate.getMonth();
+                }
+                var _Year=enteredDate.getFullYear();
+                var Date= _Year + "-" + _Month + "-" + _Date;
+                var _Hour = enteredDate.getHours(2);
+                var _Minutes= enteredDate.getMinutes(2);
+                var _Seconds=enteredDate.getSeconds(2);
+                var _Miliseconds=enteredDate.getMilliseconds();
+                var Time=_Hour + ":" + _Minutes + ":" + _Seconds + ":" + _Miliseconds;
+                var Date_Time = Date + "T" + enterTime + "Z";
                 var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.checkOutBridge.save, data).then(function (result) {
+
+                var checkOutBridge={
+                    vehicleId:data.vehicleId,
+                    cardId:data.cardId,
+                    fromPort:data.fromPort,
+                    checkOutTime:Date_Time
+                };
+               /* $http.post(APINew + APIEndPoint.checkOutBridge.save, checkOutBridge).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;
+                return deferred.promise;*/
             },
 
             saveCheckInBridge:function(data)
             {
+                var enteredDate = data.bridgeDate;
+                var enterTime=data.bridgeTime;
+                var _Date= enteredDate.getDate();
+                if (_Date.toString().length === 1)
+                {
+                    _Date = 0 + "" + enteredDate.getDate();
+                }
+                else
+                {
+                    _Date= enteredDate.getDate();
+                }
+                var _Month = enteredDate.getMonth()+1;
+                if (_Month.toString().length === 1)
+                {
+                    _Month = 0 + "" + enteredDate.getMonth();
+                }
+                else
+                {
+                    _Month= enteredDate.getMonth();
+                }
+                var _Year=enteredDate.getFullYear();
+                var Date= _Year + "-" + _Month + "-" + _Date;
+                var _Hour = enteredDate.getHours(2);
+                var _Minutes= enteredDate.getMinutes(2);
+                var _Seconds=enteredDate.getSeconds(2);
+                var _Miliseconds=enteredDate.getMilliseconds();
+                var Time=_Hour + ":" + _Minutes + ":" + _Seconds + ":" + _Miliseconds;
+                var Date_Time = Date + "T" + enterTime + "Z";
                 var deferred = $q.defer();
                 var _toPort = data.fromPort;
                 var CheckIn = {
                     cardId:data.cardId,
                     vehicleId:data.vehicleId,
                     toPort:data.fromPort,
-                    checkInTime : new Date()
+                    checkInTime : Date_Time
                 };
                 $http.post(APINew + APIEndPoint.checkInBridge.save, CheckIn).then(function (result) {
                     deferred.resolve(result.data);

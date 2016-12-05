@@ -11,7 +11,7 @@
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="addNewTicketDetails();" ng-disabled="AddRegistrationCentre.$invalid">
+                    ng-click="addNewTicketDetails();" ng-disabled="AddTicketsDetails.$invalid">
                 <i class="zmdi zmdi-save"></i> Save
             </button>
         </div>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="pm-body clearfix">
-            <form class="pmbb-edit" name="AddRegistrationCentre">
+            <form class="pmbb-edit" name="AddTicketsDetails">
                 <div class="pmb-block">
                     <div class="pmbb-header m-t-15">
                         <h2><i class="zmdi zmdi-local-store m-r-10"></i>Tickets Information</h2>
@@ -40,16 +40,35 @@
                     <div class="pmbb-body p-l-30">
 
                         <dl class="dl-horizontal required">
-                            <dt class="p-t-10">Type</dt>
+                            <dt class="p-t-10">Member Name</dt>
                             <dd>
-                                <div class="fg-line">
-                                    <select chosen class="form-control" ng-model="ticketsDetails.type"
-                                            data-placeholder-text-single="'Select Type'"
-                                            name="type">
-                                        <option value="Type1">Type1</option>
-                                        <option value="Type2">Type2</option>
-                                        <option value="Type3">Type3</option>
-                                    </select>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': AddTicketsDetails.MemberName.$touched && AddTicketsDetails.MemberName.$invalid }">
+                                    <input type="text" name="MemberName" ng-model="ticketsDetails.memberName"
+                                           class="form-control"
+                                           placeholder="eg. Ashok" required>
+                                    <span class="help-block"
+                                          ng-messages="AddTicketsDetails.MemberName.$error"
+                                          ng-show="AddTicketsDetails.MemberName.$touched">
+                                                <small ng-message="required">Member Name is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Ticket Subject</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': AddTicketsDetails.ticketSubject.$touched && AddTicketsDetails.ticketSubject.$invalid }">
+                                    <input type="text" name="ticketSubject" ng-model="ticketsDetails.ticketSubject"
+                                           class="form-control"
+                                           placeholder="eg. Bicycle problem" required>
+                                    <span class="help-block"
+                                          ng-messages="AddTicketsDetails.ticketSubject.$error"
+                                          ng-show="AddTicketsDetails.ticketSubject.$touched">
+                                                <small ng-message="required">Ticket Subject is required</small>
+                                            </span>
                                 </div>
                             </dd>
                         </dl>
@@ -59,7 +78,7 @@
                             <dd>
                                 <div class="fg-line"
                                      ng-class="{ 'has-error': AddTicketsDetails.ticketDescription.$touched && AddTicketsDetails.ticketDescription.$invalid }">
-                                    <input type="text" name="ticketDescription" ng-model="ticketsDetails.description"
+                                    <input type="text" name="ticketDescription" ng-model="ticketsDetails.ticketDescription"
                                            class="form-control"
                                            placeholder="eg. Reason for the issue" required>
                                     <span class="help-block"
@@ -71,8 +90,54 @@
                             </dd>
                         </dl>
 
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Priority</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control" ng-model="ticketsDetails.priorityName"
+                                            data-placeholder-text-single="'Select Type'"
+                                            name="priorityName">
+                                        <option value="0">SELECT THE OPTIONS</option>
+                                        <option value="Normal">Normal</option>
+                                        <option value="Urgent">Urgent</option>
+                                        <option value="Critical">Critical</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
 
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Department</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control" ng-model="ticketsDetails.departmentName"
+                                            data-placeholder-text-single="'Select Type'"
+                                            name="departmentName">
+                                        <option value="0">SELECT THE OPTIONS</option>
+                                        <option value="Maitenance">Maitenance</option>
+                                        <option value="Billing">Billing</option>
+                                        <option value="IT">IT</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
 
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Type</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control" ng-model="ticketsDetails.type"
+                                            data-placeholder-text-single="'Select Type'"
+                                            name="type">
+                                        <option value="0">SELECT THE OPTIONS</option>
+                                        <option value="Type1">Type1</option>
+                                        <option value="Type2">Type2</option>
+                                        <option value="Type3">Type3</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
                     </div>
                 </div>
             </form>

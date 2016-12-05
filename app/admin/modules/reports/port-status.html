@@ -3,7 +3,16 @@
         <div class="card-header ch-alt ">
             <h2>Port Status </h2>
                 <small>Find out what bicycles are available</small>
+
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <ul class="actions">
+                <li>
+                    <a href="javascript:void(0);" uib-tooltip="Refresh List" tooltip-placement="left"
+                       ng-click="loadPorts();">
+                        <i class="zmdi zmdi-refresh"></i>
+                    </a>
+                </li>
+            </ul>
             <span
                     ng-class="{'led bgm-green':'A'}">
                 </span>
@@ -12,6 +21,14 @@
                     ng-class="{'led bgm-blue':'B'}">
                 </span>
             <label>Empty</label>
+            <span
+                    ng-class="{'led bgm-orange':'C'}">
+                </span>
+            <label>Locked</label>
+            <span
+                    ng-class="{'led bgm-red':'D'}">
+                </span>
+            <label>Error</label>
            <!-- <ul class="actions">
                 <li>
                     <a href="javascript:void(0);" uib-tooltip="Docking Station View" tooltip-placement="left"

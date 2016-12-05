@@ -10,9 +10,10 @@
 
             <form class="pmbb-edit" name="TotalCashReport" novalidate>
 
-                <div ng-hide="test">
+                <div ng-if="IsVisible=true">
+                    <div class="card">
 
-                <dl class="dl-horizontal required">
+               <!-- <dl class="dl-horizontal required">
                     <dt class="p-t-10">From</dt>
                     <dd>
                         <div class="fg-line"
@@ -26,14 +27,10 @@
                                             </span>
                         </div>
                     </dd>
-                </dl>
+                </dl>-->
 
 
-                <br>
-                <!--<label>To</label>
-                <input type="text" name="joiningDate2" ng-model="toDateCashCollection"  ng-change="toDateCashCollection" ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
-                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >-->
-                <dl class="dl-horizontal required">
+                <!--<dl class="dl-horizontal required">
                     <dt class="p-t-10">To</dt>
                     <dd>
                         <div class="fg-line"
@@ -47,21 +44,103 @@
                                             </span>
                         </div>
                     </dd>
-                </dl>
+                </dl>-->
 
-                <br>
 
-                <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                    <!--<dl class="dl-horizontal required">-->
+                    <div class="card-body card-padding">
+                        <div class="row">
+                          <!--  <div class="col-sm-4">
+                                <div class="input-group fg-float">
+                                    <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+                                    <div class="fg-line"
+                                         ng-class="{ 'has-error': TotalCashReport.TotalCashFrom.$touched && TotalCashReport.TotalCashFrom.$invalid }" >
+                                        <input type="text" placeholder="From Date" name="TotalCashFrom" ng-model="totalCashInput.fromdate" ng-change="totalCashReportFrom" ng-focus="TotalCashFrom=true" ng-click="TotalCashFrom=true"
+                                               uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashFrom" show-button-bar="true" class="form-control" color="red" required >
+                                        <span class="help-block"
+                                              ng-messages="TotalCashReport.TotalCashFrom.$error"
+                                              ng-show="TotalCashReport.TotalCashFrom.$touched">
+                                                <small ng-message="required">From Date is required</small>
+                                            </span>
+                                       &lt;!&ndash; <input type="text" class="form-control">&ndash;&gt;
+                                      &lt;!&ndash;  <label class="fg-label">From Date</label>&ndash;&gt;
+                                    </div>
+                                </div>
+                            </div>-->
+
+                            <div class="col-sm-3 m-b-20">
+                                <div class="form-group fg-line"
+                                     ng-class="{ 'has-error': TotalCashReport.TotalCashFrom.$touched && TotalCashReport.TotalCashFrom.$invalid }" >
+                                    <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
+                                   <!-- <input type="text" class="form-control" data-input-mask="{mask: '00/00/0000'}" placeholder="eg: 23/05/2014">-->
+                                    <input type="text"  name="TotalCashFrom" ng-model="totalCashInput.fromdate" ng-change="totalCashReportFrom" ng-focus="TotalCashFrom=true" ng-click="TotalCashFrom=true"
+                                           uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashFrom" show-button-bar="true" class="form-control" color="red" required >
+                                    <span class="help-block"
+                                          ng-messages="TotalCashReport.TotalCashFrom.$error"
+                                          ng-show="TotalCashReport.TotalCashFrom.$touched">
+                                                <small ng-message="required">From Date is required</small>
+                                            </span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 m-b-20">
+                                <div class="form-group fg-line"
+                                     ng-class="{ 'has-error': TotalCashReport.TotalCashTo.$touched && TotalCashReport.TotalCashTo.$invalid }" >
+                                    <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
+                                    <!-- <input type="text" class="form-control" data-input-mask="{mask: '00/00/0000'}" placeholder="eg: 23/05/2014">-->
+                                    <input type="text" name="TotalCashTo" ng-model="totalCashInput.todate" ng-change="totalCashReportTo" ng-focus="TotalCashTo=true" ng-click="TotalCashTo=true"
+                                           uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashTo" show-button-bar="true" class="form-control" required >
+                                    <span class="help-block"
+                                          ng-messages="TotalCashReport.TotalCashTo.$error"
+                                          ng-show="TotalCashReport.TotalCashTo.$touched">
+                                                <small ng-message="required">To Date is required</small>
+                                            </span>
+                                </div>
+
+
+                            </div>
+                           <!-- <div class="col-sm-4">
+                                <div class="input-group fg-float">
+                                    <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+                                    <div class="fg-line"
+                                         ng-class="{ 'has-error': TotalCashReport.TotalCashTo.$touched && TotalCashReport.TotalCashTo.$invalid }">
+                                        <input type="text" name="TotalCashTo" ng-model="totalCashInput.todate" ng-change="totalCashReportTo" ng-focus="TotalCashTo=true" ng-click="TotalCashTo=true"
+                                               uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashTo" show-button-bar="true" class="form-control" required >
+                                        <span class="help-block"
+                                              ng-messages="TotalCashReport.TotalCashTo.$error"
+                                              ng-show="TotalCashReport.TotalCashTo.$touched">
+                                                <small ng-message="required">To Date is required</small>
+                                            </span>
+                                        <label class="fg-label">To Date</label>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <br>
+                            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                                    ng-click="sendTotalCashDetails()" ng-disabled="TotalCashReport.$invalid">
+                                <i class="zmdi zmdi-save"></i> Get Details
+                            </button>
+                            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                                    ng-click="MyFunction()" ng-disabled="TotalCashReport.$invalid" >
+                                <i class="zmdi zmdi-save"></i> Download
+                            </button>
+
+                        </div>
+                  <!--  </dl>-->
+
+
+               <!-- <button type="button" class="btn btn-icon-text btn-success waves-effect"
                         ng-click="sendTotalCashDetails()" ng-disabled="TotalCashReport.$invalid">
                     <i class="zmdi zmdi-save"></i> Get Details
                 </button>
                 <button type="button" class="btn btn-icon-text btn-success waves-effect"
                         ng-click="MyFunction()" ng-disabled="TotalCashReport.$invalid" >
                     <i class="zmdi zmdi-save"></i> Download
-                </button>
+                </button>-->
 
                 </div>
-
+                 </div>
+                    </div>
             </form>
         </div>
 
@@ -75,16 +154,16 @@
                         <!--  <td data-title="'Deposit Date'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
                               <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
                           </td>-->
-                        <td data-title="'Date'" filter="{ emailAddress: 'text'}">
+                        <td data-title="'Date'" filter="{ date: 'text'}">
                             {{cashTotals.date | date : "dd MMM yy"}}
                         </td>
-                        <td data-title="'POS Collection Amount'" filter="{ emailAddress: 'text'}">
+                        <td data-title="'POS Collection Amount'" filter="{ pos: 'text'}">
                             {{cashTotals.pos}}
                         </td>
-                        <td data-title="'PG Collection Amount'" filter="{ phoneNumber: 'text'}">
+                        <td data-title="'PG Collection Amount'" filter="{ gateway: 'text'}">
                             {{cashTotals.gateway}}
                         </td>
-                        <td data-title="'Cash Collection Amount'" filter="{ 'subscriptionType': 'text'}">
+                        <td data-title="'Cash Collection Amount'" filter="{ 'cash': 'text'}">
                             {{cashTotals.cash}}
                         </td>
                         <td data-title="'Total'" filter="{ 'subscriptionType': 'text'}">
@@ -94,10 +173,11 @@
                 </table>
             </div>
         </div>
+
+
+
     </div>
-
-
-
 </div>
+<button  class="btn btn-float bgm-red m-btn" print><i class="zmdi zmdi-print"></i></button>
 
 

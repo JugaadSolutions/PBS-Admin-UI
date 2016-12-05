@@ -21387,3 +21387,26 @@ dl.required dt:after {
     display: inline-block;
     border-radius: 50%;
 }
+
+/*added newly*/
+
+@media print {
+    @page {
+        margin: 0;
+        size: auto;
+    }
+
+    body {
+        margin: 0mm 0mm 0mm 0mm !important;
+        padding: 0mm !important;
+    }
+
+    #header,
+    #footer,
+    #sidebar,
+    #chat,
+    .growl-animated,
+    .m-btn {
+        display: none !important;
+    }
+}

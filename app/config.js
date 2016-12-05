@@ -396,6 +396,13 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.tickets.adminedit", {
+                url: "/adminedit",
+                templateUrl: adminViewPath + 'tickets/adminedit.html',
+                controller: 'EditTickets',
+                containerClass: 'sw-toggled'
+            })
+
             /*Ports test*/
             .state("admin.ports-testing",{
                 url:"/ports-testing",
