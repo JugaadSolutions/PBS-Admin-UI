@@ -481,6 +481,7 @@
                 containerClass: 'sw-toggled'
             })
 
+
             /*bank*/
             .state("admin.accounts.bankcashdeposits", {
                 url: "/accounts/bankcashdeposits",
@@ -510,7 +511,12 @@
             })
 
 
-
+            .state("admin.accounts.bankcashdeposits.totalcash-report-print", {
+                url: "/totalcash-report-print",
+                templateUrl: adminViewPath + 'accounts/bankcashdeposits/totalcash-report-print.html',
+                controller: 'totalCashReportPrint',
+                containerClass: 'sw-toggled'
+            })
 
             /*Registration details*/
             .state("admin.registration-details", {

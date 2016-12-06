@@ -676,6 +676,17 @@
                 return deferred.promise;
             },
 
+         /*   /!*Total Cash Details Print*!/
+            SendTotalCashCollectionDetailsPrint:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.totalCashCollection.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },*/
+
             SendBankCashDepositDetails:function (data) {
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.bankCashDepositReport.getAll,data).then(function (result) {

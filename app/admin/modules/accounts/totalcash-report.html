@@ -1,5 +1,14 @@
+
 <div class="container">
     <div class="card">
+
+       <!-- <div class="card-header ch-alt text-center">
+            &lt;!&ndash; <img class="i-logo" src="img/demo/invoice-logo.png" alt="">&ndash;&gt;
+            <h3>Green Wheel Ride</h3>
+            <h2>Mysuru</h2>
+        </div>
+        <br>-->
+
         <div class="card-header ch-alt m-b-20">
             <h2>Total Cash Report
                 <small>Cash Details</small>
@@ -8,11 +17,7 @@
             <input type="text" name="joiningDate1" ng-model="fromDateCashCollection" ng-change="fromDateCashCollection" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
                    uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >-->
 
-            <form class="pmbb-edit" name="TotalCashReport" novalidate>
-
-                <div ng-if="IsVisible=true">
-                    <div class="card">
-
+            <form class="pmbb-edit" name="TotalCashReport"  novalidate>
                <!-- <dl class="dl-horizontal required">
                     <dt class="p-t-10">From</dt>
                     <dd>
@@ -121,14 +126,12 @@
                                 <i class="zmdi zmdi-save"></i> Get Details
                             </button>
                             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                                    ng-click="MyFunction()" ng-disabled="TotalCashReport.$invalid" >
-                                <i class="zmdi zmdi-save"></i> Download
+                                    ng-disabled="TotalCashReport.$invalid" >
+                                <i class="zmdi zmdi-print"> <a ui-sref="admin.accounts.bankcashdeposits.totalcash-report-print">Report</a></i>
                             </button>
 
                         </div>
                   <!--  </dl>-->
-
-
                <!-- <button type="button" class="btn btn-icon-text btn-success waves-effect"
                         ng-click="sendTotalCashDetails()" ng-disabled="TotalCashReport.$invalid">
                     <i class="zmdi zmdi-save"></i> Get Details
@@ -139,8 +142,6 @@
                 </button>-->
 
                 </div>
-                 </div>
-                    </div>
             </form>
         </div>
 
@@ -176,7 +177,8 @@
 
 
     </div>
-</div>
-<button  class="btn btn-float bgm-red m-btn" print><i class="zmdi zmdi-print"></i></button>
+    </div>
+
+<!--<button  class="btn btn-float bgm-red m-btn" print><i class="zmdi zmdi-print"></i></button>-->
 
 

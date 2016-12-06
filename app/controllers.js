@@ -4576,7 +4576,10 @@
 
     }]);
 
-    app.controller('totalCashReport', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    var ab;
+    var bc;
+var cc= [];
+    app.controller('totalCashReport', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
         $scope.totalCashInput=
         {
@@ -4592,10 +4595,14 @@
                 if (!response.error)
                     {
                     growl.success(response.message);
-
+                         ab=$scope.totalCashInput.fromdate;
+                       /* alert(ab);*/
+                         bc=$scope.totalCashInput.todate;
+                     /*   alert(bc);*/
                     $scope.cashTotals = response.data;
+                    cc=response.data;
 
-                    $scope.totalCashTable = new NgTableParams(
+                        $scope.totalCashTable = new NgTableParams(
                         {
                             count: 10
                         },
@@ -4617,25 +4624,49 @@
             })
         };
 
-        $scope.IsVisible = false;
+
         $scope.MyFunction = function ()
         {
-            $scope.IsVisible = $scope.IsVisible ? false : true;
-            window.print();
+            // $scope.IsVisible = $scope.IsVisible ? false : true;
+          /*  $window.location.href = '/accounts/bankcashdeposits/totalcash-report-print.html';*/
+           /* window.print();*/
         };
-
-        /*$scope.Demo=function ()
-        {
-            $scope.test = true;
-            $scope.MyFunction = function ()
-            {
-                $scope.test=$scope.test ? false : true;
-            }
-            window.print();
-        };*/
 
 
     }]);
+
+    app.controller('totalCashReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.totalCashPrintInput=
+        {
+            TotalCashfromdate:ab,
+            TotalCashtodate:bc
+        };
+
+        $scope.New1=[];
+        $scope.New1=cc;
+
+                    $scope.totalCashTable = new NgTableParams(
+                        {
+                            count: 20
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.New1, params.filter()) : $scope.New1;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+
+        $scope.myFun = function ()
+        {
+             window.print();
+        };
+
+
+    }]);
+
 
     /*app.controller('BaskCashDeposits', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
