@@ -609,6 +609,59 @@
                 return deferred.promise;
             },
 
+            /*docking station cleaning */
+            saveDockingStationCleaning: function (data) {
+                var _enteredDate=data.cleaningDate;
+                var _enteredTimeFrom = data.cleaningTimeFrom;
+                var _enteredTimeTo= data.cleaningTimeTo;
+
+                var _date =_enteredDate.getDate();
+                if(_date.toString().length ===1)
+                {
+                    _date=0 +""+_enteredDate.getDate();
+                }
+                else
+                {
+                    _date=_enteredDate.getDate();
+                }
+                var _month=_enteredDate.getMonth()+1;
+                if(_month.toString().length===1)
+                {
+                    _month=0+""+_enteredDate.getMonth();
+                }
+                else
+                {
+                    _month=_enteredDate.getMonth();
+                }
+                var _year=_enteredDate.getFullYear();
+                var Date=_year+"-"+_month+"-"+_date;
+                var _timeFrom = Date+"T"+_enteredTimeFrom+":"+"00"+":"+"000"+"Z";
+                var _timeTo = Date+"T"+_enteredTimeTo+":"+"00"+":"+"000"+"Z";
+                var deferred = $q.defer();
+                var CleanDockingStation={
+                    stationName:data.stationName,
+                    cleaningDate:data.cleaningDate,
+                    cleaningTimeFrom:_timeFrom,
+                    cleaningTimeTo:_timeTo
+                };
+                $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getDockingStationCleaningDetails: function () {
+            var deferred = $q.defer();
+            $http.get(APINew + APIEndPoint.dockingstationcleaning.getAll).then(function (result) {
+                deferred.resolve(result.data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+            },
+
             /*Registration details*/
             SendRegistrationDetails:function (data) {
               var deferred = $q.defer();
@@ -800,12 +853,12 @@
                     fromPort:data.fromPort,
                     checkOutTime:Date_Time
                 };
-               /* $http.post(APINew + APIEndPoint.checkOutBridge.save, checkOutBridge).then(function (result) {
+                $http.post(APINew + APIEndPoint.checkOutBridge.save, checkOutBridge).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;*/
+                return deferred.promise;
             },
 
             saveCheckInBridge:function(data)

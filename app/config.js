@@ -446,6 +446,26 @@
                 containerClass: 'sw-toggled'
             })
 
+            /*Miantenance*/
+            .state("admin.maintenance",{
+                url:"/maintenance",
+                templateUrl:adminViewPath + 'maintenance/manage.html',
+                containerClass:'sw-toggled'
+            })
+            .state("admin.maintenance.add",{
+                url:"/add",
+                templateUrl:adminViewPath + 'maintenance/add.html',
+                controller:'AddDockingStationClean',
+                containerClass:'sw-toggled'
+            })
+
+            .state("admin.maintenance.dockingstationcleaning-report",{
+                url:"/dockingstationcleaning-report",
+                templateUrl:adminViewPath + 'maintenance/dockingstationcleaning-report.html',
+                controller:'AddDockingStationCleanReport',
+                containerClass:'sw-toggled'
+            })
+
             /*Accounts*/
             .state("admin.accounts", {
                 url: "/accounts",

@@ -19685,6 +19685,7 @@ select.chosen {
 .ng-table-pager {
     padding: 12px 25px 15px;
     min-height: 101px;
+  /*  display:none;*/
 }
 
 @media screen and (min-width: 768px) {

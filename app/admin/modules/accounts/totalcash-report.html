@@ -123,11 +123,12 @@
                             <br>
                             <button type="button" class="btn btn-icon-text btn-success waves-effect"
                                     ng-click="sendTotalCashDetails()" ng-disabled="TotalCashReport.$invalid">
-                                <i class="zmdi zmdi-save"></i> Get Details
+                                <i class="zmdi zmdi-view-list"></i> Get Details
                             </button>
                             <button type="button" class="btn btn-icon-text btn-success waves-effect"
                                     ng-disabled="TotalCashReport.$invalid" >
-                                <i class="zmdi zmdi-print"> <a ui-sref="admin.accounts.bankcashdeposits.totalcash-report-print">Report</a></i>
+                                <i class="zmdi zmdi-eye"></i>
+                                <a ui-sref="admin.accounts.bankcashdeposits.totalcash-report-print" style="color: white">Show</a>
                             </button>
 
                         </div>

@@ -3821,9 +3821,7 @@
             }
         };
 
-        $scope.selectedPort = function (data) {
-            $scope.checkInOut.fromPort = data._id;
-        };
+
 
         $scope.selectedMembers =function(data){
             $scope.checkInOut.cardId=data.cardNum;
@@ -4646,14 +4644,18 @@ var cc= [];
         $scope.New1=[];
         $scope.New1=cc;
 
-                    $scope.totalCashTable = new NgTableParams(
+       /* $scope.totalCashTable =$scope.New1;*/
+
+
+        $scope.totalCashTable = new NgTableParams(
                         {
-                            count: 20
+                            count: 500,
+                            noPager: true
                         },
                         {
                             getData: function ($defer, params) {
                                 var orderedData = params.filter() ? $filter('filter')($scope.New1, params.filter()) : $scope.New1;
-                                params.total(orderedData.length);
+                              /*params.total(orderedData.length);*/
                                 $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                             }
                         }
@@ -4667,6 +4669,74 @@ var cc= [];
 
     }]);
 
+    app.controller('AddDockingStationClean', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.dockingStationCleanInput={
+            stationName:'',
+            cleaningDate:'',
+            cleaningTimeFrom:'',
+            cleaningTimeTo:''
+        };
+
+        $scope.addDockingStationClean = function () {
+            DataService.saveDockingStationCleaning($scope.dockingStationCleanInput).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                   /* $state.go('admin.registration-centres.edit', {'id': response.data._id});*/
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.dockingStationSelections = [];
+
+        DataService.getDockingStations().then(function (response) {
+                if (!response.error) {
+                    $scope.dockingStationSelections = response.data;
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
+
+        $scope.selectedDockingStation = function (data) {
+            $scope.dockingStationCleanInput.stationName = data.name;
+        };
+
+
+        $scope.dockingStationCleanReport = function () {
+            $state.go('admin.maintenance.dockingstationcleaning-report');
+        };
+
+    }]);
+
+    app.controller('AddDockingStationCleanReport', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.dockingStationCleaningInputs={
+            cleanFromDate:'',
+            cleanToDate:''
+        };
+
+        $scope.sendDockingStationCleaningDetails = function () {
+            DataService.getDockingStationCleaningDetails($scope.dockingStationCleaningInputs).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+    }]);
 
     /*app.controller('BaskCashDeposits', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {

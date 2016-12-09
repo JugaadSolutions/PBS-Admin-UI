@@ -162,6 +162,11 @@
             getAll:'registrationcenter'
         },
 
+        dockingStationCleaning:{
+            save:'dockingstationcleaning',
+            getAll:'dockingstationcleaning'
+        },
+
         ticketsDetails:{
           save:'ticketdetails'
         },

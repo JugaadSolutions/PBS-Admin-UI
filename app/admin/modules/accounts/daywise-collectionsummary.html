@@ -10,7 +10,72 @@
 
             <form class="pmbb-edit" name="DaywiseCashForm" novalidate>
 
-                <dl class="dl-horizontal required">
+                <div class="card-body card-padding">
+                    <div class="row">
+                        <div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line"
+                                 ng-class="{ 'has-error': DaywiseCashForm.joiningDate1.$touched && DaywiseCashForm.joiningDate1.$invalid }" >
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
+                                <input type="text" name="joiningDate1" ng-model="daywiseCollection.fromdate" ng-change="fromdate" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                <span class="help-block"
+                                      ng-messages="DaywiseCashForm.joiningDate1.$error"
+                                      ng-show="DaywiseCashForm.joiningDate1.$touched">
+                                                <small ng-message="required">From Date is required</small>
+                                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line"
+                                 ng-class="{ 'has-error': DaywiseCashForm.joiningDate2.$touched && DaywiseCashForm.joiningDate2.$invalid }" >
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
+                                <input type="text" name="joiningDate2" ng-model="daywiseCollection.todate" ng-change="todate" ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                <span class="help-block"
+                                      ng-messages="DaywiseCashForm.joiningDate2.$error"
+                                      ng-show="DaywiseCashForm.joiningDate2.$touched">
+                                                <small ng-message="required">To Date is required</small>
+                                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Registration Centres</label>
+                                <select chosen class="form-control"
+                                        ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
+                                        ng-model="location"
+                                        ng-change="selectedRegistrationCenters(location)" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Transaction Type</label>
+                                <select chosen class="form-control" ng-model="daywiseCollection.transactionType"
+                                        name="TransactionType"  placeholder="eg. Transaction ID"  required >
+                                    <option ng-value="RegistrationCentre1">Registration</option>
+                                    <option ng-value="RegistrationCentre2">Refund</option>
+                                    <option ng-value="RegistrationCentre3">Replenishment</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                            ng-click="sendDaywiseDetails()" ng-disabled="DaywiseCashForm.$invalid">
+                        <i class="zmdi zmdi-save"></i> Get Details
+                    </button>
+                    <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                            ng-disabled="DaywiseCashForm.$invalid" >
+                        <i class="zmdi zmdi-eye"></i>
+                        <a ui-sref="admin.accounts.bankcashdeposits.totalcash-report-print" style="color: white">Show</a>
+                    </button>
+                </div>
+
+               <!-- <dl class="dl-horizontal required">
                     <dt class="p-t-10">From</dt>
                     <dd>
                         <div class="fg-line"
@@ -24,14 +89,14 @@
                             </span>
                         </div>
                     </dd>
-                </dl>
+                </dl>-->
 
-                <br>
+              <!--  <br>-->
               <!--  <label>To</label>
                 <input type="text" name="joiningDate2" ng-model="toDateDaywise" ng-change="toDateDaywise"  ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
                        uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" >-->
 
-                <dl class="dl-horizontal required">
+              <!--  <dl class="dl-horizontal required">
                     <dt class="p-t-10">To</dt>
                     <dd>
                         <div class="fg-line"
@@ -46,21 +111,21 @@
                         </div>
                     </dd>
                 </dl>
+-->
+             <!--   <br>-->
 
-                <br>
-
-                <dl class="dl-horizontal required">
+             <!--   <dl class="dl-horizontal required">
                     <dt class="p-t-10">Registration Centres</dt>
                     <dd>
                         <div class="fg-line">
-                           <!-- <select chosen class="form-control" ng-model="daywiseCollection.RegCentre"
+                           &lt;!&ndash; <select chosen class="form-control" ng-model="daywiseCollection.RegCentre"
                                     name="RegCentre"  placeholder="eg. Registration Centre" required >
                                 <option ng-value="RegistrationCentre1">Registration Centre1</option>
                                 <option ng-value="RegistrationCentre2">Registration Centre2</option>
                                 <option ng-value="RegistrationCentre3">Registration Centre3</option>
                                 <option ng-value="RegistrationCentre4">Registration Centre4</option>
                                 <option ng-value="RegistrationCentre5">Registration Centre5</option>
-                            </select>-->
+                            </select>&ndash;&gt;
                             <select chosen class="form-control"
                                     ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
                                     ng-model="location"
@@ -68,11 +133,11 @@
                             </select>
                         </div>
                     </dd>
-                </dl>
+                </dl>-->
 
-                <br>
+               <!-- <br>-->
 
-                <dl class="dl-horizontal required">
+              <!--  <dl class="dl-horizontal required">
                     <dt class="p-t-10">Transaction Type</dt>
                     <dd>
                         <div class="fg-line">
@@ -86,14 +151,14 @@
                     </dd>
                 </dl>
 
-                <br>
+                <br>-->
                 <!--<button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="">
                     <i class="zmdi zmdi-save"></i> Get Details
                 </button>-->
-                <button type="button" class="btn btn-icon-text btn-success waves-effect"
+              <!--  <button type="button" class="btn btn-icon-text btn-success waves-effect"
                         ng-click="sendDaywiseDetails()" ng-disabled="DaywiseCashForm.$invalid">
                     <i class="zmdi zmdi-save"></i> Get Details
-                </button>
+                </button>-->
 
             </form>
         </div>
