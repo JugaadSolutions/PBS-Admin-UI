@@ -384,6 +384,32 @@
             });
         };
 
+        $scope.cancelMembership = function (size) {
+            $uibModal.open({
+                templateUrl: 'cancelMembership.html',
+                controller: 'CancelMembershipModalCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                       /* return $scope.member.credit;*/
+                    }
+                }
+            });
+        };
+
+        $scope.Suspend = function (size) {
+            $uibModal.open({
+                templateUrl: 'suspendMembership.html',
+                controller: 'SuspendMembershipModalCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        /* return $scope.member.credit;*/
+                    }
+                }
+            });
+        };
+
         $scope.debit = function (size) {
             $uibModal.open({
                 templateUrl: 'memberDebitModal.html',
@@ -907,6 +933,45 @@
             });
         }
 
+    }]);
+
+    // cancel membership
+    app.controller('CancelMembershipModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser) {
+
+        $scope.member = {
+            creditMode: '',
+            comments: '',
+            transactionNumber:''
+           /* createdBy: loggedInUser.assignedUser*/
+        };
+
+        $scope.cancelMemberShip = function () {
+            DataService.cancelMember($stateParams.id, $scope.member).then(function (response) {
+                if (!response.error && response.data != null) {
+                    growl.success(response.message);
+                    $uibModalInstance.dismiss();
+                    $state.reload();
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /* growl.error(response.data.description['0']);*/
+                growl.error(response.data.description);
+            });
+        }
+
+        $scope.cancelMembershipcancel = function () {
+            $uibModalInstance.dismiss();
+        };
+    }]);
+
+    // suspend membership
+    app.controller('SuspendMembershipModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser) {
+        $scope.cancelSuspend = function () {
+            $uibModalInstance.dismiss();
+        };
     }]);
 
     // Manage Employees Controller
@@ -4721,7 +4786,8 @@ var cc= [];
     {
         $scope.dockingStationCleaningInputs={
             cleanFromDate:'',
-            cleanToDate:''
+            cleanToDate:'',
+            dockingStation:''
         };
 
         $scope.sendDockingStationCleaningDetails = function () {
@@ -4736,7 +4802,38 @@ var cc= [];
             })
         };
 
+        $scope.dockingStationSelections = [];
+
+        DataService.getDockingStations().then(function (response) {
+                if (!response.error) {
+                    $scope.dockingStationSelections = response.data;
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
+
+        $scope.selectedDockingStation = function (data) {
+            $scope.dockingStationCleaningInputs.dockingStation = data.name;
+        };
+
+            $scope.dockingStationCleaningReportPrint = function () {
+            $state.go('admin.maintenance.dockingstationcleaning-report-print');
+        };
     }]);
+
+    app.controller('AddDockingStationCleanReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.print = function ()
+        {
+            window.print();
+        };
+    }]);
+
 
     /*app.controller('BaskCashDeposits', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {

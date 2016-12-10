@@ -53,7 +53,8 @@
          /*   memberPaymentTransaction: 'paymenttransaction',*/
             memberIndividualPaymentTransation:'paymenttransaction/member',
            /* memberTransaction: 'membertransaction/member'*/
-            memberTransaction: 'transactions/myrides/member'
+            memberTransaction: 'transactions/myrides/member',
+            cancel:'cancelmembership'
         },
         employee: {
             getAll: 'employee',

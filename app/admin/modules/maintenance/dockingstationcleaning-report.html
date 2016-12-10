@@ -39,13 +39,27 @@
                                             </span>
                             </div>
                         </div>
+
+                        <div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Docking Station</label>
+                                <select chosen class="form-control"
+                                        data-placeholder-text-single="'SELECT THE OPTIONS'"
+                                        ng-options="dockingStationSelection as dockingStationSelection.name for dockingStationSelection in dockingStationSelections"
+                                        ng-model="dockingStation"
+                                        ng-change="selectedDockingStation(dockingStation)" required>
+                                   <!-- <option value="0">SELECT THE OPTIONS</option>-->
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
                         <br>
                         <button type="button" class="btn btn-icon-text btn-success waves-effect"
                                 ng-click="sendDockingStationCleaningDetails();" ng-disabled="DockingStationCleaningReport.$invalid">
                             <i class="zmdi zmdi-view-list"></i> Get Details
                         </button>
                         <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                                ng-disabled="DockingStationCleaningReport.$invalid" >
+                                ng-disabled="DockingStationCleaningReport.$invalid" ng-click="dockingStationCleaningReportPrint();" >
                             <i class="zmdi zmdi-eye"></i>
                             <a ui-sref="" style="color: white">Show</a>
                         </button>

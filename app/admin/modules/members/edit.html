@@ -34,6 +34,14 @@
                     ng-click="debit()">
                 <i class="zmdi zmdi-money"></i> Debit
             </button>
+            <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
+                    ng-if="member.status == 1 && member.membershipId && member.creditBalance"   ng-click="cancelMembership()">
+                <i class="zmdi zmdi-card-membership"></i> Cancel
+            </button>
+            <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
+                    ng-if="member.status == 1 && member.membershipId && member.creditBalance"     ng-click="Suspend()">
+                <i class="zmdi zmdi-card-membership"></i> Suspend
+            </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
                     ng-click="updateMember()" ng-disabled="MemberForm.$invalid && !member.documents.length">
                 <i class="zmdi zmdi-save"></i> Update
@@ -1390,6 +1398,80 @@
     <div class="modal-footer">
         <button class="btn btn-link" type="button" ng-click="cancelDebit()">Cancel</button>
         <button class="btn btn-link" type="button" ng-click="addDebit()">Debit</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="cancelMembership.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Cancelling the Membership</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt class="p-t-10 p-l-30">Mode of Payments</dt>
+            <dd>
+                <div class="fg-line">
+                    <select chosen class="form-control" ng-model="member.creditMode"
+                            data-placeholder-text-single="'Select Credit Type'"
+                            name="creditType">
+                        <option value="Debit Card">Debit Card</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Cash">Cash</option>
+                    </select>
+                </div>
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt class="p-t-10 p-l-30">Transaction</dt>
+            <dd>
+                <div class="fg-line">
+                    <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
+                           class="form-control"
+                           placeholder="eg. 65467476">
+                </div>
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt class="p-l-30">Comments</dt>
+            <dd>
+                <div class="fg-line">
+                    <textarea name="comments"
+                              ng-model="member.comments" class="form-control"
+                              rows="4"
+                              placeholder="Additional information about the transaction">
+                    </textarea>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" ng-click="cancelMembershipcancel();">Cancel</button>
+        <button class="btn btn-link" type="button" ng-click="cancelMemberShip();">Cancel Membership</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="suspendMembership.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Suspending the Membership</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt class="p-l-30">Comments</dt>
+            <dd>
+                <div class="fg-line">
+                    <textarea name="comments"
+                              ng-model="comments" class="form-control"
+                              rows="4"
+                              placeholder="Additional information about the transaction">
+                    </textarea>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" ng-click="cancelSuspend();">Cancel</button>
+        <button class="btn btn-link" type="button" ng-click="">Suspend Membership</button>
     </div>
 </script>
 

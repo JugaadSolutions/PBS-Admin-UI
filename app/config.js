@@ -466,6 +466,13 @@
                 containerClass:'sw-toggled'
             })
 
+            .state("admin.maintenance.dockingstationcleaning-report-print",{
+                url:"/dockingstationcleaning-report-print",
+                templateUrl:adminViewPath + 'maintenance/dockingstationcleaning-report-print.html',
+                controller:'AddDockingStationCleanReportPrint',
+                containerClass:'sw-toggled'
+            })
+
             /*Accounts*/
             .state("admin.accounts", {
                 url: "/accounts",
