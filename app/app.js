@@ -54,7 +54,8 @@
             memberIndividualPaymentTransation:'paymenttransaction/member',
            /* memberTransaction: 'membertransaction/member'*/
             memberTransaction: 'transactions/myrides/member',
-            cancel:'cancelmembership'
+            cancel:'cancelmembership',
+            suspend:'suspendmembership'
         },
         employee: {
             getAll: 'employee',

@@ -90,12 +90,49 @@
                     </li>
                 </ul>
             </div>
+
+            <div class="pmo-block pmo-contact hidden-xs" ng-if="member.status == -2" >
+                <h2>Status</h2>
+                <ul >
+                    <li><i class="zmdi zmdi-circle" ></i><a
+                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">Suspended</a>
+                    </li>
+                    <li><i class="zmdi zmdi-comment-list" ></i><a
+                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">{{member.comments}}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pmo-block pmo-contact hidden-xs"  ng-if="member.status == 1">
+                <h2>Status</h2>
+                <ul >
+                    <li><i class="zmdi-circle" ></i><a
+                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">Registered</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pmo-block pmo-contact hidden-xs" ng-if="member.status == -1" >
+                <h2>Status</h2>
+                <ul >
+                    <li><i class="zmdi zmdi-circle" ></i><a
+                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">Cancelled</a>
+                    </li>
+                   <!-- <li><i class="zmdi zmdi-comment-list" ></i><a
+                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">{{member.comments}}</a>
+                    </li>-->
+                </ul>
+            </div>
+
             <div class="pmo-block pmo-contact hidden-xs">
                 <h2>Membership</h2>
                 <ul>
                     <li><i class="zmdi zmdi-card-membership"></i><a
                             ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">{{member.membershipId.subscriptionType}}</a>
                     </li>
+                  <!--  <li><i class="zmdi zmdi-circle" ng-if="member.membershipId.status == -2"></i><a
+                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">Suspended</a>
+                    </li>-->
                     <li><i class="zmdi zmdi-card-sim"></i><a ui-sref="admin.smart-cards.edit({id: member.smartCardId})"
                                                              class="text-muted">{{member.smartCardNumber}}</a>
                     </li>
@@ -1407,14 +1444,14 @@
     </div>
     <div class="modal-body">
         <dl class="dl-horizontal">
-            <dt class="p-t-10 p-l-30">Mode of Payments</dt>
+            <dt class="p-t-10 p-l-30">Mode of Refund</dt>
             <dd>
                 <div class="fg-line">
                     <select chosen class="form-control" ng-model="member.creditMode"
                             data-placeholder-text-single="'Select Credit Type'"
                             name="creditType">
-                        <option value="Debit Card">Debit Card</option>
-                        <option value="Credit Card">Credit Card</option>
+                       <!-- <option value="Debit Card">Debit Card</option>
+                        <option value="Credit Card">Credit Card</option>-->
                         <option value="Cash">Cash</option>
                     </select>
                 </div>
@@ -1461,7 +1498,7 @@
             <dd>
                 <div class="fg-line">
                     <textarea name="comments"
-                              ng-model="comments" class="form-control"
+                              ng-model="member.comments" class="form-control"
                               rows="4"
                               placeholder="Additional information about the transaction">
                     </textarea>
@@ -1471,7 +1508,42 @@
     </div>
     <div class="modal-footer">
         <button class="btn btn-link" type="button" ng-click="cancelSuspend();">Cancel</button>
-        <button class="btn btn-link" type="button" ng-click="">Suspend Membership</button>
+        <button class="btn btn-link" type="button" ng-click="suspendMemberShip();">Suspend Membership</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="CancelResponse.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Refund Details</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt class="p-t-10 p-l-30">Transaction</dt>
+            <dd>
+                <div class="fg-line">
+                    <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
+                           class="form-control"
+                           placeholder="eg. 65467476">
+                </div>
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt class="p-l-30">Comments</dt>
+            <dd>
+                <div class="fg-line">
+                    <textarea name="comments"
+                              ng-model="member.comments" class="form-control"
+                              rows="4"
+                              placeholder="Additional information about the transaction">
+                    </textarea>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" ng-click="">Ok</button>
+       <!-- <button class="btn btn-link" type="button" ng-click="suspendMemberShip();">Suspend Membership</button>-->
     </div>
 </script>
 

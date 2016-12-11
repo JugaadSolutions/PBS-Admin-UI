@@ -85,6 +85,16 @@
                 return deferred.promise;
             },
 
+            suspendMember:function(id,data){
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.suspend, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getMember: function (data, filters) {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.member.get + '/' + data, {

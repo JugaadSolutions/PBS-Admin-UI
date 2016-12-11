@@ -948,6 +948,18 @@
         $scope.cancelMemberShip = function () {
             DataService.cancelMember($stateParams.id, $scope.member).then(function (response) {
                 if (!response.error && response.data != null) {
+                    /*new*/
+                    $uibModal.open({
+                        templateUrl: 'CancelResponse.html',
+                        controller: 'CancelMembershipResponseModalCtrl',
+                        size: size,
+                        resolve: {
+                            items: function () {
+                                /* return $scope.member.credit;*/
+                            }
+                        }
+                    });
+                    /*new*/
                     growl.success(response.message);
                     $uibModalInstance.dismiss();
                     $state.reload();
@@ -967,8 +979,44 @@
         };
     }]);
 
+    // cancel membership response
+    app.controller('CancelMembershipResponseModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser) {
+
+
+    }]);
+
     // suspend membership
     app.controller('SuspendMembershipModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser) {
+
+        $scope.member = {
+            comments: '',
+            /* createdBy: loggedInUser.assignedUser*/
+        };
+
+        $scope.suspendMemberShip = function () {
+            DataService.suspendMember($stateParams.id, $scope.member).then(function (response) {
+                if (!response.error && response.data != null) {
+                    if(response.data.status === -2)
+                    {
+                        alert("suspended");
+                    }
+                    else if (response.data.status === 1)
+                    {
+                        alert("registered");
+                    }
+                    growl.success(response.message);
+                    $uibModalInstance.dismiss();
+                    $state.reload();
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description);
+            });
+        }
+
         $scope.cancelSuspend = function () {
             $uibModalInstance.dismiss();
         };
