@@ -117,7 +117,7 @@
             },
             getEmployees: function (filters) {
                 var deferred = $q.defer();
-                $http.get(APINew + APIEndPoint.employee.getAll + '/' + 'registrationstaff', {
+                $http.get(APINew + APIEndPoint.employee.getAll + '/' , {
                     params: filters
                 }).then(function (result) {
                     deferred.resolve(result.data);
@@ -155,7 +155,7 @@
             },
             getEmployee: function (data) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.employee.get + '/' + data).then(function (result) {
+                $http.get(APINew + APIEndPoint.employee.get + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -172,6 +172,10 @@
                 }
                 else if (_department === 'Redistribution Member Staff')
                 {
+                }
+                else if (_department === 'Maintenance Center Staff')
+                {
+                    _url = 'mcstaff';
                 }
                 else if (_department === 'Information Technology Staff')
                 {
@@ -196,7 +200,7 @@
             },
             verifyDocumentEmployee: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.employee.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.employee.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -205,7 +209,7 @@
             },
             updateEmployee: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.employee.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.employee.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -223,7 +227,7 @@
             },
             updateSmartCardForEmployee: function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.employee.update + '/' + data._id + '/' + APIEndPoint.employee.smartCardForEmployee, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.employee.update + '/' + data._id + '/' + APIEndPoint.employee.smartCardForEmployee, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

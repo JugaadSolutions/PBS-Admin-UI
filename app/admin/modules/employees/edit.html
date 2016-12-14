@@ -14,12 +14,12 @@
                 <i class="zmdi zmdi-undo"></i> Change Status
             </button>
             <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
-                    ng-if="employee.documents.length && employee.status != 0"
+                    ng-if="employee.documents.length && employee.status == 0"
                     ng-click="verifyDocument()">
                 <i class="zmdi zmdi-card"></i> Verify Proofs
             </button>
             <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
-                    ng-if="employee.status == 0 && !employee.smartCardDetails.length"
+                    ng-if="employee.status == 1 && !employee.smartCardNumber"
                     ng-click="addSmartCard()">
                 <i class="zmdi zmdi-card"></i> Add Smart Card
             </button>
@@ -57,8 +57,8 @@
                     </div>
                 </div>
                 <div class="pmo-stat">
-                    <h2 class="m-t-15 c-white">{{employee.position}}</h2>
-                    Position
+                    <h2 class="m-t-15 c-white">{{employee.Name}}</h2>
+                    <h5 class="m-t-15 c-white">{{employee.position}}</h5>
                 </div>
             </div>
 
@@ -68,7 +68,9 @@
                     <li><i class="zmdi zmdi-phone"></i><a href="tel:+{{employee.countryCode}}{{employee.phoneNumber}}"
                                                           class="text-muted">{{employee.countryCode}}-{{employee.phoneNumber}}</a>
                     </li>
-                    <li><i class="zmdi zmdi-email"></i><a href="mailto:{{employee.emailAddress}}" class="text-muted">{{employee.emailAddress}}</a>
+                    <li><i class="zmdi zmdi-email"></i><a href="mailto:{{employee.emailAddress}}" class="text-muted">{{employee.email}}</a>
+                    </li>
+                    <li><i class="zmdi zmdi-card-sim"></i><a href="mailto:{{employee.emailAddress}}" class="text-muted">{{employee.smartCardNumber}}</a>
                     </li>
                 </ul>
             </div>
@@ -88,7 +90,7 @@
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': EmployeeForm.name.$touched && EmployeeForm.name.$invalid }">
-                                            <input type="text" name="name" ng-model="employee.name" class="form-control"
+                                            <input type="text" name="name" ng-model="employee.Name" class="form-control"
                                                    placeholder="eg. Ashok" required>
                                             <span class="help-block" ng-messages="EmployeeForm.name.$error"
                                                   ng-show="EmployeeForm.name.$touched">
@@ -112,7 +114,7 @@
                                         </div>
                                     </dd>
                                 </dl>
-                                <dl class="dl-horizontal required">
+                               <!-- <dl class="dl-horizontal required">
                                     <dt class="p-t-10">Given Name</dt>
                                     <dd>
                                         <div class="fg-line"
@@ -126,7 +128,7 @@
                                             </span>
                                         </div>
                                     </dd>
-                                </dl>
+                                </dl>-->
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">Father's Name</dt>
                                     <dd>
@@ -170,7 +172,7 @@
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': EmployeeForm.emailAddress.$touched && EmployeeForm.emailAddress.$invalid }">
-                                            <input type="email" name="emailAddress" ng-model="employee.emailAddress"
+                                            <input type="email" name="emailAddress" ng-model="employee.email"
                                                    disabled
                                                    class="form-control" placeholder="eg. ashok@gmail.com" required>
                                             <span class="help-block" ng-messages="EmployeeForm.emailAddress.$error"
@@ -1238,7 +1240,7 @@
     </div>
 </script>
 
-<script type="text/ng-template" id="smartCard-status-modal.html">
+<!--<script type="text/ng-template" id="smartCard-status-modal.html">
     <div class="modal-header">
         <h4 class="modal-title">Add Smart Card</h4>
     </div>
@@ -1276,4 +1278,36 @@
         <button class="btn btn-link" type="button" ng-click="cancelSmartCard()">Cancel</button>
         <button class="btn btn-link" type="button" ng-click="AddSmartCard()">Save Changes</button>
     </div>
+</script>-->
+
+<script type="text/ng-template" id="smartCard-status-modal.html">
+    <form name="smartCard" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title">Add Smart Card</h4>
+        </div>
+        <div class="modal-body">
+            <div class="pmbb-body p-l-30">
+                <dl class="dl-horizontal">
+                    <dt class="p-t-10">Smart Card Number</dt>
+                    <div class="input-group p-l-18">
+                        <div class="fg-line">
+                            <input type="text" name="smartCardNumber"
+                                   ng-model="Empcard.cardNumber"
+                                   class="form-control"
+                                   placeholder="eg. 87248247238">
+                        </div>
+                        <!--<span class="input-group-addon last"><button
+                                class="btn bgm-orange waves-effect pull-right" ng-click="verify()"
+                                uib-tooltip="Verify Smart Card" tooltip-placement="left">
+                        <i class="zmdi zmdi-check"></i></button>
+                            </i></span>-->
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-link" type="button" ng-click="cancelSmartCard()">Cancel</button>
+            <button class="btn btn-link" type="button" ng-click="AddSmartCard()">Save Changes</button>
+        </div>
+    </form>
 </script>

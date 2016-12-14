@@ -23,7 +23,7 @@
                             <img ng-src="{{employee.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>
                         <td data-title="'Full Name'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
-                            <a ui-sref="admin.employees.edit({id: employee._id})">{{employee.name}}
+                            <a ui-sref="admin.employees.edit({id: employee._id})">{{employee.Name}}
                                 {{employee.lastName}}</a>
                         </td>
                         <td data-title="'Email'" filter="{ 'email': 'text'}">
@@ -31,6 +31,9 @@
                         </td>
                         <td data-title="'Phone'" filter="{ 'phoneNumber': 'text'}">
                             {{employee.phoneNumber}}
+                        </td>
+                        <td data-title="'Department'" filter="{ '_type': 'text'}">
+                            {{employee._type}}
                         </td>
                         <td data-title="'Smart Cards'" filter="{ 'smartCardNumber': 'text'}">
                             {{employee.smartCardNumber}}

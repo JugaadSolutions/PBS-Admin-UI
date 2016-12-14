@@ -947,7 +947,7 @@
 
         $scope.cancelMemberShip = function () {
             DataService.cancelMember($stateParams.id, $scope.member).then(function (response) {
-                if (!response.error && response.data != null) {
+              if (!response.error && response.data != null) {
                     /*new*/
                     $uibModal.open({
                         templateUrl: 'CancelResponse.html',
@@ -1319,7 +1319,7 @@
                 } else {
                     $scope.employee.emergencyContact.contactNumber = "";
                 }
-                $scope.employee.status = 0;
+                $scope.employee.status = 1;
                 DataService.verifyDocumentEmployee($scope.employee).then(function (response) {
                     if (!response.error) {
                         growl.success(response.message);
@@ -1335,20 +1335,21 @@
 
         DataService.getEmployee($stateParams.id).then(function (response) {
             if (!response.error) {
-                $scope.employee = response.data;
+                $scope.employee = response.data[0];
+                var name = response.data[0].Name;
                 var phone = $scope.employee.phoneNumber;
                 var splitArr = phone.split("-");
                 $scope.employee.countryCode = splitArr[0];
                 $scope.employee.phoneNumber = phone.split('-').slice(1).join('-');
 
-                if ($scope.employee.emergencyContact.contactNumber) {
+               /* if ($scope.employee.emergencyContact.contactNumber) {
                     var contactPhone = $scope.employee.emergencyContact.contactNumber;
                     var contactSplit = contactPhone.split("-");
                     $scope.employee.emergencyContact.countryCode = contactSplit[0];
                     $scope.employee.emergencyContact.contactNumber = contactPhone.split('-').slice(1).join('-');
                 } else {
                     $scope.employee.emergencyContact.contactNumber = "";
-                }
+                }*/
                 if (!$scope.employee.picture || $scope.employee.picture == '') {
                     $scope.profilePicUrl = 'assets/images/no-avatar.png'
                 } else {
@@ -1431,7 +1432,7 @@
     // Smart Card  Controller
     app.controller('SmartCardForEmployee', ['$scope', '$state', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'employee', function ($scope, $state, DataService, growl, sweet, $uibModalInstance, employee) {
 
-        $scope.employee = employee;
+       /* $scope.employee = employee;
 
         $scope.addNewSmartCard = function () {
             $scope.employee.smartCardDetails.push({});
@@ -1488,8 +1489,71 @@
         $scope.cancelSmartCard = function () {
             $uibModalInstance.dismiss();
             $state.reload();
+        };*/
+
+
+        $scope.employee = employee;
+        $scope.employee.cardChanged = false;
+
+        $scope.Empcard={
+            _id: $scope.employee._id,
+            cardNumber: ''
         };
 
+
+        $scope.verify = function () {
+            var smartCard = {
+                cardNumber: $scope.employee.smartCardNumber
+            };
+            DataService.verifyCardForMember(smartCard).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message)
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description);
+            });
+        };
+
+        $scope.AddSmartCard = function () {
+            sweet.show({
+                title: 'Assign SmartCard?',
+                text: 'The member will be assigned with that smartCard',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Add smartCard',
+                closeOnConfirm: true
+            }, function () {
+                /*var data = {
+                    _id: $scope.member._id,
+                    cardNumber: $scope.member.smartCardNumber,
+                    membershipId: $scope.member.membershipId
+                };*/
+
+/*
+                 $scope.Empcard={
+                    _id: $scope.employee._id,
+                     cardNumber: ''
+                };*/
+                DataService.updateSmartCardForEmployee($scope.Empcard).then(function (response) {
+                    if (!response.error) {
+                        growl.success(response.message);
+                        $uibModalInstance.dismiss();
+                        $state.reload();
+                    } else {
+                        growl.error(response.message);
+                    }
+                }, function (response) {
+                    growl.error(response.data.description);
+                });
+            });
+        };
+
+        $scope.cancelSmartCard = function () {
+            $uibModalInstance.dismiss();
+            $state.reload();
+        };
     }]);
 
     //Manage Membership
@@ -4788,7 +4852,9 @@ var cc= [];
             stationName:'',
             cleaningDate:'',
             cleaningTimeFrom:'',
-            cleaningTimeTo:''
+            cleaningTimeTo:'',
+            image:'',
+            description:''
         };
 
         $scope.addDockingStationClean = function () {
