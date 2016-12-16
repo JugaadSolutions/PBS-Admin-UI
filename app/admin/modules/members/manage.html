@@ -44,7 +44,9 @@
                             <span uib-tooltip="{{member.status}}" tooltip-placement="top" ng-class="{
                              'status-color bgm-green': member.status == 'Registered' || member.status == 'Renewed',
                              'status-color bgm-yellow': member.status == 'Prospective',
-                             'status-color bgm-red': member.status == 'Cancelled' || member.status == 'Suspended'}">&nbsp;</span>
+                             'status-color bgm-red': member.status == 'Cancelled',
+                              'status-color bgm-black':member.status == 'Suspended',
+                              'status-color bgm-blue':member.status == 'expired', }">&nbsp;</span>
                         </td>
                         <td data-title="''" class="table-actions">
                             <ul class="actions">

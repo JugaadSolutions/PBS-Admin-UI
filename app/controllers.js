@@ -391,11 +391,22 @@
                 size: size,
                 resolve: {
                     items: function () {
-                       /* return $scope.member.credit;*/
                     }
                 }
             });
         };
+
+       /* $scope.ConfirmCancelMembership = function (size) {
+            $uibModal.open({
+                templateUrl: 'ConfirmCancelMembership.html',
+                controller: 'ConfirmMembershipCancel',
+                size: size,
+                resolve: {
+                    items: function () {
+                    }
+                }
+            });
+        };*/
 
         $scope.Suspend = function (size) {
             $uibModal.open({
@@ -936,32 +947,91 @@
     }]);
 
     // cancel membership
-    app.controller('CancelMembershipModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser) {
+    app.controller('CancelMembershipModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance','$uibModal', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance,$uibModal, loggedInUser) {
 
-        $scope.member = {
+        DataService.cancelRequest($stateParams.id).then(function (response) {
+            if (!response.error && response.data != null) {
+                /*alert(response.data.message);*/
+
+                $scope.Message=response.data.message;
+               /* $scope.testing_demo=testing_demo;*/
+
+                growl.success(response.data);
+               /* $uibModalInstance.dismiss();*/
+                $state.reload();
+            }
+            else
+            {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            /* growl.error(response.data.description['0']);*/
+            growl.error(response.data.description);
+        });
+      /*  $scope.member = {
             creditMode: '',
             comments: '',
             transactionNumber:''
-           /* createdBy: loggedInUser.assignedUser*/
+           /!* createdBy: loggedInUser.assignedUser*!/
         };
 
         $scope.cancelMemberShip = function () {
             DataService.cancelMember($stateParams.id, $scope.member).then(function (response) {
               if (!response.error && response.data != null) {
-                    /*new*/
-                    $uibModal.open({
-                        templateUrl: 'CancelResponse.html',
-                        controller: 'CancelMembershipResponseModalCtrl',
-                        size: size,
-                        resolve: {
-                            items: function () {
-                                /* return $scope.member.credit;*/
-                            }
-                        }
-                    });
-                    /*new*/
                     growl.success(response.message);
                     $uibModalInstance.dismiss();
+                    $state.reload();
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /!* growl.error(response.data.description['0']);*!/
+                growl.error(response.data.description);
+            });
+        }*/
+
+        $scope.cancelMembershipcancel = function () {
+            $uibModalInstance.dismiss();
+        };
+
+        $scope.ConfirmCancelMembership = function (size) {
+            $uibModal.open({
+                templateUrl: 'ConfirmCancelMembership.html',
+                controller: 'ConfirmMembershipCancel',
+                size: size,
+                resolve: {
+                    items: function () {
+                    }
+                }
+            });
+        };
+
+    }]);
+
+    // cancel membership response
+    app.controller('ConfirmMembershipCancel', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser) {
+
+        $scope.confirmMembershipInputs={
+            modeOfRefund:'',
+            transactionNumber:'',
+            comments:''
+        };
+
+        /*$scope.OkConfirm = function () {
+            $uibModalInstance.dismiss();
+        };*/
+        $scope.ExitRefund = function () {
+         $uibModalInstance.dismiss();
+         };
+
+        $scope.Refund = function () {
+
+            DataService.cancelMembership($stateParams.id,$scope.confirmMembershipInputs).then(function (response) {
+                if (!response.error && response.data != null) {
+                    $uibModalInstance.dismiss();
+                    growl.success(response.message);
                     $state.reload();
                 }
                 else
@@ -972,17 +1042,7 @@
                 /* growl.error(response.data.description['0']);*/
                 growl.error(response.data.description);
             });
-        }
-
-        $scope.cancelMembershipcancel = function () {
-            $uibModalInstance.dismiss();
         };
-    }]);
-
-    // cancel membership response
-    app.controller('CancelMembershipResponseModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser) {
-
-
     }]);
 
     // suspend membership
@@ -998,11 +1058,9 @@
                 if (!response.error && response.data != null) {
                     if(response.data.status === -2)
                     {
-                        alert("suspended");
                     }
                     else if (response.data.status === 1)
                     {
-                        alert("registered");
                     }
                     growl.success(response.message);
                     $uibModalInstance.dismiss();

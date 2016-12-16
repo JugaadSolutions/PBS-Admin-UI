@@ -75,7 +75,30 @@
                 return deferred.promise;
             },
 
-            cancelMember:function(id,data){
+           /* cancelMember:function(id){
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.cancel, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },*/
+
+           /*membership cancel request*/
+            cancelRequest: function (id) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.request, {
+                }).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            /*membership cancel*/
+            cancelMembership: function (id, data) {
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.cancel, data).then(function (result) {
                     deferred.resolve(result.data);

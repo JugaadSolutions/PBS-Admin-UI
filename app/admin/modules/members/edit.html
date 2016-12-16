@@ -1438,54 +1438,32 @@
     </div>
 </script>
 
-<script type="text/ng-template" id="cancelMembership.html">
+<script type="text/ng-template" id="cancelMembership.html" >
     <div class="modal-header">
-        <h4 class="modal-title">Cancelling the Membership</h4>
+        <h4 class="modal-title text-center">CANCEL REQUEST FOR MEMBERSHIP</h4>
     </div>
     <div class="modal-body">
+
         <dl class="dl-horizontal">
-            <dt class="p-t-10 p-l-30">Mode of Refund</dt>
+            <dt class="p-t-10 p-l-30">Note</dt>
             <dd>
-                <div class="fg-line">
-                    <select chosen class="form-control" ng-model="member.creditMode"
-                            data-placeholder-text-single="'Select Credit Type'"
-                            name="creditType">
-                       <!-- <option value="Debit Card">Debit Card</option>
-                        <option value="Credit Card">Credit Card</option>-->
-                        <option value="Cash">Cash</option>
-                    </select>
+                <div class="modal-title text-center">
+                    <span ng-bind="Message" style="font-weight: bold"></span>
                 </div>
             </dd>
         </dl>
 
-        <dl class="dl-horizontal">
-            <dt class="p-t-10 p-l-30">Transaction</dt>
-            <dd>
-                <div class="fg-line">
-                    <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
-                           class="form-control"
-                           placeholder="eg. 65467476">
-                </div>
-            </dd>
-        </dl>
+       <!-- <div class="modal-footer">
+            <button class="btn btn-link" type="button" ng-click="cancelMembershipcancel();">Cancel</button>
+            <button class="btn btn-link" type="button" ng-click="cancelMemberShip();">Send Request</button>
+        </div>-->
+        <div class="modal-title text-center">
+            <button class="btn btn-icon-text btn-success waves-effect" type="button" ng-click="cancelMembershipcancel();">Back</button>
+            <button class="btn btn-icon-text btn-success waves-effect" type="button" ng-click="ConfirmCancelMembership();">Confirm</button>
+        </div>
+    </div>
+    </div>
 
-        <dl class="dl-horizontal">
-            <dt class="p-l-30">Comments</dt>
-            <dd>
-                <div class="fg-line">
-                    <textarea name="comments"
-                              ng-model="member.comments" class="form-control"
-                              rows="4"
-                              placeholder="Additional information about the transaction">
-                    </textarea>
-                </div>
-            </dd>
-        </dl>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-link" type="button" ng-click="cancelMembershipcancel();">Cancel</button>
-        <button class="btn btn-link" type="button" ng-click="cancelMemberShip();">Cancel Membership</button>
-    </div>
 </script>
 
 <script type="text/ng-template" id="suspendMembership.html">
@@ -1512,16 +1490,30 @@
     </div>
 </script>
 
-<script type="text/ng-template" id="CancelResponse.html">
+<script type="text/ng-template" id="ConfirmCancelMembership.html">
     <div class="modal-header">
         <h4 class="modal-title">Refund Details</h4>
     </div>
     <div class="modal-body">
+
+        <dl class="dl-horizontal">
+            <dt class="p-t-10 p-l-30">Mode of Payments</dt>
+            <dd>
+                <div class="fg-line">
+                    <select chosen class="form-control" ng-model="confirmMembershipInputs.modeOfRefund"
+                            data-placeholder-text-single="'Select Credit Type'"
+                            name="creditType">
+                        <option value="Cash">Cash</option>
+                    </select>
+                </div>
+            </dd>
+        </dl>
+
         <dl class="dl-horizontal">
             <dt class="p-t-10 p-l-30">Transaction</dt>
             <dd>
                 <div class="fg-line">
-                    <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
+                    <input type="text" name="transactionNumber" ng-model="confirmMembershipInputs.transactionNumber"
                            class="form-control"
                            placeholder="eg. 65467476">
                 </div>
@@ -1533,7 +1525,7 @@
             <dd>
                 <div class="fg-line">
                     <textarea name="comments"
-                              ng-model="member.comments" class="form-control"
+                              ng-model="confirmMembershipInputs.comments" class="form-control"
                               rows="4"
                               placeholder="Additional information about the transaction">
                     </textarea>
@@ -1542,8 +1534,8 @@
         </dl>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-link" type="button" ng-click="">Ok</button>
-       <!-- <button class="btn btn-link" type="button" ng-click="suspendMemberShip();">Suspend Membership</button>-->
+        <button class="btn btn-icon-text btn-success waves-effect" type="button" ng-click="ExitRefund();">Back</button>
+        <button class="btn btn-icon-text btn-success waves-effect" type="button" ng-click="Refund();">Refund</button>
     </div>
 </script>
 
