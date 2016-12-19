@@ -9,6 +9,7 @@
 
     /*newly added*/
     var login_email;
+    var login_id;
 
     app.controller('PBSController', ['$scope', '$state', 'auth', 'AWS', '$rootScope', function ($scope, $state, auth, AWS, $rootScope) {
 
@@ -20,6 +21,7 @@
             /*newly added*/
             $scope.email=user.email;
             login_email = user.email;
+            login_id=user.id;
             //$scope.profilePic = AWS + 'Employee/' + user._id + '/' + member.picture + '.png';
 
             /*if ($scope.role=="member")
@@ -4053,6 +4055,10 @@
                     _id:data.portIds[i].dockingPortId._id
                 }
                 $scope.portSelections.push(portInfo);
+
+                $scope.selectedPort=function (data) {
+                    $scope.checkInOut.fromPort=data.vehicleNumber;
+                }
             }
         };
 
@@ -4065,6 +4071,8 @@
         $scope.selectedBicycleNumber = function (data) {
             $scope.checkInOut.vehicleId=data.vehicleNumber;
         };
+
+
 
         $scope.addCheckInCheckOut = function ()
         {
@@ -4265,7 +4273,7 @@
         else {
            // var test2;
             $scope.fromDateKPI   = new Date(CurrentDate.setMonth(CurrentDate.getMonth() - 2));
-           alert($scope.fromDateKPI);
+         /*  alert($scope.fromDateKPI);*/
         }
 
        /* if (test == )*/

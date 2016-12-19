@@ -11,9 +11,62 @@
 </script>
 
 <script>
+    var acc = document.getElementsByClassName("accordion1");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function(){
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+        }
+    }
 
 </script>
+<script>
+    var acc = document.getElementsByClassName("accordion2");
+    var i;
 
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function(){
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+        }
+    }
+</script>
+<script>
+    var acc = document.getElementsByClassName("accordion3");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function(){
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+        }
+    }
+</script>
+<script>
+    var acc = document.getElementsByClassName("accordion4");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function(){
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+        }
+    }
+</script>
+<script>
+    var acc = document.getElementsByClassName("accordion5");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function(){
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+        }
+    }
+
+</script>
 <style>
     .textbox {
         width: 20%;
@@ -26,17 +79,16 @@
     }
 
     a.accordion {
-        background-color: #f2dede;
+        background-color: #cff5f7;
         color: #444;
         cursor: pointer;
      /*   padding: 15px 396px;*/
-        padding: 19px 400px;
+        padding: 15px 335px;
         width: 500%;
         border: none;
         text-align: left;
         outline: none;
-       /* font-size: 15px;*/
-        font-size: 8px;
+        font-size: 25px;
         transition: 0.4s;
     }
 
@@ -44,15 +96,62 @@
         background-color: #d6e9c6;
         color: #444;
         cursor: pointer;
-        padding: 15px 396px;
+        padding: 15px 372px;
         width: 500%;
         border: none;
         text-align: left;
         outline: none;
-        font-size: 15px;
+        font-size: 25px;
         transition: 0.4s;
     }
-
+    a.accordion2 {
+        background-color: #faebcc;
+        color: #444;
+        cursor: pointer;
+        padding: 15px 356px;
+        width: 500%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 25px;
+        transition: 0.4s;
+    }
+    a.accordion3 {
+        background-color: #ebccd1;
+        color: #444;
+        cursor: pointer;
+        padding: 15px 349px;
+        width: 500%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 25px;
+        transition: 0.4s;
+    }
+    a.accordion4 {
+        background-color: #f4ce5d;
+        color: #444;
+        cursor: pointer;
+        padding: 15px 419px;
+        width: 500%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 25px;
+        transition: 0.4s;
+    }
+    a.accordion5 {
+        background-color: #d8c5d2;
+        color: #444;
+        cursor: pointer;
+        padding: 15px 399px;
+        width: 500%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 25px;
+        transition: 0.4s;
+    }
     a.accordion.active, a.accordion:hover {
         /*background-color: #ddd;*/
     }
@@ -69,6 +168,19 @@
         margin-top: 14px;
     }
     div.panel.show {
+        opacity: 1;
+        max-height: 450px;
+    }
+    div.panel1 {
+        padding: 0 15px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.6s ease-in-out;
+        opacity: 0;
+        margin-top: 14px;
+    }
+    div.panel1.show {
         opacity: 1;
         max-height: 450px;
     }
@@ -89,30 +201,53 @@
             </div>
         </div>
 
-        <div class="card" >
-            <div class="card-header ch-alt m-b-20" style="background-color:white; color:black;" >
+        <!--<div class="card" >
+            <div class="card-header ch-alt m-b-20" style="background-color:white; color:black;" >-->
+              <!--  <div class="card-body card-padding">
+                    <div class="row">
+                <div class="col-sm-3 m-b-20">
+                    <div class="form-group fg-line"
+                         ng-class="{ 'has-error': TotalCashReport.TotalCashFrom.$touched && TotalCashReport.TotalCashFrom.$invalid }" >
+                        <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
+                        <input type="text" name="KpiFromDate" ng-model="fromDateKPI" ng-change="fromDateKPI" ng-focus="KpiFromDate=true" ng-click="KpiFromDate=true"
+                               uib-datepicker-popup="dd/MM/yyyy" is-open="KpiFromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                        <span class="help-block"
+                              ng-messages="TotalCashReport.TotalCashFrom.$error"
+                              ng-show="TotalCashReport.TotalCashFrom.$touched">
+                                                <small ng-message="required">From Date is required</small>
+                                            </span>
+                    </div>
+                </div>
 
-              <!--  <b><label>From</label></b>&nbsp;&nbsp;
-                <input type="text" class="textbox"   ng-model="fromDate | date:'dd/MM/yyyy'" value="" /> &nbsp;&nbsp;-->
-                <dl class="dl-horizontal required">
+                <div class="col-sm-3 m-b-20">
+                    <div class="form-group fg-line"
+                         ng-class="{ 'has-error': TotalCashReport.TotalCashTo.$touched && TotalCashReport.TotalCashTo.$invalid }" >
+                        <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
+                        <input type="text" name="KpiToDate" ng-model="toDateKPI" ng-change="toDateKPI" ng-focus="KpiToDate=true" ng-click="KpiToDate=true"
+                               uib-datepicker-popup="dd/MM/yyyy" is-open="KpiToDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                        <span class="help-block"
+                              ng-messages="TotalCashReport.TotalCashTo.$error"
+                              ng-show="TotalCashReport.TotalCashTo.$touched">
+                                                <small ng-message="required">To Date is required</small>
+                                            </span>
+                    </div>
+                </div>
+                        <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                                ng-click="sendKpiDetails()" ng-disabled="KPI.$invalid">
+                            <i class="zmdi zmdi-save"></i> Get Details
+                        </button>
+                </div>
+            </div>-->
+
+               <!-- <dl class="dl-horizontal required">
                     <dt class="p-t-10">From</dt>
                     <dd>
                         <div class="fg-line">
                             <input type="text" name="KpiFromDate" ng-model="fromDateKPI" ng-change="fromDateKPI" ng-focus="KpiFromDate=true" ng-click="KpiFromDate=true"
                                    uib-datepicker-popup="dd/MM/yyyy" is-open="KpiFromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
-                           <!-- <span class="help-block"
-                                  ng-messages="DaywiseCashForm.joiningDate1.$error"
-                                  ng-show="DaywiseCashForm.joiningDate1.$touched">
-                                <small ng-message="required">From Date is required</small>
-                            </span>-->
                         </div>
                     </dd>
                 </dl>
-
-
-               <!-- <b><label>To</label></b> &nbsp;&nbsp;
-                <input type="text" class="textbox"  ng-model="toDate | date:'dd/MM/yyyy'" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="button" class="btn btn-icon-text btn-success waves-effect">Get Details</button>-->
 
                 <dl class="dl-horizontal required">
                     <dt class="p-t-10">To</dt>
@@ -128,15 +263,54 @@
                 <button type="button" class="btn btn-icon-text btn-success waves-effect"
                         ng-click="sendKpiDetails()" ng-disabled="KPI.$invalid">
                     <i class="zmdi zmdi-save"></i> Get Details
-                </button>
+                </button>-->
+
 
                 </form>
+          <!--  </div>
+        </div>-->
 
+<a class="accordion5"><b>Quaterly Report</b></a>
+<div class="panel">
+    <div class="card-body card-padding">
+        <div class="row">
+            <div class="col-sm-3 m-b-20">
+                <div class="form-group fg-line"
+                     ng-class="{ 'has-error': TotalCashReport.TotalCashFrom.$touched && TotalCashReport.TotalCashFrom.$invalid }" >
+                    <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
+                    <input type="text" name="KpiFromDate" ng-model="fromDateKPI" ng-change="fromDateKPI" ng-focus="KpiFromDate=true" ng-click="KpiFromDate=true"
+                           uib-datepicker-popup="dd/MM/yyyy" is-open="KpiFromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                    <span class="help-block"
+                          ng-messages="TotalCashReport.TotalCashFrom.$error"
+                          ng-show="TotalCashReport.TotalCashFrom.$touched">
+                                                <small ng-message="required">From Date is required</small>
+                                            </span>
+                </div>
             </div>
+
+            <div class="col-sm-3 m-b-20">
+                <div class="form-group fg-line"
+                     ng-class="{ 'has-error': TotalCashReport.TotalCashTo.$touched && TotalCashReport.TotalCashTo.$invalid }" >
+                    <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
+                    <input type="text" name="KpiToDate" ng-model="toDateKPI" ng-change="toDateKPI" ng-focus="KpiToDate=true" ng-click="KpiToDate=true"
+                           uib-datepicker-popup="dd/MM/yyyy" is-open="KpiToDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                    <span class="help-block"
+                          ng-messages="TotalCashReport.TotalCashTo.$error"
+                          ng-show="TotalCashReport.TotalCashTo.$touched">
+                                                <small ng-message="required">To Date is required</small>
+                                            </span>
+                </div>
+            </div>
+            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                    ng-click="sendKpiDetails()" ng-disabled="KPI.$invalid">
+                <i class="zmdi zmdi-save"></i> Get Details
+            </button>
         </div>
+    </div>
+</div>
 
 
-        <a class="accordion">Customer Service Indicator</a>
+<a class="accordion"><b>Customer Service Indicator</b></a>
         <div class="panel">
             <br>
             <table class="table table-bordered table-hover table-striped table-responsive">
@@ -248,7 +422,7 @@
 
 
         <!--IT System Indicators (start)-->
-        <a class="accordion">IT System Indicators</a>
+<a class="accordion1"><b>IT System Indicators</b></a>
         <div class="panel">
             <br>
         <table class="table table-bordered table-hover table-striped table-responsive">
@@ -402,7 +576,7 @@
 
 
         <!--Maintenence Indicators (start)-->
-        <a class="accordion">Maintenence Indicators</a>
+<a class="accordion2"><b>Maintenence Indicators</b></a>
         <div class="panel">
             <br>
             <table class="table table-bordered table-hover table-striped table-responsive">
@@ -500,7 +674,7 @@
         <!--Maintenence Indicators (start)-->
 
         <!--Redistribution Indicators (start)-->
-        <a class="accordion">Redistributon Indicators</a>
+<a class="accordion3"><b>Redistribution Indicators</b></a>
         <div class="panel">
             <br>
             <table class="table table-bordered table-hover table-striped table-responsive">
@@ -759,7 +933,7 @@
         <!--Redistribution Indicators (end)-->
 
         <!--Cycle Usage (start)-->
-        <a class="accordion">Cycle Usage</a>
+<a class="accordion4"><b>Cycle Usage</b></a>
         <div class="panel">
             <br>
         <table class="table table-bordered table-hover table-striped table-responsive">
