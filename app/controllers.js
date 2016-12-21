@@ -4054,10 +4054,10 @@
                     Name:data.portIds[i].dockingPortId.Name,
                     _id:data.portIds[i].dockingPortId._id
                 }
-                $scope.portSelections.push(portInfo);
+          var a= $scope.portSelections.push(portInfo);
 
-                $scope.selectedPort=function (data) {
-                    $scope.checkInOut.fromPort=data.vehicleNumber;
+                $scope.selectedPort=function (a) {
+                    $scope.checkInOut.fromPort=data._id;
                 }
             }
         };
@@ -4248,7 +4248,7 @@
 
     }]);
 
-    app.controller('kpiDetails', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
+    app.controller('kpiDetails', ['$scope', '$state', 'DataService', 'growl','$uibModal','NgTableParams', 'sweet', function ($scope, $state, DataService, growl,$uibModal,NgTableParams,sweet)
     {
         $scope.toDateKPI = new Date();
 
@@ -4279,7 +4279,7 @@
        /* if (test == )*/
 
 
-        $scope.kpiDetails={
+      /*  $scope.kpiDetails={
             fromDateKPI:'',
             toDateKPI:''
         };
@@ -4294,7 +4294,92 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
+        };*/
+
+        $scope.press = function (size) {
+            $uibModal.open({
+                templateUrl: 'details.html',
+                controller: 'RVDetails',
+                size: size,
+                resolve: {
+                    items: function () {
+                        /*return $scope.member.debit;*/
+                    }
+                }
+            });
         };
+
+        $scope.details={
+            fromdate:'',
+            todate:'',
+            stationState:'',
+            duration:''
+        };
+
+        $scope.GetDetails = function () {
+            DataService.GetRVDetails($scope.details).then(function (response) {
+                var _from_date = $scope.details.fromdate.getDate();
+                var _to_date =$scope.details.todate.getDate();
+                var _no_of_days = (_to_date) - (_from_date) + 1 ;
+                var _working_hours = _no_of_days * 16 * 60;
+                var i=0;
+                var total=0;
+                for(var i = 0; i < response.data.length; i++){
+                    var total_duration = response.data[i].timeduration;
+                    total += total_duration;
+                }
+
+                  var value =  (_working_hours - total)/(_working_hours) * 100;
+                alert(value);
+
+                if(value > 98)
+                {
+                alert("10 Points");
+                var jj="10 points";
+                }
+                else if (value > 95 && value < 98)
+                {
+                    alert("5 Points");
+                }
+                else if(value >90 && value <95)
+                {
+                    alert("-5 Points");
+                }
+                else if(value <90)
+                {
+                    alert("-10 Points");
+                }
+
+                $scope.RVDetails={
+                    percentage:value,
+                    points:jj
+                };
+
+                if (!response.error) {
+
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        // $scope.cancelView = function () {
+        //     $uibModalInstance.dismiss();
+        // };
+
+    }]);
+
+    app.controller('RVDetails', ['$scope', '$state', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet)
+    {
+        alert(value);
+        alert(jj);
+        $scope.RVDetails={
+      percentage:value,
+     points:jj
+            };
 
     }]);
 

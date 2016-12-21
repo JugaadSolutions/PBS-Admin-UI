@@ -224,7 +224,7 @@
         },
 
         kpiDetails:{
-         getAll:'kpidetails'
+         getAll:'kpi/dockstation'
         },
 
         smartCard: {

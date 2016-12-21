@@ -58,6 +58,12 @@
                             <td data-title="'Fleet %'">
                                 {{((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)}}%
                             </td>
+                            <td data-title="'Status'"  ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) < 10" style="color: red">
+                                LOW
+                            </td>
+                            <td data-title="'Status'" ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) > 10 " style="color: black;">
+                               HIGH
+                            </td>
                         </tr>
                     </table>
                 </div>

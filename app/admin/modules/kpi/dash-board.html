@@ -83,12 +83,12 @@
         color: #444;
         cursor: pointer;
      /*   padding: 15px 396px;*/
-        padding: 15px 335px;
+        padding: 15px 353px;
         width: 500%;
         border: none;
         text-align: left;
         outline: none;
-        font-size: 25px;
+        font-size: 22px;
         transition: 0.4s;
     }
 
@@ -96,60 +96,60 @@
         background-color: #d6e9c6;
         color: #444;
         cursor: pointer;
-        padding: 15px 372px;
+        padding: 15px 386px;
         width: 500%;
         border: none;
         text-align: left;
         outline: none;
-        font-size: 25px;
+        font-size: 22px;
         transition: 0.4s;
     }
     a.accordion2 {
         background-color: #faebcc;
         color: #444;
         cursor: pointer;
-        padding: 15px 356px;
+        padding: 15px 371px;
         width: 500%;
         border: none;
         text-align: left;
         outline: none;
-        font-size: 25px;
+        font-size: 22px;
         transition: 0.4s;
     }
     a.accordion3 {
         background-color: #ebccd1;
         color: #444;
         cursor: pointer;
-        padding: 15px 349px;
+        padding: 15px 365px;
         width: 500%;
         border: none;
         text-align: left;
         outline: none;
-        font-size: 25px;
+        font-size: 22px;
         transition: 0.4s;
     }
     a.accordion4 {
         background-color: #f4ce5d;
         color: #444;
         cursor: pointer;
-        padding: 15px 419px;
+        padding: 15px 427px;
         width: 500%;
         border: none;
         text-align: left;
         outline: none;
-        font-size: 25px;
+        font-size: 22px;
         transition: 0.4s;
     }
     a.accordion5 {
-        background-color: #d8c5d2;
+        background-color: #d7ea75;
         color: #444;
         cursor: pointer;
-        padding: 15px 399px;
+        padding: 15px 410px;
         width: 500%;
         border: none;
         text-align: left;
         outline: none;
-        font-size: 25px;
+        font-size: 22px;
         transition: 0.4s;
     }
     a.accordion.active, a.accordion:hover {
@@ -201,11 +201,12 @@
             </div>
         </div>
 
-        <!--<div class="card" >
-            <div class="card-header ch-alt m-b-20" style="background-color:white; color:black;" >-->
-              <!--  <div class="card-body card-padding">
+        <div class="card" >
+            <div class="card-header ch-alt m-b-20" style="background-color:white; color:black;" >
+                <div class="card-body card-padding">
                     <div class="row">
-                <div class="col-sm-3 m-b-20">
+
+               <!-- <div class="col-sm-3 m-b-20">
                     <div class="form-group fg-line"
                          ng-class="{ 'has-error': TotalCashReport.TotalCashFrom.$touched && TotalCashReport.TotalCashFrom.$invalid }" >
                         <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
@@ -231,15 +232,67 @@
                                                 <small ng-message="required">To Date is required</small>
                                             </span>
                     </div>
-                </div>
+                </div>-->
+
+                        <div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line"
+                                 ng-class="{ 'has-error': KPI.FromDate.$touched && KPI.FromDate.$invalid }" >
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
+                                <input type="text" name="FromDate" ng-model="details.fromdate" ng-change="fromDateKPI" ng-focus="FromDate=true" ng-click="FromDate=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="FromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                <span class="help-block"
+                                      ng-messages="KPI.FromDate.$error"
+                                      ng-show="KPI.FromDate.$touched">
+                                                <small ng-message="required">From Date is required</small>
+                                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line"
+                                 ng-class="{ 'has-error': KPI.ToDate.$touched && KPI.ToDate.$invalid }" >
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
+                                <input type="text" name="ToDate" ng-model="details.todate" ng-change="toDateKPI" ng-focus="ToDate=true" ng-click="ToDate=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="ToDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                <span class="help-block"
+                                      ng-messages="KPI.ToDate.$error"
+                                      ng-show="KPI.ToDate.$touched">
+                                                <small ng-message="required">To Date is required</small>
+                                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Station Status</label>
+                                <select chosen class="form-control" ng-model="details.stationState"
+                                        data-placeholder-text-single="'Select'"
+                                        name="stationStatus">
+                                    <option value="0">All</option>
+                                    <option value="1">Full</option>
+                                    <option value="2">Empty</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Greater Than (Duration)</label>
+                                <input type="text" name="Duration" ng-model="details.duration"
+                                       class="form-control"
+                                       placeholder="eg. 30 minutes">
+                            </div>
+                        </div>
+
+
                         <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                                ng-click="sendKpiDetails()" ng-disabled="KPI.$invalid">
+                                ng-click="GetDetails()" ng-disabled="KPI.$invalid">
                             <i class="zmdi zmdi-save"></i> Get Details
                         </button>
                 </div>
-            </div>-->
+            </div>
 
-               <!-- <dl class="dl-horizontal required">
+              <!--  <dl class="dl-horizontal required">
                     <dt class="p-t-10">From</dt>
                     <dd>
                         <div class="fg-line">
@@ -267,8 +320,8 @@
 
 
                 </form>
-          <!--  </div>
-        </div>-->
+            </div>
+        </div>
 
 <a class="accordion5"><b>Quaterly Report</b></a>
 <div class="panel">
@@ -278,7 +331,7 @@
                 <div class="form-group fg-line"
                      ng-class="{ 'has-error': TotalCashReport.TotalCashFrom.$touched && TotalCashReport.TotalCashFrom.$invalid }" >
                     <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
-                    <input type="text" name="KpiFromDate" ng-model="fromDateKPI" ng-change="fromDateKPI" ng-focus="KpiFromDate=true" ng-click="KpiFromDate=true"
+                    <input type="text" name="KpiFromDate" ng-model="kpiDetails.fromDateKPI" ng-change="fromDateKPI" ng-focus="KpiFromDate=true" ng-click="KpiFromDate=true"
                            uib-datepicker-popup="dd/MM/yyyy" is-open="KpiFromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
                     <span class="help-block"
                           ng-messages="TotalCashReport.TotalCashFrom.$error"
@@ -292,7 +345,7 @@
                 <div class="form-group fg-line"
                      ng-class="{ 'has-error': TotalCashReport.TotalCashTo.$touched && TotalCashReport.TotalCashTo.$invalid }" >
                     <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
-                    <input type="text" name="KpiToDate" ng-model="toDateKPI" ng-change="toDateKPI" ng-focus="KpiToDate=true" ng-click="KpiToDate=true"
+                    <input type="text" name="KpiToDate" ng-model="kpiDetails.toDateKPI" ng-change="toDateKPI" ng-focus="KpiToDate=true" ng-click="KpiToDate=true"
                            uib-datepicker-popup="dd/MM/yyyy" is-open="KpiToDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
                     <span class="help-block"
                           ng-messages="TotalCashReport.TotalCashTo.$error"
@@ -301,6 +354,24 @@
                                             </span>
                 </div>
             </div>
+           <!-- <div class="col-sm-3 m-b-20">
+                <div class="form-group fg-line">
+                    <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Station State</label>
+                    <select chosen name="status" ng-model="kpiDetails.stationState" placeholder-text-single="'Select Status'"
+                            class="form-control w-100" required>
+                        <option ng-value="0">Full</option>
+                        <option ng-value="1">Empty</option>
+                    </select>
+                </div>
+            </div>-->
+          <!--  <div class="col-sm-3 m-b-20">
+                <div class="form-group fg-line">
+                    <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Grethan Than</label>
+                    <input type="text" name="Duration" ng-model="kpiDetails.duration"
+                           class="form-control"
+                           placeholder="eg. 30 minutes" required>
+                </div>
+            </div>-->
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
                     ng-click="sendKpiDetails()" ng-disabled="KPI.$invalid">
                 <i class="zmdi zmdi-save"></i> Get Details
@@ -674,7 +745,7 @@
         <!--Maintenence Indicators (start)-->
 
         <!--Redistribution Indicators (start)-->
-<a class="accordion3"><b>Redistribution Indicators</b></a>
+<a class="accordion3" ng-click="RedistributionIndicatorClick"><b>Redistribution Indicators</b></a>
         <div class="panel">
             <br>
             <table class="table table-bordered table-hover table-striped table-responsive">
@@ -684,15 +755,18 @@
                 <tr class="success">
                     <th>Redistribution Indicators </th>
                     <th>Level</th>
-                    <th>Points</th><th><a href="redistribution-indicator.html"  class="btn btn-sm btn-default"> View Details</a></th>
+                    <th>Points</th><th></th>
                 </tr>
                 <tr>
                     <td>Percentage of time that major docking station are empty during peak hour (8a.m-11a.m & 4p.m-7p.m)</td>
                     <td>5%</td>
                     <td>5 Points</td><td>
                     <!--Modal7-->
-                    <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal7""></span>
-
+                   <!-- <span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal7"></span>-->
+                    <!--<a class="btn btn-sm btn-default" ng-click="press">View Details</a>-->
+                    <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5" ng-click="press()">
+                        <i class="zmdi zmdi-card-membership"></i> View Details
+                    </button>
 
                     <div class="modal fade" id="myModal7" role="dialog">
                         <div class="modal-dialog">
@@ -730,8 +804,8 @@
                     <td>3%</td>
                     <td>5 Points</td><td>
                     <!--Modal8-->
-                    <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal8""></span>
-
+                   <!-- <span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal8"></span>-->
+                    <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
 
                     <div class="modal fade" id="myModal8" role="dialog">
                         <div class="modal-dialog">
@@ -771,8 +845,8 @@
                     <td>5 Points</td>
                     <td>
                         <!--Modal9-->
-                        <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal9""></span>
-
+                        <!--<span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal9"></span>-->
+                        <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
 
                         <div class="modal fade" id="myModal9" role="dialog">
                             <div class="modal-dialog">
@@ -813,8 +887,8 @@
 
                     <td>
                         <!--Modal10-->
-                        <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal10""></span>
-
+                       <!-- <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal10""></span>-->
+                        <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
 
                         <div class="modal fade" id="myModal10" role="dialog">
                             <div class="modal-dialog">
@@ -852,8 +926,8 @@
                     <td>Minimum percentage of total cycle fleet available at 6a.m</td>
                     <td>95%</td>
                     <td>5 Points</td><td><!--Modal11-->
-                    <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal11""></span>
-
+                   <!-- <span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal11"></span>-->
+                    <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
 
                     <div class="modal fade" id="myModal11" role="dialog">
                         <div class="modal-dialog">
@@ -888,11 +962,11 @@
                 </tr>
                 <tr>
                     <td>Stations are neither full nor empty for a period of longer than two hours </td>
-                    <td>95%</td>
-                    <td>5 Points</td><td>
+                    <td ng-model="RVDetails.percentage"></td>
+                    <td ng-model="RVDetails.points"></td><td>
                     <!--Modal12-->
-                    <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal12""></span>
-
+                   <!-- <span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal12"></span>-->
+                    <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
 
                     <div class="modal fade" id="myModal12" role="dialog">
                         <div class="modal-dialog">
@@ -909,11 +983,7 @@
                                         <li class="list-group-item">Above 98 %= 10  points</li>
                                         <li class="list-group-item">90-95% = -5 points</li>
                                         <li class="list-group-item">Less than 90 = -10 points</li>
-
                                     </ul>
-
-
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn  btn-danger" data-dismiss="modal">Close</button>
@@ -983,6 +1053,73 @@
 
     </div>
 </div>
+
+<script type="text/ng-template" id="details.html">
+    <form name="smartCard" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title">Enter Details</h4>
+        </div>
+        <div class="modal-body">
+
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10">From Date</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input type="text" name="FromDate" ng-model="details.fromdate"
+                               ng-focus="FromDate=true" ng-click="FromDate=true"
+                               uib-datepicker-popup="dd/MM/yyyy" is-open="FromDate"
+                               show-button-bar="true" class="form-control"
+                               placeholder="eg. 16/09/2012" required>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10">To Date</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input type="text" name="ToDate" ng-model="details.todate"
+                               ng-focus="ToDate=true" ng-click="ToDate=true"
+                               uib-datepicker-popup="dd/MM/yyyy" is-open="ToDate"
+                               show-button-bar="true" class="form-control"
+                               placeholder="eg. 16/09/2012" required>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10 p-l-30">Station Status</dt>
+                <dd>
+                    <div class="fg-line">
+                        <select chosen class="form-control" ng-model="details.stationStatus"
+                                data-placeholder-text-single="'Select Credit Type'"
+                                name="stationStatus">
+                            <option value="1">Full</option>
+                            <option value="2">Empty</option>
+                        </select>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10 p-l-30">Greater than</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input type="text" name="Duration" ng-model="details.duration"
+                               class="form-control"
+                               placeholder="eg. 30 minutes">
+                    </div>
+                </dd>
+            </dl>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-link" type="button" ng-click="cancelView()">Cancel</button>
+            <button class="btn btn-link" type="button" ng-click="GetDetails()">Ok</button>
+        </div>
+    </form>
+</script>
+
 
 <!--<div class="card" id="profile-main">
     <div class="pm-overview c-overflow">

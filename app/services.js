@@ -813,12 +813,22 @@
             /*KPI details*/
             SendKPIDetails:function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.kpiDetails.getAll,data).then(function (result) {
+                $http.post(APINew + APIEndPoint.kpiDetails.getAll,data).then(function (result) {
                     deferred.resolve(result.data);
                 },function (error) {
                     deferred.reject(error)
                 });
                 return deferred.promise;
+            },
+
+            GetRVDetails:function (data) {
+                var deferred = $q.defer();
+                 $http.post(APINew + APIEndPoint.kpiDetails.getAll,data).then(function (result) {
+                 deferred.resolve(result.data);
+                 },function (error) {
+                 deferred.reject(error)
+                 });
+                 return deferred.promise;
             },
 
             saveTicketDetails:function(data)
