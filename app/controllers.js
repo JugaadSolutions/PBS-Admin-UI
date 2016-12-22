@@ -4248,6 +4248,8 @@
 
     }]);
 
+    var percentage_value=0;
+    var percentage_points=0;
     app.controller('kpiDetails', ['$scope', '$state', 'DataService', 'growl','$uibModal','NgTableParams', 'sweet', function ($scope, $state, DataService, growl,$uibModal,NgTableParams,sweet)
     {
         $scope.toDateKPI = new Date();
@@ -4275,8 +4277,6 @@
             $scope.fromDateKPI   = new Date(CurrentDate.setMonth(CurrentDate.getMonth() - 2));
          /*  alert($scope.fromDateKPI);*/
         }
-
-       /* if (test == )*/
 
 
       /*  $scope.kpiDetails={
@@ -4329,30 +4329,33 @@
                     total += total_duration;
                 }
 
-                  var value =  (_working_hours - total)/(_working_hours) * 100;
-                alert(value);
+                percentage_value =  ((_working_hours - total)/(_working_hours) * 100).toFixed(2);
 
-                if(value > 98)
+                if(percentage_value > 98)
                 {
-                alert("10 Points");
-                var jj="10 points";
+                percentage_points="10 points";
                 }
-                else if (value > 95 && value < 98)
+                else if (percentage_value > 95 && value < 98)
                 {
-                    alert("5 Points");
+                    percentage_points="5 points";
                 }
-                else if(value >90 && value <95)
+                else if(percentage_value >90 && percentage_value <95)
                 {
-                    alert("-5 Points");
+                    percentage_points="-5 points";
                 }
-                else if(value <90)
+                else if(percentage_value <90)
                 {
-                    alert("-10 Points");
+                    percentage_points="-10 points";
                 }
+
+                /*$scope.RVDetails={
+                    percentage:"Level:"+ percentage_value + "%",
+                    points:"Points:"+percentage_points
+                };*/
 
                 $scope.RVDetails={
-                    percentage:value,
-                    points:jj
+                    percentage:percentage_value + "%",
+                    points:percentage_points
                 };
 
                 if (!response.error) {
@@ -4370,17 +4373,17 @@
         //     $uibModalInstance.dismiss();
         // };
 
+
     }]);
+
 
     app.controller('RVDetails', ['$scope', '$state', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet)
     {
-        alert(value);
-        alert(jj);
-        $scope.RVDetails={
-      percentage:value,
-     points:jj
-            };
 
+      $scope.yyyy={
+        abc:hi,
+          xyz:hello
+      };
     }]);
 
 // Maintenance Centre Status Controller

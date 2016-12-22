@@ -289,6 +289,12 @@
                                 ng-click="GetDetails()" ng-disabled="KPI.$invalid">
                             <i class="zmdi zmdi-save"></i> Get Details
                         </button>
+
+                        <!--<div>
+                      <p ng-model="RVDetails.percentage"></p>
+                            <b><span ng-bind="RVDetails.percentage"></span> &nbsp;&nbsp;&nbsp;&nbsp; <span ng-bind="RVDetails.points"></span></b>
+                        </div>-->
+
                 </div>
             </div>
 
@@ -745,7 +751,7 @@
         <!--Maintenence Indicators (start)-->
 
         <!--Redistribution Indicators (start)-->
-<a class="accordion3" ng-click="RedistributionIndicatorClick"><b>Redistribution Indicators</b></a>
+<a class="accordion3"><b>Redistribution Indicators</b></a>
         <div class="panel">
             <br>
             <table class="table table-bordered table-hover table-striped table-responsive">
@@ -962,8 +968,8 @@
                 </tr>
                 <tr>
                     <td>Stations are neither full nor empty for a period of longer than two hours </td>
-                    <td ng-model="RVDetails.percentage"></td>
-                    <td ng-model="RVDetails.points"></td><td>
+                    <td><span ng-bind="RVDetails.percentage"></span></td>
+                    <td><span ng-bind="RVDetails.points"></span></td><td>
                     <!--Modal12-->
                    <!-- <span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal12"></span>-->
                     <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
