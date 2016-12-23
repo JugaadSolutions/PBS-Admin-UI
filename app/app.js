@@ -71,7 +71,7 @@
         registrationstaff:{
             save: 'registrationstaff',
             get:'registrationstaff',
-            getAll:'registrationstaff'
+            getAll:'registrationstaff/emp'
         },
 
         membership: {
@@ -143,7 +143,8 @@
         /*Registration centre staff assignment*/
         staffSelection:
         {
-            getAll:'employee/registrationstaff'
+           /* getAll:'employee/registrationstaff'*/
+            getAll:'employee/registrationstaff/emp'
         },
 
         holdingArea: {

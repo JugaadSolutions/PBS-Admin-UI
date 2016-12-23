@@ -4250,6 +4250,10 @@
 
     var percentage_value=0;
     var percentage_points=0;
+    var percentage_value_major_empty=0;
+    var percentage_points_total_major_empty=0;
+    var percentage_value_major_empty_offpeek=0;
+    var percentage_points_total_major_empty_offpeek=0;
     app.controller('kpiDetails', ['$scope', '$state', 'DataService', 'growl','$uibModal','NgTableParams', 'sweet', function ($scope, $state, DataService, growl,$uibModal,NgTableParams,sweet)
     {
         $scope.toDateKPI = new Date();
@@ -4324,30 +4328,97 @@
                 var _working_hours = _no_of_days * 16 * 60;
                 var i=0;
                 var total=0;
-                for(var i = 0; i < response.data.length; i++){
+                var total_major_empty_peak=0;
+                var total_major_empty_offpeak=0;
+                for(var i = 0; i < response.data.length; i++)
+                {
                     var total_duration = response.data[i].timeduration;
+                    var peakduration_empty = response.data[i].peekduration;
+                    var offpeakduration_empty = response.data[i].offpeekduration;
+
+
+                    /* if( response.data[i].peekduration === undefined)
+                      {
+                          var peakduration_empty = 0;
+                      }
+                      else
+                      {
+                          var peakduration_empty = response.data[i].peekduration;
+                      }*/
+
+                    // calculation for stations neither empty nor full for more then 1 minute
+                    if(total_duration > 1)
+                    {
                     total += total_duration;
+                    }
+
+                    // calculation for major stations empty during peak hour
+                    if(response.data[i].stationtype === "Major")
+                    {
+                     if(response.data[i].status===2)
+                     {
+                         total_major_empty_peak += peakduration_empty;
+                         total_major_empty_offpeak += offpeakduration_empty;
+                     }
+                    }
                 }
 
                 percentage_value =  ((_working_hours - total)/(_working_hours) * 100).toFixed(2);
+                percentage_value_major_empty =  ((total_major_empty_peak)/(_working_hours) * 100).toFixed(2);
+                percentage_value_major_empty_offpeek =  ((total_major_empty_offpeak)/(_working_hours) * 100).toFixed(2);
 
                 if(percentage_value > 98)
                 {
-                percentage_points="10 points";
+                percentage_points=10;
                 }
-                else if (percentage_value > 95 && value < 98)
+                else if (percentage_value >= 95 && value < 98)
                 {
-                    percentage_points="5 points";
+                    percentage_points=5;
                 }
-                else if(percentage_value >90 && percentage_value <95)
+                else if(percentage_value >=90 && percentage_value <95)
                 {
-                    percentage_points="-5 points";
+                    percentage_points=-5;
                 }
-                else if(percentage_value <90)
+                else if(percentage_value < 90)
                 {
-                    percentage_points="-10 points";
+                    percentage_points=-10;
                 }
 
+
+                if (percentage_value_major_empty < 3)
+                {
+                    percentage_points_total_major_empty = 10;
+                }
+                else if(percentage_value_major_empty >= 3 && percentage_value_major_empty <5)
+                {
+                    percentage_points_total_major_empty=5;
+                }
+                else if(percentage_value_major_empty >= 5 && percentage_value_major_empty <8)
+                {
+                    percentage_points_total_major_empty=-5;
+                }
+                else if(percentage_value_major_empty >= 8)
+                {
+                    percentage_points_total_major_empty=-10;
+                }
+
+
+                if (percentage_value_major_empty_offpeek < 2)
+                {
+                    percentage_points_total_major_empty_offpeek = 10;
+                }
+                else if(percentage_value_major_empty_offpeek >= 2 && percentage_value_major_empty_offpeek <3)
+                {
+                    percentage_points_total_major_empty_offpeek=5;
+                }
+                else if(percentage_value_major_empty_offpeek >= 3 && percentage_value_major_empty_offpeek <5)
+                {
+                    percentage_points_total_major_empty_offpeek=-5;
+                }
+                else if(percentage_value_major_empty_offpeek >= 5)
+                {
+                    percentage_points_total_major_empty_offpeek=-10;
+                }
                 /*$scope.RVDetails={
                     percentage:"Level:"+ percentage_value + "%",
                     points:"Points:"+percentage_points
@@ -4355,7 +4426,11 @@
 
                 $scope.RVDetails={
                     percentage:percentage_value + "%",
-                    points:percentage_points
+                    points:percentage_points,
+                    percentage_total_major_empty:percentage_value_major_empty + "%",
+                    points_total_major_empty:percentage_points_total_major_empty,
+                    percentage_total_major_empty_offpeek:percentage_value_major_empty_offpeek + "%",
+                    points_total_major_empty_offpeek:percentage_points_total_major_empty_offpeek,
                 };
 
                 if (!response.error) {
@@ -4372,18 +4447,13 @@
         // $scope.cancelView = function () {
         //     $uibModalInstance.dismiss();
         // };
-
-
     }]);
 
 
     app.controller('RVDetails', ['$scope', '$state', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet)
     {
 
-      $scope.yyyy={
-        abc:hi,
-          xyz:hello
-      };
+
     }]);
 
 // Maintenance Centre Status Controller
@@ -5003,12 +5073,13 @@ var cc= [];
     app.controller('AddDockingStationClean', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
         $scope.dockingStationCleanInput={
-            stationName:'',
-            cleaningDate:'',
-            cleaningTimeFrom:'',
-            cleaningTimeTo:'',
-            image:'',
-            description:''
+            stationId:'',
+            cleanedate:'',
+            fromtime:'',
+            totime:'',
+            empId:'',
+            description:'',
+            createdBy:login_id
         };
 
         $scope.addDockingStationClean = function () {
@@ -5028,6 +5099,7 @@ var cc= [];
 
         DataService.getDockingStations().then(function (response) {
                 if (!response.error) {
+
                     $scope.dockingStationSelections = response.data;
                 }
                 else {
@@ -5042,6 +5114,20 @@ var cc= [];
         $scope.selectedDockingStation = function (data) {
             $scope.dockingStationCleanInput.stationName = data.name;
         };
+
+        /*DataService.getDockingStations().then(function (response) {
+                if (!response.error) {
+
+                    $scope.dockingStationSelections = response.data;
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });*/
 
 
         $scope.dockingStationCleanReport = function () {

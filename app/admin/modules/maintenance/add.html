@@ -70,6 +70,21 @@
                         </dl>
 
                         <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Cleaning Employee</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control"
+                                            data-placeholder-text-single="'SELECT THE OPTIONS'"
+                                            ng-options="dockingStationSelection as dockingStationSelection.name for dockingStationSelection in dockingStationSelections"
+                                            ng-model="stationName"
+                                            ng-change="selectedDockingStation(stationName)" required>
+                                        <option value="0">SELECT THE OPTIONS</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
                    <dt class="p-t-10">Cleaning Date</dt>
                    <dd>
                        <div class="fg-line"
@@ -116,7 +131,7 @@
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal">
+                       <!-- <dl class="dl-horizontal">
                             <dt class="p-t-5">Upload Photo</dt>
                             <dd>
                                 <div class="fg-line">
@@ -138,7 +153,7 @@
                                     </div>
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
                         <dl class="dl-horizontal">
                             <dt class="p-t-10">Description</dt>
