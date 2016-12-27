@@ -209,6 +209,18 @@
                 else if (_department === 'Docking Station Repair Staff')
                 {
                 }
+                else if (_department === 'Operator')
+                {
+                    _url='operator';
+                }
+                else if (_department === 'Accounts Admin')
+                {
+                    _url='accountstaff';
+                }
+                else if (_department === 'Monitor Group')
+                {
+                    _url='monitorgrp';
+                }
                 else
                 {
 
@@ -342,6 +354,17 @@
                 });
                 return deferred.promise;
             },
+
+           /* getRedistributionVehicle: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.dockingStations.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },*/
+
             getDockingUnits: function (filters) {
                 var deferred = $q.defer();
                 $http.get(API + APIEndPoint.dockingUnits.getAll,
@@ -494,7 +517,7 @@
             },
             getRedistributionVehicle: function (data) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.redistributionVehicles.get + '/' + data).then(function (result) {
+                $http.get(APINew + APIEndPoint.redistributionVehicles.get + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -659,9 +682,9 @@
 
             /*docking station cleaning */
             saveDockingStationCleaning: function (data) {
-                var _enteredDate=data.cleaningDate;
-                var _enteredTimeFrom = data.cleaningTimeFrom;
-                var _enteredTimeTo= data.cleaningTimeTo;
+                var _enteredDate=data.cleaneddate;
+                var _enteredTimeFrom = data.fromtime;
+                var _enteredTimeTo= data.totime;
 
                 var _date =_enteredDate.getDate();
                 if(_date.toString().length ===1)
@@ -675,22 +698,30 @@
                 var _month=_enteredDate.getMonth()+1;
                 if(_month.toString().length===1)
                 {
-                    _month=0+""+_enteredDate.getMonth();
+                    _month=0+""+_enteredDate.getMonth()+1;
                 }
                 else
                 {
-                    _month=_enteredDate.getMonth();
+                    _month=_enteredDate.getMonth()+1;
                 }
                 var _year=_enteredDate.getFullYear();
                 var Date=_year+"-"+_month+"-"+_date;
-                var _timeFrom = Date+"T"+_enteredTimeFrom+":"+"00"+":"+"000"+"Z";
+             /*   var _timeFrom = Date+"T"+_enteredTimeFrom+":"+"00"+":"+"000"+"Z";
                 var _timeTo = Date+"T"+_enteredTimeTo+":"+"00"+":"+"000"+"Z";
+*/
+                var _timeFrom = Date+"T"+_enteredTimeFrom+"Z";
+                var _timeTo = Date+"T"+_enteredTimeTo+"Z";
+
+               /* var _timeTo = Date+"T"+_enteredTimeTo+":"+"00"+":"+"000"+"Z";*/
                 var deferred = $q.defer();
                 var CleanDockingStation={
-                    stationName:data.stationName,
-                    cleaningDate:data.cleaningDate,
-                    cleaningTimeFrom:_timeFrom,
-                    cleaningTimeTo:_timeTo
+                    stationId:data.stationId,
+                    cleaneddate:data.cleaneddate,
+                    fromtime:_timeFrom,
+                    totime:_timeTo,
+                    empId:data.empId,
+                    description:data.description,
+                    createdBy:data.createdBy
                 };
                 $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
                     deferred.resolve(result.data);
@@ -911,12 +942,12 @@
                     fromPort:data.fromPort,
                     checkOutTime:Date_Time
                 };
-                $http.post(APINew + APIEndPoint.checkOutBridge.save, checkOutBridge).then(function (result) {
+               /* $http.post(APINew + APIEndPoint.checkOutBridge.save, checkOutBridge).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;
+                return deferred.promise;*/
             },
 
             saveCheckInBridge:function(data)

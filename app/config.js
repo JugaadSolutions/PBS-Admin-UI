@@ -634,6 +634,13 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.reports.redistribution-vehicle-track", {
+                url: "/redistribution-vehicle-track",
+                templateUrl: adminViewPath + 'reports/redistribution-vehicle-track.html',
+                controller: 'RedistributionVehicleTracking',
+                containerClass: 'sw-toggled'
+            })
+
             // Temporary Simulator Routes
             .state("checkout", {
                 url: "/simulator/checkout",

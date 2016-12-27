@@ -73,6 +73,9 @@
                     <a ng-class="{active: $state.includes('admin.smart-cards')}" ui-sref="admin.smart-cards.manage">Smart
                         Cards</a>
                 </li>
+                <li>
+                    <a ng-class="{active: $state.includes('admin.smart-cards')}" ui-sref="admin.smart-cards.manage">Stations</a>
+                </li>
             </ul>
         </li>
         <li class="sub-menu"
@@ -93,6 +96,10 @@
                 <li>
                     <a ng-class="{'active': $state.includes('admin.reports.bicycle-life-cycle')}"
                        ui-sref="admin.reports.bicycle-life-cycle">Bicycle Life Cycle</a>
+                </li>
+                <li>
+                    <a ng-class="{'active': $state.includes('admin.reports.redistribution-vehicle-track')}"
+                       ui-sref="admin.reports.redistribution-vehicle-track">Redistribution Vehicle Tracking</a>
                 </li>
             </ul>
         </li>
@@ -155,6 +162,7 @@
 
     </ul>
 
+    <!--Login view for Registration employee-->
     <ul class="main-menu" ng-if="role=='registration-employee'" >
         <li ng-class="{active: $state.includes('admin.members')}">
          <!--   <a ui-sref="403"><i class="zmdi zmdi-mood"></i> Members</a>-->
@@ -164,5 +172,100 @@
             <a ui-sref="admin.tickets.manage"><i class="zmdi zmdi-labels"></i> Tickets</a>
         </li>
     </ul>
+
+    <!--Login view for Monitor Group -->
+    <ul class="main-menu" ng-if="role=='Monitor-group'" >
+        <li ng-class="{active: $state.includes('admin.fare-plans')}">
+            <a ui-sref="admin.fare-plans.manage"><i class="zmdi zmdi-money-box"></i> Fare Plans</a>
+        </li>
+        <li ng-class="{active: $state.includes('admin.membership')}">
+            <a ui-sref="admin.membership.manage"><i class="zmdi zmdi-card-membership"></i> Membership Plans</a>
+        </li>
+        <li class="sub-menu"
+            ng-class="{'active toggled': $state.includes('admin.accounts') || $state.includes('admin.accounts.daywise-collectionsummary') || $state.includes('admin.accounts.refunds') || $state.includes('admin.accounts.bankcash-deposits')}">
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Accounts</a>
+            <ul>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.daywise-collectionsummary')}"
+                       ui-sref="admin.accounts.daywise-collectionsummary">Daywise Transaction Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.cash-collectionsummary')}"
+                       ui-sref="admin.accounts.cash-collectionsummary">Cash Balance Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.totalcash-report')}"
+                       ui-sref="admin.accounts.totalcash-report">Total Cash Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.bankcashdeposits')}"
+                       ui-sref="admin.accounts.bankcashdeposits.bankcashdeposit-report">Bank Cash Deposit Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.bankcashdeposits')}"
+                       ui-sref="admin.accounts.bankcashdeposits.manage">Add Bank Cash Deposit</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.refunds')}"
+                       ui-sref="admin.accounts.refunds">Refunds</a>
+                </li>
+            </ul>
+        </li>
+        <li ng-class="{active: $state.includes('admin.kpi')}">
+            <a ui-sref="admin.kpi.dash-board"><i class="zmdi zmdi-star"></i>Key Performance Indicator</a>
+        </li>
+    </ul>
+
+    <!--Login view for Admin Accounts-->
+    <ul class="main-menu" ng-if="role=='Accounts-admin'" >
+        <li class="sub-menu"
+            ng-class="{'active toggled': $state.includes('admin.accounts') || $state.includes('admin.accounts.daywise-collectionsummary') || $state.includes('admin.accounts.refunds') || $state.includes('admin.accounts.bankcash-deposits')}">
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Accounts</a>
+            <ul>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.daywise-collectionsummary')}"
+                       ui-sref="admin.accounts.daywise-collectionsummary">Daywise Transaction Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.cash-collectionsummary')}"
+                       ui-sref="admin.accounts.cash-collectionsummary">Cash Balance Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.totalcash-report')}"
+                       ui-sref="admin.accounts.totalcash-report">Total Cash Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.bankcashdeposits')}"
+                       ui-sref="admin.accounts.bankcashdeposits.bankcashdeposit-report">Bank Cash Deposit Report</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.bankcashdeposits')}"
+                       ui-sref="admin.accounts.bankcashdeposits.manage">Add Bank Cash Deposit</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.accounts.refunds')}"
+                       ui-sref="admin.accounts.refunds">Refunds</a>
+                </li>
+            </ul>
+        </li>
+        <li class="sub-menu"
+            ng-class="{'active toggled': $state.includes('admin.maintenance')}">
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Maintenance</a>
+            <ul>
+                <li><a ng-class="{'active': $state.includes('admin.maintenance')}"
+                       ui-sref="admin.maintenance.add">Docking Station Clean</a>
+                </li>
+            </ul>
+        </li>
+        <li ng-class="{active: $state.includes('admin.kpi')}">
+            <a ui-sref="admin.kpi.dash-board"><i class="zmdi zmdi-star"></i>Key Performance Indicator</a>
+        </li>
+    </ul>
+
+    <!--Login view for Operator-->
+    <ul class="main-menu" ng-if="role=='Operator'" >
+        <li ng-class="{active: $state.includes('admin.members')}">
+            <a ui-sref="admin.members.manage"><i class="zmdi zmdi-mood"></i> Members</a>
+        </li>
+        <li ng-class="{active: $state.includes('admin.employees')}" ng-if='admin'>
+            <a ui-sref="admin.employees.manage"><i class="zmdi zmdi-accounts-alt"></i> Employees</a>
+        </li>
+        <li>
+            <a ng-class="{'active': $state.includes('admin.reports.redistribution-vehicle-track')}"
+               ui-sref="admin.reports.redistribution-vehicle-track"><i class="zmdi zmdi-accounts-alt"></i>Redistribution Vehicle Tracking</a>
+        </li>
+        <li ng-class="{active: $state.includes('admin.tickets')}">
+            <a ui-sref="admin.tickets.manage"><i class="zmdi zmdi-labels"></i> Tickets</a>
+        </li>
+    </ul>
+
 
 </div>

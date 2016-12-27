@@ -42,6 +42,22 @@
                         <dl class="dl-horizontal required">
                             <dt class="p-t-10">Member Name</dt>
                             <dd>
+                                <div class="fg-line">
+                                    <input type="search" name="MemberName" ng-model="ticketsDetails.memberName"
+                                           class="form-control"
+                                           placeholder="eg. Ashok" required>
+                                    <span class="help-block"
+                                          ng-messages="AddTicketsDetails.MemberName.$error"
+                                          ng-show="AddTicketsDetails.MemberName.$touched">
+                                                <small ng-message="required">Member Name is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Member Name</dt>
+                            <dd>
                                 <div class="fg-line"
                                      ng-class="{ 'has-error': AddTicketsDetails.MemberName.$touched && AddTicketsDetails.MemberName.$invalid }">
                                     <input type="text" name="MemberName" ng-model="ticketsDetails.memberName"

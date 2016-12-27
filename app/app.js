@@ -125,8 +125,9 @@
             bicycleLifeCycle: 'bicycleLifeCycle'
         },
         redistributionVehicles: {
-            getAll: 'redistributionvehicle',
-            save: 'redistributionvehicle'
+            getAll: 'redistributionport',
+            save: 'redistributionport',
+            get:'redistributionport'
            /* get: 'redistributionvehicle',
             save: 'redistributionvehicle',
             update: 'redistributionvehicle',
@@ -168,7 +169,7 @@
         },
 
         dockingStationCleaning:{
-            save:'dockingstationcleaning',
+            save:'dockstation/cleanstation',
             getAll:'dockingstationcleaning'
         },
 

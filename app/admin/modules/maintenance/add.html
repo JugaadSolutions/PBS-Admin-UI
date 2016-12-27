@@ -75,9 +75,9 @@
                                 <div class="fg-line">
                                     <select chosen class="form-control"
                                             data-placeholder-text-single="'SELECT THE OPTIONS'"
-                                            ng-options="dockingStationSelection as dockingStationSelection.name for dockingStationSelection in dockingStationSelections"
-                                            ng-model="stationName"
-                                            ng-change="selectedDockingStation(stationName)" required>
+                                            ng-options="employeeSelection as employeeSelection.Name for employeeSelection in employeeSelections"
+                                            ng-model="employeeName"
+                                            ng-change="selectedEmployee(employeeName)" required>
                                         <option value="0">SELECT THE OPTIONS</option>
                                     </select>
                                 </div>
@@ -89,7 +89,7 @@
                    <dd>
                        <div class="fg-line"
                             ng-class="{ 'has-error': DockingStationClean.CleanDate.$touched && DockingStationClean.CleanDate.$invalid }">
-                           <input type="text" name="CleanDate" ng-model="dockingStationCleanInput.cleaningDate" ng-change="stationName" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
+                           <input type="text" name="CleanDate" ng-model="dockingStationCleanInput.cleaneddate" ng-change="stationName" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
                                   uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
                            <span class="help-block"
                                  ng-messages="DockingStationClean.CleanDate.$error"
@@ -107,7 +107,7 @@
                                     <div class="fg-line"
                                          ng-class="{ 'has-error': DockingStationClean.cleanTimeFrom.$touched && DockingStationClean.cleanTimeFrom.$invalid}">
                                         <input type="text" name="cleanTimeFrom"
-                                               ng-model="dockingStationCleanInput.cleaningTimeFrom"
+                                               ng-model="dockingStationCleanInput.fromtime"
                                                class="form-control input-sm form-inline"
                                                placeholder="From Time (eg. 9:30)" required>
                                         <span class="help-block" ng-messages="DockingStationClean.cleanTimeFrom.$error"
@@ -120,7 +120,7 @@
                                     <div class="fg-line"
                                          ng-class="{'has-error': DockingStationClean.cleanTimeTo.$touched && DockingStationClean.cleanTimeTo.$invalid}">
                                         <input type="text" name="cleanTimeTo" class="form-control input-sm form-inline"
-                                               ng-model="dockingStationCleanInput.cleaningTimeTo"
+                                               ng-model="dockingStationCleanInput.totime"
                                                placeholder="To Time (eg. 13:00)" required>
                                         <span class="help-block" ng-messages="DockingStationClean.cleanTimeTo.$error"
                                               ng-show="DockingStationClean.cleanTimeTo.$touched">

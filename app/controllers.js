@@ -21,6 +21,7 @@
             /*newly added*/
             $scope.email=user.email;
             login_email = user.email;
+
             login_id=user.id;
             //$scope.profilePic = AWS + 'Employee/' + user._id + '/' + member.picture + '.png';
 
@@ -60,6 +61,7 @@
     }]);
 
     //Login Controller
+    var _login_id;
     app.controller('LoginController', ['$state', '$scope', '$rootScope', '$timeout', 'growl', 'user', 'auth', 'DataService', function ($state, $scope, $rootScope, $timeout, growl, user, auth, DataService) {
         $scope.login = true;
 
@@ -105,6 +107,8 @@
 
         function handleRequest(res) {
             var token = res.data.data.token;
+            _login_id=res.data.data.id;
+            alert(_login_id);
             if (token) {
                 auth.saveToken(token);
                 $state.reload();
@@ -4335,16 +4339,7 @@
                     var total_duration = response.data[i].timeduration;
                     var peakduration_empty = response.data[i].peekduration;
                     var offpeakduration_empty = response.data[i].offpeekduration;
-
-
-                    /* if( response.data[i].peekduration === undefined)
-                      {
-                          var peakduration_empty = 0;
-                      }
-                      else
-                      {
-                          var peakduration_empty = response.data[i].peekduration;
-                      }*/
+                    var bicycle_clean=response.data[i].stationid.name;
 
                     // calculation for stations neither empty nor full for more then 1 minute
                     if(total_duration > 1)
@@ -4361,6 +4356,10 @@
                          total_major_empty_offpeak += offpeakduration_empty;
                      }
                     }
+
+                    // calculation for bicycle clean
+
+
                 }
 
                 percentage_value =  ((_working_hours - total)/(_working_hours) * 100).toFixed(2);
@@ -5072,14 +5071,16 @@ var cc= [];
 
     app.controller('AddDockingStationClean', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
+        alert(_login_id);
+
         $scope.dockingStationCleanInput={
             stationId:'',
-            cleanedate:'',
+            cleaneddate:'',
             fromtime:'',
             totime:'',
             empId:'',
             description:'',
-            createdBy:login_id
+            createdBy:_login_id
         };
 
         $scope.addDockingStationClean = function () {
@@ -5112,7 +5113,27 @@ var cc= [];
             });
 
         $scope.selectedDockingStation = function (data) {
-            $scope.dockingStationCleanInput.stationName = data.name;
+            $scope.dockingStationCleanInput.stationId = data._id;
+        };
+
+        $scope.employeeSelections = [];
+
+        DataService.getStaffs().then(function (response) {
+                if (!response.error) {
+
+                    $scope.employeeSelections = response.data;
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
+
+        $scope.selectedEmployee = function (data) {
+            $scope.dockingStationCleanInput.empId = data.id;
         };
 
         /*DataService.getDockingStations().then(function (response) {
@@ -6163,4 +6184,75 @@ var cc= [];
         );
 
     }]);
+
+    app.controller('RedistributionVehicleTracking',  ['$scope', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
+    {
+        var multiDockingStations = [];
+
+       /* $scope.dockingStationsData = [];*/
+
+        $scope.redistributionVehicleData = [];
+
+        DataService.getRedistributionVehicles().then(function (response) {
+            if (!response.error) {
+                $scope.redistributionVehicleData = response.data;
+                $scope.redistributionVehicles = response.data;
+                for (var i = 0; i < $scope.redistributionVehicles.length; i++) {
+                    var longAndLat = {
+                        longitude: $scope.redistributionVehicles[i].gpsCoordinates.longitude,
+                        latitude: $scope.redistributionVehicles[i].gpsCoordinates.latitude,
+                        mapUrl: GOOGLEMAPURL,
+                        show: false,
+                        title: $scope.redistributionVehicles[i].Name,
+                        bicycleCount: $scope.redistributionVehicles[i].vehicleId.length,
+                        bicycleCapacity: $scope.redistributionVehicles[i].portCapacity,
+                        dockingStationStatus: StatusService.getRedistributionVehicleStatus($scope.redistributionVehicles[i].portStatus),
+                        id: i
+                    };
+                    multiDockingStations.push(longAndLat);
+                }
+
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description);
+        });
+
+        $scope.map = {
+            center: {
+                latitude: 12.3024314,
+                longitude: 76.6615633
+            }, zoom: 13
+        };
+
+
+      /* var marker = new google.maps.Marker({
+            map:map,
+            position: new google.maps.LatLng(59.32522, 18.07002),
+            icon: 'http://cdn.com/my-custom-icon.png' // null = default icon
+        });*/
+
+        $scope.options = {scrollwheel: false};
+        $scope.markers = multiDockingStations;
+
+        $scope.windowOptions = {
+            visible: false
+        };
+
+        $scope.onClick = function (marker, eventName, model) {
+            model.show = !model.show;
+        };
+
+        $scope.closeClick = function () {
+            $scope.windowOptions.visible = false;
+        };
+
+        $scope.swapView = function (viewType) {
+            $scope.view = viewType;
+        };
+
+    }]);
+
 }());
+
