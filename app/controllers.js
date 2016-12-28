@@ -897,7 +897,8 @@
             creditMode: '',
             transactionNumber: '',
             comments: '',
-            createdBy: loggedInUser.assignedUser
+            /*createdBy: loggedInUser.assignedUser*/
+            createdBy: _login_id
         };
 
         $scope.cancelCredit = function () {
@@ -5071,7 +5072,7 @@ var cc= [];
 
     app.controller('AddDockingStationClean', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
-        alert(_login_id);
+       /* alert(_login_id);*/
 
         $scope.dockingStationCleanInput={
             stationId:'',
@@ -5360,7 +5361,6 @@ var cc= [];
 
         $scope.MyFunction = function ()
         {
-            alert("hi");
             window.print();
         };
 
@@ -6187,26 +6187,25 @@ var cc= [];
 
     app.controller('RedistributionVehicleTracking',  ['$scope', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
     {
+        // Docking Stations tracking
         var multiDockingStations = [];
 
-       /* $scope.dockingStationsData = [];*/
+        $scope.dockingStationsData = [];
 
-        $scope.redistributionVehicleData = [];
-
-        DataService.getRedistributionVehicles().then(function (response) {
+        DataService.getDockingStations().then(function (response) {
             if (!response.error) {
-                $scope.redistributionVehicleData = response.data;
-                $scope.redistributionVehicles = response.data;
-                for (var i = 0; i < $scope.redistributionVehicles.length; i++) {
+                $scope.dockingStationsData = response.data;
+                $scope.dockingStations = response.data;
+                for (var i = 0; i < $scope.dockingStations.length; i++) {
                     var longAndLat = {
-                        longitude: $scope.redistributionVehicles[i].gpsCoordinates.longitude,
-                        latitude: $scope.redistributionVehicles[i].gpsCoordinates.latitude,
+                        longitude: $scope.dockingStations[i].gpsCoordinates.longitude,
+                        latitude: $scope.dockingStations[i].gpsCoordinates.latitude,
                         mapUrl: GOOGLEMAPURL,
                         show: false,
-                        title: $scope.redistributionVehicles[i].Name,
-                        bicycleCount: $scope.redistributionVehicles[i].vehicleId.length,
-                        bicycleCapacity: $scope.redistributionVehicles[i].portCapacity,
-                        dockingStationStatus: StatusService.getRedistributionVehicleStatus($scope.redistributionVehicles[i].portStatus),
+                        title: $scope.dockingStations[i].name,
+                        bicycleCount: $scope.dockingStations[i].bicycleCount,
+                        bicycleCapacity: $scope.dockingStations[i].bicycleCapacity,
+                        dockingStationStatus: StatusService.getDockingStationStatus($scope.dockingStations[i].status),
                         id: i
                     };
                     multiDockingStations.push(longAndLat);
@@ -6226,15 +6225,65 @@ var cc= [];
             }, zoom: 13
         };
 
-
-      /* var marker = new google.maps.Marker({
-            map:map,
-            position: new google.maps.LatLng(59.32522, 18.07002),
-            icon: 'http://cdn.com/my-custom-icon.png' // null = default icon
-        });*/
-
         $scope.options = {scrollwheel: false};
         $scope.markers = multiDockingStations;
+
+        $scope.windowOptions = {
+            visible: false
+        };
+
+        $scope.onClick = function (marker, eventName, model) {
+            model.show = !model.show;
+        };
+
+        $scope.closeClick = function () {
+            $scope.windowOptions.visible = false;
+        };
+
+        $scope.swapView = function (viewType) {
+            $scope.view = viewType;
+        };
+
+        // Redistribution vehicle tracking
+        var multiRedistributionVehicle = [];
+
+        $scope.redistributionVehicleData = [];
+
+        DataService.getRedistributionVehicles().then(function (response) {
+            if (!response.error) {
+                $scope.redistributionVehicleData = response.data;
+                $scope.redistributionVehicles = response.data;
+                for (var i = 0; i < $scope.redistributionVehicles.length; i++) {
+                    var longAndLat = {
+                        longitude: $scope.redistributionVehicles[i].gpsCoordinates.longitude,
+                        latitude: $scope.redistributionVehicles[i].gpsCoordinates.latitude,
+                        mapUrl: GOOGLEMAPURL,
+                        show: false,
+                        title: $scope.redistributionVehicles[i].Name,
+                        bicycleCount: $scope.redistributionVehicles[i].vehicleId.length,
+                        bicycleCapacity: $scope.redistributionVehicles[i].portCapacity,
+                        dockingStationStatus: StatusService.getRedistributionVehicleStatus($scope.redistributionVehicles[i].portStatus),
+                        id: i
+                    };
+                    multiRedistributionVehicle.push(longAndLat);
+                }
+
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description);
+        });
+
+        $scope.map = {
+            center: {
+                latitude: 12.3024314,
+                longitude: 76.6615633
+            }, zoom: 13
+        };
+
+        $scope.options = {scrollwheel: false};
+        $scope.markers = multiRedistributionVehicle;
 
         $scope.windowOptions = {
             visible: false

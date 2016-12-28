@@ -258,12 +258,33 @@
         <li ng-class="{active: $state.includes('admin.employees')}" ng-if='admin'>
             <a ui-sref="admin.employees.manage"><i class="zmdi zmdi-accounts-alt"></i> Employees</a>
         </li>
-        <li>
-            <a ng-class="{'active': $state.includes('admin.reports.redistribution-vehicle-track')}"
-               ui-sref="admin.reports.redistribution-vehicle-track"><i class="zmdi zmdi-accounts-alt"></i>Redistribution Vehicle Tracking</a>
-        </li>
         <li ng-class="{active: $state.includes('admin.tickets')}">
             <a ui-sref="admin.tickets.manage"><i class="zmdi zmdi-labels"></i> Tickets</a>
+        </li>
+        <li class="sub-menu"
+            ng-class="{'active toggled': $state.includes('admin.reports')}">
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-chart"></i>Live Data</a>
+            <ul>
+                <li><a ng-class="{'active': $state.includes('admin.reports.monitor-transactions')}"
+                       ui-sref="admin.reports.monitor-transactions">Bicycle Transactions</a>
+                </li>
+                <li>
+                    <a ng-class="{'active': $state.includes('admin.reports.bicycle-availability') || $state.includes('admin.reports.port-information')}"
+                       ui-sref="admin.reports.bicycle-availability">Bicycle Availability</a>
+                </li>
+                <li>
+                    <a ng-class="{'active': $state.includes('admin.reports.port-status')}"
+                       ui-sref="admin.reports.port-status">Port Status</a>
+                </li>
+                <li>
+                    <a ng-class="{'active': $state.includes('admin.reports.bicycle-life-cycle')}"
+                       ui-sref="admin.reports.bicycle-life-cycle">Bicycle Life Cycle</a>
+                </li>
+                <li>
+                    <a ng-class="{'active': $state.includes('admin.reports.redistribution-vehicle-track')}"
+                       ui-sref="admin.reports.redistribution-vehicle-track">Redistribution Vehicle Tracking</a>
+                </li>
+            </ul>
         </li>
     </ul>
 
