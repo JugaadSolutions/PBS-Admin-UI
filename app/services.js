@@ -611,6 +611,28 @@
                 });
                 return deferred.promise;
             },
+
+            saveFleet: function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.fleetDetails.save, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+
+            othergetFleets: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.fleetDetails.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getHoldingArea: function (data) {
                 var deferred = $q.defer();
                 $http.get(API + APIEndPoint.holdingArea.get + '/' + data).then(function (result) {

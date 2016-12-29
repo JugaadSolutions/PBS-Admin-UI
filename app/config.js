@@ -572,8 +572,6 @@
                 containerClass: 'sw-toggled'
             })*/
 
-
-
             .state("admin.smart-cards", {
                 url: "/smart-cards",
                 templateUrl: adminViewPath + "smart-cards/smart-cards.html"
@@ -599,6 +597,47 @@
                 controller: 'EditSmartCard',
                 containerClass: 'sw-toggled'
             })
+
+            // other stations (fleet)
+            .state("admin.otherstation-fleet", {
+                url: "/otherstation-fleet",
+                templateUrl: adminViewPath + "otherstation-fleet/otherstation-fleet.html"
+            })
+
+            .state("admin.otherstation-fleet.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'otherstation-fleet/manage.html',
+                controller: 'OtherStationFleetManage',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.otherstation-fleet.add", {
+                url: "/add",
+                templateUrl: adminViewPath + 'otherstation-fleet/add.html',
+                controller: 'OtherStationFleetAdd',
+                containerClass: 'sw-toggled'
+            })
+
+            // other stations (maintenance centre)
+            .state("admin.otherstation-maintenance", {
+                url: "/otherstation-maintenance",
+                templateUrl: adminViewPath + "otherstation-fleet/otherstation-maintenance.html"
+            })
+
+            .state("admin.otherstation-maintenance.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'otherstation-maintenance/manage.html',
+                controller: 'OtherStationMaitenanceCentreManage',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.otherstation-maintenance.add", {
+                url: "/add",
+                templateUrl: adminViewPath + 'otherstation-maintenance/add.html',
+                controller: 'OtherStationMaintenanceCentretAdd',
+                containerClass: 'sw-toggled'
+            })
+
 
             .state("admin.reports", {
                 url: "/reports",

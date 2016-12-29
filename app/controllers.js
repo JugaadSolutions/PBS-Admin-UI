@@ -108,7 +108,7 @@
         function handleRequest(res) {
             var token = res.data.data.token;
             _login_id=res.data.data.id;
-            alert(_login_id);
+          /*  alert(_login_id);*/
             if (token) {
                 auth.saveToken(token);
                 $state.reload();
@@ -4062,7 +4062,7 @@
           var a= $scope.portSelections.push(portInfo);
 
                 $scope.selectedPort=function (a) {
-                    $scope.checkInOut.fromPort=data._id;
+                    $scope.checkInOut.fromPort=a._id;
                 }
             }
         };
@@ -4735,6 +4735,162 @@
 
     }]);
 
+    // other stations ( maintenance centre )
+    app.controller('OtherStationFleetManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.Fleets =[];
+
+            DataService.othergetFleets().then(function (response) {
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                    $scope.Fleets = response.data;
+                    $scope.fleetTable = new NgTableParams(
+                        {
+                            count: 10
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.Fleets, params.filter()) : $scope.Fleets;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+
+
+        $scope.addNewFleet = function () {
+            $state.go('admin.otherstation-fleet.add');
+        };
+
+    }]);
+
+    app.controller('OtherStationFleetAdd', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.fleetDetails = {
+            name: '',
+            /*gpsCoordinates: {
+                latitude: '',
+                longitude: ''
+            }*/
+
+        };
+
+        $scope.SaveFleet = function () {
+          /*  $scope.holdingArea.status = parseInt($scope.holdingArea.status);*/
+            DataService.saveFleet($scope.fleetDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                   /* $state.go('admin.holding-areas.edit', {'id': response.data._id});*/
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.cancelAddNewFleet = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.otherstation-fleet.manage');
+            });
+        };
+
+    }]);
+
+    // other stations ( maintenance centre )
+    app.controller('OtherStationMaitenanceCentreManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+       /* $scope.Fleets =[];
+
+        DataService.othergetFleets().then(function (response) {
+            if (!response.error)
+            {
+                growl.success(response.message);
+                $scope.Fleets = response.data;
+                $scope.fleetTable = new NgTableParams(
+                    {
+                        count: 10
+                    },
+                    {
+                        getData: function ($defer, params) {
+                            var orderedData = params.filter() ? $filter('filter')($scope.Fleets, params.filter()) : $scope.Fleets;
+                            params.total(orderedData.length);
+                            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        }
+                    }
+                );
+            }
+            else
+            {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        })
+*/
+
+        $scope.addNewmaintenanceCentre = function () {
+            $state.go('admin.otherstation-maintenance.add');
+        };
+
+    }]);
+
+    app.controller('OtherStationMaintenanceCentretAdd', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.maintenancecentreDetails = {
+            name: '',
+            /*gpsCoordinates: {
+             latitude: '',
+             longitude: ''
+             }*/
+
+        };
+
+        $scope.SaveFleet = function () {
+            /*  $scope.holdingArea.status = parseInt($scope.holdingArea.status);*/
+            DataService.saveFleet($scope.fleetDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    /* $state.go('admin.holding-areas.edit', {'id': response.data._id});*/
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.cancelAddNewFleet = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.otherstation-fleet.manage');
+            });
+        };
+
+    }]);
+
     app.controller('ManageReports', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter) {
         $scope.stations = {};
 
@@ -5072,7 +5228,7 @@ var cc= [];
 
     app.controller('AddDockingStationClean', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
-       /* alert(_login_id);*/
+        alert(_login_id);
 
         $scope.dockingStationCleanInput={
             stationId:'',
@@ -5845,7 +6001,10 @@ var cc= [];
 
     }]);
 
-    app.controller('BicycleAvailability', ['$scope', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL) {
+    app.controller('BicycleAvailability', ['$scope','$timeout', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$timeout, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
+    {
+
+
         var multiDockingStations = [];
 
         $scope.view = 0;
@@ -5935,10 +6094,10 @@ var cc= [];
 
         DataService.getBicycleAvailability().then(function (response) {
             if (!response.error) {
-               // if (response.data.requests) {
+                // if (response.data.requests) {
                 if (!response.error) {
                     $scope.stations = response.data;
-                   /* $scope.test1= $filter('orderBy')($scope.stations.portIds,'dockingPortId.FPGA');*/
+                    /* $scope.test1= $filter('orderBy')($scope.stations.portIds,'dockingPortId.FPGA');*/
                     $scope.stations.forEach(function (requests) {
                         requests.status = StatusService.getDockingStationStatus(requests.stationStatus);
                     });
@@ -5947,8 +6106,8 @@ var cc= [];
                     $scope.stations.forEach(function (station) {
                         station.portIds.forEach(function (dockingPortId) {
                             /*if (dockingPortId.dockingPortId.portStatus == 0) {
-                                dockingPortId.tooltipMessage = dockingPortId.vehicleRFID;
-                            }*/
+                             dockingPortId.tooltipMessage = dockingPortId.vehicleRFID;
+                             }*/
 
                             if (dockingPortId.dockingPortId.portStatus == 1) {
                                 dockingPortId.tooltipMessage = dockingPortId.vehicleRFID;
@@ -5958,18 +6117,18 @@ var cc= [];
                                 dockingPortId.tooltipMessage = "Empty";
                             }
 
-                           /* if(dockingPortId.dockingPortId.FPGA == 3 || dockingPortId.dockingPortId.FPGA == 4)
-                            {
-                                dockingPortId.tooltipMessage = "FPGA";
-                            }*/
-                           /* if (dockingPortId.dockingPortId.portStatus == 3) {
-                                dockingPortId.tooltipMessage = "Port Locked";
-                            }
+                            /* if(dockingPortId.dockingPortId.FPGA == 3 || dockingPortId.dockingPortId.FPGA == 4)
+                             {
+                             dockingPortId.tooltipMessage = "FPGA";
+                             }*/
+                            /* if (dockingPortId.dockingPortId.portStatus == 3) {
+                             dockingPortId.tooltipMessage = "Port Locked";
+                             }
 
-                            if (dockingPortId.dockingPortId.portStatus == 4) {
-                                dockingPortId.tooltipMessage = "Non Operational";
-                            }*/
-                       })
+                             if (dockingPortId.dockingPortId.portStatus == 4) {
+                             dockingPortId.tooltipMessage = "Non Operational";
+                             }*/
+                        })
                     });
                     $scope.dockingStationsTable.reload();
                 }
@@ -5977,7 +6136,7 @@ var cc= [];
                 growl.error(response.message);
             }
         }, function (response) {
-         /*growl.error(response.data.description);*/
+            /*growl.error(response.data.description);*/
         });
 
 
@@ -5992,6 +6151,12 @@ var cc= [];
                 }
             }
         );
+
+        $scope.rand = 0;
+        (function update() {
+            $interval(update, 1000);
+            $scope.rand = Math.random() * 10;
+        }());
 
     }]);
 

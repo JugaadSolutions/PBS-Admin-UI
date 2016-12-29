@@ -177,6 +177,12 @@
           save:'ticketdetails'
         },
 
+      fleetDetails:{
+            save:'fleetarea',
+            get:'',
+            getAll:'fleetarea'
+      },
+
         checkIncheckOut:{
             save:'transactions/checkout/app'
         },
