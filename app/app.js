@@ -183,6 +183,17 @@
             getAll:'fleetarea'
       },
 
+        internalMaintenanceCentre:{
+            save:'maintenancecenter',
+            get:'',
+            getAll:'maintenancecenter'
+        },
+
+        internalStations:{
+            save:'',
+            getAll:'stations'
+        },
+
         checkIncheckOut:{
             save:'transactions/checkout/app'
         },

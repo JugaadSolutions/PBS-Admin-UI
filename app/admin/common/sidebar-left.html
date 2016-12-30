@@ -73,6 +73,9 @@
                     <a ng-class="{active: $state.includes('admin.smart-cards')}" ui-sref="admin.smart-cards.manage">Smart
                         Cards</a>
                 </li>
+                <li>
+                    <a ng-class="{active: $state.includes('admin.internal-stations')}" ui-sref="admin.internal-stations.manage">Internal Stations</a>
+                </li>
             </ul>
         </li>
         <li class="sub-menu"
@@ -156,19 +159,6 @@
         <li ng-class="{active: $state.includes('admin.kpi')}">
             <a ui-sref="admin.kpi.dash-board"><i class="zmdi zmdi-star"></i>Key Performance Indicator</a>
         </li>
-        <li class="sub-menu"
-            ng-class="{'active toggled': $state.includes('admin.otherstation-fleet')}">
-            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Internal Stations</a>
-            <ul>
-                <li><a ng-class="{'active': $state.includes('admin.otherstation-fleet')}"
-                       ui-sref="admin.otherstation-fleet.manage">Fleet</a>
-                </li>
-                <li><a ng-class="{'active': $state.includes('admin.otherstation-maintenance')}"
-                       ui-sref="admin.otherstation-maintenance.manage">Maintenance Centre</a>
-                </li>
-            </ul>
-        </li>
-
     </ul>
 
     <!--Login view for Registration employee-->

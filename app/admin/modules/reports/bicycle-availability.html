@@ -3,6 +3,12 @@
         <div class="card-header ch-alt ">
             <h2>Bicycle Availability
                 <small>Find out what bicycles are available</small>
+                <small>
+                    <div>
+                       <b>Date : </b> <span>{{date |  date : "dd MMM yy HH:mm:ss"}}</span>
+                      <!-- <span>{{message}}</span>-->
+                    </div>
+                </small>
             </h2>
             <ul class="actions">
                 <li>
@@ -23,6 +29,12 @@
                         <i class="zmdi zmdi-google-maps"></i>
                     </a>
                 </li>
+               <!-- <li>
+                    <a href="javascript:void(0);" uib-tooltip="Refresh List" tooltip-placement="left"
+                       ng-click="loadBicycleAvaliability();">
+                        <i class="zmdi zmdi-refresh"></i>
+                    </a>
+                </li>-->
             </ul>
             <!--<button class="btn bgm-amber btn-float waves-effect" uib-popover="{{stations.lastModifiedAt}}"
                     popover-title="Last Sync" popover-placement="left" popover-trigger="mouseenter"

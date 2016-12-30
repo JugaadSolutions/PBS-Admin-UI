@@ -621,7 +621,7 @@
             // other stations (maintenance centre)
             .state("admin.otherstation-maintenance", {
                 url: "/otherstation-maintenance",
-                templateUrl: adminViewPath + "otherstation-fleet/otherstation-maintenance.html"
+                templateUrl: adminViewPath + "otherstation-maintenance/otherstation-maintenance.html"
             })
 
             .state("admin.otherstation-maintenance.manage", {
@@ -635,6 +635,26 @@
                 url: "/add",
                 templateUrl: adminViewPath + 'otherstation-maintenance/add.html',
                 controller: 'OtherStationMaintenanceCentretAdd',
+                containerClass: 'sw-toggled'
+            })
+
+            //internal Stations
+            .state("admin.internal-stations", {
+                url: "/internal-stations",
+                templateUrl: adminViewPath + "internal-stations/internal-stations.html"
+            })
+
+            .state("admin.internal-stations.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'internal-stations/manage.html',
+                controller: 'InternalStationManage',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.internal-stations.add", {
+                url: "/add",
+                templateUrl: adminViewPath + 'internal-stations/add.html',
+                controller: 'InternalStationAdd',
                 containerClass: 'sw-toggled'
             })
 

@@ -622,10 +622,75 @@
                 return deferred.promise;
             },
 
-
             othergetFleets: function () {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.fleetDetails.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            saveMaintenanceCentreinternal: function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.internalMaintenanceCentre.save, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getMaintenanceCenterinternal: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.internalMaintenanceCentre.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            saveInternalstaions: function (data) {
+                var center_url;
+                var _stationType= data.type;
+                if(_stationType === "Fleet")
+                {
+                    center_url="fleetarea";
+                }
+                else if(_stationType === "Maintenance Centre")
+                {
+                    center_url="maintenancecenter";
+                }
+                else if(_stationType === "Holding Area")
+                {
+                    center_url="holdingarea";
+                }
+                else if(_stationType === "Redistribution Centre")
+                {
+                    center_url="redistributionvehicle";
+                }
+                var deferred = $q.defer();
+                var newdata={
+                    name:data.name,
+                    gpsCoordinates:
+                        {
+                        latitude: data.gpsCoordinates.latitude,
+                        longitude: data.gpsCoordinates.longitude
+                    }
+                };
+                $http.post(APINew  + center_url , newdata).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getInternalStations: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.internalStations.getAll).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

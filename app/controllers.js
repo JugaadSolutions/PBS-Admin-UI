@@ -4735,7 +4735,7 @@
 
     }]);
 
-    // other stations ( maintenance centre )
+    // other stations ( Fleet )
     app.controller('OtherStationFleetManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.Fleets =[];
@@ -4816,14 +4816,15 @@
     // other stations ( maintenance centre )
     app.controller('OtherStationMaitenanceCentreManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
-       /* $scope.Fleets =[];
 
-        DataService.othergetFleets().then(function (response) {
+        $scope.MaintenanceCenterInternals =[];
+
+        DataService.getMaintenanceCenterinternal().then(function (response) {
             if (!response.error)
             {
                 growl.success(response.message);
-                $scope.Fleets = response.data;
-                $scope.fleetTable = new NgTableParams(
+                $scope.MaintenanceCenterInternals = response.data;
+                $scope.MaintenancecentreTable = new NgTableParams(
                     {
                         count: 10
                     },
@@ -4843,7 +4844,6 @@
         }, function (response) {
             growl.error(response.data.description['0']);
         })
-*/
 
         $scope.addNewmaintenanceCentre = function () {
             $state.go('admin.otherstation-maintenance.add');
@@ -4855,16 +4855,15 @@
     {
         $scope.maintenancecentreDetails = {
             name: '',
-            /*gpsCoordinates: {
+            gpsCoordinates: {
              latitude: '',
              longitude: ''
-             }*/
+             }
 
         };
 
-        $scope.SaveFleet = function () {
-            /*  $scope.holdingArea.status = parseInt($scope.holdingArea.status);*/
-            DataService.saveFleet($scope.fleetDetails).then(function (response) {
+        $scope.SaveMaitenanceCentreInternal = function () {
+            DataService.saveMaintenanceCentreinternal($scope.maintenancecentreDetails).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
                     /* $state.go('admin.holding-areas.edit', {'id': response.data._id});*/
@@ -4876,7 +4875,7 @@
             })
         };
 
-        $scope.cancelAddNewFleet = function () {
+        $scope.cancelAddmaintenanceCentre = function () {
             sweet.show({
                 title: 'Are you sure?',
                 text: 'You may have unsaved data',
@@ -4885,10 +4884,86 @@
                 confirmButtonText: 'Yes, leave!',
                 closeOnConfirm: true
             }, function () {
-                $state.go('admin.otherstation-fleet.manage');
+                $state.go('admin.otherstation-maintenance.manage');
             });
         };
 
+    }]);
+
+    app.controller('InternalStationManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+
+        $scope.InternalStations =[];
+
+        DataService.getInternalStations().then(function (response) {
+            if (!response.error)
+            {
+                growl.success(response.message);
+                $scope.InternalStations = response.data;
+                $scope.internalStationsTable = new NgTableParams(
+                    {
+                        count: 10
+                    },
+                    {
+                        getData: function ($defer, params) {
+                            var orderedData = params.filter() ? $filter('filter')($scope.InternalStations, params.filter()) : $scope.InternalStations;
+                            params.total(orderedData.length);
+                            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        }
+                    }
+                );
+            }
+            else
+            {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        })
+
+        $scope.addNewInternalStations = function () {
+            $state.go('admin.internal-stations.add');
+        };
+    }]);
+
+    app.controller('InternalStationAdd', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+
+        $scope.internalStationsDetails = {
+            name: '',
+            type:'',
+            gpsCoordinates: {
+                latitude: '',
+                longitude: ''
+            }
+
+        };
+
+        $scope.SaveInternalStations = function () {
+            DataService.saveInternalstaions($scope.internalStationsDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    /* $state.go('admin.holding-areas.edit', {'id': response.data._id});*/
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.cancelAddInternalStations = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.internal-stations.manage');
+            });
+        };
     }]);
 
     app.controller('ManageReports', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter) {
@@ -6001,40 +6076,54 @@ var cc= [];
 
     }]);
 
-    app.controller('BicycleAvailability', ['$scope','$timeout', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$timeout, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
+    app.controller('BicycleAvailability', ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
     {
-
-
         var multiDockingStations = [];
+
+        //new
+        $scope.date;
+        var c=0;
+        $scope.message=" This DIV is refreshed "+c+" time.";
+        $interval(function () {
+            $scope.date=new Date();
+            $scope.message=" This DIV is refreshed "+c+" time.";
+            c++;
+            },1000);
+        //new
+
 
         $scope.view = 0;
         $scope.dockingStationsData = [];
 
-        DataService.getDockingStations().then(function (response) {
-            if (!response.error) {
-                $scope.dockingStationsData = response.data;
-                $scope.dockingStations = response.data;
-                for (var i = 0; i < $scope.dockingStations.length; i++) {
-                    var longAndLat = {
-                        longitude: $scope.dockingStations[i].gpsCoordinates.longitude,
-                        latitude: $scope.dockingStations[i].gpsCoordinates.latitude,
-                        mapUrl: GOOGLEMAPURL,
-                        show: false,
-                        title: $scope.dockingStations[i].name,
-                        bicycleCount: $scope.dockingStations[i].bicycleCount,
-                        bicycleCapacity: $scope.dockingStations[i].bicycleCapacity,
-                        dockingStationStatus: StatusService.getDockingStationStatus($scope.dockingStations[i].status),
-                        id: i
-                    };
-                    multiDockingStations.push(longAndLat);
-                }
+         $interval(function () {
+           /*  $state.reload();*/
+            DataService.getDockingStations().then(function (response) {
 
-            } else {
-                growl.error(response.message);
-            }
-        }, function (response) {
-            growl.error(response.data.description);
-        });
+                if (!response.error) {
+                    $scope.dockingStationsData = response.data;
+                    $scope.dockingStations = response.data;
+                    for (var i = 0; i < $scope.dockingStations.length; i++) {
+                        var longAndLat = {
+                            longitude: $scope.dockingStations[i].gpsCoordinates.longitude,
+                            latitude: $scope.dockingStations[i].gpsCoordinates.latitude,
+                            mapUrl: GOOGLEMAPURL,
+                            show: false,
+                            title: $scope.dockingStations[i].name,
+                            bicycleCount: $scope.dockingStations[i].bicycleCount,
+                            bicycleCapacity: $scope.dockingStations[i].bicycleCapacity,
+                            dockingStationStatus: StatusService.getDockingStationStatus($scope.dockingStations[i].status),
+                            id: i
+                        };
+                        multiDockingStations.push(longAndLat);
+                    }
+
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description);
+            });
+
 
         $scope.map = {
             center: {
@@ -6152,11 +6241,11 @@ var cc= [];
             }
         );
 
-        $scope.rand = 0;
-        (function update() {
-            $interval(update, 1000);
-            $scope.rand = Math.random() * 10;
-        }());
+         },15000);
+
+        $scope.loadBicycleAvaliability = function () {
+            $state.reload();
+        };
 
     }]);
 
@@ -6350,10 +6439,10 @@ var cc= [];
 
     }]);
 
-    app.controller('RedistributionVehicleTracking',  ['$scope', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
+    app.controller('RedistributionVehicleTracking',  ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
     {
         // Docking Stations tracking
-        var multiDockingStations = [];
+      /*  var multiDockingStations = [];
 
         $scope.dockingStationsData = [];
 
@@ -6407,64 +6496,76 @@ var cc= [];
 
         $scope.swapView = function (viewType) {
             $scope.view = viewType;
-        };
+        };*/
 
         // Redistribution vehicle tracking
+
+
+
         var multiRedistributionVehicle = [];
 
+
         $scope.redistributionVehicleData = [];
+$interval(function () {
 
-        DataService.getRedistributionVehicles().then(function (response) {
-            if (!response.error) {
-                $scope.redistributionVehicleData = response.data;
-                $scope.redistributionVehicles = response.data;
-                for (var i = 0; i < $scope.redistributionVehicles.length; i++) {
-                    var longAndLat = {
-                        longitude: $scope.redistributionVehicles[i].gpsCoordinates.longitude,
-                        latitude: $scope.redistributionVehicles[i].gpsCoordinates.latitude,
-                        mapUrl: GOOGLEMAPURL,
-                        show: false,
-                        title: $scope.redistributionVehicles[i].Name,
-                        bicycleCount: $scope.redistributionVehicles[i].vehicleId.length,
-                        bicycleCapacity: $scope.redistributionVehicles[i].portCapacity,
-                        dockingStationStatus: StatusService.getRedistributionVehicleStatus($scope.redistributionVehicles[i].portStatus),
-                        id: i
-                    };
-                    multiRedistributionVehicle.push(longAndLat);
+
+            DataService.getRedistributionVehicles().then(function (response) {
+                if (!response.error) {
+                    $scope.redistributionVehicleData = response.data;
+                    $scope.redistributionVehicles = response.data;
+                    for (var i = 0; i < $scope.redistributionVehicles.length; i++) {
+                        var longAndLat = {
+                            longitude: $scope.redistributionVehicles[i].gpsCoordinates.longitude,
+                            latitude: $scope.redistributionVehicles[i].gpsCoordinates.latitude,
+                            mapUrl: GOOGLEMAPURL,
+                            show: false,
+                            /* icon:'http://www.mytrintrin.com/wp-content/uploads/2016/07/logo-final1.png',*/
+                            icon: 'assets/images/redistributionVehicle.png',
+                            title: $scope.redistributionVehicles[i].Name,
+                            bicycleCount: $scope.redistributionVehicles[i].vehicleId.length,
+                            bicycleCapacity: $scope.redistributionVehicles[i].portCapacity,
+                            dockingStationStatus: StatusService.getRedistributionVehicleStatus($scope.redistributionVehicles[i].portStatus),
+                            id: i
+                        };
+                        multiRedistributionVehicle.push(longAndLat);
+                    }
                 }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description);
+            });
 
-            } else {
-                growl.error(response.message);
-            }
-        }, function (response) {
-            growl.error(response.data.description);
-        });
+},1000);
 
-        $scope.map = {
-            center: {
-                latitude: 12.3024314,
-                longitude: 76.6615633
-            }, zoom: 13
-        };
+            $scope.map = {
+                center: {
+                    latitude: 12.3024314,
+                    longitude: 76.6615633
+                }, zoom: 13
+            };
 
-        $scope.options = {scrollwheel: false};
-        $scope.markers = multiRedistributionVehicle;
+            $scope.options = {scrollwheel: false};
+            $scope.markers = multiRedistributionVehicle;
 
-        $scope.windowOptions = {
-            visible: false
-        };
+            $scope.windowOptions = {
+                visible: false
+            };
 
-        $scope.onClick = function (marker, eventName, model) {
-            model.show = !model.show;
-        };
+            $scope.onClick = function (marker, eventName, model) {
+                model.show = !model.show;
+            };
 
-        $scope.closeClick = function () {
-            $scope.windowOptions.visible = false;
-        };
+            $scope.closeClick = function () {
+                $scope.windowOptions.visible = false;
+            };
 
-        $scope.swapView = function (viewType) {
-            $scope.view = viewType;
-        };
+            $scope.swapView = function (viewType) {
+                $scope.view = viewType;
+            };
+
 
     }]);
 
