@@ -26,30 +26,33 @@
             <div class="table-responsive" ng-if="redistributionVehicles.length > 0">
                 <table ng-table="redistributionVehiclesTable" class="table table-striped" show-filter="true">
                     <tr ng-repeat="redistributionVehicle in $data">
-                        <td data-title="'Plate'" filter="{ 'vehiclePlate': 'text'}">
-                            <a ui-sref="admin.redistribution-vehicles.edit({id: redistributionVehicle._id})">{{redistributionVehicle.StationID}}</a>
+                        <td data-title="'Vehicle Name'" filter="{ 'Name': 'text'}">
+                            <a ui-sref="admin.redistribution-vehicles.edit({id: redistributionVehicle._id})">{{redistributionVehicle.Name}}</a>
                         </td>
-                        <td data-title="'Number'" filter="{ 'vehicleNumber': 'text'}">
-                            {{redistributionVehicle.vehicleNumber}}
+                        <td data-title="'Station'" filter="{ 'name': 'text'}">
+                            {{redistributionVehicle.StationId.name}}
                         </td>
                         <td data-title="'Driver ID'" filter="{ 'driverId': 'text'}">
                             {{redistributionVehicle.driverId}}
                         </td>
-                        <td data-title="'Model Type'" filter="{ 'modelType': 'text'}">
+                       <!-- <td data-title="'Model Type'" filter="{ 'modelType': 'text'}">
                             {{redistributionVehicle.modelType}}
+                        </td>-->
+                        <td data-title="'Holding Capacity'" filter="{ 'portCapacity': 'text'}">
+                            {{redistributionVehicle.portCapacity}}
                         </td>
-                        <td data-title="'Capacity'" filter="{ 'holdingCapacity': 'text'}">
-                            {{redistributionVehicle.holdingCapacity}}
+                        <td data-title="'Number Plate'" filter="{ 'vehiclePlate': 'text'}">
+                            {{redistributionVehicle.vehiclePlate}}
                         </td>
-                        <td data-title="'Bicycles'" filter="{ 'noOfBicycle': 'text'}">
+                      <!--  <td data-title="'Bicycles'" filter="{ 'noOfBicycle': 'text'}">
                             {{redistributionVehicle.noOfBicycle}}
-                        </td>
-                        <td data-title="'GPS'" filter="{ 'latitude': 'text'}">
+                        </td>-->
+                     <!--   <td data-title="'GPS'" filter="{ 'latitude': 'text'}">
                             {{redistributionVehicle.gpsCoordinates.latitude}},{{redistributionVehicle.gpsCoordinates.longitude}}
-                        </td>
-                        <td data-title="'Status'" filter="{ 'status': 'text'}">
+                        </td>-->
+                       <!-- <td data-title="'Status'" filter="{ 'status': 'text'}">
                             {{redistributionVehicle.status}}
-                        </td>
+                        </td>-->
                         <td data-title="''" class="table-actions">
                             <ul class="actions">
                                 <li class="dropdown" uib-dropdown>

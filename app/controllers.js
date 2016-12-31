@@ -3198,14 +3198,15 @@
     app.controller('AddRedistributionVehicle', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet) {
 
         $scope.redistributionVehicle = {
-            Name: '',
-            name:'',
+           /* Name: '',*/
+            /*name:'',*/
+            StationId:'',
             vehiclePlate: '',
             driverId: '',
-            modelType: '',
-            holdingCapacity: '',
-            noOfBicycle: '',
-            purchaseDetails: {},
+         /*   modelType: '',*/
+            portCapacity: '',
+        /*    noOfBicycle: '',*/
+          /*  purchaseDetails: {},*/
             gpsCoordinates: {
                 longitude: '',
                 latitude: ''
@@ -3224,6 +3225,26 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
+        };
+
+        $scope.RedistributionStations = [];
+
+        DataService.getRedistributionStations().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RedistributionStations = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRedistributionCentre =function(data){
+            $scope.redistributionVehicle.StationId=data.id;
         };
 
         $scope.cancelAddRedistributionVehicle = function () {
@@ -3566,12 +3587,13 @@
     app.controller('AddHoldingArea', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet) {
 
         $scope.holdingArea = {
-            areaName: '',
-            areaCapacity: 0,
-            modelType: '',
-            minCyclesAlert: 0,
+            StationId:'',
+            Name: '',
+            portCapacity: 0,
+          /*  modelType: '',
+            minCyclesAlert: 0,*/
             status: 0,
-            maxCyclesAlert: 0,
+           /* maxCyclesAlert: 0,*/
             gpsCoordinates: {
                 latitude: '',
                 longitude: ''
@@ -3591,6 +3613,26 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
+        };
+
+        $scope.HoldingStations = [];
+
+        DataService.getHoldingStations().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.HoldingStations = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedHoldingStation =function(data){
+            $scope.holdingArea.StationId=data.id;
         };
 
         $scope.cancelAddHoldingArea = function () {
@@ -4494,9 +4536,10 @@
     app.controller('AddMaintenanceCentre', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet) {
 
         $scope.maintenanceCentre = {
-            centreName: '',
-            centreCapacity: 0,
-            noOfCycles: 0,
+            Name: '',
+            portCapacity: 0,
+        /*    noOfCycles: 0,*/
+            StationId:'',
             gpsCoordinates: {
                 latitude: '',
                 longitude: ''
@@ -4516,6 +4559,26 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
+        };
+
+        $scope.MaintenanceStations = [];
+
+        DataService.getMaintenanceStations().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.MaintenanceStations = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedMaintenanceStation =function(data){
+            $scope.maintenanceCentre.StationId=data.id;
         };
 
         $scope.cancelAddMaintenanceCentre = function () {

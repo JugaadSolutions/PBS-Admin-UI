@@ -506,6 +506,37 @@
                 });
                 return deferred.promise;
             },
+
+            getRedistributionStations: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.redistributionStations.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getMaintenanceStations: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.maintenanceStations.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getHoldingStations: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.HoldingStation.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             saveRedistributionVehicle: function (data) {
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.redistributionVehicles.save, data).then(function (result) {

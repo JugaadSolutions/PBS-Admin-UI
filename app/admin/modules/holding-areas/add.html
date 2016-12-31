@@ -42,7 +42,7 @@
                             <dd>
                                 <div class="fg-line"
                                      ng-class="{ 'has-error': AddHoldingArea.areaName.$touched && AddHoldingArea.areaName.$invalid }">
-                                    <input type="text" name="areaName" ng-model="holdingArea.areaName"
+                                    <input type="text" name="areaName" ng-model="holdingArea.Name"
                                            class="form-control"
                                            placeholder="eg. Chamundi Hills" required>
                                             <span class="help-block"
@@ -53,18 +53,34 @@
                                 </div>
                             </dd>
                         </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Holding Stations</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control"
+                                            data-placeholder-text-single="'SELECT THE OPTIONS'"
+                                            ng-options="HoldingStation as HoldingStation.name for HoldingStation in HoldingStations"
+                                            ng-model="name"
+                                            ng-change="selectedHoldingStation(name)" required>
+                                        <option value="0">SELECT THE OPTIONS</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+
                         <dl class="dl-horizontal">
                             <dt class="p-t-10">Area Capacity</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input type="number" name="capacity" ng-model="holdingArea.areaCapacity"
+                                    <input type="number" name="capacity" ng-model="holdingArea.portCapacity"
                                            class="form-control"
                                            placeholder="eg. 100">
                                 </div>
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal">
+                       <!-- <dl class="dl-horizontal">
                             <dt class="p-t-10">Model Type</dt>
                             <dd>
                                 <div class="fg-line">
@@ -73,9 +89,9 @@
                                            placeholder="eg. LORRY">
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
-                        <dl class="dl-horizontal">
+                       <!-- <dl class="dl-horizontal">
                             <dt class="p-t-10">Minimum Cycles Alert</dt>
                             <dd>
                                 <div class="fg-line">
@@ -84,9 +100,9 @@
                                            placeholder="eg. 3">
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
-                        <dl class="dl-horizontal">
+                       <!-- <dl class="dl-horizontal">
                             <dt class="p-t-10">Maximum Cycles Alert</dt>
                             <dd>
                                 <div class="fg-line">
@@ -96,7 +112,7 @@
                                            placeholder="eg. 100">
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
 
                         <dl class="dl-horizontal">

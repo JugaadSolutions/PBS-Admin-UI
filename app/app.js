@@ -133,6 +133,19 @@
             update: 'redistributionvehicle',
             delete: 'redistributionvehicle'*/
         },
+
+        redistributionStations:{
+            getAll: 'redistributionvehicle',
+        },
+
+        maintenanceStations:{
+          getAll:'maintenancecenter'
+        },
+
+        HoldingStation:{
+            getAll:'holdingarea'
+        },
+
         farePlan: {
             getAll: 'farePlan',
             get: 'farePlan',
@@ -149,16 +162,16 @@
         },
 
         holdingArea: {
-            getAll: 'holdingarea',
-            get: 'holdingarea',
-            save: 'holdingarea',
+            getAll: 'holdingport',
+            get: 'holdingport',
+            save: 'holdingport',
             update: 'holdingarea',
             delete: 'holdingarea'
         },
         maintenanceCentre: {
-            getAll: 'maintenancecenter',
+            getAll: 'maintenanceport',
             get: 'maintenancecentre',
-            save: 'maintenancecenter',
+            save: 'maintenanceport',
             update: 'maintenancecentre',
             delete: 'maintenancecentre'
         },

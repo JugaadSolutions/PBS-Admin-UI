@@ -131,8 +131,8 @@
                                     </dd>
                                 </dl>
 
-                                <!--Redistribution Area Name-->
-                                <dl class="dl-horizontal required">
+
+                                <!--<dl class="dl-horizontal required">
                                     <dt class="p-t-10">Redistribution Area Name</dt>
                                     <dd>
                                         <div class="fg-line"
@@ -146,6 +146,21 @@
                                                   ng-show="AddRedistributionVehicle.redistributionAreaName.$touched">
                                                 <small ng-message="required">Redistribution Area Name is required</small>
                                             </span>
+                                        </div>
+                                    </dd>
+                                </dl>-->
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10">Redistribution Stations</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen class="form-control"
+                                                    data-placeholder-text-single="'SELECT THE OPTIONS'"
+                                                    ng-options="RedistributionStation as RedistributionStation.name for RedistributionStation in RedistributionStations"
+                                                    ng-model="name"
+                                                    ng-change="selectedRedistributionCentre(name)" required>
+                                                <option value="0">SELECT THE OPTIONS</option>
+                                            </select>
                                         </div>
                                     </dd>
                                 </dl>
@@ -238,6 +253,36 @@
                                         </div>
                                     </dd>
                                 </dl>-->
+                                <dl class="dl-horizontal">
+                                    <dt class="p-t-10">GPS Coordinates</dt>
+                                    <dd>
+                                        <div class="col-sm-6 p-r-10">
+                                            <div class="fg-line">
+                                                <input type="text" name="latitude"
+                                                       ng-model="redistributionVehicle.gpsCoordinates.latitude"
+                                                       class="form-control input-sm form-inline"
+                                                       placeholder="Latitude" required>
+                                                <span class="help-block"
+                                                      ng-messages="AddRedistributionVehicle.latitude.$error"
+                                                      ng-show="AddRedistributionVehicle.latitude.$touched">
+                                                 <small ng-message="required">Latitude is required</small>
+                                             </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="fg-line">
+                                                <input type="text" name="longitude" class="form-control input-sm form-inline"
+                                                       ng-model="redistributionVehicle.gpsCoordinates.longitude"
+                                                       placeholder="Longitude" required>
+                                                <span class="help-block"
+                                                      ng-messages="AddRedistributionVehicle.longitude.$error"
+                                                      ng-show="AddRedistributionVehicle.longitude.$touched">
+                                                 <small ng-message="required">Longitude is required</small>
+                                             </span>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
                             </div>
                         </div>
                     </uib-tab>

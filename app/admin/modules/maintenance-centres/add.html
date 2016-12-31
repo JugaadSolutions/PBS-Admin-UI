@@ -42,7 +42,7 @@
                             <dd>
                                 <div class="fg-line"
                                      ng-class="{ 'has-error': AddMaintenanceCentre.centreName.$touched && AddMaintenanceCentre.centreName.$invalid }">
-                                    <input type="text" name="centreName" ng-model="maintenanceCentre.centreName"
+                                    <input type="text" name="centreName" ng-model="maintenanceCentre.Name"
                                            class="form-control"
                                            placeholder="eg. Chamundi Hills" required>
                                             <span class="help-block"
@@ -54,19 +54,34 @@
                             </dd>
                         </dl>
 
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Maitenance Stations</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control"
+                                            data-placeholder-text-single="'SELECT THE OPTIONS'"
+                                            ng-options="MaintenanceStation as MaintenanceStation.name for MaintenanceStation in MaintenanceStations"
+                                            ng-model="name"
+                                            ng-change="selectedMaintenanceStation(name)" required>
+                                        <option value="0">SELECT THE OPTIONS</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+
                         <dl class="dl-horizontal">
                             <dt class="p-t-10">Centre Capacity</dt>
                             <dd>
                                 <div class="fg-line">
                                     <input type="number" name="centreCapacity"
-                                           ng-model="maintenanceCentre.centreCapacity"
+                                           ng-model="maintenanceCentre.portCapacity"
                                            class="form-control"
                                            placeholder="eg. 100">
                                 </div>
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal">
+                        <!--<dl class="dl-horizontal">
                             <dt class="p-t-10">Total Bicycles</dt>
                             <dd>
                                 <div class="fg-line">
@@ -75,7 +90,7 @@
                                            placeholder="eg. 3">
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
                         <dl class="dl-horizontal">
                             <dt class="p-t-10">GPS</dt>
