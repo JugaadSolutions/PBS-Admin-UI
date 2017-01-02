@@ -134,6 +134,12 @@
             delete: 'redistributionvehicle'*/
         },
 
+        fleets:{
+            save:'fleet',
+            get:'fleet',
+            getAll:'fleet'
+        },
+
         redistributionStations:{
             getAll: 'redistributionvehicle',
         },
@@ -144,6 +150,10 @@
 
         HoldingStation:{
             getAll:'holdingarea'
+        },
+
+        fleetStations:{
+            getAll:'fleetarea'
         },
 
         farePlan: {

@@ -537,6 +537,16 @@
                 return deferred.promise;
             },
 
+            getFleetsStations: function () {
+            var deferred = $q.defer();
+            $http.get(APINew + APIEndPoint.fleetStations.getAll).then(function (result) {
+                deferred.resolve(result.data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        },
+
             saveRedistributionVehicle: function (data) {
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.redistributionVehicles.save, data).then(function (result) {
@@ -564,6 +574,17 @@
                 });
                 return deferred.promise;
             },
+
+            saveFleets: function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.fleets.save, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getFarePlans: function () {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.farePlan.getAll).then(function (result) {
@@ -616,6 +637,16 @@
             getHoldingAreas: function () {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.holdingArea.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getFleetAreas: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.fleets.getAll).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

@@ -4798,160 +4798,6 @@
 
     }]);
 
-    // other stations ( Fleet )
-    app.controller('OtherStationFleetManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
-    {
-        $scope.Fleets =[];
-
-            DataService.othergetFleets().then(function (response) {
-                if (!response.error)
-                {
-                    growl.success(response.message);
-                    $scope.Fleets = response.data;
-                    $scope.fleetTable = new NgTableParams(
-                        {
-                            count: 10
-                        },
-                        {
-                            getData: function ($defer, params) {
-                                var orderedData = params.filter() ? $filter('filter')($scope.Fleets, params.filter()) : $scope.Fleets;
-                                params.total(orderedData.length);
-                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                            }
-                        }
-                    );
-                }
-                else
-                {
-                    growl.error(response.message);
-                }
-            }, function (response) {
-                growl.error(response.data.description['0']);
-            })
-
-
-        $scope.addNewFleet = function () {
-            $state.go('admin.otherstation-fleet.add');
-        };
-
-    }]);
-
-    app.controller('OtherStationFleetAdd', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
-    {
-        $scope.fleetDetails = {
-            name: '',
-            /*gpsCoordinates: {
-                latitude: '',
-                longitude: ''
-            }*/
-
-        };
-
-        $scope.SaveFleet = function () {
-          /*  $scope.holdingArea.status = parseInt($scope.holdingArea.status);*/
-            DataService.saveFleet($scope.fleetDetails).then(function (response) {
-                if (!response.error) {
-                    growl.success(response.message);
-                   /* $state.go('admin.holding-areas.edit', {'id': response.data._id});*/
-                } else {
-                    growl.error(response.message);
-                }
-            }, function (response) {
-                growl.error(response.data.description['0']);
-            })
-        };
-
-        $scope.cancelAddNewFleet = function () {
-            sweet.show({
-                title: 'Are you sure?',
-                text: 'You may have unsaved data',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, leave!',
-                closeOnConfirm: true
-            }, function () {
-                $state.go('admin.otherstation-fleet.manage');
-            });
-        };
-
-    }]);
-
-    // other stations ( maintenance centre )
-    app.controller('OtherStationMaitenanceCentreManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
-    {
-
-        $scope.MaintenanceCenterInternals =[];
-
-        DataService.getMaintenanceCenterinternal().then(function (response) {
-            if (!response.error)
-            {
-                growl.success(response.message);
-                $scope.MaintenanceCenterInternals = response.data;
-                $scope.MaintenancecentreTable = new NgTableParams(
-                    {
-                        count: 10
-                    },
-                    {
-                        getData: function ($defer, params) {
-                            var orderedData = params.filter() ? $filter('filter')($scope.Fleets, params.filter()) : $scope.Fleets;
-                            params.total(orderedData.length);
-                            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                        }
-                    }
-                );
-            }
-            else
-            {
-                growl.error(response.message);
-            }
-        }, function (response) {
-            growl.error(response.data.description['0']);
-        })
-
-        $scope.addNewmaintenanceCentre = function () {
-            $state.go('admin.otherstation-maintenance.add');
-        };
-
-    }]);
-
-    app.controller('OtherStationMaintenanceCentretAdd', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
-    {
-        $scope.maintenancecentreDetails = {
-            name: '',
-            gpsCoordinates: {
-             latitude: '',
-             longitude: ''
-             }
-
-        };
-
-        $scope.SaveMaitenanceCentreInternal = function () {
-            DataService.saveMaintenanceCentreinternal($scope.maintenancecentreDetails).then(function (response) {
-                if (!response.error) {
-                    growl.success(response.message);
-                    /* $state.go('admin.holding-areas.edit', {'id': response.data._id});*/
-                } else {
-                    growl.error(response.message);
-                }
-            }, function (response) {
-                growl.error(response.data.description['0']);
-            })
-        };
-
-        $scope.cancelAddmaintenanceCentre = function () {
-            sweet.show({
-                title: 'Are you sure?',
-                text: 'You may have unsaved data',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, leave!',
-                closeOnConfirm: true
-            }, function () {
-                $state.go('admin.otherstation-maintenance.manage');
-            });
-        };
-
-    }]);
 
     app.controller('InternalStationManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
@@ -5025,6 +4871,97 @@
                 closeOnConfirm: true
             }, function () {
                 $state.go('admin.internal-stations.manage');
+            });
+        };
+    }]);
+
+
+    app.controller('FleetsManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.FleetsAreas = [];
+
+        DataService.getFleetAreas().then(function (response) {
+            if (!response.error) {
+                $scope.FleetsAreas = response.data;
+              /*  $scope.FleetsTable.reload();*/
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.FleetsTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.FleetsAreas, params.filter()) : $scope.FleetsAreas;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+        $scope.addNewFleets = function () {
+            $state.go('admin.fleets.add');
+        };
+    }]);
+
+    app.controller('FleetsAdd', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+
+        $scope.fleetDetails = {
+            Name: '',
+            portCapacity:'',
+            StationId:''
+        };
+
+        $scope.SaveFleetDetails = function () {
+            DataService.saveFleets($scope.fleetDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    /* $state.go('admin.holding-areas.edit', {'id': response.data._id});*/
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.FleetStations = [];
+
+        DataService.getFleetsStations().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.FleetStations = response.data;
+                    log(FleetsStations);
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedFleetStation =function(data){
+            $scope.fleetDetails.StationId=data.id;
+        };
+
+        $scope.cancelAddNewFleets = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.fleets.manage');
             });
         };
     }]);

@@ -658,6 +658,26 @@
                 containerClass: 'sw-toggled'
             })
 
+            // fleets
+            .state("admin.fleets", {
+                url: "/fleets",
+                templateUrl: adminViewPath + "fleets/fleets.html"
+            })
+
+            .state("admin.fleets.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'fleets/manage.html',
+                controller: 'FleetsManage',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.fleets.add", {
+                url: "/add",
+                templateUrl: adminViewPath + 'fleets/add.html',
+                controller: 'FleetsAdd',
+                containerClass: 'sw-toggled'
+            })
+
 
             .state("admin.reports", {
                 url: "/reports",
