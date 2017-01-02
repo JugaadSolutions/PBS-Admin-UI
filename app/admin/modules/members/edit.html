@@ -42,8 +42,8 @@
                     ng-if="member.status == 1 && member.membershipId && member.creditBalance"     ng-click="Suspend()">
                 <i class="zmdi zmdi-card-membership"></i> Suspend
             </button>
-            <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="updateMember()" ng-disabled="MemberForm.$invalid && !member.documents.length">
+            <button type="button" class="btn btn-icon-text btn-success waves-effect" ng-if="member.status !== -1"
+                    ng-click="updateMember()" ng-disabled="MemberForm.$invalid && !member.documents.length" >
                 <i class="zmdi zmdi-save"></i> Update
             </button>
         </div>

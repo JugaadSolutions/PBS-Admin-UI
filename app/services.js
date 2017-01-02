@@ -67,7 +67,7 @@
             },
             addDebit: function (id, data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.debit, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.debit, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -338,7 +338,7 @@
             },
             getDockingStation: function (data) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.dockingStations.get + '/' + data).then(function (result) {
+                $http.get(APINew + APIEndPoint.dockingStations.get + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -347,7 +347,7 @@
             },
             updateDockingStation: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.dockingStations.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.dockingStations.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -618,7 +618,7 @@
             },
             getFarePlan: function (data) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.farePlan.get + '/' + data).then(function (result) {
+                $http.get(APINew + APIEndPoint.farePlan.get + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -627,7 +627,7 @@
             },
             updateFarePlan: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.farePlan.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.farePlan.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

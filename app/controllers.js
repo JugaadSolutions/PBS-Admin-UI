@@ -930,7 +930,8 @@
         $scope.member = {
             debit: 0,
             comments: '',
-            createdBy: loggedInUser.assignedUser
+            /*createdBy: loggedInUser.assignedUser*/
+            createdBy:_login_id
         };
 
         $scope.cancelDebit = function () {
@@ -1987,14 +1988,14 @@
 
     }]);
 
-    app.controller('EditDockingStation', ['$scope', '$state', '$uibModal', '$stateParams', 'DataService', 'StatusService', 'growl', 'sweet', function ($scope, $state, $uibModal, $stateParams, DataService, StatusService, growl, sweet) {
+    app.controller('EditDockingStation', ['$scope', '$state', '$uibModal', '$stateParams', 'DataService', 'StatusService', 'growl','GOOGLEMAPURL', 'sweet', function ($scope, $state, $uibModal, $stateParams, DataService, StatusService, growl, GOOGLEMAPURL,sweet) {
 
         $scope.dockingStation = {};
 
         $scope.dockingStationMap = {
             center: {
-                latitude: 0,
-                longitude: 0
+                latitude:0 ,
+                longitude:0
             },
             zoom: 15
         };
@@ -2005,6 +2006,12 @@
                 $scope.dockingStationStatus = StatusService.getDockingStationStatus($scope.dockingStation.status);
                 $scope.dockingStationMap.center.latitude = parseFloat($scope.dockingStation.gpsCoordinates.latitude);
                 $scope.dockingStationMap.center.longitude = parseFloat($scope.dockingStation.gpsCoordinates.longitude);
+                var myLatLng = {lat: $scope.dockingStationMap.center.latitude , lng: $scope.dockingStationMap.center.longitude };
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'Hello World!'
+                });
             } else {
                 growl.error(response.message);
             }
@@ -2012,10 +2019,13 @@
             growl.error(response.message);
         });
 
-        $scope.updateDockingStation = function () {
-            if (parseInt($scope.dockingStation.noOfDockingUnits) < $scope.dockingStation.dockingUnitIds.length) {
+      /* $scope.updateDockingStation = function () {
+            if (parseInt($scope.dockingStation.noOfDockingUnits) < $scope.dockingStation.dockingUnitIds.length)
+            {
                 growl.error("Total Units for this Station cannot be lesser than current occupancy, which is " + $scope.dockingStation.dockingUnitIds.length);
-            } else {
+            }
+            else
+            {
                 DataService.updateDockingStation($scope.dockingStation).then(function (response) {
                     if (!response.error) {
                         growl.success(response.message);
@@ -2026,8 +2036,24 @@
                 }, function (response) {
                     growl.error(response.data.description);
                 })
-            }
+          }
+        };*/
+
+        $scope.updateDockingStation = function () {
+                DataService.updateDockingStation($scope.dockingStation).then(function (response) {
+                    if (!response.error) {
+                        growl.success(response.message);
+                        $state.reload();
+                    } else {
+                        growl.error(response.message);
+                    }
+                }, function (response) {
+                    growl.error(response.data.description);
+                })
         };
+
+
+
 
         $scope.changeDockingStationStatus = function () {
             return $uibModal.open({
@@ -3461,7 +3487,7 @@
             DataService.updateFarePlan($scope.farePlan).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                    window.location.reload();
+                   /* window.location.reload();*/
                 } else {
                     growl.error(response.message);
                 }
@@ -5312,7 +5338,8 @@ var cc= [];
             totime:'',
             empId:'',
             description:'',
-            createdBy:_login_id
+            createdBy:_login_id,
+            modelType:''
         };
 
         $scope.addDockingStationClean = function () {

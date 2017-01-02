@@ -29,15 +29,15 @@
                       <!--  <td data-title="'Model Type'" filter="{ modelType: 'text'}">
                             {{dockingStation.modelType}}
                         </td>-->
-                          <td data-title="'Number of Units'" filter="{ noofUnits: 'text'}">
+                          <td data-title="'Total Units'" filter="{ noofUnits: 'text'}">
                               {{dockingStation.noofUnits}}
                           </td>
                         <td data-title="'Number of Ports'" filter="{ noofPorts: 'text'}">
                             {{dockingStation.noofPorts}}
                         </td>
-                        <td data-title="'Total Units'" filter="{ noOfDockingUnits: 'text'}">
+                      <!--  <td data-title="'Total Units'" filter="{ noOfDockingUnits: 'text'}">
                             {{dockingStation.noOfDockingUnits}}
-                        </td>
+                        </td>-->
                         <td data-title="'Bicycle Availability'" filter="{ bicycleCount: 'text'}">
                             {{dockingStation.bicycleCount}}
                         </td>
@@ -45,9 +45,9 @@
                             {{dockingStation.bicycleCapacity}}
                         </td>
                         <td class="text-center">
-                            <span uib-tooltip="{{dockingStation.status}}" tooltip-placement="top" ng-class="{
-                             'status-color bgm-green': dockingStation.status == 'Operational',
-                             'status-color bgm-red': dockingStation.status == 'Non Operational'}">&nbsp;</span>
+                            <span uib-tooltip="{{dockingStation.operationStatus}}" tooltip-placement="top" ng-class="{
+                             'status-color bgm-green': dockingStation.operationStatus == 1,
+                             'status-color bgm-red': dockingStation.operationStatus == 2}">&nbsp;</span>
                         </td>
                         <td data-title="''" class="table-actions">
                             <ul class="actions">

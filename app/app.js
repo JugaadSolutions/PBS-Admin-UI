@@ -86,11 +86,11 @@
         },
         dockingStations: {
             getAll: 'dockstation',
-            get: 'dockingstation',
+            get: 'dockstation',
             post: 'dockstation',
             sync: 'dockingstation/sync',
             save: 'dockingstation',
-            update: 'dockingstation',
+            update: 'dockstation',
             delete: 'dockingstation',
             count: 'dockingstation/count',
             testConnection: 'dockingstation/testConnection'
