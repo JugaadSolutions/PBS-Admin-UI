@@ -26,24 +26,26 @@
             <div class="table-responsive" ng-if="holdingAreas.length > 0">
                 <table ng-table="holdingAreasTable" class="table table-striped" show-filter="true">
                     <tr ng-repeat="holdingArea in $data">
+                       <!-- <td data-title="'ID'" filter="{ 'Name': 'text'}">
+                            {{holdingArea.Name}}
+                        </td>-->
                         <td data-title="'Area Name'" filter="{ 'Name': 'text'}">
                             <a ui-sref="admin.holding-areas.edit({id: holdingArea._id})">{{holdingArea.Name}}</a>
                         </td>
+
                         <td data-title="'Station'" filter="{ 'name': 'text'}">
                             {{holdingArea.StationId.name}}
                         </td>
                         <td data-title="'Area Capacity'" filter="{ 'portCapacity': 'text'}">
                             {{holdingArea.portCapacity}}
                         </td>
-                       <!-- <td data-title="'Model Type'" filter="{ 'modelType': 'text'}">
-                            {{holdingArea.modelType}}
-                        </td>
-                        <td data-title="'Minimum Cycles Alert'" filter="{ 'minCyclesAlert': 'text'}">
-                            {{holdingArea.minCyclesAlert}}
-                        </td>
-                        <td data-title="'Maximum Cycles Alert'" filter="{ 'maxCyclesAlert': 'text'}">
-                            {{holdingArea.maxCyclesAlert}}
-                        </td>-->
+
+                        <!--  <td data-title="'Minimum Cycles Alert'" filter="{ 'minCyclesAlert': 'text'}">
+                              {{holdingArea.minCyclesAlert}}
+                          </td>
+                          <td data-title="'Maximum Cycles Alert'" filter="{ 'maxCyclesAlert': 'text'}">
+                              {{holdingArea.maxCyclesAlert}}
+                          </td>-->
                        <!-- <td data-title="'GPS'" filter="{ 'latitude': 'text'}" filter="{ 'longitude': 'text'}">
                             {{holdingArea.latitude}},
                             {{holdingArea.longitude}}

@@ -150,6 +150,19 @@
                                 </div>
                             </dd>
                         </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Subnet</dt>
+                            <dd>
+                                <div class="input-group">
+                                    <input type="number" name="subnet" ng-model="dockingStation.subnet"
+                                           class="form-control"
+                                           required
+                                           placeholder="eg. 04">
+                                </div>
+                            </dd>
+                        </dl>
+
                     </div>
                 </div>
             </form>
@@ -169,8 +182,8 @@
                 <div class="fg-line">
                     <select chosen name="status" ng-model="dockingStation.status" placeholder-text-single="'Select Status'"
                             class="form-control w-100" required>
-                        <option value="0">Operational</option>
-                        <option value="1">Non Operational</option>
+                        <option value="1">Operational</option>
+                        <option value="2">Non Operational</option>
                     </select>
                 </div>
             </dd>

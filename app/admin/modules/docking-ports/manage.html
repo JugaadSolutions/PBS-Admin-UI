@@ -24,22 +24,22 @@
                         <td data-title="'Port Number'" filter="{ 'PortID': 'text'}">
                             <a ui-sref="admin.docking-ports.edit({id: dockingPort._id})">{{dockingPort.PortID}}</a>
                         </td>
-                        <td data-title="'FPGA Address'" filter="{ 'FPGA': 'text'}">
+                        <td data-title="'UNIT ID'" filter="{ 'FPGA': 'text'}">
                             <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingUnitId._id})">{{dockingPort.FPGA}}</a>
                         </td>
-                        <td data-title="'Station Name'" filter="{ 'Name': 'text'}">
+                        <td data-title="'PORT Name'" filter="{ 'Name': 'text'}">
                             <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingStationId._id})">{{dockingPort.Name}}</a>
                         </td>
-                        <td data-title="'Model Type'" filter="{ 'modelType': 'text'}">
+                       <!-- <td data-title="'Model Type'" filter="{ 'modelType': 'text'}">
                             {{dockingPort.modelType}}
-                        </td>
-                        <td data-title="'Port Position'" filter="{ 'portPosition': 'text'}">
+                        </td>-->
+                      <!--  <td data-title="'Port Position'" filter="{ 'portPosition': 'text'}">
                             {{dockingPort.portPosition}}
+                        </td>-->
+                        <td data-title="'Bicycle Number'" ><!--filter="{ 'cycleRFID': 'text'}"-->
+                            <a class="pointer" ng-click="cycle(dockingPort.cycleRFID)">{{dockingPort.vehicleId[0].vehicleid.vehicleNumber}}</a>
                         </td>
-                        <td data-title="'Bicycle RFID'" filter="{ 'cycleRFID': 'text'}">
-                            <a class="pointer" ng-click="cycle(dockingPort.cycleRFID)">{{dockingPort.vehicleId.vehicleid.vehicleRFID}}</a>
-                        </td>
-                        <td class="text-center">
+                        <td class="text-center" data-title="'PORT STATUS'" filter="{ dockingPort.status: 'text'}">
                             <span uib-tooltip="{{dockingPort.status}}" tooltip-placement="top" ng-class="{
                              'status-color bgm-green': dockingPort.status == 'Bicycle Available',
                              'status-color bgm-blue': dockingPort.status == 'Empty Port',

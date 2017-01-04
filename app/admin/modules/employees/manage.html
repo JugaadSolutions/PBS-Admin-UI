@@ -44,11 +44,11 @@
                                       uib-tooltip="{{card.cardLevel}}">{{card.smartCardNumber}}</span>
                             </div>
                         </td>-->
-                        <td class="text-center">
+                        <td data-title="'Status'"  class="text-center">
                             <span uib-tooltip="{{employee.status}}" tooltip-placement="top" ng-class="{
                              'status-color bgm-green': employee.status == 'Active',
-                             'status-color bgm-yellow': employee.status == 'Inactive',
-                             'status-color bgm-red': employee.status == 'Blocked'}">&nbsp;</span>
+                             'status-color bgm-red': employee.status == 'Inactive',
+                             'status-color bgm-black': employee.status == 'Blocked'}">&nbsp;</span>
                         </td>
                         <td data-title="''" class="table-actions">
                             <ul class="actions">
@@ -88,9 +88,9 @@
                 <div class="fg-line">
                     <select chosen name="status" ng-model="employee.status" placeholder-text-single="'Select Status'"
                             class="form-control w-100" required>
-                        <option ng-value="0">Active</option>
-                        <option ng-value="-1">Inactive</option>
-                        <option ng-value="-2">Blocked</option>
+                        <option ng-value="1">Active</option>
+                        <option ng-value="0">Inactive</option>
+                        <option ng-value="-1">Blocked</option>
                     </select>
                 </div>
             </dd>

@@ -26,8 +26,14 @@
                         <td data-title="'Station'" filter="{ 'name': 'text'}">
                             {{maintenanceCentre.StationId.name}}
                         </td>
-                        <td data-title="'Total Bicycles'" filter="{ 'portCapacity': 'text'}">
+                        <td data-title="'GPS'" >
+                            {{maintenanceCentre.gpsCoordinates.latitude}},&nbsp;{{maintenanceCentre.gpsCoordinates.longitude}}
+                        </td>
+                        <td data-title="'Capacity'" >
                             {{maintenanceCentre.portCapacity}}
+                        </td>
+                        <td data-title="'Total Bicycles'">
+                            {{maintenanceCentre.vehicleId.length}}
                         </td>
                    <!--     <td data-title="'GPS'" filter="{ 'latitude': 'text'}" filter="{ 'longitude': 'text'}">
                             {{maintenanceCentre.latitude}},
@@ -48,11 +54,11 @@
                                             <a href="javascript:void(0);"
                                                ng-click="editMaintenanceCentre(maintenanceCentre._id)">Edit</a>
                                         </li>
-                                        <li>
+                                        <!--<li>
                                             <a href="javascript:void(0);"
                                                ng-click="changeMaintenanceCentreStatus(maintenanceCentre._id)">Change
                                                 Status</a>
-                                        </li>
+                                        </li>-->
                                     </ul>
                                 </li>
                             </ul>

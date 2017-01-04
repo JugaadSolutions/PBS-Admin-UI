@@ -171,6 +171,24 @@
                                 </div>
                             </dd>
                         </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Subnet</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{'has-error': AddDockingStation.subnet.$touched && AddDockingStation.subnet.$invalid}">
+                                    <input type="number" name="subnet" min="14" ng-model="dockingStation.subnet"
+                                           class="form-control"
+                                           required
+                                           placeholder="eg. >13">
+                                    <span class="help-block" ng-messages="AddDockingStation.subnet.$error"
+                                          ng-show="AddDockingStation.subnet.$touched">
+                                                <small ng-message="required">Subnet is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
                     </div>
                 </div>
             </form>
