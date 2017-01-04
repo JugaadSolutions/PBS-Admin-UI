@@ -29,16 +29,18 @@
                       <!--  <td data-title="'Model Type'" filter="{ modelType: 'text'}">
                             {{dockingStation.modelType}}
                         </td>-->
-                          <td data-title="'Number of Units'" filter="{ noofUnits: 'text'}">
+                          <td data-title="'Total Units'" filter="{ noofUnits: 'text'}">
                               {{dockingStation.noofUnits}}
                           </td>
                         <td data-title="'Number of Ports'" filter="{ noofPorts: 'text'}">
                             {{dockingStation.noofPorts}}
                         </td>
+
                         <td data-title="'Total Units'" filter="{ noOfDockingUnits: 'text'}">
                             {{dockingStation.noofUnits}}
                         </td>
                         <td data-title="'Bicycle Availability'">
+
                             {{dockingStation.bicycleCount}}
                         </td>
                         <td data-title="'Bicycle Capacity'">
@@ -55,9 +57,11 @@
                         </td>-->
                         <td  data-title="'Status'" class="text-center">
                             <span uib-tooltip="{{dockingStation.status}}" tooltip-placement="top" ng-class="{
+
                              'status-color bgm-green': dockingStation.status == 'Operational',
                              'status-color bgm-red': dockingStation.status == 'Non Operational',
                              'status-color bgm-black': dockingStation.status == 'Decommissioned'}"></span>
+
                         </td>
                         <td data-title="''" class="table-actions">
                             <ul class="actions">
@@ -72,6 +76,9 @@
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);" ng-click="changeDockingStationStatus(dockingStation._id)">Change Status</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" ng-click="DockingStationMore(dockingStation._id)">More Details</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -100,6 +107,28 @@
                         <option ng-value="2">Non Operational</option>
                         <option ng-value="-1">Decommissioned</option>
                     </select>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" ng-click="cancelDockingStationStatusChange()">Close</button>
+        <button class="btn btn-link" type="button" ng-click="changeStationStatus()">Save Changes</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="docking-station-more-details.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Docking Station More Details </h4>
+    </div>
+    <div class="modal-body">
+        <form name="DockingStationStatus" novalidate></form>
+        <dl class="dl-horizontal">
+            <dt class="p-t-10 p-l-30">Station Name</dt>
+            <dd>
+                <div class="fg-line">
+                    <input type="text" name="StationName" ng-model="dockingStation.name"
+                           class="form-control">
                 </div>
             </dd>
         </dl>

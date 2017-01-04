@@ -45,12 +45,12 @@
                             </div>
                             <div class="pmbb-body p-l-30">
                                 <dl class="dl-horizontal required">
-                                    <dt class="p-t-10">Vehicle Number</dt>
+                                    <dt class="p-t-10">Vehicle Name</dt>
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': AddRedistributionVehicle.number.$touched && AddRedistributionVehicle.number.$invalid }">
                                             <input type="text" name="number"
-                                                   ng-model="redistributionVehicle.vehicleNumber"
+                                                   ng-model="redistributionVehicle.Name"
                                                    class="form-control"
                                                    placeholder="eg. RV10" required>
                                             <span class="help-block"
@@ -61,6 +61,21 @@
                                         </div>
                                     </dd>
                                 </dl>
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10">Redistribution Stations</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen class="form-control"
+                                                    data-placeholder-text-single="'SELECT THE OPTIONS'"
+                                                    ng-options="redistributionVehicle as redistributionVehicle.StationId.name for redistributionVehicle in redistributionVehicles"
+                                                    ng-model="name">
+                                                <!--<option value="0">SELECT THE OPTIONS</option>-->
+                                            </select>
+                                        </div>
+                                    </dd>
+                                </dl>
+
                                 <dl class="dl-horizontal required">
                                     <dt class="p-t-10">Vehicle Number Plate</dt>
                                     <dd>
@@ -91,7 +106,7 @@
                                     </dd>
                                 </dl>
 
-                                <dl class="dl-horizontal">
+                                <!--<dl class="dl-horizontal">
                                     <dt class="p-t-10">Model Type</dt>
                                     <dd>
                                         <div class="fg-line">
@@ -101,21 +116,21 @@
                                                    placeholder="eg. LORRY">
                                         </div>
                                     </dd>
-                                </dl>
+                                </dl>-->
 
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">Holding Capacity</dt>
                                     <dd>
                                         <div class="fg-line">
                                             <input type="number" name="dockingPorts"
-                                                   ng-model="redistributionVehicle.holdingCapacity"
+                                                   ng-model="redistributionVehicle.portCapacity"
                                                    class="form-control"
                                                    placeholder="eg. 10">
                                         </div>
                                     </dd>
                                 </dl>
 
-                                <dl class="dl-horizontal">
+                                <!--<dl class="dl-horizontal">
                                     <dt class="p-t-10">Total Bicycles</dt>
                                     <dd>
                                         <div class="fg-line">
@@ -125,7 +140,7 @@
                                                    placeholder="eg. 10">
                                         </div>
                                     </dd>
-                                </dl>
+                                </dl>-->
 
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">GPS Coordinates</dt>
@@ -152,7 +167,7 @@
                         </div>
                     </uib-tab>
 
-                    <uib-tab heading="Purchase Details">
+               <!--     <uib-tab heading="Purchase Details">
                         <div class="pmb-block">
                             <div class="pmbb-header m-t-15">
                                 <h2><i class="zmdi zmdi-assignment m-r-5"></i> Purchase Details</h2>
@@ -256,7 +271,7 @@
                                 </dl>
                             </div>
                         </div>
-                    </uib-tab>
+                    </uib-tab>-->
                 </uib-tabset>
             </form>
         </div>

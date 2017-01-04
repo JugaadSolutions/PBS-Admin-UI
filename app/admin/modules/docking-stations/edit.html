@@ -29,15 +29,19 @@
             <div class="pmo-pic">
                 <div class="p-relative">
                     <div class="fileinput fileinput-new">
-                        <div class="fileinput-preview thumbnail">
+                        <div class="fileinput-preview thumbnail" >
                             <ui-gmap-google-map center='dockingStationMap.center'
-                                                zoom='dockingStationMap.zoom'></ui-gmap-google-map>
+                                                zoom='dockingStationMap.zoom' id="map">
+                                <ui-gmap-markers models="markers" coords="'self'" icon="'icon'">
+                            </ui-gmap-google-map>
                         </div>
                     </div>
                 </div>
                 <div class="pmo-stat">
                     <h2 class="m-0 c-white">{{dockingStationStatus}}</h2>
-                    Status
+                   <!-- Status-->
+                    <span ng-if="dockingStation.operationStatus ==1">Operation</span>
+                    <span ng-if="dockingStation.operationStatus ==2">Non Operation</span>
                 </div>
             </div>
         </div>
@@ -133,20 +137,37 @@
                                 </div>
                             </dd>
                         </dl>
-                        <dl class="dl-horizontal required">
+                       <!-- <dl class="dl-horizontal required">
                             <dt class="p-t-10">IP Address</dt>
                             <dd>
                                 <div class="input-group">
                                     <input type="text" name="ipAddress" ng-model="dockingStation.ipAddress"
                                            class="form-control"
                                            required
-                                           placeholder="eg. 192.168.0.1">
+                                           placeholder="eg. 192.168.0.1" disabled>
                                     <span class="input-group-addon last"><button
                                             class="btn bgm-blue waves-effect pull-right"
                                             ng-click="testConnection(dockingStation.ipAddress)"
                                             uib-tooltip="Test Connection" tooltip-placement="left">
                                             <i class="zmdi zmdi-code-setting"></i></button>
                                         </i></span>
+                                </div>
+                            </dd>
+                        </dl>-->
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">IP Address</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': EditDockingStation.ipAddress.$touched && EditDockingStation.ipAddress.$invalid }">
+                                    <input type="text" name="ipAddress" ng-model="dockingStation.ipAddress"
+                                           class="form-control" disabled
+                                            required>
+                                    <span class="help-block"
+                                          ng-messages="EditDockingStation.ipAddress.$error"
+                                          ng-show="EditDockingStation.ipAddress.$touched">
+                                                <small ng-message="required">ipAddress is required</small>
+                                            </span>
                                 </div>
                             </dd>
                         </dl>
@@ -180,7 +201,7 @@
             <dt class="p-t-10 p-l-30">Status</dt>
             <dd>
                 <div class="fg-line">
-                    <select chosen name="status" ng-model="dockingStation.status" placeholder-text-single="'Select Status'"
+                    <select chosen name="status" ng-model="dockingStation.operationStatus" placeholder-text-single="'Select Status'"
                             class="form-control w-100" required>
                         <option value="1">Operational</option>
                         <option value="2">Non Operational</option>

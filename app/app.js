@@ -86,11 +86,11 @@
         },
         dockingStations: {
             getAll: 'dockstation',
-            get: 'dockingstation',
+            get: 'dockstation',
             post: 'dockstation',
             sync: 'dockingstation/sync',
             save: 'dockingstation',
-            update: 'dockingstation',
+            update: 'dockstation',
             delete: 'dockingstation',
             count: 'dockingstation/count',
             testConnection: 'dockingstation/testConnection'
@@ -105,10 +105,10 @@
         },
         dockingPorts: {
             getAll: 'dockport',
-            get: 'dockingport',
+            get: 'dockport',
             post: 'dockingport',
             save: 'dockingport',
-            update: 'dockingport',
+            update: 'dockport',
             delete: 'dockingport'
         },
         bicycle: {

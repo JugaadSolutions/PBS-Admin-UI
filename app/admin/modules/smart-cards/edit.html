@@ -38,24 +38,40 @@
                     </div>
                     <div class="pmbb-body p-l-30">
                         <dl class="dl-horizontal required">
-                            <dt class="p-t-10">Card RFID</dt>
+                            <dt class="p-t-10">Card Number</dt>
                             <dd>
                                 <div class="fg-line"
                                      ng-class="{ 'has-error': EditSmartCard.cardNumber.$touched && EditSmartCard.cardNumber.$invalid }">
                                     <input type="text" name="cardNumber" ng-model="smartCard.cardNumber"
                                            class="form-control"
-                                           disabled
                                            placeholder="eg. 8989831293" required>
                                             <span class="help-block"
                                                   ng-messages="EditSmartCard.cardNumber.$error"
                                                   ng-show="EditSmartCard.cardNumber.$touched">
-                                                <small ng-message="required">Smart Card Name is required</small>
+                                                <small ng-message="required">Card Number is required</small>
                                             </span>
                                 </div>
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal">
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Card RFID</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': EditSmartCard.cardRFID.$touched && EditSmartCard.cardRFID.$invalid }">
+                                    <input type="text" name="cardRFID" ng-model="smartCard.cardRFID"
+                                           class="form-control"
+                                           placeholder="eg. 8989831293" required>
+                                    <span class="help-block"
+                                          ng-messages="EditSmartCard.cardRFID.$error"
+                                          ng-show="EditSmartCard.cardRFID.$touched">
+                                                <small ng-message="required">Card RFID is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                       <!-- <dl class="dl-horizontal">
                             <dt class="p-t-10">Card Type</dt>
                             <dd>
                                 <div class="fg-line">
@@ -67,9 +83,9 @@
                                     </select>
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
-                        <dl class="dl-horizontal">
+                       <!-- <dl class="dl-horizontal">
                             <dt class="p-t-10">Card Level</dt>
                             <dd>
                                 <div class="fg-line">
@@ -92,7 +108,7 @@
                                     </select>
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
                         <!--<dl class="dl-horizontal required">
                             <dt class="p-t-10">Issuing Employee</dt>

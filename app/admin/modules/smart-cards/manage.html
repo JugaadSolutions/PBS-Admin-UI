@@ -30,10 +30,10 @@
                             <a ui-sref="admin.smart-cards.edit({id: smartCard._id})">{{smartCard.cardRFID}}</a>
                         </td>
                         <td data-title="'Type'" filter="{ 'Type': 'text'}">
-                            <a ui-sref="admin.smart-cards.edit({id: smartCard._id})">{{smartCard.assignedTo._type}}</a>
+                            {{smartCard.assignedTo._type}}
                         </td>
                         <td data-title="'Assigned To'" filter="{ 'AssignedTo': 'text'}">
-                            <a ui-sref="admin.smart-cards.edit({id: smartCard._id})">{{smartCard.assignedTo.Name}}</a>
+                            <a ui-sref="admin.members.edit({id: smartCard._id})">{{smartCard.assignedTo.Name}}</a>
                         </td>
                         <td data-title="'Balance'">
                             {{smartCard.balance}}

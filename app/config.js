@@ -135,6 +135,14 @@
                 controller: 'EditDockingStation',
                 containerClass: 'sw-toggled'
             })
+
+            .state("admin.docking-stations.docking-station-more-details", {
+                url: "/docking-station-more-details/:id",
+                templateUrl: adminViewPath + 'docking-stations/docking-station-more-details.html',
+                controller: 'DockingStationMoreDetails',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.docking-units", {
                 url: "/docking-units",
                 templateUrl: adminViewPath + 'docking-units/docking-units.html',
