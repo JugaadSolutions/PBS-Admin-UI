@@ -35,9 +35,21 @@
                         <td data-title="'Assigned To'" filter="{ 'AssignedTo': 'text'}">
                             <a ui-sref="admin.members.edit({id: smartCard._id})">{{smartCard.assignedTo.Name}}</a>
                         </td>
-                        <!--<td data-title="'Card Type'" filter="{ 'cardType': 'text'}">
-                            {{smartCard.cardType}}
-                        </td>-->
+                        <td data-title="'Balance'">
+                            {{smartCard.balance}}
+                        </td>
+                        <td data-title="'Membership'">
+                            {{smartCard.membershipId.subscriptionType}}
+                        </td>
+                        <td data-title="'Validity'">
+                            {{smartCard.assignedTo.validity | date : "dd MMM yy"}}
+                        </td>
+                        <td data-title="'Issued by'">
+                            {{smartCard.issuedBy.Name}}
+                        </td>
+                        <td data-title="'Issued on'">
+                            {{smartCard.issuedDate | date : "dd MMM yy"}}
+                        </td>
                        <!-- <td data-title="'Card Level'" filter="{ 'cardLevel': 'text'}">
                             {{smartCard.cardLevel}}
                         </td>-->

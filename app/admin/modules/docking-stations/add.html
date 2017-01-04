@@ -191,6 +191,7 @@
                             <dt class="p-t-10">Subnet</dt>
                             <dd>
                                 <div class="fg-line"
+
                                      ng-class="{'has-error': AddDockingStation.SubNet.$touched && AddDockingStation.SubNet.$invalid}">
                                     <input type="number" name="SubNet" min="14" ng-model="dockingStation.subnet"
                                            class="form-control"
@@ -268,6 +269,7 @@
                                           ng-messages="AddDockingStation.commissionDate.$error"
                                           ng-show="AddDockingStation.commissionDate.$touched">
                                                 <small ng-message="required">Commission Date is required</small>
+
                                             </span>
                                 </div>
                             </dd>

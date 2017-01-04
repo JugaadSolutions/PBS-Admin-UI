@@ -10,7 +10,7 @@
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
-                    ng-click="changeEmployeeStatus()" ng-disabled="EmployeeForm.$invalid">
+                    ng-click="changeEmployeeStatus()"> <!--ng-disabled="EmployeeForm.$invalid"-->
                 <i class="zmdi zmdi-undo"></i> Change Status
             </button>
             <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
@@ -571,8 +571,8 @@
                                                     <input type="tel" name="phoneNumber"
                                                            ng-model="employee.phoneNumber"
                                                            class="form-control width-100"
-                                                           input-mask="{mask: '00000-00000'}"
-                                                           placeholder="eg. 00000-00000" required>
+                                                           input-mask="{mask: '0000000000'}"
+                                                           placeholder="eg. 0000000000" required>
                                                 </div>
                                             </div>
                                             <span class="help-block"
@@ -1226,9 +1226,9 @@
                 <div class="fg-line">
                     <select chosen name="status" ng-model="employee.status" placeholder-text-single="'Select Status'"
                             class="form-control w-100" required>
-                        <option ng-value="0">Active</option>
-                        <option ng-value="-1">Inactive</option>
-                        <option ng-value="-2">Blocked</option>
+                        <option ng-value="1">Active</option>
+                        <option ng-value="0">Inactive</option>
+                        <option ng-value="-1">Blocked</option>
                     </select>
                 </div>
             </dd>

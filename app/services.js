@@ -1368,6 +1368,9 @@
                     case 2:
                         status = "Non Operational";
                         break;
+                    case -1:
+                        status = "Decommissioned";
+                        break;
                     default:
                         break;
                 }
@@ -1407,21 +1410,21 @@
             getDockingPortStatus: function (code) {
                 var status = '';
                 switch (code) {
-                    case  0:
+                    case  1:
                         status = "Bicycle Available";
                         break;
-                    case  1:
+                    case  2:
                         status = "Empty Port";
                         break;
-                    case  2:
-                        status = "Bicycle Locked";
+                    case  -1:
+                        status = "Port Error";
                         break;
-                    case  3:
+                   /* case  3:
                         status = "Port Locked";
                         break;
                     case  4:
                         status = "Port Error";
-                        break;
+                        break;*/
                     default:
                         break;
                 }
@@ -1453,13 +1456,13 @@
             getBicycleStatus: function (code) {
                 var status = '';
                 switch (code) {
-                    case  0:
+                    case  1:
                         status = "Operational";
                         break;
-                    case  1:
+                    case  2:
                         status = "Non-Operational";
                         break;
-                    case  -1:
+                    case  3:
                         status = "Decommissioned";
                         break;
                     default:
@@ -1712,13 +1715,13 @@
             getEmployeeStatus: function (code) {
                 var status = '';
                 switch (code) {
-                    case  0:
+                    case  1:
                         status = "Active";
                         break;
-                    case  -1:
+                    case  0:
                         status = "Inactive";
                         break;
-                    case  -2:
+                    case  -1:
                         status = "Blocked";
                         break;
                     default:
