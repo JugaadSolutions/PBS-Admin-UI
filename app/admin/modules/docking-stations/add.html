@@ -125,6 +125,21 @@
                         </dl>
 
                         <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Template</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen name="status" ng-model="dockingStation.template" placeholder-text-single="'Select Template'"
+                                            class="form-control w-100" required>
+                                        <option ng-value="1">T1</option>
+                                        <option ng-value="2">T2</option>
+                                        <option ng-value="3">T3</option>
+                                        <option ng-value="4">T4</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
                             <dt class="p-t-10">GPS Coordinates</dt>
                             <dd>
                                 <div class="col-sm-6 p-r-10">
@@ -171,6 +186,93 @@
                                 </div>
                             </dd>
                         </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Subnet</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{'has-error': AddDockingStation.SubNet.$touched && AddDockingStation.SubNet.$invalid}">
+                                    <input type="number" name="SubNet" min="14" ng-model="dockingStation.subnet"
+                                           class="form-control"
+                                           required
+                                           placeholder="eg. 14 and above">
+                                    <span class="help-block" ng-messages="AddDockingStation.ipAddress.$error"
+                                          ng-show="AddDockingStation.SubNet.$touched">
+                                                <small ng-message="required">SubNet is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Zone ID</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen name="ZoneId" ng-model="dockingStation.zoneId" placeholder-text-single="'Select Zone'"
+                                            class="form-control w-100" required>
+                                        <option ng-value="1">Zone 1</option>
+                                        <option ng-value="2">Zone 2</option>
+                                        <option ng-value="3">Zone 3</option>
+                                        <option ng-value="4">Zone 4</option>
+                                        <option ng-value="5">Zone 5</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Maximun Cycle Alert</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{'has-error': AddDockingStation.MaxCycleAlert.$touched && AddDockingStation.MaxCycleAlert.$invalid}">
+                                    <input type="number" name="MaxCycleAlert" ng-model="dockingStation.maxAlert"
+                                           class="form-control"
+                                           required
+                                           placeholder="eg. 12">
+                                    <span class="help-block" ng-messages="AddDockingStation.MaxCycleAlert.$error"
+                                          ng-show="AddDockingStation.MaxCycleAlert.$touched">
+                                                <small ng-message="required">Maximun cycle alert is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Minimum Cycle Alert</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{'has-error': AddDockingStation.MinCycleAlert.$touched && AddDockingStation.MinCycleAlert.$invalid}">
+                                    <input type="number" name="MinCycleAlert" ng-model="dockingStation.minAlert"
+                                           class="form-control"
+                                           required
+                                           placeholder="eg. 12">
+                                    <span class="help-block" ng-messages="AddDockingStation.MinCycleAlert.$error"
+                                          ng-show="AddDockingStation.MinCycleAlert.$touched">
+                                                <small ng-message="required">Minimum cycle alert is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Station Starting Date</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': AddDockingStation.commissionDate.$touched && AddDockingStation.commissionDate.$invalid }">
+                                    <input type="text" name="commissionDate" ng-model="dockingStation.commissioneddate"
+                                           ng-focus="commissionDate=true" ng-click="commissionDate=true"
+                                           uib-datepicker-popup="dd/MM/yyyy" is-open="commissionDate"
+                                           show-button-bar="true" class="form-control"
+                                           placeholder="eg. 16/09/2012" required>
+                                    <span class="help-block"
+                                          ng-messages="AddDockingStation.commissionDate.$error"
+                                          ng-show="AddDockingStation.commissionDate.$touched">
+                                                <small ng-message="required">Commission Date is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
                     </div>
                 </div>
             </form>

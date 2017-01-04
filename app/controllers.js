@@ -1746,7 +1746,7 @@
                     if (!response.error) {
                         $scope.farePlans = response.data;
                         $scope.farePlans.forEach(function (farePlan) {
-                            $scope.selectPlan = farePlan.planName;
+                            $scope.membership.selectPlan = farePlan.planName;
                             if (farePlan.planName === farePlanName) {
                                 $scope.selectPlan = farePlan._id;
                             }
@@ -1772,7 +1772,7 @@
             DataService.updateMembership($scope.membership).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                    window.location.reload();
+                  /*  window.location.reload();*/
                 } else {
                     growl.error(response.message);
                 }
@@ -1804,7 +1804,8 @@
             if (!response.error) {
                 $scope.dockingStations = response.data;
                 $scope.dockingStations.forEach(function (dockingStation) {
-                    dockingStation.status = StatusService.getDockingStationStatus(dockingStation.status);
+                   /* dockingStation.status = StatusService.getDockingStationStatus(dockingStation.status);*/
+                    dockingStation.status = StatusService.getDockingStationStatus(dockingStation.operationStatus);
                 });
                 $scope.dockingStationsTable.reload();
             } else {
@@ -1855,6 +1856,10 @@
             $state.go('admin.docking-stations.edit', {'id': id});
         };
 
+        $scope.DockingStationMore = function (id) {
+            $state.go('admin.docking-stations.docking-station-more-details', {'id': id});
+        };
+
     }]);
 
     // Docking Station Status Controller
@@ -1903,11 +1908,15 @@
                 longitude: '',
                 latitude: ''
             },
-            maximumCycleAlert: 0,
-            minimumCyclesAlert: 0,
+            maxAlert: '',
+            minAlert: '',
             name: '',
             dockingUnitIds: [],
-            ipAddress: ''
+            ipAddress: '',
+            template:'',
+            commissioneddate:'',
+            subnet:'',
+            zoneId:''
         };
 
         $scope.cancelAddDockingStation = function () {
@@ -2068,6 +2077,8 @@
             });
         };
 
+
+
         $scope.testConnection = function (data) {
             var ipAddress = {
                 ipAddress: data
@@ -2122,6 +2133,45 @@
                 $state.go('admin.docking-stations.manage');
             });
         };
+    }]);
+
+    // Docking station ( view more details )
+    app.controller('DockingStationMoreDetails', ['$scope', '$state', '$uibModal', '$stateParams', 'DataService', 'StatusService', 'growl','GOOGLEMAPURL', 'sweet', function ($scope, $state, $uibModal, $stateParams, DataService, StatusService, growl, GOOGLEMAPURL,sweet) {
+
+        $scope.dockingStation = {};
+
+        $scope.Zone= "";
+
+        DataService.getDockingStation($stateParams.id).then(function (response) {
+            if (!response.error) {
+                $scope.dockingStation = response.data;
+            if( $scope.dockingStation.zoneId==3)
+                {
+                $scope.Zone ="Zone 3";
+                }
+                $scope.dockingStationStatus = StatusService.getDockingStationStatus($scope.dockingStation.status);
+                $scope.dockingStationMap.center.latitude = parseFloat($scope.dockingStation.gpsCoordinates.latitude);
+                $scope.dockingStationMap.center.longitude = parseFloat($scope.dockingStation.gpsCoordinates.longitude);
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.message);
+        });
+
+        $scope.cancelDockingStationMoreDetails = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.docking-stations.manage');
+            });
+        };
+
     }]);
 
 
@@ -2578,7 +2628,7 @@
 
     app.controller('EditDockingPort', ['$scope', '$state', 'DataService', 'growl', 'sweet', '$stateParams', '$uibModal', function ($scope, $state, DataService, growl, sweet, $stateParams, $uibModal) {
 
-        $scope.dockingPort = {};
+      /*  $scope.dockingPort = {};*/
         $scope.dockingStations = [];
         $scope.dockingUnitIds = [];
         $scope.dockingUnits = [];
@@ -2589,12 +2639,14 @@
             }
         };
 
+        $scope.dockingPort = {};
 
         DataService.getDockingPort($stateParams.id, filters).then(function (response) {
             if (!response.error) {
-                $scope.dockingPort = response.data;
-                var dockingStationName = $scope.dockingPort.dockingStationId.name;
-                DataService.getDockingStations().then(function (response) {
+                $scope.dockingPort = response.data[0];
+                var dockingStationName = $scope.dockingPort.StationId.name;
+                /*DataService.getDockingStations().then(function (response)
+                {
                     if (!response.error) {
                         $scope.dockingStations = response.data;
                         $scope.dockingStations.forEach(function (dockingStation) {
@@ -2604,22 +2656,24 @@
                         });
                         $scope.selectStationName($scope.selectedStationName);
                     }
-                });
+                });*/
 
-                if ($scope.dockingPort.purchaseDetails) {
+               /* if ($scope.dockingPort.purchaseDetails) {
                     $scope.dockingPort.purchaseDetails.manufacturingDate = new Date($scope.dockingPort.purchaseDetails.manufacturingDate);
                     $scope.dockingPort.purchaseDetails.invoiceDate = new Date($scope.dockingPort.purchaseDetails.invoiceDate);
                     $scope.dockingPort.purchaseDetails.receivedAt = new Date($scope.dockingPort.purchaseDetails.receivedAt);
                 }
-
-            } else {
+*/
+            }
+            else
+                {
                 growl.error(response.message);
             }
         }, function (response) {
             growl.error(response.message);
         });
 
-        $scope.selectStationName = function (id) {
+       /* $scope.selectStationName = function (id) {
             $scope.dockingUnitIds = [];
 
             $scope.dockingStations.forEach(function (dockingStation) {
@@ -2648,17 +2702,16 @@
 
                 }
             });
+        };*/
 
-        };
-
-        $scope.selectUnitNumber = function (id) {
+        /*$scope.selectUnitNumber = function (id) {
             $scope.dockingUnits.forEach(function (dockingUnit) {
                 if (dockingUnit._id === id) {
                     $scope.dockingPort.dockingUnitId = dockingUnit;
                 }
             });
         };
-
+*/
         $scope.updateDockingPort = function () {
             DataService.updateDockingPort($scope.dockingPort).then(function (response) {
                 if (!response.error) {
@@ -3122,6 +3175,7 @@
         DataService.getRedistributionVehicles().then(function (response) {
             if (!response.error) {
                 $scope.redistributionVehicles = response.data;
+
                 $scope.redistributionVehicles.forEach(function (redistributionVehicle) {
                     redistributionVehicle.status = StatusService.getRedistributionVehicleStatus(redistributionVehicle.status);
                 });
@@ -3291,6 +3345,8 @@
     app.controller('EditRedistributionVehicle', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal) {
 
         $scope.redistributionVehicle = {};
+        $scope.redistributionVehicles=[];
+
 
         $scope.redistributionVehicleMap = {
             center: {
@@ -3303,6 +3359,7 @@
         DataService.getRedistributionVehicle($stateParams.id).then(function (response) {
             if (!response.error) {
                 $scope.redistributionVehicle = response.data;
+                $scope.redistributionVehicles = response.data;
                 $scope.redistributionVehicleMap.center.latitude = parseFloat($scope.redistributionVehicle.gpsCoordinates.latitude);
                 $scope.redistributionVehicleMap.center.longitude = parseFloat($scope.redistributionVehicle.gpsCoordinates.longitude);
                 if ($scope.redistributionVehicle.purchaseDetails) {
@@ -4795,8 +4852,8 @@
         });
 
         $scope.updateSmartCard = function () {
-            $scope.smartCard.cardType = StatusService.getCardTypeToNum($scope.smartCard.cardType);
-            $scope.smartCard.cardLevel = StatusService.getCardLevelToNum($scope.smartCard.cardLevel);
+           /* $scope.smartCard.cardType = StatusService.getCardTypeToNum($scope.smartCard.cardType);*/
+           /* $scope.smartCard.cardLevel = StatusService.getCardLevelToNum($scope.smartCard.cardLevel);*/
             DataService.updateSmartCard($scope.smartCard).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);

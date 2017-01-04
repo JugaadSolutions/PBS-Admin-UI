@@ -302,7 +302,7 @@
             },
             updateMembership: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.membership.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.membership.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -420,7 +420,7 @@
             },
             getDockingPort: function (data, filters) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.dockingPorts.get + '/' + data, {
+                $http.get(APINew + APIEndPoint.dockingPorts.get + '/' + data, {
                     params: filters
                 }).then(function (result) {
                     deferred.resolve(result.data);
@@ -440,7 +440,7 @@
             },
             updateDockingPort: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.dockingPorts.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.dockingPorts.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -1214,7 +1214,7 @@
             },
             getSmartCard: function (data) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.smartCard.get + '/' + data).then(function (result) {
+                $http.get(APINew + APIEndPoint.smartCard.get + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -1223,7 +1223,7 @@
             },
             updateSmartCard: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.smartCard.update + '/' + data.id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.smartCard.update + '/' + data.id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -1362,10 +1362,10 @@
             getDockingStationStatus: function (code) {
                 var status = '';
                 switch (code) {
-                    case 0:
+                    case 1:
                         status = "Operational";
                         break;
-                    case 1:
+                    case 2:
                         status = "Non Operational";
                         break;
                     default:

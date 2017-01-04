@@ -105,10 +105,10 @@
         },
         dockingPorts: {
             getAll: 'dockport',
-            get: 'dockingport',
+            get: 'dockport',
             post: 'dockingport',
             save: 'dockingport',
-            update: 'dockingport',
+            update: 'dockport',
             delete: 'dockingport'
         },
         bicycle: {

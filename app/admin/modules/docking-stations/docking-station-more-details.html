@@ -1,0 +1,276 @@
+<div class="container">
+    <div class="block-header">
+        <h2>DOCKING STATION
+            <small>View all the details
+            </small>
+        </h2>
+        <div class="actions m-t-10">
+            <button type="button" class="btn btn-icon-text btn-default waves-effect m-r-5"
+                    ng-click="cancelDockingStationMoreDetails();">
+                <i class="zmdi zmdi-arrow-left"></i> Back to List
+            </button>
+           <!-- <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                    ng-click="saveDockingStation()" ng-disabled="AddDockingStation.$invalid">
+                <i class="zmdi zmdi-save"></i> Save
+            </button>-->
+        </div>
+    </div>
+
+    <div class="card" id="profile-main">
+
+        <div class="">
+            <form class="pmbb-edit" name="AddDockingStation">
+                <div class="pmb-block">
+                    <div class="pmbb-header m-t-15">
+                        <h2><i class="zmdi zmdi-view-carousel m-r-10"></i>Docking Station More Information</h2>
+                    </div>
+
+                    <div class="pmbb-body p-l-30">
+
+                        <div class="row">
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Station Name</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.name"
+                                           class="form-control"
+                                           disabled>
+                                    <!--<label>{{dockingStation.name}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Station Number</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.stationNumber"
+                                           class="form-control"
+                                           disabled>
+                                    <!--<label>{{dockingStation.stationNumber}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Number of Units</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.noofUnits"
+                                           class="form-control"
+                                           disabled>
+                                    <!--<label>{{dockingStation.noofUnits}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Number of Ports</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.noofPorts"
+                                           class="form-control"
+                                           disabled>
+                                    <!--<label>{{dockingStation.noofPorts}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Model Type</dt>
+                            <dd>
+                                <div class="fg-line m-t-10">
+                                    <input type="text" name="name" ng-model="dockingStation.modelType"
+                                           class="form-control"
+                                           disabled>
+                                   <!-- <label>{{dockingStation.modelType}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal" ng-if="dockingStation.template == 1">
+                            <dt class="p-t-10">Template</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="T1"
+                                           class="form-control"
+                                           disabled>
+                                    <!--<label>T1</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal" ng-if="dockingStation.template == 2">
+                            <dt class="p-t-10">Template</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="T2"
+                                           class="form-control"
+                                           disabled>
+                                  <!--  <label>T2</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal" ng-if="dockingStation.template == 3">
+                            <dt class="p-t-10">Template</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <label>T3</label>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal" ng-if="dockingStation.template == 4">
+                            <dt class="p-t-10">Template</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <label>T4</label>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Latitude</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.gpsCoordinates.latitude"
+                                           class="form-control"
+                                           disabled>
+                                   <!-- <label>{{dockingStation.gpsCoordinates.latitude}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Longitude</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.gpsCoordinates.longitude"
+                                           class="form-control"
+                                           disabled>
+                              <!--      <label>{{dockingStation.gpsCoordinates.longitude}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">IP Address</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.ipAddress"
+                                           class="form-control"
+                                           disabled>
+                                   <!-- <label>{{dockingStation.ipAddress}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Subnet</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.subnet"
+                                           class="form-control"
+                                           disabled>
+                                <!--    <label>{{dockingStation.subnet}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal" ng-if="dockingStation.zoneId == 1">
+                            <dt class="p-t-10" >Zone</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <label>Zone1</label>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal" ng-if="dockingStation.zoneId == 2">
+                            <dt class="p-t-10" >Zone</dt>
+                            <dd>
+                                <div class="fg-line">
+                                     <label>Zone2</label>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal" ng-if="dockingStation.zoneId == 3">
+                            <dt class="p-t-10" >Zone</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="Zone"
+                                           class="form-control"
+                                           disabled>
+                                 <!--   <label>Zone3</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal" ng-if="dockingStation.zoneId == 4">
+                            <dt class="p-t-10" >Zone</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <label>Zone4</label>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal" ng-if="dockingStation.zoneId == 5">
+                            <dt class="p-t-10" >Zone</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <label>Zone5</label>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Maximun Cycle Alert</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.maxAlert"
+                                           class="form-control"
+                                           disabled>
+                                   <!-- <label>{{dockingStation.maxAlert}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Minimum Cycle Alert</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.minAlert"
+                                           class="form-control"
+                                           disabled>
+                                    <!--<label>{{dockingStation.minAlert}}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Station Starting Date</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input type="text" name="name" ng-model="dockingStation.commissioneddate"
+                                           class="form-control"
+                                           disabled>
+                                     <!-- <label>{{dockingStation.commissioneddate |  date : "dd MMM yy" }}</label>-->
+                                </div>
+                            </dd>
+                        </dl>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

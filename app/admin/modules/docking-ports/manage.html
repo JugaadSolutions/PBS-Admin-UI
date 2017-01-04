@@ -5,10 +5,10 @@
             <h2>Manage Docking Ports
                 <small>Add or Edit Docking Ports</small>
             </h2>
-            <button class="btn bgm-blue btn-float waves-effect" uib-tooltip="Add New Docking Port"
+           <!-- <button class="btn bgm-blue btn-float waves-effect" uib-tooltip="Add New Docking Port"
                         tooltip-placement="left" ng-click="addDockingPort()">
                     <i class="zmdi zmdi-plus"></i>
-            </button>
+            </button>-->
         </div>
 
         <div class="card-body">
@@ -25,25 +25,24 @@
                             <a ui-sref="admin.docking-ports.edit({id: dockingPort._id})">{{dockingPort.PortID}}</a>
                         </td>
                         <td data-title="'FPGA Address'" filter="{ 'FPGA': 'text'}">
-                            <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingUnitId._id})">{{dockingPort.FPGA}}</a>
+                            {{dockingPort.FPGA}}
                         </td>
                         <td data-title="'Station Name'" filter="{ 'Name': 'text'}">
                             <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingStationId._id})">{{dockingPort.Name}}</a>
                         </td>
-                        <td data-title="'Model Type'" filter="{ 'modelType': 'text'}">
+                     <!--   <td data-title="'Model Type'" filter="{ 'modelType': 'text'}">
                             {{dockingPort.modelType}}
-                        </td>
-                        <td data-title="'Port Position'" filter="{ 'portPosition': 'text'}">
+                        </td>-->
+                      <!--  <td data-title="'Port Position'" filter="{ 'portPosition': 'text'}">
                             {{dockingPort.portPosition}}
-                        </td>
-                        <td data-title="'Bicycle RFID'" filter="{ 'cycleRFID': 'text'}">
+                        </td>-->
+                       <!-- <td data-title="'Bicycle RFID'" filter="{ 'cycleRFID': 'text'}">
                             <a class="pointer" ng-click="cycle(dockingPort.cycleRFID)">{{dockingPort.vehicleId.vehicleid.vehicleRFID}}</a>
-                        </td>
+                        </td>-->
                         <td class="text-center">
                             <span uib-tooltip="{{dockingPort.status}}" tooltip-placement="top" ng-class="{
                              'status-color bgm-green': dockingPort.status == 'Bicycle Available',
                              'status-color bgm-blue': dockingPort.status == 'Empty Port',
-                             'status-color bgm-orange': dockingPort.status == 'Bicycle Locked' || dockingPort.status == 'Port Locked',
                              'status-color bgm-red': dockingPort.status == 'Port Error'}">&nbsp;</span>
                         </td>
                         <td data-title="''" class="table-actions">
@@ -84,11 +83,11 @@
                 <div class="fg-line">
                     <select chosen name="status" ng-model="dockingPort.status" placeholder-text-single="'Select Status'"
                             class="form-control w-100" required>
-                        <option ng-value="0">Bicycle Available</option>
-                        <option ng-value="1">Empty Port</option>
-                        <option ng-value="2">Bicycle Locked</option>
-                        <option ng-value="3">Port Locked</option>
-                        <option ng-value="4">Port Error</option>
+                        <option ng-value="1">Bicycle Available</option>
+                        <option ng-value="2">Empty Port</option>
+                        <option ng-value="-1">Port Error</option>
+                       <!-- <option ng-value="3">Bicycle Locked</option>
+                        <option ng-value="4">Port Locked</option>-->
                     </select>
                 </div>
             </dd>
