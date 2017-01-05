@@ -30,17 +30,29 @@
                             <a ui-sref="admin.smart-cards.edit({id: smartCard._id})">{{smartCard.cardRFID}}</a>
                         </td>
                         <td data-title="'Type'" filter="{ 'Type': 'text'}">
-                            {{smartCard.assignedTo._type}}
+                            <a ui-sref="admin.smart-cards.edit({id: smartCard._id})">{{smartCard.assignedTo._type}}</a>
                         </td>
                         <td data-title="'Assigned To'" filter="{ 'AssignedTo': 'text'}">
-                            <a ui-sref="admin.members.edit({id: smartCard._id})">{{smartCard.assignedTo.Name}}</a>
+                            <a ui-sref="admin.smart-cards.edit({id: smartCard._id})">{{smartCard.assignedTo.Name}}</a>
                         </td>
-                        <!--<td data-title="'Card Type'" filter="{ 'cardType': 'text'}">
-                            {{smartCard.cardType}}
+                        <td data-title="'Balance'">
+                            {{smartCard.balance}}
+                        </td>
+                       <!-- <td data-title="'Membership'">
+                            {{smartCard.membershipId.subscriptionType}}
                         </td>-->
-                       <!-- <td data-title="'Card Level'" filter="{ 'cardLevel': 'text'}">
-                            {{smartCard.cardLevel}}
+                        <td data-title="'Validity'">
+                            {{smartCard.assignedTo.validity | date : "dd MMM yy"}}
+                        </td>
+                      <!--  <td data-title="'Issued by'">
+                            {{smartCard.issuedBy.Name}}
+                        </td>
+                        <td data-title="'Issued on'">
+                            {{smartCard.issuedDate | date : "dd MMM yy"}}
                         </td>-->
+                        <!-- <td data-title="'Card Level'" filter="{ 'cardLevel': 'text'}">
+                             {{smartCard.cardLevel}}
+                         </td>-->
                         <!--<td data-title="'Assigned to'" filter="{ 'name': 'text'}" filter="{ 'lastName': 'text'}">
                             <a ui-sref="admin.members.edit({id: smartCard.assignedTo._id})">{{smartCard.name}}
                                 {{smartCard.lastName}}</a>
@@ -49,7 +61,7 @@
                         <td class="text-center">
                             <span uib-tooltip="{{smartCard.status}}" tooltip-placement="top" ng-class="{
                              'status-color bgm-green': smartCard.status == 'Active',
-                             'status-color bgm-red': smartCard.status == 'Inactive'}">&nbsp;</span>
+                             'status-color bgm-red': smartCard.status == 'Inactive'}"></span>
                         </td>
                         <td data-title="''" class="table-actions">
                             <ul class="actions">

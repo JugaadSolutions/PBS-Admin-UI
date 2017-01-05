@@ -35,19 +35,33 @@
                         <td data-title="'Number of Ports'" filter="{ noofPorts: 'text'}">
                             {{dockingStation.noofPorts}}
                         </td>
-                      <!--  <td data-title="'Total Units'" filter="{ noOfDockingUnits: 'text'}">
-                            {{dockingStation.noOfDockingUnits}}
-                        </td>-->
-                        <td data-title="'Bicycle Availability'" filter="{ bicycleCount: 'text'}">
+
+                        <td data-title="'Total Units'" filter="{ noOfDockingUnits: 'text'}">
+                            {{dockingStation.noofUnits}}
+                        </td>
+                        <td data-title="'Bicycle Availability'">
+
                             {{dockingStation.bicycleCount}}
                         </td>
-                        <td data-title="'Bicycle Capacity'" filter="{ bicycleCapacity: 'text'}">
+                        <td data-title="'Bicycle Capacity'">
                             {{dockingStation.bicycleCapacity}}
                         </td>
-                        <td class="text-center">
+                       <!-- <td data-title="'Alert'"  ng-if="(((dockingStation.bicycleCount/dockingStation.bicycleCapacity)*100).toFixed(2)) < 25" style="color: red">
+                            LOW
+                        </td>
+                        <td data-title="'Alert'" ng-if="(((dockingStation.bicycleCount/dockingStation.bicycleCapacity)*100).toFixed(2)) >= 75 " style="color: black;">
+                            HIGH
+                        </td>
+                        <td data-title="'Alert'" ng-if="(((dockingStation.bicycleCount/dockingStation.bicycleCapacity)*100).toFixed(2))<75" >
+                            &nbsp;&nbsp;&nbsp;
+                        </td>-->
+                        <td  data-title="'Status'" class="text-center">
                             <span uib-tooltip="{{dockingStation.status}}" tooltip-placement="top" ng-class="{
-                             'status-color bgm-green': dockingStation.operationStatus == 1,
-                             'status-color bgm-red': dockingStation.operationStatus == 2}">&nbsp;</span>
+
+                             'status-color bgm-green': dockingStation.status == 'Operational',
+                             'status-color bgm-red': dockingStation.status == 'Non Operational',
+                             'status-color bgm-black': dockingStation.status == 'Decommissioned'}"></span>
+
                         </td>
                         <td data-title="''" class="table-actions">
                             <ul class="actions">
@@ -87,10 +101,11 @@
             <dt class="p-t-10 p-l-30">Status</dt>
             <dd>
                 <div class="fg-line">
-                    <select chosen name="status" ng-model="dockingStation.status" placeholder-text-single="'Select Status'"
+                    <select chosen name="status" ng-model="dockingStation.operationStatus" placeholder-text-single="'Select Status'"
                             class="form-control w-100" required>
-                        <option ng-value="0">Operational</option>
-                        <option ng-value="1">Non Operational</option>
+                        <option ng-value="1">Operational</option>
+                        <option ng-value="2">Non Operational</option>
+                        <option ng-value="-1">Decommissioned</option>
                     </select>
                 </div>
             </dd>

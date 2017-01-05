@@ -1103,9 +1103,9 @@
                 $scope.employeesData = response.data;
                 $scope.employeesData.forEach(function (employee) {
                     employee.status = StatusService.getEmployeeStatus(employee.status);
-                    for (var i = 0; i < employee.smartCardDetails.length; i++) {
+                    /*for (var i = 0; i < employee.smartCardDetails.length; i++) {
                         employee.smartCardDetails[i].cardLevel = StatusService.getCardLevel(employee.smartCardDetails[i].smartCardId.cardLevel);
-                    }
+                    }*/
                     if (!employee.picture || employee.picture == '') {
                         employee.profilePicUrl = 'assets/images/no-avatar.png'
                     } else {
@@ -1462,16 +1462,16 @@
         };
 
         $scope.updateEmployee = function () {
-            $scope.employee.phoneNumber = $scope.employee.countryCode + '-' + $scope.employee.phoneNumber;
+            $scope.employee.phoneNumber =$scope.employee.phoneNumber;
             if ($scope.employee.emergencyContact.contactNumber) {
-                $scope.employee.emergencyContact.contactNumber = $scope.employee.emergencyContact.countryCode + '-' + $scope.employee.emergencyContact.contactNumber;
+                $scope.employee.emergencyContact.contactNumber =  $scope.employee.emergencyContact.contactNumber;
             } else {
                 $scope.employee.emergencyContact.contactNumber = "";
             }
             DataService.updateEmployee($scope.employee).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                    window.location.reload();
+                   // window.location.reload();
                 } else {
                     growl.error(response.message);
                 }
@@ -1772,7 +1772,7 @@
             DataService.updateMembership($scope.membership).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                  /*  window.location.reload();*/
+
                 } else {
                     growl.error(response.message);
                 }
@@ -1804,8 +1804,10 @@
             if (!response.error) {
                 $scope.dockingStations = response.data;
                 $scope.dockingStations.forEach(function (dockingStation) {
-                   /* dockingStation.status = StatusService.getDockingStationStatus(dockingStation.status);*/
+
                     dockingStation.status = StatusService.getDockingStationStatus(dockingStation.operationStatus);
+
+                   /* dockingStation.status = StatusService.getDockingStationStatus(dockingStation.operationStatus);*/
                 });
                 $scope.dockingStationsTable.reload();
             } else {
@@ -1848,6 +1850,8 @@
             });
         };
 
+
+
         $scope.addDockingStation = function () {
             $state.go('admin.docking-stations.add');
         };
@@ -1864,6 +1868,8 @@
 
     // Docking Station Status Controller
     app.controller('DockingStationStatus', ['$scope', '$state', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'dockingStation', function ($scope, $state, DataService, growl, sweet, $uibModalInstance, dockingStation) {
+
+        $scope.dockingStation={};
 
         $scope.dockingStation = dockingStation;
 
@@ -1913,10 +1919,12 @@
             name: '',
             dockingUnitIds: [],
             ipAddress: '',
+
             template:'',
             commissioneddate:'',
-            subnet:'',
+            subnet:0,
             zoneId:''
+
         };
 
         $scope.cancelAddDockingStation = function () {
@@ -2141,13 +2149,50 @@
         $scope.dockingStation = {};
 
         $scope.Zone= "";
+        $scope.Template="";
 
         DataService.getDockingStation($stateParams.id).then(function (response) {
             if (!response.error) {
                 $scope.dockingStation = response.data;
-            if( $scope.dockingStation.zoneId==3)
+                if( $scope.dockingStation.zoneId==1)
                 {
-                $scope.Zone ="Zone 3";
+                    $scope.Zone ="Zone 1";
+                }
+                else if( $scope.dockingStation.zoneId==2)
+                {
+                    $scope.Zone ="Zone 2";
+                }
+                else if( $scope.dockingStation.zoneId==3)
+                {
+                    $scope.Zone ="Zone 3";
+                }
+                else if( $scope.dockingStation.zoneId==4)
+                {
+                    $scope.Zone ="Zone 4";
+                }
+                else if( $scope.dockingStation.zoneId==5)
+                {
+                    $scope.Zone ="Zone 5";
+                }
+
+                if( $scope.dockingStation.template==1)
+                {
+                    $scope.Template ="T1";
+                }
+
+                else if( $scope.dockingStation.template==2)
+                {
+                    $scope.Template ="T2";
+                }
+
+                else if( $scope.dockingStation.template==3)
+                {
+                    $scope.Template ="T3";
+                }
+
+                else if( $scope.dockingStation.template==4)
+                {
+                    $scope.Template ="T4";
                 }
                 $scope.dockingStationStatus = StatusService.getDockingStationStatus($scope.dockingStation.status);
                 $scope.dockingStationMap.center.latitude = parseFloat($scope.dockingStation.gpsCoordinates.latitude);
@@ -2434,9 +2479,9 @@
             if (!response.error) {
                 $scope.dockingPorts = response.data;
                 $scope.dockingPorts.forEach(function (dockingPort) {
-                    dockingPort.status = StatusService.getDockingPortStatus(dockingPort.status);
-                    dockingPort.unitNumber = dockingPort.dockingUnitId.unitNumber;
-                    dockingPort.name = dockingPort.dockingStationId.name;
+                    dockingPort.status = StatusService.getDockingPortStatus(dockingPort.portStatus);
+                    //dockingPort.unitNumber = dockingPort.dockingUnitId.unitNumber;
+                   // dockingPort.name = dockingPort.dockingStationId.name;
                 });
                 $scope.dockingPortsTable.reload();
             } else {
@@ -2761,7 +2806,7 @@
             if (!response.error) {
                 $scope.bicyclesData = response.data;
                 $scope.bicyclesData.forEach(function (bicycle) {
-                    bicycle.status = StatusService.getBicycleStatus(bicycle.status);
+                    bicycle.status = StatusService.getBicycleStatus(bicycle.vehicleStatus);
                     bicycle.location = StatusService.getBicycleLocation(bicycle.location);
                     if (!bicycle.picture || bicycle.picture == '') {
                         bicycle.profilePicUrl = 'assets/images/bicycle.jpg'
@@ -4183,7 +4228,7 @@
                 var portInfo = {
                     Name:data.portIds[i].dockingPortId.Name,
                     _id:data.portIds[i].dockingPortId._id
-                }
+                };
           var a= $scope.portSelections.push(portInfo);
 
                 $scope.selectedPort=function (a) {
@@ -4321,7 +4366,7 @@
                 var portInfo = {
                     PortID:data.portIds[i].dockingPortId.PortID
                   /*  _id:data.portIds[i].dockingPortId._id*/
-                }
+                };
                 $scope.portSelections.push(portInfo);
             }
         };
@@ -4759,10 +4804,14 @@
                     smartCard.status = StatusService.getSmartCardStatus(smartCard.status);
                     smartCard.cardType = StatusService.getCardType(smartCard.cardType);
                     smartCard.cardLevel = StatusService.getCardLevel(smartCard.cardLevel);
+                    var abc = smartCard.balance;
+                    var abc1 = smartCard.assignedTo.validity;
+                   /* var abc2 = smartCard.smartCard.issuedBy.Name;
+                    var abc3 = smartCard.issuedDate;
                     if (smartCard.assignedTo) {
-                        smartCard.name = smartCard.assignedTo.name;
+                        smartCard.Name = smartCard.assignedTo.Name;
                         smartCard.lastName = smartCard.assignedTo.lastName;
-                    }
+                    }*/
                 });
                 $scope.smartCardsTable.reload();
             } else {
