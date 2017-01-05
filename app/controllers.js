@@ -1805,9 +1805,9 @@
                 $scope.dockingStations = response.data;
                 $scope.dockingStations.forEach(function (dockingStation) {
 
-                    dockingStation.status = StatusService.getDockingStationStatus(dockingStation.operationStatus);
+                   /* dockingStation.status = StatusService.getDockingStationStatus(dockingStation.status);*/
 
-                   /* dockingStation.status = StatusService.getDockingStationStatus(dockingStation.operationStatus);*/
+                    dockingStation.status = StatusService.getDockingStationStatus(dockingStation.operationStatus);
                 });
                 $scope.dockingStationsTable.reload();
             } else {
@@ -1850,8 +1850,6 @@
             });
         };
 
-
-
         $scope.addDockingStation = function () {
             $state.go('admin.docking-stations.add');
         };
@@ -1868,8 +1866,6 @@
 
     // Docking Station Status Controller
     app.controller('DockingStationStatus', ['$scope', '$state', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'dockingStation', function ($scope, $state, DataService, growl, sweet, $uibModalInstance, dockingStation) {
-
-        $scope.dockingStation={};
 
         $scope.dockingStation = dockingStation;
 
@@ -2149,50 +2145,13 @@
         $scope.dockingStation = {};
 
         $scope.Zone= "";
-        $scope.Template="";
 
         DataService.getDockingStation($stateParams.id).then(function (response) {
             if (!response.error) {
                 $scope.dockingStation = response.data;
-                if( $scope.dockingStation.zoneId==1)
+            if( $scope.dockingStation.zoneId==3)
                 {
-                    $scope.Zone ="Zone 1";
-                }
-                else if( $scope.dockingStation.zoneId==2)
-                {
-                    $scope.Zone ="Zone 2";
-                }
-                else if( $scope.dockingStation.zoneId==3)
-                {
-                    $scope.Zone ="Zone 3";
-                }
-                else if( $scope.dockingStation.zoneId==4)
-                {
-                    $scope.Zone ="Zone 4";
-                }
-                else if( $scope.dockingStation.zoneId==5)
-                {
-                    $scope.Zone ="Zone 5";
-                }
-
-                if( $scope.dockingStation.template==1)
-                {
-                    $scope.Template ="T1";
-                }
-
-                else if( $scope.dockingStation.template==2)
-                {
-                    $scope.Template ="T2";
-                }
-
-                else if( $scope.dockingStation.template==3)
-                {
-                    $scope.Template ="T3";
-                }
-
-                else if( $scope.dockingStation.template==4)
-                {
-                    $scope.Template ="T4";
+                $scope.Zone ="Zone 3";
                 }
                 $scope.dockingStationStatus = StatusService.getDockingStationStatus($scope.dockingStation.status);
                 $scope.dockingStationMap.center.latitude = parseFloat($scope.dockingStation.gpsCoordinates.latitude);
@@ -4804,14 +4763,10 @@
                     smartCard.status = StatusService.getSmartCardStatus(smartCard.status);
                     smartCard.cardType = StatusService.getCardType(smartCard.cardType);
                     smartCard.cardLevel = StatusService.getCardLevel(smartCard.cardLevel);
-                    var abc = smartCard.balance;
-                    var abc1 = smartCard.assignedTo.validity;
-                   /* var abc2 = smartCard.smartCard.issuedBy.Name;
-                    var abc3 = smartCard.issuedDate;
                     if (smartCard.assignedTo) {
-                        smartCard.Name = smartCard.assignedTo.Name;
+                        smartCard.name = smartCard.assignedTo.name;
                         smartCard.lastName = smartCard.assignedTo.lastName;
-                    }*/
+                    }
                 });
                 $scope.smartCardsTable.reload();
             } else {
