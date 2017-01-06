@@ -47,6 +47,7 @@
                                         ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
                                         ng-model="location"
                                         ng-change="selectedRegistrationCenters(location)" required>
+                                    <option value="">All</option>
                                 </select>
                             </div>
                         </div>
@@ -59,6 +60,7 @@
                                     <option ng-value="RegistrationCentre1">Registration</option>
                                     <option ng-value="RegistrationCentre2">Refund</option>
                                     <option ng-value="RegistrationCentre3">Replenishment</option>
+                                    <option value="0">All</option>
                                 </select>
                             </div>
                         </div>
@@ -66,12 +68,12 @@
                     </div>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
                             ng-click="sendDaywiseDetails()" ng-disabled="DaywiseCashForm.$invalid">
-                        <i class="zmdi zmdi-save"></i> Get Details
+                        <i class="zmdi zmdi-save"></i> Generate Report
                     </button>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
                             ng-disabled="DaywiseCashForm.$invalid" >
                         <i class="zmdi zmdi-eye"></i>
-                        <a ui-sref="admin.accounts.bankcashdeposits.totalcash-report-print" style="color: white">Show</a>
+                        <a ui-sref="admin.accounts.daywise-collectionsummary-report-print" style="color: white">Print Report</a>
                     </button>
                 </div>
 
@@ -179,7 +181,7 @@
                         <td data-title="'Transaction No'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
                             <a ui-sref="admin.members.edit({id: member._id})">{{daywises.invoiceNo}}</a>
                         </td>
-                       <!-- <td data-title="'Transaction Type '" filter="{ emailAddress: 'text'}" ng-if="daywises.paymentDescription == 'Credit note'">
+                       <!-- <td data-title="'Transaction Type '" filter="{ emailAddress: 'text'}" ng-if="daywises.paymentDescription == 'Registration'">
                             {{daywises.paymentDescription == 'Registration'}}
                         </td>-->
                         <td data-title="'Transaction Type '" filter="{ emailAddress: 'text'}" ng-bind="daywises.paymentDescription = daywises.paymentDescription === 'Credit note'? '-': 'Registration'"></td>

@@ -5186,6 +5186,11 @@
 
     }]);
 
+    var DayWise=[];
+    var _daywise_fromDate;
+    var _daywise_toDate;
+    var _location;
+    var _transaction_type;
     app.controller('dayWiseCollectionSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
         $scope.daywiseCollection={
@@ -5217,7 +5222,14 @@
                 {
                     growl.success(response.message);
 
+                     _daywise_fromDate=$scope.daywiseCollection.fromdate;
+                     _daywise_toDate=$scope.daywiseCollection.todate;
+                     _location=$scope.daywiseCollection.location;
+                    _transaction_type=$scope.daywiseCollection.transactionType;
+
                     $scope.daywises = response.data;
+
+                    DayWise=response.data;
 
                     $scope.daywiseTable = new NgTableParams(
                         {
@@ -5301,7 +5313,8 @@ var cc= [];
         $scope.totalCashInput=
         {
             fromdate:'',
-            todate:''
+            todate:'',
+            location:''
         };
 
         $scope.cashTotals =[];
@@ -5339,6 +5352,26 @@ var cc= [];
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
+        };
+
+        $scope.RegistrationCenters=[];
+
+        DataService.getRegistrationCentres().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RegistrationCenters = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRegistrationCenters = function (data) {
+            $scope.totalCashInput.location = data.location;
         };
 
 
@@ -5384,7 +5417,79 @@ var cc= [];
         {
              window.print();
         };
+        $scope.myFun1 = function ()
+        {
+            $state.go('admin.accounts.totalcash-report');
+        };
+    }]);
 
+
+    // daywise-collection summary report print
+    app.controller('DaywsieCollectionSummaryReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.daywiseCollectionSummaryInput=
+            {
+                DayWisefromdate:_daywise_fromDate,
+                DayWisetodate:_daywise_toDate,
+                DayWiselocation:_location,
+                DayWiseTransactionType:_transaction_type
+            };
+
+        $scope.DayWiseSummaryPrint=[];
+        $scope.DayWiseSummaryPrint=DayWise;
+
+        $scope.DayWiseCollectionSummaryPrintTable = new NgTableParams(
+            {
+                count: 500,
+                noPager: true
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.DayWiseSummaryPrint, params.filter()) : $scope.DayWiseSummaryPrint;
+                    /*params.total(orderedData.length);*/
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+        $scope.myFun = function ()
+        {
+            window.print();
+        };
+
+    }]);
+
+    // bank cash deposit deposit report print
+    app.controller('BankCashDepositReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.bankCashDepositInput=
+            {
+                bankCashDepositfromdate:_bankcashdeposit_fromdate,
+                bankCashDeposittodate:_bankcashdeposit_todate,
+                bankCashDepositlocation:_bankcashdeposit_location,
+            };
+
+        $scope.BankCashDepositPrint=[];
+        $scope.BankCashDepositPrint=BankcashDeposit;
+
+        $scope.BankCashDepositPrintTable = new NgTableParams(
+            {
+                count: 500,
+                noPager: true
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.BankCashDepositPrint, params.filter()) : $scope.BankCashDepositPrint;
+                    /*params.total(orderedData.length);*/
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+        $scope.myFun = function ()
+        {
+            window.print();
+        };
 
     }]);
 
@@ -5599,7 +5704,8 @@ var cc= [];
             branch:'',
             transactionId:'',
             depositedBy:'',
-            remarks:''
+            remarks:'',
+            location:''
         };
 
 
@@ -5630,9 +5736,32 @@ var cc= [];
         };
 
 
+        $scope.RegistrationCenters=[];
+
+        DataService.getRegistrationCentres().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RegistrationCenters = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRegistrationCenters = function (data) {
+            $scope.bankCashDeposit.location = data.location;
+        };
 
     }]);
 
+    var _bankcashdeposit_fromdate;
+    var _bankcashdeposit_todate;
+    var _bankcashdeposit_location;
+    var BankcashDeposit=[];
     app.controller('BankCashDepositReport', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
 
@@ -5645,17 +5774,26 @@ var cc= [];
         $scope.bankDepositsInput=
         {
             fromdate:'',
-            todate:''
+            todate:'',
+            location:''
         };
 
         $scope.bankDeposits =[];
+
+       /* $scope.BankcashDeposit=[];*/
 
         $scope.sendBankCaskDetails = function () {
             DataService.SendBankCashDepositDetails($scope.bankDepositsInput).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
 
+                    _bankcashdeposit_fromdate =$scope.bankDepositsInput.fromdate;
+                    _bankcashdeposit_todate =$scope.bankDepositsInput.todate;
+                    _bankcashdeposit_location = $scope.bankDepositsInput.location;
+
                     $scope.bankDeposits = response.data;
+
+                    BankcashDeposit = response.data;
 
                     $scope.bankDepositsTable = new NgTableParams(
                         {
@@ -5681,6 +5819,26 @@ var cc= [];
         $scope.MyFunction = function ()
         {
             window.print();
+        };
+
+        $scope.RegistrationCenters=[];
+
+        DataService.getRegistrationCentres().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RegistrationCenters = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRegistrationCenters = function (data) {
+            $scope.bankDepositsInput.location = data.location;
         };
 
     }]);

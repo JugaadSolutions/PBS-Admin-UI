@@ -38,7 +38,7 @@
                             &#8377; {{member.creditBalance}}
                         </td>
                         <td data-title="'Smart Card'" filter="{ smartCardNumber: 'text'}">
-                            <a ui-sref="admin.smart-cards.edit({id: member.smartCardId})">{{member.smartCardNumber}}</a>
+                            <a ui-sref="admin.smart-cards.edit({id: member.smartCardId})">{{member.cardNum}}</a>
                         </td>
                         <td class="text-center">
                             <span uib-tooltip="{{member.status}}" tooltip-placement="top" ng-class="{

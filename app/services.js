@@ -952,6 +952,10 @@
 
             /*Total Cash Details*/
             SendTotalCashCollectionDetails:function (data) {
+                if(data.location == "" || data.location == null || data.location == undefined)
+                {
+                    data.location = "All";
+                }
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.totalCashCollection.getAll,data).then(function (result) {
                     deferred.resolve(result.data);

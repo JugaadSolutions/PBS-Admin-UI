@@ -553,6 +553,20 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.accounts.daywise-collectionsummary-report-print", {
+                url: "/daywise-collectionsummary-report-print",
+                templateUrl: adminViewPath + 'accounts/daywise-collectionsummary-report-print.html',
+                controller: 'DaywsieCollectionSummaryReportPrint',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.bankcashdeposits.bankcashdeposit-report-print", {
+                url: "/bankcashdeposit-report-print",
+                templateUrl: adminViewPath + 'accounts/bankcashdeposits/bankcashdeposit-report-print.html',
+                controller: 'BankCashDepositReportPrint',
+                containerClass: 'sw-toggled'
+            })
+
             /*Registration details*/
             .state("admin.registration-details", {
                 url: "/registration-details",

@@ -102,6 +102,20 @@
                                             </span>
                                 </div>
                             </div>
+
+                            <div class="col-sm-3 m-b-20">
+                                <div class="form-group fg-line">
+                                    <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Registration Centres</label>
+                                    <select chosen class="form-control"
+                                            ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
+                                            ng-model="location"
+                                            ng-change="selectedRegistrationCenters(location)">
+                                        <option value="">All</option>
+                                        <option value="">Other Location</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                            <!-- <div class="col-sm-4">
                                 <div class="input-group fg-float">
                                     <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
@@ -118,18 +132,17 @@
                                     </div>
                                 </div>
                             </div>-->
-                            <br>
                             <button type="button" class="btn btn-icon-text btn-success waves-effect"
                                     ng-click="sendTotalCashDetails()" ng-disabled="TotalCashReport.$invalid">
-                                <i class="zmdi zmdi-view-list"></i> Get Details
+                                <i class="zmdi zmdi-view-list"></i> Generate Report
                             </button>
                             <button type="button" class="btn btn-icon-text btn-success waves-effect"
                                     ng-disabled="TotalCashReport.$invalid" >
                                 <i class="zmdi zmdi-eye"></i>
-                                <a ui-sref="admin.accounts.bankcashdeposits.totalcash-report-print" style="color: white">Show</a>
+                                <a ui-sref="admin.accounts.bankcashdeposits.totalcash-report-print" style="color: white">Print Report</a>
                             </button>
 
-                        </div>
+
                   <!--  </dl>-->
                <!-- <button type="button" class="btn btn-icon-text btn-success waves-effect"
                         ng-click="sendTotalCashDetails()" ng-disabled="TotalCashReport.$invalid">
