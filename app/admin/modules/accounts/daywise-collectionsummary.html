@@ -46,7 +46,7 @@
                                 <select chosen class="form-control"
                                         ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
                                         ng-model="location"
-                                        ng-change="selectedRegistrationCenters(location)" required>
+                                        ng-change="selectedRegistrationCenters(location)">
                                     <option value="">All</option>
                                 </select>
                             </div>
@@ -60,7 +60,6 @@
                                     <option ng-value="RegistrationCentre1">Registration</option>
                                     <option ng-value="RegistrationCentre2">Refund</option>
                                     <option ng-value="RegistrationCentre3">Replenishment</option>
-                                    <option value="0">All</option>
                                 </select>
                             </div>
                         </div>

@@ -277,7 +277,8 @@
             cardNum:'',
             emergencyContact: {countryCode: '91'},
             documents: [],
-            smartCardKey:'key'
+            smartCardKey:'',
+            createdBy:_login_id
         };
 
         $scope.addNewDocument = function () {
@@ -629,7 +630,8 @@
                     if ($scope.member.membershipChanged) {
                         var membershipData = {
                             _id: $scope.member._id,
-                            membershipId: $scope.member.membershipId
+                            membershipId: $scope.member.membershipId,
+                            createdBy:_login_id
                         };
                         DataService.updateMembershipForMember(membershipData).then(function (response) {
                             if (!response.error) {
@@ -638,7 +640,8 @@
                                     var smartCardData = {
                                         _id: $scope.member._id,
                                         cardNumber: $scope.member.smartCardNumber,
-                                        membershipId: $scope.member.membershipId
+                                        membershipId: $scope.member.membershipId,
+                                        createdBy:_login_id
                                     };
                                     DataService.updateSmartCardForMember(smartCardData).then(function (response) {
                                         if (!response.error) {
@@ -867,7 +870,8 @@
                 var data = {
                     _id: $scope.member._id,
                     cardNumber: $scope.member.smartCardNumber,
-                    membershipId: $scope.member.membershipId
+                    membershipId: $scope.member.membershipId,
+                    createdBy:_login_id
                 };
                 DataService.updateSmartCardForMember(data).then(function (response) {
                     if (!response.error) {
@@ -5305,9 +5309,11 @@
 
     }]);
 
-    var ab;
-    var bc;
-var cc= [];
+
+    var _totalcash_fromdate;
+    var _total_cash_todate;
+    var _totalcash_location;
+    var TotalCash =[];
     app.controller('totalCashReport', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
         $scope.totalCashInput=
@@ -5325,12 +5331,12 @@ var cc= [];
                 if (!response.error)
                     {
                     growl.success(response.message);
-                         ab=$scope.totalCashInput.fromdate;
-                       /* alert(ab);*/
-                         bc=$scope.totalCashInput.todate;
-                     /*   alert(bc);*/
+                        _totalcash_fromdate=$scope.totalCashInput.fromdate;
+                        _total_cash_todate=$scope.totalCashInput.todate;
+                        _totalcash_location=$scope.totalCashInput.location;
                     $scope.cashTotals = response.data;
-                    cc=response.data;
+                        TotalCash = response.data;
+                    /*cc=response.data;*/
 
                         $scope.totalCashTable = new NgTableParams(
                         {
@@ -5385,16 +5391,18 @@ var cc= [];
 
     }]);
 
+
     app.controller('totalCashReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
         $scope.totalCashPrintInput=
         {
-            TotalCashfromdate:ab,
-            TotalCashtodate:bc
+            TotalCashfromdate:_totalcash_fromdate,
+            TotalCashtodate:_total_cash_todate,
+            TotalCashlocation:_totalcash_location
         };
 
-        $scope.New1=[];
-        $scope.New1=cc;
+        $scope.TotalCashPrint=[];
+        $scope.TotalCashPrint=TotalCash;
 
        /* $scope.totalCashTable =$scope.New1;*/
 
@@ -5406,7 +5414,7 @@ var cc= [];
                         },
                         {
                             getData: function ($defer, params) {
-                                var orderedData = params.filter() ? $filter('filter')($scope.New1, params.filter()) : $scope.New1;
+                                var orderedData = params.filter() ? $filter('filter')($scope.TotalCashPrint, params.filter()) : $scope.TotalCashPrint;
                               /*params.total(orderedData.length);*/
                                 $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                             }
@@ -5698,14 +5706,15 @@ var cc= [];
         {
             cashCollectionDate:'',
             depositDate:'',
-            regCentreName:'',
+           /* regCentreName:'',*/
             amount:'',
             bankName:'',
             branch:'',
             transactionId:'',
             depositedBy:'',
             remarks:'',
-            location:''
+            location:'',
+            createdBy:_login_id
         };
 
 

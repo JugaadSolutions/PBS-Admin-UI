@@ -925,6 +925,10 @@
 
             /*Daywise cash collections*/
             SendDaywiseCashCollectionDetails:function (data) {
+                if(data.location == "" || data.location == null || data.location == undefined)
+                {
+                    data.location = "All"
+                }
                 var deferred = $q.defer();
                 var _transaction_type = data.transactionType;
                 var test;
@@ -977,6 +981,10 @@
             },*/
 
             SendBankCashDepositDetails:function (data) {
+                if(data.location == "" || data.location == null || data.location == undefined)
+                {
+                    data.location="All";
+                }
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.bankCashDepositReport.getAll,data).then(function (result) {
                     deferred.resolve(result.data);
