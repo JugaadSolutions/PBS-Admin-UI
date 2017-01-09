@@ -213,9 +213,38 @@
                                     <dd>
                                         <div class="fg-line">
                                             <input type="number" name="dockingPorts"
-                                                   ng-model="redistributionVehicle.holdingCapacity"
+                                                   ng-model="redistributionVehicle.portCapacity"
                                                    class="form-control"
                                                    placeholder="eg. 10">
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10">Zone ID</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen name="ZoneId" ng-model="redistributionVehicle.zoneId" placeholder-text-single="'Select Zone'"
+                                                    class="form-control w-100" required>
+                                                <option ng-value="1">Zone 1</option>
+                                                <option ng-value="2">Zone 2</option>
+                                                <option ng-value="3">Zone 3</option>
+                                                <option ng-value="4">Zone 4</option>
+                                                <option ng-value="5">Zone 5</option>
+                                            </select>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10">Assigned To</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen class="form-control"
+                                                    ng-options="RVstaffSelection as RVstaffSelection.Name for RVstaffSelection in RVstaffSelections"
+                                                    ng-model="staffName"
+                                                    ng-change="selectedStaff(staffName)" required>
+                                            </select>
                                         </div>
                                     </dd>
                                 </dl>

@@ -490,7 +490,7 @@
             },
             updateBicycle: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.bicycle.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.vehicle.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -605,7 +605,15 @@
                 return deferred.promise;
             },
 
-
+            getRedistributionVehicleStaff:function(){
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.redistributionVehicleStaffSelection.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
 
             saveFarePlan: function (data) {
                 var deferred = $q.defer();
@@ -836,7 +844,7 @@
                 var _enteredTimeTo= data.totime;
 
                 var _date =_enteredDate.getDate();
-                if(_date.toString().length ===1)
+                if(_date.toString().length === 1)
                 {
                     _date=0 +""+_enteredDate.getDate();
                 }
@@ -844,20 +852,20 @@
                 {
                     _date=_enteredDate.getDate();
                 }
-                var _month=_enteredDate.getMonth()+1;
-                if(_month.toString().length===1)
+                var _month=_enteredDate.getMonth();
+                var new_month=_month+1;
+                if(new_month.toString().length === 1)
                 {
-                    _month=0+""+_enteredDate.getMonth()+1;
+                    new_month=0+""+new_month;
                 }
                 else
                 {
-                    _month=_enteredDate.getMonth()+1;
+                    new_month;
                 }
                 var _year=_enteredDate.getFullYear();
-                var Date=_year+"-"+_month+"-"+_date;
-             /*   var _timeFrom = Date+"T"+_enteredTimeFrom+":"+"00"+":"+"000"+"Z";
-                var _timeTo = Date+"T"+_enteredTimeTo+":"+"00"+":"+"000"+"Z";
-*/
+                var Date=_year+"-"+new_month+"-"+_date;
+               /* var _timeFrom = Date+"T"+_enteredTimeFrom+":"+"00"+":"+"000"+"Z";
+                var _timeTo =   Date+"T"+_enteredTimeTo+":"+"00"+":"+"000"+"Z";*/
                 var _timeFrom = Date+"T"+_enteredTimeFrom+"Z";
                 var _timeTo = Date+"T"+_enteredTimeTo+"Z";
 
@@ -882,7 +890,7 @@
 
             getDockingStationCleaningDetails: function () {
             var deferred = $q.defer();
-            $http.get(APINew + APIEndPoint.dockingstationcleaning.getAll).then(function (result) {
+            $http.get(APINew + APIEndPoint.dockingStationCleaning.getAll).then(function (result) {
                 deferred.resolve(result.data);
             }, function (error) {
                 deferred.reject(error);

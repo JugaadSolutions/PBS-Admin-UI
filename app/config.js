@@ -460,6 +460,14 @@
                 templateUrl:adminViewPath + 'maintenance/manage.html',
                 containerClass:'sw-toggled'
             })
+
+            .state("admin.maintenance.manage-view",{
+                url:"/manage-view",
+                templateUrl:adminViewPath + 'maintenance/manage-view.html',
+                controller:'AddDockingStationCleanManage',
+                containerClass:'sw-toggled'
+            })
+
             .state("admin.maintenance.add",{
                 url:"/add",
                 templateUrl:adminViewPath + 'maintenance/add.html',

@@ -37,7 +37,8 @@
         {
             getAll:'vehicle',
             get:'vehicle',
-            save: 'vehicle'
+            save: 'vehicle',
+            update:'vehicle'
         },
         member: {
             getAll: 'member',
@@ -171,6 +172,11 @@
             getAll:'employee/registrationstaff/emp'
         },
 
+        redistributionVehicleStaffSelection:
+            {
+                getAll:'employee/rvstaff/emp'
+            },
+
         holdingArea: {
             getAll: 'holdingport',
             get: 'holdingport',
@@ -193,7 +199,7 @@
 
         dockingStationCleaning:{
             save:'dockstation/cleanstation',
-            getAll:'dockingstationcleaning'
+            getAll:'dockstation/cleanstation/info'
         },
 
         ticketsDetails:{

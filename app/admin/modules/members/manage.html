@@ -4,6 +4,25 @@
             <h2>Manage Members
                 <small>Add or Edit Members</small>
             </h2>
+            <br>
+            <div class="card-body">
+            <span ng-class="{'led bgm-yellow':'Prospective'}">
+                </span>
+            <label>Prospective</label>
+            <span ng-class="{'led bgm-green':'Registered'}">
+                </span>
+            <label>Registered</label>
+            <span ng-class="{'led bgm-blue':'Expired'}">
+                </span>
+            <label>Expired</label>
+            <span ng-class="{'led bgm-red':'Cancelled'}">
+                </span>
+            <label>Cancelled</label>
+            <span ng-class="{'led bgm-black':'Suspended'}">
+                </span>
+            <label>Suspended</label>
+            </div>
+
             <button class="btn bgm-blue btn-float waves-effect" uib-tooltip="Add New Member" tooltip-placement="left"
                     ng-click="addNewMember()">
                 <i class="zmdi zmdi-plus"></i>
@@ -46,7 +65,7 @@
                              'status-color bgm-yellow': member.status == 'Prospective',
                              'status-color bgm-red': member.status == 'Cancelled',
                               'status-color bgm-black':member.status == 'Suspended',
-                              'status-color bgm-blue':member.status == 'expired', }">&nbsp;</span>
+                              'status-color bgm-blue':member.status == 'Expired', }">&nbsp;</span>
                         </td>
                         <td data-title="''" class="table-actions">
                             <ul class="actions">
@@ -88,7 +107,7 @@
                             class="form-control w-100" required>
                         <option ng-value="0">Prospective</option>
                         <option ng-value="1">Registered</option>
-                        <option ng-value="2">Renewed</option>
+                        <option ng-value="2">Expired</option>
                         <option ng-value="-1">Cancelled</option>
                         <option ng-value="-2">Suspended</option>
                     </select>

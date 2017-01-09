@@ -25,12 +25,17 @@
                             <a ui-sref="admin.docking-ports.edit({id: dockingPort._id})">{{dockingPort.PortID}}</a>
                         </td>
 
-                        <td data-title="'UNIT ID'" filter="{ 'FPGA': 'text'}">
+                       <!-- <td data-title="'UNIT ID'" filter="{ 'FPGA': 'text'}">
                             <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingUnitId._id})">{{dockingPort.FPGA}}</a>
                         </td>
                         <td data-title="'PORT Name'" filter="{ 'Name': 'text'}">
-                            <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingStationId._id})">{{dockingPort.Name}}</a>
-                       
+                            <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingStationId._id})">{{dockingPort.Name}}</a>-->
+
+                        <td data-title="'UNIT ID'" filter="{ 'FPGA': 'text'}">
+                            <a ui-sref="">{{dockingPort.FPGA}}</a>
+                        </td>
+                        <td data-title="'PORT Name'" filter="{ 'Name': 'text'}">
+                            <a ui-sref="">{{dockingPort.Name}}</a>
                    
                      <!--   <td data-title="'Model Type'" filter="{ 'modelType': 'text'}
                             {{dockingPort.modelType}}

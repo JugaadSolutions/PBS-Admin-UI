@@ -3150,7 +3150,6 @@
             DataService.updateBicycle($scope.bicycle).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                    window.location.reload();
                 } else {
                     growl.error(response.message);
                 }
@@ -3291,6 +3290,8 @@
             StationId:'',
             vehiclePlate: '',
             driverId: '',
+            assignedTo:'',
+            zoneId:'',
          /*   modelType: '',*/
             portCapacity: '',
         /*    noOfBicycle: '',*/
@@ -3347,6 +3348,24 @@
                 $state.go('admin.redistribution-vehicles.manage');
             });
         };
+
+        $scope.RVstaffSelections = [];
+
+        DataService.getRedistributionVehicleStaff().then(function (response) {
+                if (!response.error) {
+                    $scope.RVstaffSelections = response.data;
+                } else {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedStaff = function (data) {
+            $scope.redistributionVehicle.assignedTo = data._id;
+        };
+
 
     }]);
 
@@ -5501,9 +5520,57 @@
 
     }]);
 
+    app.controller('AddDockingStationCleanManage', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+
+            $scope.DockingStationClean = [];
+
+        /*fetching registration center table details*/
+        DataService.getDockingStationCleaningDetails().then(function (response) {
+            if (!response.error) {
+                $scope.DockingStationClean = response.data;
+               /* $scope.bankcashdepositsDetails.forEach(function (bankCashDeposit)
+                {
+                    bankCashDeposit.status = StatusService.getRegistrationCentresStatus(bankCashDeposit.status);
+                    bankCashDeposit.longitude = bankCashDeposit.gpsCoordinates.longitude;
+                    bankCashDeposit.latitude = bankCashDeposit.gpsCoordinates.latitude;
+                });*/
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.dockingStationCleanTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.DockingStationClean, params.filter()) : $scope.DockingStationClean;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+        $scope.addDockingStationClean = function () {
+            $state.go('admin.maintenance.add');
+        };
+    }]);
+
+    app.controller('AddDockingStationCleanReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.print = function ()
+        {
+            window.print();
+        };
+    }]);
+
     app.controller('AddDockingStationClean', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
-        alert(_login_id);
+       /* alert(_login_id);*/
 
         $scope.dockingStationCleanInput={
             stationId:'',
@@ -5513,7 +5580,6 @@
             empId:'',
             description:'',
             createdBy:_login_id,
-            modelType:''
         };
 
         $scope.addDockingStationClean = function () {
@@ -5569,19 +5635,18 @@
             $scope.dockingStationCleanInput.empId = data.id;
         };
 
-        /*DataService.getDockingStations().then(function (response) {
-                if (!response.error) {
-
-                    $scope.dockingStationSelections = response.data;
-                }
-                else {
-                    growl.error(response.message)
-                }
-            },
-            function(response)
-            {
-                growl.error(response.data);
-            });*/
+        $scope.cancelAddDockingStationCleaning = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.maintenance.manage-view');
+            });
+        };
 
 
         $scope.dockingStationCleanReport = function () {
@@ -6336,14 +6401,14 @@
         var multiDockingStations = [];
 
         //new
-        $scope.date;
+      /*  $scope.date;
         var c=0;
         $scope.message=" This DIV is refreshed "+c+" time.";
         $interval(function () {
             $scope.date=new Date();
             $scope.message=" This DIV is refreshed "+c+" time.";
             c++;
-            },1000);
+            },1000);*/
         //new
 
 
@@ -6496,7 +6561,7 @@
             }
         );
 
-         },15000);
+         },40000);
 
         $scope.loadBicycleAvaliability = function () {
             $state.reload();
@@ -6793,7 +6858,7 @@ $interval(function () {
                 growl.error(response.data.description);
             });
 
-},1000);
+},10000);
 
             $scope.map = {
                 center: {
