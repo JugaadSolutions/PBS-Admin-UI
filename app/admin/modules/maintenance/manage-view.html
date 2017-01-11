@@ -23,15 +23,15 @@
                             <img ng-src="{{bicycle.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>-->
                         <td data-title="'Station name'" filter="{ vehicleNumber: 'text'}">
-                            <a>{{DockingStationClean.stationId.name}}</a>
+                            <a ui-sref=""> {{DockingStationClean.stationId.name}}</a>
                         </td>
-                        <td data-title="'Cleaned Employee'" filter="{ vehicleRFID: 'text'}">
+                        <td data-title="'Cleaned By'" filter="{ vehicleRFID: 'text'}">
                             {{DockingStationClean.empId.Name}}
                         </td>
-                        <td data-title="'Cleaning Date'" filter="{ cleaneddate: 'text'}">
+                        <td data-title="'Cleaned on'" filter="{ cleaneddate: 'text'}">
                             {{DockingStationClean.cleaneddate | date}}
                         </td>
-                        <td data-title="'Time (From -To)'" filter="{ currentAssociationName: 'text'}">
+                        <td data-title="'Cleaning At'" filter="{ currentAssociationName: 'text'}">
                             {{DockingStationClean.fromtime | date:'HH:mm'}}&nbsp;-&nbsp;{{DockingStationClean.totime | date:'HH:mm'}}
                         </td>
                        <!-- <td data-title="''" class="table-actions">

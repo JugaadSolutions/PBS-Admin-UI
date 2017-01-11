@@ -137,22 +137,39 @@
                 <li><a ng-class="{'active': $state.includes('admin.accounts.bankcashdeposits')}"
                        ui-sref="admin.accounts.bankcashdeposits.manage">Add Bank Cash Deposit</a>
                 </li>
-                <li><a ng-class="{'active': $state.includes('admin.accounts.refunds')}"
+               <!-- <li><a ng-class="{'active': $state.includes('admin.accounts.refunds')}"
                        ui-sref="admin.accounts.refunds">Refunds</a>
-                </li>
+                </li>-->
             </ul>
         </li>
 
         <!--maintenance-->
-        <li class="sub-menu"
+       <!-- <li class="sub-menu"
             ng-class="{'active toggled': $state.includes('admin.maintenance')}">
             <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Maintenance</a>
             <ul>
                 <li><a ng-class="{'active': $state.includes('admin.maintenance')}"
                        ui-sref="admin.maintenance.manage-view">Docking Station Clean</a>
                 </li>
+                <li><a ng-class="{'active': $state.includes('admin.maintenance.new-design')}"
+                       ui-sref="admin.maintenance.new-design.manageview">New Design</a>
+                </li>
+            </ul>
+        </li>-->
+
+        <li class="sub-menu"
+            ng-class="{'active toggled': $state.includes('admin.maintenance') || $state.includes('admin.maintenance.manage-view') || $state.includes('admin.maintenance.new-design')}">
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Maintenance</a>
+            <ul>
+                <li><a ng-class="{'active': $state.includes('admin.maintenance')}"
+                       ui-sref="admin.maintenance.manage-view">Docking Station Clean</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.maintenance.new-design')}"
+                       ui-sref="admin.maintenance.new-design.manageview">New Design</a>
+                </li>
             </ul>
         </li>
+
        <!-- <li ng-class="{active: $state.includes('admin.registratiom-details')}">
             <a ui-sref="admin.registration-details.registration-details"><i class="zmdi zmdi-info "></i>Registration Details</a>
         </li>--><!--prashanth commented registration details on 19.11.16-->

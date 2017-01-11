@@ -3389,11 +3389,18 @@
                 $scope.redistributionVehicles = response.data;
                 $scope.redistributionVehicleMap.center.latitude = parseFloat($scope.redistributionVehicle.gpsCoordinates.latitude);
                 $scope.redistributionVehicleMap.center.longitude = parseFloat($scope.redistributionVehicle.gpsCoordinates.longitude);
-                if ($scope.redistributionVehicle.purchaseDetails) {
+
+                $scope.redistributionVehicles.forEach(function (redistributionVehicle) {
+                   var aaaa=redistributionVehicle.StationId.name;
+
+                })
+
+
+                /*if ($scope.redistributionVehicle.purchaseDetails) {
                     $scope.redistributionVehicle.purchaseDetails.manufacturingDate = new Date($scope.redistributionVehicle.purchaseDetails.manufacturingDate);
                     $scope.redistributionVehicle.purchaseDetails.invoiceDate = new Date($scope.redistributionVehicle.purchaseDetails.invoiceDate);
                     $scope.redistributionVehicle.purchaseDetails.receivedAt = new Date($scope.redistributionVehicle.purchaseDetails.receivedAt);
-                }
+                }*/
             } else {
                 growl.error(response.message);
             }
@@ -5705,6 +5712,114 @@
         {
             window.print();
         };
+    }]);
+
+/*var _station_name=[];
+var _station_id=[];*/
+var _station_name;
+var _station_id;
+    app.controller('DockingStationStationNewDesign', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.dockingStations = [];
+
+        DataService.getDockingStations().then(function (response) {
+                if (!response.error)
+                {
+                    $scope.dockingStations = response.data;
+                    /*for(var i=0;i<response.data.length;i++)
+                    {
+                        _station_name = response.data[i].name;
+                        _station_id= response.data[i]._id;
+                    }*/
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
+
+        $scope.change='the data';
+        $scope.changenew='the data';
+        $scope.getVal=function(event){
+            console.log($scope.change);
+            console.log(event.currentTarget.value);
+           /* $scope.change=event.currentTarget.value;*/
+            _station_id=event.currentTarget.value;
+            _station_name = event.currentTarget.name;
+            $scope.AddDockingStationCleanDetails();
+        }
+
+
+        $scope.AddDockingStationCleanDetails = function (size) {
+            $uibModal.open({
+                templateUrl: 'docking-station-clean.html',
+                controller: 'DockingStationStationNewDesign1',
+                size: size,
+                resolve: {
+                    items: function () {
+                    }
+                }
+            });
+        };
+    }]);
+
+    app.controller('DockingStationStationNewDesign1', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
+    {
+        alert(_station_name);
+        alert(_station_id);
+
+        $scope.dockingStationCleanInput={
+            stationId:_station_name,
+            stationIdnew:_station_id,
+            cleaneddate:'',
+            fromtime:'',
+            totime:'',
+            empId:'',
+            description:'',
+            createdBy:_login_id,
+        };
+
+        $scope.addDockingStationClean = function () {
+            DataService.saveDockingStationCleaning($scope.dockingStationCleanInput).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    /* $state.go('admin.registration-centres.edit', {'id': response.data._id});*/
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.employeeSelections = [];
+
+        DataService.getStaffs().then(function (response) {
+                if (!response.error) {
+
+                    $scope.employeeSelections = response.data;
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
+
+        $scope.selectedEmployee = function (data) {
+            $scope.dockingStationCleanInput.empId = data.id;
+        };
+
+
+        $scope.cancelAddNewDocknckingStationClean = function () {
+            $uibModalInstance.dismiss();
+        };
+
     }]);
 
 

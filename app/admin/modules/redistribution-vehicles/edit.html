@@ -68,8 +68,9 @@
                                         <div class="fg-line">
                                             <select chosen class="form-control"
                                                     data-placeholder-text-single="'SELECT THE OPTIONS'"
-                                                    ng-options="redistributionVehicle as redistributionVehicle.StationId.name for redistributionVehicle in redistributionVehicles"
-                                                    ng-model="name">
+                                                    ng-options="redistributionVehicle as redistributionVehicle.StationId._id for redistributionVehicle in redistributionVehicles"
+                                                    ng-model="name"
+                                                    ng-change="selectedFarePlan(name)" required>
                                                 <!--<option value="0">SELECT THE OPTIONS</option>-->
                                             </select>
                                         </div>

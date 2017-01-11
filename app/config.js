@@ -475,6 +475,20 @@
                 containerClass:'sw-toggled'
             })
 
+
+            .state("admin.maintenance.new-design", {
+                url: "/maintenance/new-design",
+                templateUrl: adminViewPath + 'maintenance/new-design/manage.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.maintenance.new-design.manageview",{
+                url:"/manageview",
+                templateUrl:adminViewPath + 'maintenance/new-design/manageview.html',
+                controller:'DockingStationStationNewDesign',
+                containerClass:'sw-toggled'
+            })
+
             .state("admin.maintenance.dockingstationcleaning-report",{
                 url:"/dockingstationcleaning-report",
                 templateUrl:adminViewPath + 'maintenance/dockingstationcleaning-report.html',

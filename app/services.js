@@ -873,6 +873,7 @@
                 var deferred = $q.defer();
                 var CleanDockingStation={
                     stationId:data.stationId,
+                    stationIdnew:data.stationIdnew,
                     cleaneddate:data.cleaneddate,
                     fromtime:_timeFrom,
                     totime:_timeTo,
@@ -880,12 +881,12 @@
                     description:data.description,
                     createdBy:data.createdBy
                 };
-                $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
+               /* $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;
+                return deferred.promise;*/
             },
 
             getDockingStationCleaningDetails: function () {
