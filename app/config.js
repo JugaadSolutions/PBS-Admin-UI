@@ -503,6 +503,27 @@
                 containerClass:'sw-toggled'
             })
 
+            // bicycle maintenance report
+            .state("admin.maintenance.bicycle-maintenance",{
+                url:"/maintenance/bicycle-manage",
+                templateUrl:adminViewPath + 'maintenance/bicycle-maintenance/bicycle-manage.html',
+                controller:'BicycleMaintenanceManage',
+                containerClass:'sw-toggled'
+            })
+
+            .state("admin.maintenance.bicycle-maintenance.report",{
+                url:"/report",
+                templateUrl:adminViewPath + 'maintenance/bicycle-maintenance/report.html',
+                controller:'BicycleMaintenanceReport',
+                containerClass:'sw-toggled'
+            })
+            .state("admin.maintenance.bicycle-maintenance.report-print",{
+                url:"/report-print",
+                templateUrl:adminViewPath + 'maintenance/bicycle-maintenance/report-print.html',
+                controller:'BicycleMaintenanceReportPrint',
+                containerClass:'sw-toggled'
+            })
+
             /*Accounts*/
             .state("admin.accounts", {
                 url: "/accounts",

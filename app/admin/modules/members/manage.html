@@ -59,6 +59,9 @@
                         <td data-title="'Smart Card'" filter="{ smartCardNumber: 'text'}">
                             <a ui-sref="admin.smart-cards.edit({id: member.smartCardId})">{{member.cardNum}}</a>
                         </td>
+                        <td data-title="'Document Number'" filter="{ documentNumber: 'text'}">
+                            {{member.documentNumber}}
+                        </td>
                         <td class="text-center">
                             <span uib-tooltip="{{member.status}}" tooltip-placement="top" ng-class="{
                              'status-color bgm-green': member.status == 'Registered' || member.status == 'Renewed',

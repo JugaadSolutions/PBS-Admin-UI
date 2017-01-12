@@ -271,6 +271,10 @@
             getAll:'paymenttransaction/depositinfo'
         },
 
+        bicycleMaintenance:{
+            send:''
+        },
+
         kpiDetails:{
          getAll:'kpi/dockstation'
         },

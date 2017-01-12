@@ -2,21 +2,21 @@
 <div class="container">
     <div class="card">
         <div class="card-header ch-alt m-b-20">
-            <h2>Docking Station Cleaning Report
-                <small>Cleaning Details</small>
+            <h2>Bicycle Maintenance Report
+                <small>Bicycle Details</small>
                 <br> </h2>
-            <form class="pmbb-edit" name="DockingStationCleaningReport"  novalidate>
+            <form class="pmbb-edit" name="BicycleMaintenanceReport"  novalidate>
                 <div class="card-body card-padding">
                     <div class="row">
                         <div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
-                                 ng-class="{ 'has-error': DockingStationCleaningReport.CleanDateFrom.$touched && DockingStationCleaningReport.CleanDateFrom.$invalid }" >
+                                 ng-class="{ 'has-error': BicycleMaintenanceReport.bicycleMaintenanceFromDate.$touched && BicycleMaintenanceReport.bicycleMaintenanceFromDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
-                                <input type="text"  name="CleanDateFrom" ng-model="DockingStationCleanReportInputs.fromdate" ng-change="CleanDateFrom" ng-focus="CleanDateFrom=true" ng-click="CleanDateFrom=true"
-                                       uib-datepicker-popup="dd/MM/yyyy" is-open="CleanDateFrom" show-button-bar="true" class="form-control" color="red" required >
+                                <input type="text"  name="bicycleMaintenanceFromDate" ng-model="bicyleMaintenanceInputs.from_date" ng-change="bicycleMaintenanceFromDate" ng-focus="bicycleMaintenanceFromDate=true" ng-click="bicycleMaintenanceFromDate=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="bicycleMaintenanceFromDate" show-button-bar="true" class="form-control" color="red" required >
                                 <span class="help-block"
-                                      ng-messages="DockingStationCleaningReport.CleanDateFrom.$error"
-                                      ng-show="DockingStationCleaningReport.CleanDateFrom.$touched">
+                                      ng-messages="BicycleMaintenanceReport.bicycleMaintenanceFromDate.$error"
+                                      ng-show="BicycleMaintenanceReport.bicycleMaintenanceFromDate.$touched">
                                                 <small ng-message="required">From Date is required</small>
                                             </span>
                             </div>
@@ -24,19 +24,19 @@
 
                         <div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
-                                 ng-class="{ 'has-error': DockingStationCleaningReport.CleanDateTo.$touched && DockingStationCleaningReport.CleanDateTo.$invalid }" >
+                                 ng-class="{ 'has-error': BicycleMaintenanceReport.bicycleMaintenanceToDate.$touched && BicycleMaintenanceReport.bicycleMaintenanceToDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
-                                <input type="text" name="CleanDateTo" ng-model="DockingStationCleanReportInputs.todate" ng-change="CleanDateTo" ng-focus="CleanDateTo=true" ng-click="CleanDateTo=true"
-                                       uib-datepicker-popup="dd/MM/yyyy" is-open="CleanDateTo" show-button-bar="true" class="form-control" required >
+                                <input type="text" name="bicycleMaintenanceToDate" ng-model="bicyleMaintenanceInputs.to_date" ng-change="bicycleMaintenanceToDate" ng-focus="bicycleMaintenanceToDate=true" ng-click="bicycleMaintenanceToDate=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="bicycleMaintenanceToDate" show-button-bar="true" class="form-control" required >
                                 <span class="help-block"
-                                      ng-messages="DockingStationCleaningReport.CleanDateTo.$error"
-                                      ng-show="DockingStationCleaningReport.CleanDateTo.$touched">
+                                      ng-messages="BicycleMaintenanceReport.bicycleMaintenanceToDate.$error"
+                                      ng-show="BicycleMaintenanceReport.bicycleMaintenanceToDate.$touched">
                                                 <small ng-message="required">To Date is required</small>
                                             </span>
                             </div>
                         </div>
 
-                        <div class="col-sm-3 m-b-20">
+                       <!-- <div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line">
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Docking Station</label>
                                 <select chosen class="form-control"
@@ -46,17 +46,17 @@
                                     <option value="">All</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
 
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="sendCleanInputsDetails()" ng-disabled="DockingStationCleaningReport.$invalid">
+                            ng-click="sendBicyleMaintenanceInputs()" ng-disabled="BicycleMaintenanceReport.$invalid">
                         <i class="zmdi zmdi-view-list"></i> Generate Report
                     </button>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-disabled="DockingStationCleaningReport.$invalid" >
+                            ng-disabled="BicycleMaintenanceReport.$invalid" ng-click="printBicycleMaintenanceReport();" >
                         <i class="zmdi zmdi-eye"></i>
-                        <a ui-sref="admin.maintenance.dockingstationcleaning-report-print" style="color: white">Print Report</a>
+                       Print Report
                     </button>
                 </div>
             </form>
@@ -69,17 +69,17 @@
                         <td>
                             <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>
-                        <td data-title="'Station name'" filter="{ date: 'text'}">
-                          <!--  {{DockingStationClean.stationId.name}}-->
+                        <td data-title="'Bicycle Number'" filter="{ date: 'text'}">
+                            <!--  {{DockingStationClean.stationId.name}}-->
                         </td>
-                        <td data-title="'Cleaned By'" filter="{ pos: 'text'}">
-                           <!-- {{DockingStationClean.empId.Name}}-->
+                        <td data-title="'Maintened By'" filter="{ pos: 'text'}">
+                            <!-- {{DockingStationClean.empId.Name}}-->
                         </td>
-                        <td data-title="'Cleaned On'" filter="{ gateway: 'text'}">
-                        <!--    {{DockingStationClean.cleaneddate | date}}-->
+                        <td data-title="'Maintained On'" filter="{ gateway: 'text'}">
+                            <!--    {{DockingStationClean.cleaneddate | date}}-->
                         </td>
-                        <td data-title="'Cleaning At'" filter="{ 'cash': 'text'}">
-                           <!-- {{DockingStationClean.fromtime | date:'HH:mm'}}&nbsp;-&nbsp;{{DockingStationClean.totime | date:'HH:mm'}}-->
+                        <td data-title="'Maintened At'" filter="{ 'cash': 'text'}">
+                            <!-- {{DockingStationClean.fromtime | date:'HH:mm'}}&nbsp;-&nbsp;{{DockingStationClean.totime | date:'HH:mm'}}-->
                         </td>
                     </tr>
                 </table>

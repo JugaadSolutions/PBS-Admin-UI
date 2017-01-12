@@ -837,6 +837,21 @@
                 return deferred.promise;
             },
 
+            /*Input details for docking station clean report*/
+            sendDockingStationCleanInputsDetails:function (data) {
+            if(data.location == "" || data.location == null || data.location == undefined)
+            {
+                data.location = "All"
+            }
+                var deferred = $q.defer();
+                $http.post(API + APIEndPoint.refundDetails.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
             /*docking station cleaning */
             saveDockingStationCleaning: function (data) {
                 var _enteredDate=data.cleaneddate;
@@ -881,7 +896,7 @@
                     description:data.description,
                     createdBy:data.createdBy
                 };
-               /* $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
+              /*  $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -895,6 +910,16 @@
                 deferred.resolve(result.data);
             }, function (error) {
                 deferred.reject(error);
+            });
+            return deferred.promise;
+            },
+
+            sendBicycleMaintenanceDetails:function (data) {
+            var deferred = $q.defer();
+            $http.post(API + APIEndPoint.bicycleMaintenance.send,data).then(function (result) {
+                deferred.resolve(result.data);
+            },function (error) {
+                deferred.reject(error)
             });
             return deferred.promise;
             },

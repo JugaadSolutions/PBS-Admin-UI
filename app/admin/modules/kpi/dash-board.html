@@ -249,20 +249,20 @@
                         </div>
 
                         <div class="col-sm-3 m-b-20">
-                            <div class="form-group fg-line"
-                                 ng-class="{ 'has-error': KPI.ToDate.$touched && KPI.ToDate.$invalid }" >
-                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
-                                <input type="text" name="ToDate" ng-model="details.todate" ng-change="toDateKPI" ng-focus="ToDate=true" ng-click="ToDate=true"
-                                       uib-datepicker-popup="dd/MM/yyyy" is-open="ToDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
-                                <span class="help-block"
-                                      ng-messages="KPI.ToDate.$error"
-                                      ng-show="KPI.ToDate.$touched">
+                        <div class="form-group fg-line"
+                             ng-class="{ 'has-error': KPI.ToDate.$touched && KPI.ToDate.$invalid }" >
+                            <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
+                            <input type="text" name="ToDate" ng-model="details.todate" ng-change="toDateKPI" ng-focus="ToDate=true" ng-click="ToDate=true"
+                                   uib-datepicker-popup="dd/MM/yyyy" is-open="ToDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                            <span class="help-block"
+                                  ng-messages="KPI.ToDate.$error"
+                                  ng-show="KPI.ToDate.$touched">
                                                 <small ng-message="required">To Date is required</small>
                                             </span>
-                            </div>
                         </div>
+                    </div>
 
-                        <div class="col-sm-3 m-b-20">
+                        <!--<div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line">
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Station Status</label>
                                 <select chosen class="form-control" ng-model="details.stationState"
@@ -273,16 +273,16 @@
                                     <option value="2">Empty</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
 
-                        <div class="col-sm-3 m-b-20">
+                       <!-- <div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line">
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Greater Than (Duration)</label>
                                 <input type="text" name="Duration" ng-model="details.duration"
                                        class="form-control"
                                        placeholder="eg. 30 minutes">
                             </div>
-                        </div>
+                        </div>-->
 
 
                         <button type="button" class="btn btn-icon-text btn-success waves-effect"

@@ -21300,6 +21300,11 @@ dl.required dt:after {
     cursor: pointer;
 }
 
+.dropdown-btn-demo .dropdown, .dropdown-btn-demo .btn-group, .btn-demo .btn {
+    display: inline-block;
+    margin: 0 5px 7px 0;
+}
+
 /*Map card styles*/
 .map-view {
     margin: -15px 0;
@@ -21388,16 +21393,6 @@ dl.required dt:after {
     display: inline-block;
     border-radius: 50%;
 }
-
-.dropdown-btn-demo .dropdown, .dropdown-btn-demo .btn-group, .btn-demo .btn {
-    display: inline-block;
-    margin: 0 5px 7px 0;
-}
-
-.btn-demo > .btn, .btn-group-demo > .btn-group {
-    margin: 0 5px 10px 0;
-}
-
 
 /*added newly*/
 

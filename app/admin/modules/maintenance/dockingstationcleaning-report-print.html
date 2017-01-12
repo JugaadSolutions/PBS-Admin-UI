@@ -15,7 +15,7 @@
         <br>
         <form class="pmbb-edit" name="TotalCashReport"  novalidate>
             <div class="card-header ch-alt text-center">
-                &nbsp;&nbsp;<label>From &nbsp;:</label> <span ng-bind=""></span>&nbsp;&nbsp;-&nbsp;&nbsp;<label>To&nbsp;:</label> <span ng-bind=""></span> - <label>Docking Station &nbsp;:</label> <span ng-bind=""></span>
+                &nbsp;&nbsp;<label>From &nbsp;:</label> <span ng-bind="cleanInputsDetails.from_date"></span>&nbsp;&nbsp;-&nbsp;&nbsp;<label>To&nbsp;:</label> <span ng-bind="cleanInputsDetails.to_date"></span> - <label>Docking Station &nbsp;:</label> <span ng-bind="cleanInputsDetails.location"></span>
             </div>
             <div class="card-body card-padding">
                 <div class="row">
@@ -46,13 +46,13 @@
                  <td data-title="'Docking Station'">
                     <!-- {{New1.date | date : "dd MMM yy"}}-->
                  </td>
-                 <td data-title="'Cleaned Date'">
+                 <td data-title="'Cleaned By'">
                     <!-- {{New1.pos}}-->
                  </td>
-                 <td data-title="'Time-From'">
+                 <td data-title="'Cleaned At'">
                    <!--  {{New1.cash}}-->
                  </td>
-                 <td data-title="'Time-To'">
+                 <td data-title="'Cleaned On'">
                     <!-- {{New1.pos + New1.gateway + New1.cash }}-->
                  </td>
              </tr>

@@ -1,8 +1,8 @@
 <div class="container">
     <div class="card">
         <div class="card-header ch-alt m-b-20">
-            <h2>New Design
-                <small>Add or Edit DockingStation Cleaning</small>
+            <h2>Docking Stations
+                <small>Add DockingStation Cleaning Information</small>
             </h2>
            <!-- <button class="btn bgm-blue btn-float waves-effect" uib-tooltip="Add New Docking Station Cleaning" tooltip-placement="left"
                     ng-click="addDockingStationClean()">
@@ -24,8 +24,8 @@
                 <button class="btn btn-primary">TENNIS COURT</button>
             </div>-->
 
-            <div class="btn-colors btn-demo" data-ng-repeat="dockingStation in dockingStations"> <!-- Optional container for demo porpose only -->
-                    <button  class="btn btn-primary" type="button" ng-model="DockingStation" ng-click="getVal($event)" value="{{dockingStation._id}}" name="{{dockingStation.name}}">{{dockingStation.name}}</button>
+            <div class="btn-colors btn-demo" data-ng-repeat="dockingStation in dockingStations" > <!-- Optional container for demo porpose only -->
+                    <button  class="btn btn-primary" type="button" ng-model="DockingStation" ng-click="getVal($event)" value="{{dockingStation.StationID}}" name="{{dockingStation.name}}">{{dockingStation.name}}</button>
                     <br>
                     <br>
             </div>
