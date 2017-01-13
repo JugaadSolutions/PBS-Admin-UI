@@ -4062,12 +4062,30 @@
     }]);
 
     /*Tickets*/
-    app.controller('ManageTicketsDetails', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
+    app.controller('ManageTicketsDetails', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
         $scope.ticketsDetails = [];
 
         $scope.addNewTicketDetails = function () {
             $state.go('admin.tickets.add');
         };
+
+    /*   $scope.searchMember={
+           name:''
+       };
+
+        $scope.SearchMember = function () {
+            DataService.memberSearch($scope.searchMember).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };*/
+
     }]);
 
 
@@ -4101,6 +4119,22 @@
                 if (!response.error) {
                     growl.success(response.message);
                     $state.go('admin.registration-centres.edit', {'id': response.data._id});
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.searchMember={
+            name:''
+        }
+
+        $scope.SearchMember = function () {
+            DataService.memberSearch($scope.searchMember).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
                 } else {
                     growl.error(response.message);
                 }
@@ -7087,9 +7121,19 @@ $interval(function () {
             $scope.swapView = function (viewType) {
                 $scope.view = viewType;
             };
+    }])
 
+    app.controller('headerCtrl',  ['$timeout','messageService', function ($timeout,messageService) {
+        // Top Search
+        this.openSearch = function () {
+            angular.element('#header').addClass('search-toggled');
+            angular.element('#top-search-wrap').find('input').focus();
+        }
 
-    }]);
+        this.closeSearch = function () {
+            angular.element('#header').removeClass('search-toggled');
+        }
+    }])
 
 }());
 

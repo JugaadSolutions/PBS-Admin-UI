@@ -24,12 +24,11 @@
                 <button class="btn btn-primary">TENNIS COURT</button>
             </div>-->
 
-            <div class="btn-colors btn-demo" data-ng-repeat="dockingStation in dockingStations" > <!-- Optional container for demo porpose only -->
-                    <button  class="btn btn-primary" type="button" ng-model="DockingStation" ng-click="getVal($event)" value="{{dockingStation.StationID}}" name="{{dockingStation.name}}">{{dockingStation.name}}</button>
+            <div class="btn-colors btn-demo" data-ng-repeat="dockingStation in dockingStations" style="display: inline-flex" > <!-- Optional container for demo porpose only -->
+                    <button  class="btn btn-icon-text btn-success waves-effect" type="button" ng-model="DockingStation" ng-click="getVal($event)" value="{{dockingStation.StationID}}" name="{{dockingStation.name}}">{{dockingStation.name}}</button>
                     <br>
                     <br>
             </div>
-
         </div>
     </div>
 </div>

@@ -844,7 +844,7 @@
                 data.location = "All"
             }
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.refundDetails.getAll,data).then(function (result) {
+                $http.post(API + APIEndPoint.dockingStationClean.send,data).then(function (result) {
                     deferred.resolve(result.data);
                 },function (error) {
                     deferred.reject(error)
@@ -1065,6 +1065,18 @@
             {
                 var deferred = $q.defer();
                 $http.post(API + APIEndPoint.ticketsDetails.save, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            // search member to raise a icket
+            memberSearch:function(data)
+            {
+                var deferred = $q.defer();
+                $http.post(API + APIEndPoint.searchmember.send, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -1899,6 +1911,18 @@
                     password: password
                 });
             };
+    }]);
+
+    app.service('messageService', ['$resource', function($resource){
+        this.getMessage = function(img, user, text) {
+            var gmList = $resource("data/messages-notifications.json");
+
+            return gmList.get({
+                img: img,
+                user: user,
+                text: text
+            });
+        }
     }]);
 
     app.factory('MyService',function () {

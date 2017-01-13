@@ -206,6 +206,10 @@
           save:'ticketdetails'
         },
 
+        searchmember:{
+          send:''
+        },
+
       fleetDetails:{
             save:'fleetarea',
             get:'',
@@ -272,6 +276,10 @@
         },
 
         bicycleMaintenance:{
+            send:''
+        },
+
+        dockingStationClean:{
             send:''
         },
 

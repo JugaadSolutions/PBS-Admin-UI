@@ -10,70 +10,75 @@
                 <i class="zmdi zmdi-plus"></i>
             </button>
         </div>
-        <div class="card-body">
-            <!--<div class="no-records-block" ng-if="ticketsDetails.length == 0">
-                <p class="text-muted">
-                    It looks like there are no tickets details available. Start by <a
-                        ui-sref="admin.tickets.add">adding a new tickets</a>.
-                </p>
-            </div>-->
-            <div class="table-responsive" ng-if="ticketsDetails.length == 0">
-                <table ng-table="maintenanceCentresTable" class="table table-striped table-vmiddle" show-filter="true">
-                    <tr ng-repeat="ticketsDetails in $data">
-                        <td data-title="'Member Name'" filter="{ 'centreName': 'text'}">
-                            <a ui-sref="admin.registration-centres.edit({id: registrationCentres._id})">{{}}</a>
-                        </td>
-                        <td data-title="'Ticket Subject'" filter="{ 'centreCapacity': 'text'}">
-                            {{}}
-                        </td>
-                        <td data-title="'Priority'" filter="{ 'noOfCycles': 'text'}">
-                            {{}}
-                        </td>
-                        <td data-title="'Department'" filter="{ 'noOfCycles': 'text'}">
-                            {{}}
-                        </td>
-                        <td data-title="'Type'" filter="{ 'noOfCycles': 'text'}">
-                            {{}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a ui-sref="admin.tickets.adminedit"> Raghu</a>
-                        </td>
-                        <td>Problem</td>
-                        <td>Urgent</td>
-                        <td>IT</td>
-                        <td>Type1</td>
-                    </tr>
-                </table>
-            </div>
+        <div class="card" id="profile-main">
+            <form class="pmbb-edit" name="MemberForm" novalidate>
+                <uib-tabset justified="true">
+                    <uib-tab heading="Assigned Tickets">
+                        <div class="card-body">
+                            <div class="table-responsive" >
+                                <table ng-table="totalCashTable" class="table table-striped table-vmiddle" show-filter="true">
+                                    <tr ng-repeat="cashTotals in $data">
+                                        <td>
+                                            <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
+                                        </td>
+                                        <td data-title="'Date'" filter="{ date: 'text'}">
+                                            {{cashTotals.date | date : "dd MMM yy"}}
+                                        </td>
+                                        <td data-title="'Member Name'" filter="{ pos: 'text'}">
+                                            {{cashTotals.pos}}
+                                        </td>
+                                        <td data-title="'Ticket Subject'" filter="{ gateway: 'text'}">
+                                            {{cashTotals.gateway}}
+                                        </td>
+                                        <td data-title="'Priority'" filter="{ 'cash': 'text'}">
+                                            {{cashTotals.cash}}
+                                        </td>
+                                        <td data-title="'Department'" filter="{ 'subscriptionType': 'text'}">
+                                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash }}
+                                        </td>
+                                        <td data-title="'Type'" filter="{ 'subscriptionType': 'text'}">
+                                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab heading="Raised Tickets">
+                        <div class="card-body">
+                            <div class="table-responsive" >
+                                <table ng-table="totalCashTable" class="table table-striped table-vmiddle" show-filter="true">
+                                    <tr ng-repeat="cashTotals in $data">
+                                        <td>
+                                            <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
+                                        </td>
+                                        <td data-title="'Date'" filter="{ date: 'text'}">
+                                            {{cashTotals.date | date : "dd MMM yy"}}
+                                        </td>
+                                        <td data-title="'Member Name'" filter="{ pos: 'text'}">
+                                            {{cashTotals.pos}}
+                                        </td>
+                                        <td data-title="'Ticket Subject'" filter="{ gateway: 'text'}">
+                                            {{cashTotals.gateway}}
+                                        </td>
+                                        <td data-title="'Priority'" filter="{ 'cash': 'text'}">
+                                            {{cashTotals.cash}}
+                                        </td>
+                                        <td data-title="'Department'" filter="{ 'subscriptionType': 'text'}">
+                                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash }}
+                                        </td>
+                                        <td data-title="'Type'" filter="{ 'subscriptionType': 'text'}">
+                                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </form>
         </div>
     </div>
 </div>
 
-<script type="text/ng-template" id="maintenance-centre-status-modal.html">
-    <div class="modal-header">
-        <h4 class="modal-title">Change Maintenance Centre Status</h4>
-    </div>
-    <div class="modal-body">
-        <form name="MaintenanceCentreStatus" novalidate></form>
-        <dl class="dl-horizontal">
-            <dt class="p-t-10 p-l-30">Status</dt>
-            <dd>
-                <div class="fg-line">
-                    <select chosen name="status" ng-model="maintenanceCentre.status"
-                            placeholder-text-single="'Select Status'"
-                            class="form-control w-100" required>
-                        <option ng-value="0">Operational</option>
-                        <option ng-value="1">Non Operational</option>
-                        <option ng-value="-1">Shutdown</option>
-                    </select>
-                </div>
-            </dd>
-        </dl>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-link" type="button" ng-click="cancelMaintenanceCentreStatusChange()">Close</button>
-        <button class="btn btn-link" type="button" ng-click="changeMaintenanceCentreStatus()">Save Changes</button>
-    </div>
-</script>
+
