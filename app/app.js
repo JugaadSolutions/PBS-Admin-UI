@@ -295,6 +295,10 @@
             getAll:'kpi/hourlyreport'
         },
 
+        kpiDSCleanDetails:{
+            getAll:'kpi/stationcleaninfo'
+        },
+
         smartCard: {
             getAll: 'card',
             get: 'card',

@@ -1081,6 +1081,16 @@
                 return deferred.promise;
             },
 
+            GetDockingStationKPIDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.kpiDSCleanDetails.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
             saveTicketDetails:function(data)
             {
                 var deferred = $q.defer();
