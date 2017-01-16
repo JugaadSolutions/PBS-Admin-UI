@@ -183,6 +183,17 @@
         <li ng-class="{active: $state.includes('admin.kpi')}">
             <a ui-sref="admin.kpi.dash-board"><i class="zmdi zmdi-star"></i>Key Performance Indicator</a>
         </li>
+
+        <li class="sub-menu"
+            ng-class="{'active toggled': $state.includes('admin.settings') || $state.includes('admin.settings.ticket-type') }">
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Settings</a>
+            <ul>
+                <li><a ng-class="{'active': $state.includes('admin.settings.ticket-type')}"
+                       ui-sref="admin.settings.ticket-type.manage">Ticket Type</a>
+                </li>
+            </ul>
+        </li>
+
     </ul>
 
     <!--Login view for Registration employee-->

@@ -503,6 +503,26 @@
                 containerClass:'sw-toggled'
             })
 
+                // global ticket type
+            .state("admin.settings.ticket-type", {
+                url: "/settings/ticket-type",
+                templateUrl: adminViewPath + 'settings/ticket-type/type.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.settings.ticket-type.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'settings/ticket-type/manage.html',
+                controller:'TicketTypeManage',
+                containerClass: 'sw-toggled'
+            })
+            .state("admin.settings.ticket-type.add", {
+                url: "/add",
+                templateUrl: adminViewPath + 'settings/ticket-type/add.html',
+                controller:'TicketTypeAdd',
+                containerClass: 'sw-toggled'
+            })
+
             // bicycle maintenance report
             .state("admin.maintenance.bicycle-maintenance",{
                 url:"/maintenance/bicycle-manage",

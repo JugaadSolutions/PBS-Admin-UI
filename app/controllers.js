@@ -1803,6 +1803,7 @@
 
     }]);
 
+    var Number_of_DockingStations;
     app.controller('ManageDockingStation', ['$scope', 'NgTableParams', '$state', '$uibModal', 'DataService', 'StatusService', 'growl', 'sweet', '$filter', function ($scope, NgTableParams, $state, $uibModal, DataService, StatusService, growl, sweet, $filter) {
 
         $scope.dockingStations = [];
@@ -1810,10 +1811,9 @@
         DataService.getDockingStations().then(function (response) {
             if (!response.error) {
                 $scope.dockingStations = response.data;
+                Number_of_DockingStations =  response.data.length;
                 $scope.dockingStations.forEach(function (dockingStation) {
-
                    /* dockingStation.status = StatusService.getDockingStationStatus(dockingStation.status);*/
-
                     dockingStation.status = StatusService.getDockingStationStatus(dockingStation.operationStatus);
                 });
                 $scope.dockingStationsTable.reload();
@@ -4457,6 +4457,7 @@
     var percentage_points_total_major_empty_offpeek=0;
     app.controller('kpiDetails', ['$scope', '$state', 'DataService', 'growl','$uibModal','NgTableParams', 'sweet', function ($scope, $state, DataService, growl,$uibModal,NgTableParams,sweet)
     {
+        alert(Number_of_DockingStations);
         $scope.toDateKPI = new Date();
 
         var CurrentDate = new Date();
@@ -4521,16 +4522,19 @@
             duration:0
         };
 
-        $scope.GetDetails = function () {
-            DataService.GetRVDetails($scope.details).then(function (response) {
+        $scope.GetDetails = function ()
+        {
+            DataService.GetRVDetails($scope.details).then(function (response)
+            {
                 var _from_date = $scope.details.fromdate.getDate();
                 var _to_date =$scope.details.todate.getDate();
                 var _no_of_days = (_to_date) - (_from_date) + 1 ;
-                var _working_hours = _no_of_days * 16 * 60;
+                var _working_hours = _no_of_days * 16 * 60 * Number_of_DockingStations;
                 var i=0;
                 var total=0;
                 var total_major_empty_peak=0;
                 var total_major_empty_offpeak=0;
+
                 for(var i = 0; i < response.data.length; i++)
                 {
                     var total_duration = response.data[i].timeduration;
@@ -4539,7 +4543,8 @@
                     var bicycle_clean=response.data[i].stationid.name;
 
                     // calculation for stations neither empty nor full for more then 1 minute
-                    if(total_duration > 1)
+                    /*if(total_duration > 1)*/
+                    if(total_duration > 120)
                     {
                     total += total_duration;
                     }
@@ -4553,16 +4558,13 @@
                          total_major_empty_offpeak += offpeakduration_empty;
                      }
                     }
-
-                    // calculation for bicycle clean
-
-
                 }
 
                 percentage_value =  ((_working_hours - total)/(_working_hours) * 100).toFixed(2);
                 percentage_value_major_empty =  ((total_major_empty_peak)/(_working_hours) * 100).toFixed(2);
                 percentage_value_major_empty_offpeek =  ((total_major_empty_offpeak)/(_working_hours) * 100).toFixed(2);
 
+                // condition for neither empty nor full for a period of longer than 2 hours
                 if(percentage_value > 98)
                 {
                 percentage_points=10;
@@ -4581,6 +4583,7 @@
                 }
 
 
+                // condition for major docking staions are empty during peak hours
                 if (percentage_value_major_empty < 3)
                 {
                     percentage_points_total_major_empty = 10;
@@ -4598,7 +4601,7 @@
                     percentage_points_total_major_empty=-10;
                 }
 
-
+                // condition for major docking staions are empty during off peak hours
                 if (percentage_value_major_empty_offpeek < 2)
                 {
                     percentage_points_total_major_empty_offpeek = 10;
@@ -4630,7 +4633,6 @@
                 };
 
                 if (!response.error) {
-
                     growl.success(response.message);
                 } else {
                     growl.error(response.message);
@@ -4638,15 +4640,146 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
-        };
 
-        // $scope.cancelView = function () {
-        //     $uibModalInstance.dismiss();
-        // };
+            // get smart card details
+            var percentage_data;
+            var percentage_points;
+            DataService.GetKPISmartCardReport($scope.details).then(function (response)
+            {
+                percentage_data = response.data.toFixed(2);
+                if(percentage_data > 99)
+                {
+                    percentage_points= 10;
+                }
+                else if(percentage_data <99)
+                {
+                    percentage_points=-10;
+                }
+                $scope.SmartCardInfo={
+                   value:percentage_data + "%",
+                    points:percentage_points
+                };
+
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                }
+                else
+                    {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+            // get bicycle fleet @ 6 am
+            var percentage_data;
+            var percentage_points;
+            var fleet_percentage;
+            var fleet_points;
+            DataService.GetBicycleDetailsAtFleet($scope.details).then(function (response)
+            {
+                var port_with_cycle = 0;
+                var cycles_with_rv =0;
+                var cycles_with_ha=0;
+                var cycles_with_member=0;
+                var fleet_size=0;
+                for(var i = 0; i < response.data.length; i++)
+                {
+                    var _cycle_in_port_count = response.data[i].cyclesInPort;
+                    var _cycle_with_rv = response.data[i].cyclesWithRv;
+                    var _cycle_with_Ha = response.data[i].cyclesWithHa;
+                    var _cycle_with_member=response.data[i].cyclesWithMembers;
+                    var _fleet_size = response.data[i].requiredFleetSize;
+
+                    port_with_cycle += _cycle_in_port_count;
+                    cycles_with_rv +=_cycle_with_rv;
+                    cycles_with_ha += _cycle_with_Ha;
+                    cycles_with_member += _cycle_with_member;
+                    fleet_size += _fleet_size;
+                }
+
+                fleet_percentage = ((port_with_cycle + cycles_with_rv + cycles_with_ha + cycles_with_member)/(fleet_size) * 100).toFixed(2);
+
+                if(fleet_percentage > 95 && fleet_percentage <= 98)
+                {
+                    fleet_points = 5;
+                }
+                else if(fleet_percentage > 98)
+                {
+                    fleet_points = 10;
+                }
+
+                if(fleet_percentage > 90 && fleet_percentage <= 95)
+                {
+                    fleet_points = -5;
+                }
+
+                if(fleet_percentage < 90)
+                {
+                    fleet_points = -10;
+                }
+
+                $scope.bicycleFleet={
+                    bicycleFleetValue:fleet_percentage + "%",
+                    bicycleFleetPoints:fleet_points
+                };
+
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+            // get docking station clean details
+            DataService.GetDockingStationCleanDetails($scope.details).then(function (response)
+            {
+                for(var i = 0; i < response.data.length; i++)
+                {
+                   /* var _cycle_in_port_count = response.data[i].cyclesInPort;*/
+                }
+
+               /* $scope.StationClean={
+                    CleanValue: + "%",
+                    CleanPoints:
+                };*/
+
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+        }
     }]);
 
 
     app.controller('RVDetails', ['$scope', '$state', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet)
+    {
+
+
+    }]);
+
+    // global ticket type manage
+    app.controller('TicketTypeManage', ['$scope', '$state', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet)
+    {
+
+
+    }]);
+
+    // global ticket type add
+    app.controller('TicketTypeAdd', ['$scope', '$state', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet)
     {
 
 
@@ -5599,6 +5732,7 @@
                 if (!response.error) {
 
                     $scope.DockingStations = response.data;
+
                 }
                 else {
                     growl.error(response.message)
@@ -5806,11 +5940,12 @@ var _station_id;
                 if (!response.error)
                 {
                     $scope.dockingStations = response.data;
-                    /*for(var i=0;i<response.data.length;i++)
+                   /* _No_of_DockingStations =  $scope.dockingStations.length;*/
+                    for(var i=0;i<response.data.length;i++)
                     {
-                        _station_name = response.data[i].name;
-                        _station_id= response.data[i]._id;
-                    }*/
+                       /* _station_name = response.data[i].name;
+                        _station_id= response.data[i]._id;*/
+                    }
                 }
                 else {
                     growl.error(response.message)

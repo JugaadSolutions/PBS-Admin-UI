@@ -21,14 +21,14 @@
             </div>
             <div class="table-responsive" ng-if="transactions.length > 0">
            <!-- <div class="table-responsive" ng-if="transactions.length == 0">-->
-                <table ng-table="transactionsTable" class="table table-striped table-vmiddle">
+                <table ng-table="transactionsTable" class="table table-striped table-vmiddle" show-filter="true">
                     <tr ng-repeat="transaction in $data"
                         ng-class="{'active': (transaction.status === 'In Progress'), 'active-red': (transaction.status === 'Canceled')}">
-                        <td data-title="'Member'">
+                        <td data-title="'Member'" >
                             <a ui-sref="admin.members.edit({id: transaction.member._id})">
                                 {{transaction.user.Name + ' ' + transaction.user.lastName}}</a>
                         </td>
-                        <td data-title="'Bicycle Number'">
+                        <td data-title="'Bicycle Number'" filter="{ vehicle.vehicleNumber: 'text'}">
                             <a ui-sref="admin.bicycles.edit({id: transaction.bicycle._id})">{{transaction.vehicle.vehicleNumber}}</a>
                         </td>
                         <td data-title="'From'">

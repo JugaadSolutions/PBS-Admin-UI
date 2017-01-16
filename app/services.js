@@ -1061,6 +1061,26 @@
                  return deferred.promise;
             },
 
+            GetKPISmartCardReport:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.kpiSmartCardDetails.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+            GetBicycleDetailsAtFleet:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.kpiBicycleAtFleet.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
             saveTicketDetails:function(data)
             {
                 var deferred = $q.defer();

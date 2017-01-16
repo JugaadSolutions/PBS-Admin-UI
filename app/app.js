@@ -287,6 +287,14 @@
          getAll:'kpi/dockstation'
         },
 
+        kpiSmartCardDetails:{
+            getAll:'kpi/cardreport'
+        },
+
+        kpiBicycleAtFleet:{
+            getAll:'kpi/hourlyreport'
+        },
+
         smartCard: {
             getAll: 'card',
             get: 'card',
