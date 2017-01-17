@@ -504,6 +504,12 @@
             })
 
                 // global ticket type
+            .state("admin.settings",{
+                url:"/settings",
+                templateUrl:adminViewPath + 'settings/manage.html',
+                containerClass:'sw-toggled'
+            })
+
             .state("admin.settings.ticket-type", {
                 url: "/settings/ticket-type",
                 templateUrl: adminViewPath + 'settings/ticket-type/type.html',

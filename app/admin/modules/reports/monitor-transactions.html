@@ -28,7 +28,7 @@
                             <a ui-sref="admin.members.edit({id: transaction.member._id})">
                                 {{transaction.user.Name + ' ' + transaction.user.lastName}}</a>
                         </td>
-                        <td data-title="'Bicycle Number'" filter="{ vehicle.vehicleNumber: 'text'}">
+                        <td data-title="'Bicycle Number'" filter="{ vehicleNumber: 'text'}">
                             <a ui-sref="admin.bicycles.edit({id: transaction.bicycle._id})">{{transaction.vehicle.vehicleNumber}}</a>
                         </td>
                         <td data-title="'From'">

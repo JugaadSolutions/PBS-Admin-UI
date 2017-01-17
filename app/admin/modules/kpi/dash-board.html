@@ -239,7 +239,7 @@
                                  ng-class="{ 'has-error': KPI.FromDate.$touched && KPI.FromDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
                                 <input type="text" name="FromDate" ng-model="details.fromdate" ng-change="fromDateKPI" ng-focus="FromDate=true" ng-click="FromDate=true"
-                                       uib-datepicker-popup="dd/MM/yyyy" is-open="FromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="FromDate"   show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
                                 <span class="help-block"
                                       ng-messages="KPI.FromDate.$error"
                                       ng-show="KPI.FromDate.$touched">
@@ -400,7 +400,7 @@
                     <th> Customer Service Indicator </th>
                     <th>Level</th>
                     <th>Points Earned</th>
-                    <th><a href="customer-service-indicator.html"  class="btn btn-sm btn-default"> View Details</a> </th>
+                    <th><!--<a href="customer-service-indicator.html"  class="btn btn-sm btn-default"> View Details</a>--> </th>
 
                 </tr>
                 </thead>
@@ -408,16 +408,12 @@
                 <tr>
 
                     <td>No. of valid customer complaints (received via website)
-
-
-
                     </td>
-
                     <td>10 per month</td>
                     <td> 10 points </td>
                     <td>
                         <!--Modal0-->
-                        <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal""></span>
+                        <!--<span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal""></span>-->
 
 
                         <div class="modal fade" id="myModal" role="dialog">
@@ -459,7 +455,7 @@
                     <td>95%</td>
                     <td> 5  points  </td>
                     <td><!--Modal1-->
-                        <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal1""></span>
+                      <!--  <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal1""></span>-->
 
 
                         <div class="modal fade" id="myModal1" role="dialog">
@@ -507,7 +503,7 @@
             <tr class="success">
                 <th>IT System Indicators </th>
                 <th> Level</th>
-                <th>Points</th><th><a href="it-system-indicator.html"  class="btn btn-sm btn-default"> View Details</a></th>
+                <th>Points</th><th><!--<a href="it-system-indicator.html"  class="btn btn-sm btn-default"> View Details</a>--></th>
             </tr>
             </thead>
             <tbody>
@@ -517,7 +513,7 @@
 
                 <td><span ng-bind="SmartCardInfo.value"></span></td>
                 <td><span ng-bind="SmartCardInfo.points"></span></td>
-
+<td>
 
                 <!--Modal2-->
                 <!--<span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal2""></span>-->
@@ -561,13 +557,13 @@
 
                 <td>Smart Card performance at kiosks. </td>
 
-                <td>4 Secs</td>
-                <td> 10  points </td>
+                <td><span ng-bind="SmartCardKiosk.kiosk_value"></span></td>
+                <td><span ng-bind="SmartCardKiosk.kiosk_point"></span></td>
 
 
                 <td>
                     <!--Modal3-->
-                    <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal3""></span>
+                    <!--<span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal3""></span>-->
 
 
                     <div class="modal fade" id="myModal3" role="dialog">
@@ -611,7 +607,7 @@
                 <td>10 points</td>
                 <td>
                     <!--Modal4-->
-                    <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal4""></span>
+                    <!--<span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal4""></span>-->
 
 
                     <div class="modal fade" id="myModal4" role="dialog">
@@ -663,17 +659,17 @@
                 <tr class="warning">
                     <th>Maintenance Indicator  </th>
                     <th>Level</th>
-                    <th>Points</th><th><a href="maintenence-indicator.html"  class="btn btn-sm btn-default"> View Details</a></th>
+                    <th>Points</th><th><!--<a href="maintenence-indicator.html"  class="btn btn-sm btn-default"> View Details</a>--></th>
                 </tr>
                 </thead>
 
                 <tr>
                     <td>Bicycle station is cleaned once</td>
-                    <td>every two  days &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td>5 Points</td>
+                    <td><span ng-bind="KPIStationClean.CleanValue"></span></td>
+                    <td><span ng-bind="KPIStationClean.CleanPoints"></span></td>
                     <td>
                         <!--Modal5-->
-                        <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal5""></span>
+                    <!--    <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal5""></span>-->
 
 
                         <div class="modal fade" id="myModal5" role="dialog">
@@ -715,7 +711,7 @@
                     <td>
                         <!--Modal6-->
 
-                        <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal6""></span>
+                       <!-- <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal6""></span>-->
 
                         <div class="modal fade" id="myModal6" role="dialog">
                             <div class="modal-dialog">
@@ -752,7 +748,7 @@
                     <td><span ng-bind="bicycleFleet.bicycleFleetPoints"></span></td>
                     <td>
                         <!--Modal5-->
-                        <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModa51""></span>
+                       <!-- <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModa51""></span>-->
 
 
                         <div class="modal fade" id="myModa51" role="dialog">
@@ -810,7 +806,7 @@
                     <td><span ng-bind="RVDetails.points_total_major_empty"></span> </td><td>
                     <!--Modal7-->
                    <!-- <span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal7"></span>-->
-                    <a class="btn btn-sm btn-default" ng-click="press">View Details</a>
+                   <!-- <a class="btn btn-sm btn-default" ng-click="press">View Details</a>-->
                    <!-- <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5" ng-click="press()">
                         <i class="zmdi zmdi-card-membership"></i> View Details
                     </button>-->
@@ -852,7 +848,7 @@
                     <td><span ng-bind="RVDetails.points_total_major_empty_offpeek"></span> </td><td>
                     <!--Modal8-->
                    <!-- <span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal8"></span>-->
-                    <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
+                  <!--  <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>-->
 
                     <div class="modal fade" id="myModal8" role="dialog">
                         <div class="modal-dialog">
@@ -888,12 +884,12 @@
                 </tr>
                 <tr>
                     <td>Percentage of time that minor docking station are empty during peak hour (8a.m-11a.m and 4p.m-7p.m)</td>
-                    <td>20%</td>
-                    <td>5 Points</td>
+                    <td><span ng-bind="RVDetails.percentage_total_minor_empty"></span></td>
+                    <td><span ng-bind="RVDetails.points_total_minor_empty"></span></td>
                     <td>
                         <!--Modal9-->
                         <!--<span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal9"></span>-->
-                        <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
+                       <!-- <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>-->
 
                         <div class="modal fade" id="myModal9" role="dialog">
                             <div class="modal-dialog">
@@ -929,13 +925,13 @@
                 </tr>
                 <tr>
                     <td>Percentage of time minor docking stations are empty during off peak hours</td>
-                    <td>8%</td>
-                    <td>5 Points</td>
+                    <td><span ng-bind="RVDetails.percentage_total_minor_empty_offpeek"></span></td>
+                    <td><span ng-bind="RVDetails.points_total_minor_empty_offpeek"></span></td>
 
                     <td>
                         <!--Modal10-->
                        <!-- <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal10""></span>-->
-                        <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
+                      <!--  <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>-->
 
                         <div class="modal fade" id="myModal10" role="dialog">
                             <div class="modal-dialog">
@@ -970,50 +966,12 @@
                 </tr>
 
                 <tr>
-                    <td>Minimum percentage of total cycle fleet available at 6a.m</td>
-                    <td>95%</td>
-                    <td>5 Points</td><td><!--Modal11-->
-                   <!-- <span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal11"></span>-->
-                    <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
-
-                    <div class="modal fade" id="myModal11" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">View Points</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <ul class="list-group ">
-                                        <li class="list-group-item info">(95-98)%= 5  points</li>
-                                        <li class="list-group-item">Above 98 %= 10  points</li>
-                                        <li class="list-group-item">90-95% = -5 points</li>
-                                        <li class="list-group-item">Less than 90 = -10 points</li>
-
-                                    </ul>
-
-
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn  btn-danger" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!---/Modal11--></td>
-
-                </tr>
-                <tr>
                     <td>Stations are neither full nor empty for a period of longer than two hours </td>
                     <td><span ng-bind="RVDetails.percentage"></span></td>
                     <td><span ng-bind="RVDetails.points"></span></td><td>
                     <!--Modal12-->
                    <!-- <span class="glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#myModal12"></span>-->
-                    <a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>
+                    <!--<a href="redistribution-indicator.html"  class="btn btn-sm btn-default">View Details</a>-->
 
                     <div class="modal fade" id="myModal12" role="dialog">
                         <div class="modal-dialog">
@@ -1058,16 +1016,15 @@
             <tr class="success">
                 <th>Cycle Usage </th>
                 <th>Level</th>
-                <th>Points</th><th><a href="cycle-usage.html"  class="btn btn-sm btn-default"> View Details</a></th>
+                <th>Points</th><th><!--<a href="cycle-usage.html"  class="btn btn-sm btn-default"> View Details</a>--></th>
             </tr>
             <tr>
                 <td>Average cycle use per cycle /day1(1st & 2nd Year) </td>
-                <td>2 Trips</td>
-                <td>-10 Points</td><td>
+                <td><span ng-bind="CycleTrips.trip_value"></span></td>
+                <td><span ng-bind="CycleTrips.trip_points"></span></td><td>
 
                 <!--Modal13-->
-                <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal13""></span>
-
+              <!--  <span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal13""></span>-->
 
                 <div class="modal fade" id="myModal13" role="dialog">
                     <div class="modal-dialog">

@@ -299,6 +299,14 @@
             getAll:'kpi/stationcleaninfo'
         },
 
+        kpiCycleUsagePerDay:{
+            getAll:'kpi/usagestats'
+        },
+
+        kpiSmartCardKiosks:{
+            getAll:'kpi/kioskreport'
+        },
+
         smartCard: {
             getAll: 'card',
             get: 'card',
