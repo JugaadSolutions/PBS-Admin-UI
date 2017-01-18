@@ -616,13 +616,13 @@
             },
 
             saveFarePlan: function (data) {
-                var deferred = $q.defer();
+               /* var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.farePlan.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;
+                return deferred.promise;*/
             },
             getFarePlan: function (data) {
                 var deferred = $q.defer();
@@ -1039,6 +1039,47 @@
                 return deferred.promise;
             },
 
+            // Global key names and values
+            saveGlobalKeyNameValue:function (data) {
+                var name = data.name;
+                var value=[];
+                for (var i= 0 ;i< data.value.length ;i++)
+                {
+                    value.push(data.value[i].value);
+                }
+                var globalKeyNameValueNew = {
+                    name:data.name,
+                   value:value
+                };
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.globalKeyNameValue.save,globalKeyNameValueNew).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+            // Get all Global names and values
+            getGlobalKeyNameValues: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.globalKeyNameValue.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getSettingType: function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.globalKeyNameValue.get + '/' + data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
 
             /*KPI details*/
             SendKPIDetails:function (data) {

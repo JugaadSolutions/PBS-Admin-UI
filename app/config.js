@@ -528,6 +528,13 @@
                 controller:'TicketTypeAdd',
                 containerClass: 'sw-toggled'
             })
+            .state("admin.settings.ticket-type.edit", {
+                url: "/edit",
+                templateUrl: adminViewPath + 'settings/ticket-type/edit.html',
+                controller:'SettingTypeEdit',
+                containerClass: 'sw-toggled'
+            })
+
 
             // bicycle maintenance report
             .state("admin.maintenance.bicycle-maintenance",{

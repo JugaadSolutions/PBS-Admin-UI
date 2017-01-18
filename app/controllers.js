@@ -4944,8 +4944,43 @@
     }]);
 
     // global ticket type manage
-    app.controller('TicketTypeManage', ['$scope', '$state', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet)
+    app.controller('TicketTypeManage', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
+        $scope.addGlobalKeyNameValue = function () {
+            $state.go('admin.settings.ticket-type.add');
+        };
+
+        $scope.GlobalNameValue = [];
+
+        DataService.getGlobalKeyNameValues().then(function (response)
+        {
+            if (!response.error) {
+                $scope.GlobalNameValue = response.data;
+               /* for (var i=0;response.data.length;i++)
+                {
+                    $scope.GlobalNameValue.push(response.data[i].value);
+
+                }*/
+            }
+            else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.NameValueTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.GlobalNameValue, params.filter()) : $scope.GlobalNameValue;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
 
 
     }]);
@@ -4953,9 +4988,103 @@
     // global ticket type add
     app.controller('TicketTypeAdd', ['$scope', '$state', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet)
     {
+        $scope.globalKeyValues={
+            name: '',
+            value: []
+        };
+
+        $scope.addGlobalTypeDetails = function () {
+            $scope.globalKeyValues.value.push({});
+        };
+
+        $scope.removeValue = function ($index) {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this record in the future',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                closeOnConfirm: true
+            });
+            $scope.globalKeyValues.value.splice($index, 1);
+        };
+
+        $scope.globalKeyValues;
 
 
+        $scope.saveGlobalNameValue = function () {
+            DataService.saveGlobalKeyNameValue($scope.globalKeyValues).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.cancelAddTicketType = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.settings.ticket-type.manage');
+            });
+        };
     }]);
+
+    // setting type edit
+    app.controller('SettingTypeEdit', ['$scope', '$state','$stateParams', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet,$stateParams)
+    {
+        $scope.globalKeyValues = {};
+
+        $scope.addGlobalTypeDetails = function () {
+            $scope.globalKeyValues.value.push({});
+        };
+
+        $scope.removePlan = function ($index) {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this record in the future',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                closeOnConfirm: true
+            });
+            $scope.globalKeyValues.value.splice($index, 1);
+        };
+
+        DataService.getSettingType($stateParams.id).then(function (response) {
+            if (!response.error) {
+                $scope.globalKeyValues = response.data;
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+
+        $scope.cancelUpdateSettingtype = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.settings.ticket-type.manage');
+            });
+        };
+    }]);
+
+
 
 // Maintenance Centre Status Controller
     app.controller('MaintenanceCentreStatus', ['$scope', '$state', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'maintenanceCentre', function ($scope, $state, DataService, growl, sweet, $uibModalInstance, maintenanceCentre) {
@@ -5703,6 +5832,7 @@
                         _total_cash_todate=$scope.totalCashInput.todate;
                         _totalcash_location=$scope.totalCashInput.location;
                     $scope.cashTotals = response.data;
+
                         TotalCash = response.data;
                     /*cc=response.data;*/
 

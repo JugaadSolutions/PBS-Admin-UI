@@ -283,6 +283,14 @@
             send:''
         },
 
+        globalKeyNameValue:{
+          save:'keysettings',
+            getAll:'keysettings',
+            get:'keysettings',
+            update:'keysettings',
+            delete:'keysettings'
+        },
+
         kpiDetails:{
          getAll:'kpi/dockstation'
         },
