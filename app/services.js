@@ -1163,11 +1163,11 @@
                 return deferred.promise;
             },
 
-            // search member to raise a icket
+            // search member to raise a ticket
             memberSearch:function(data)
             {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.searchmember.send, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.searchmember.send, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -1508,6 +1508,7 @@
                 return deferred.promise;
             }
         }
+
     }]);
 
     app.factory('StatusService', ['APINew', function (APINew) {

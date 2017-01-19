@@ -514,6 +514,19 @@
             });
         };
 
+        $scope.addSmartCard = function () {
+            return $uibModal.open({
+                templateUrl: 'smartCard-modal.html',
+                controller: 'SmartCardForMember',
+                size: 'md',
+                resolve: {
+                    member: function () {
+                        return $scope.member;
+                    }
+                }
+            });
+        };
+
         var filters = {
             filter: {
                 populate: {path: 'membershipId'}
@@ -893,6 +906,42 @@
         $scope.cancelSmartCardChange = function () {
             $uibModalInstance.dismiss();
         };
+
+    }]);
+
+    // Search member details Controller
+    app.controller('SearchMemberDetails', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+        {
+
+        $scope.searchMember={
+            name:''
+        };
+
+        $scope.SearchDetails = [];
+
+
+            DataService.memberSearch($scope.searchMember).then(function (response) {
+                if (!response.error) {
+                    $scope.SearchDetails = response.data;
+                    $scope.SearchMemberDetailsTable = new NgTableParams(
+                        {
+                            count: 10
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.SearchDetails, params.filter()) : $scope.SearchDetails;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
 
     }]);
 
@@ -4089,8 +4138,21 @@
     }]);
 
 
-    app.controller('AddTicketsDetails', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
+    app.controller('AddTicketsDetails', ['$scope', '$state', 'DataService','$uibModal', 'growl', 'sweet', function ($scope, $state, DataService,$uibModal, growl, sweet)
     {
+
+        $scope.SearchMember = function (size) {
+            $uibModal.open({
+                templateUrl: 'member-search-details.html',
+                controller: 'SearchMemberDetails',
+                size: size,
+                resolve: {
+                    items: function () {
+                        /* return $scope.member.credit;*/
+                    }
+                }
+            });
+        };
 
         $scope.ticketsDetails = {
             memberName:'',
@@ -4127,7 +4189,7 @@
             })
         };
 
-        $scope.searchMember={
+       /* $scope.searchMember={
             name:''
         }
 
@@ -4141,7 +4203,40 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
+        };*/
+
+        $scope.departmentNames = [];
+        $scope.valueSelections = [];
+        $scope.keyValues = [];
+        var Values;
+
+        DataService.getGlobalKeyNameValues().then(function (response)
+        {
+            if (!response.error) {
+                $scope.departmentNames = response.data;
+            }
+            else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.selectedDepartment =function(data)
+        {
+            $scope.ticketsDetails.departmentName=data.name;
+
+            for (var i=0;i<data.value.length;i++)
+            {
+                Values = data.value[i];
+                $scope.valueSelections.push(Values);
+
+                $scope.selectedValues=function (Values) {
+                    $scope.ticketsDetails.type=Values;
+                }
+            }
         };
+
     }]);
 
     app.controller('EditTickets', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
@@ -4956,11 +5051,6 @@
         {
             if (!response.error) {
                 $scope.GlobalNameValue = response.data;
-               /* for (var i=0;response.data.length;i++)
-                {
-                    $scope.GlobalNameValue.push(response.data[i].value);
-
-                }*/
             }
             else {
                 growl.error(response.message);
@@ -5039,7 +5129,7 @@
     }]);
 
     // setting type edit
-    app.controller('SettingTypeEdit', ['$scope', '$state','$stateParams', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet,$stateParams)
+    app.controller('SettingTypeEdit', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal', 'StatusService', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal, StatusService)
     {
         $scope.globalKeyValues = {};
 

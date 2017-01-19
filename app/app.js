@@ -207,7 +207,7 @@
         },
 
         searchmember:{
-          send:''
+          send:'member/search'
         },
 
       fleetDetails:{
