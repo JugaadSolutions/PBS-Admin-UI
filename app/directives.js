@@ -187,6 +187,35 @@
                     $interval.cancel(stopTime);
                 });
             }
-        }]);
+        }])
+
+    app.directive('chars', function() {
+
+        'use strict';
+        return {
+            require: 'ngModel',
+            restrict: 'A',
+            link: function($scope, $elem, attrs, ctrl) {
+
+                var regReplace,
+                    preset = {
+                        'only-numbers': '0-9',
+                        'numbers': '0-9\\s',
+                        'only-letters': 'A-Za-z0-9.',
+                        'letters': 'A-Za-z0-9.,#\\s',
+                        'email': '\\wÑñ@._\\-',
+                        'alpha-numeric': '\\w\\s',
+                        'latin-alpha-numeric': '\\w\\sÑñáéíóúüÁÉÍÓÚÜ'
+                    },
+                    filter = preset[attrs.chars] || attrs.chars;
+
+                $elem.on('input', function() {
+                    regReplace = new RegExp('[^' + filter + ']', 'ig');
+                    ctrl.$setViewValue($elem.val().replace(regReplace, ''));
+                    ctrl.$render();
+                });
+            }
+        };
+    })
 
 }());

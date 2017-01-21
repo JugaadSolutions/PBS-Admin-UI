@@ -284,6 +284,8 @@
             createdBy:_login_id
         };
 
+        $scope.panCardRegex = '/[A-Z]{5}\d{4}[A-Z]{1}/i';
+
         $scope.addNewDocument = function () {
             $scope.member.documents.push({});
         };
@@ -910,11 +912,11 @@
     }]);
 
     // Search member details Controller
-    app.controller('SearchMemberDetails', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    app.controller('SearchMemberDetails', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
         {
 
         $scope.searchMember={
-            name:''
+            name:_search_member_name
         };
 
         $scope.SearchDetails = [];
@@ -943,6 +945,9 @@
                 growl.error(response.data.description['0']);
             })
 
+            $scope.cancelSearchMemberDetails = function () {
+                $uibModalInstance.dismiss();
+            };
     }]);
 
     // Member Credit Modal
@@ -4137,23 +4142,9 @@
 
     }]);
 
-
-    app.controller('AddTicketsDetails', ['$scope', '$state', 'DataService','$uibModal', 'growl', 'sweet', function ($scope, $state, DataService,$uibModal, growl, sweet)
+    var _search_member_name;
+    app.controller('AddTicketsDetails',  ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
     {
-
-        $scope.SearchMember = function (size) {
-            $uibModal.open({
-                templateUrl: 'member-search-details.html',
-                controller: 'SearchMemberDetails',
-                size: size,
-                resolve: {
-                    items: function () {
-                        /* return $scope.member.credit;*/
-                    }
-                }
-            });
-        };
-
         $scope.ticketsDetails = {
             memberName:'',
             ticketSubject:'',
@@ -4189,13 +4180,38 @@
             })
         };
 
-       /* $scope.searchMember={
+        $scope.searchMember={
             name:''
         }
 
         $scope.SearchMember = function () {
             DataService.memberSearch($scope.searchMember).then(function (response) {
                 if (!response.error) {
+                    _search_member_name = $scope.searchMember.name;
+                   /* $scope.SearchMember = function (size) {
+                        $uibModal.open({
+                            templateUrl: 'member-search-details.html',
+                            controller: 'SearchMemberDetails',
+                            size: size,
+                            resolve: {
+                                items: function () {
+                                    /!* return $scope.member.credit;*!/
+                                }
+                            }
+                        });
+                    };*/
+
+                    return $uibModal.open({
+                        templateUrl: 'member-search-details.html',
+                        controller: 'SearchMemberDetails',
+                        size: 'md',
+                        resolve: {
+                            member: function () {
+                               /* return selectedMember;*/
+                            }
+                        }
+                    });
+
                     growl.success(response.message);
                 } else {
                     growl.error(response.message);
@@ -4203,7 +4219,7 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
-        };*/
+        };
 
         $scope.departmentNames = [];
         $scope.valueSelections = [];
