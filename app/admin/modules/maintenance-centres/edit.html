@@ -48,7 +48,7 @@
                                      ng-class="{ 'has-error': EditMaintenanceCentre.centreName.$touched && EditMaintenanceCentre.centreName.$invalid }">
                                     <input type="text" name="centreName" ng-model="maintenanceCentre.centreName"
                                            class="form-control"
-                                           placeholder="eg. KUVEMPUNAGAR" required>
+                                           placeholder="eg. KUVEMPUNAGAR" chars="only-letters" required>
                                             <span class="help-block"
                                                   ng-messages="EditMaintenanceCentre.centreName.$error"
                                                   ng-show="EditMaintenanceCentre.centreName.$touched">
@@ -65,12 +65,12 @@
                                     <input type="number" name="centreCapacity"
                                            ng-model="maintenanceCentre.centreCapacity"
                                            class="form-control"
-                                           placeholder="eg. 100">
+                                           placeholder="eg. 100" chars="only-numbers">
                                 </div>
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal">
+                        <!--<dl class="dl-horizontal">
                             <dt class="p-t-10">Total Bicycles</dt>
                             <dd>
                                 <div class="fg-line">
@@ -79,7 +79,7 @@
                                            placeholder="eg. 3">
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
                         <dl class="dl-horizontal">
                             <dt class="p-t-10">GPS</dt>
@@ -89,20 +89,20 @@
                                         <input type="text" name="latitude"
                                                ng-model="maintenanceCentre.gpsCoordinates.latitude"
                                                class="form-control input-sm form-inline"
-                                               placeholder="Enter Latitude">
+                                               placeholder="Enter Latitude" chars="only-numbers">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="fg-line">
                                         <input type="text" name="longitude" class="form-control input-sm form-inline"
                                                ng-model="maintenanceCentre.gpsCoordinates.longitude"
-                                               placeholder="Enter Longitude">
+                                               placeholder="Enter Longitude" chars="only-numbers">
                                     </div>
                                 </div>
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal">
+                       <!-- <dl class="dl-horizontal">
                             <dt class="p-t-10">Status</dt>
                             <dd>
                                 <div class="fg-line">
@@ -112,7 +112,7 @@
                                            placeholder="eg. OPERATIONAL">
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
                     </div>
                 </div>
             </form>

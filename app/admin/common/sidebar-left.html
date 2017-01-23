@@ -73,10 +73,10 @@
                     <a ng-class="{active: $state.includes('admin.smart-cards')}" ui-sref="admin.smart-cards.manage">Smart
                         Cards</a>
                 </li>
-                <li>
+                <li ng-if="role=='admin'">
                     <a ng-class="{active: $state.includes('admin.internal-stations')}" ui-sref="admin.internal-stations.manage">Internal Stations</a>
                 </li>
-                <li>
+                <li ng-if="role=='admin'">
                     <a ng-class="{active: $state.includes('admin.fleets')}" ui-sref="admin.fleets.manage">Fleet</a>
                 </li>
             </ul>
@@ -189,7 +189,7 @@
             <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Settings</a>
             <ul>
                 <li><a ng-class="{'active': $state.includes('admin.settings.ticket-type')}"
-                       ui-sref="admin.settings.ticket-type.manage">Ticket Type</a>
+                       ui-sref="admin.settings.ticket-type.manage">General Type</a>
                 </li>
             </ul>
         </li>

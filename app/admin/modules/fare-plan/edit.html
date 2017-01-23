@@ -44,7 +44,7 @@
                                      ng-class="{ 'has-error': farePlanForm.planName.$touched && farePlanForm.planName.$invalid }">
                                     <input type="text" name="planName" ng-model="farePlan.planName"
                                            class="form-control"
-                                           placeholder="eg. Plan A" required>
+                                           placeholder="eg. Plan A" chars="only-letters" required>
                                         <span class="help-block" ng-messages="farePlanForm.planName.$error"
                                               ng-show="farePlanForm.planName.$touched">
                                             <small ng-message="required">Plan Name is required</small>

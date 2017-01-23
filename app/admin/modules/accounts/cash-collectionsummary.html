@@ -17,7 +17,7 @@
                             ng-class="{ 'has-error': CashForm.joiningDate1.$touched && CashForm.joiningDate1.$invalid }" >
                            <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
                            <input type="text" name="joiningDate1" ng-model="cashCollection.fromDateCashCollection" ng-change="fromDateCashCollection" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
-                                  uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                  uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                            <span class="help-block"
                                  ng-messages="CashForm.joiningDate1.$error"
                                  ng-show="CashForm.joiningDate1.$touched">
@@ -31,7 +31,7 @@
                             ng-class="{ 'has-error': CashForm.joiningDate2.$touched && CashForm.joiningDate2.$invalid }" >
                            <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
                            <input type="text" name="joiningDate2" ng-model="cashCollection.toDateCashCollection" ng-change="toDateCashCollection" ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
-                                  uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                  uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                            <span class="help-block"
                                  ng-messages="CashForm.joiningDate2.$error"
                                  ng-show="CashForm.joiningDate2.$touched">

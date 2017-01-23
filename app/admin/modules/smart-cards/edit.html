@@ -44,7 +44,7 @@
                                      ng-class="{ 'has-error': EditSmartCard.cardNumber.$touched && EditSmartCard.cardNumber.$invalid }">
                                     <input type="text" name="cardNumber" ng-model="smartCard.cardNumber"
                                            class="form-control"
-                                           placeholder="eg. 8989831293" required>
+                                           placeholder="eg. 8989831293"  chars="only-letters"  required>
                                             <span class="help-block"
                                                   ng-messages="EditSmartCard.cardNumber.$error"
                                                   ng-show="EditSmartCard.cardNumber.$touched">
@@ -61,12 +61,12 @@
                                      ng-class="{ 'has-error': EditSmartCard.cardRFID.$touched && EditSmartCard.cardRFID.$invalid }">
                                     <input type="text" name="cardRFID" ng-model="smartCard.cardRFID"
                                            class="form-control"
-                                           placeholder="eg. 8989831293" required>
+                                           placeholder="eg. 8989831293" chars="only-letters"  required>
                                     <span class="help-block"
                                           ng-messages="EditSmartCard.cardRFID.$error"
                                           ng-show="EditSmartCard.cardRFID.$touched">
                                                 <small ng-message="required">Card RFID is required</small>
-                                            </span>
+                                    </span>
                                 </div>
                             </dd>
                         </dl>

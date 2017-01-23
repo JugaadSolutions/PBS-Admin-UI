@@ -48,7 +48,7 @@
                                      ng-class="{ 'has-error': EditRegistrationCentre.centreName.$touched && EditRegistrationCentre.centreName.$invalid }">
                                     <input type="text" name="centreName" ng-model="registrationCentre.name"
                                            class="form-control"
-                                           placeholder="eg. KUVEMPUNAGAR" required>
+                                           placeholder="eg. KUVEMPUNAGAR" chars="only-letters" required>
                                     <span class="help-block"
                                           ng-messages="EditRegistrationCentre.centreName.$error"
                                           ng-show="EditRegistrationCentre.centreName.$touched">
@@ -65,7 +65,7 @@
                                      ng-class="{ 'has-error': EditRegistrationCentre.centreLocation.$touched && EditRegistrationCentre.centreLocation.$invalid }">
                                     <input type="text" name="centreLocation" ng-model="registrationCentre.location"
                                            class="form-control"
-                                           placeholder="eg. KUVEMPUNAGAR" required>
+                                           placeholder="eg. KUVEMPUNAGAR" chars="only-letters" required>
                                     <span class="help-block"
                                           ng-messages="EditRegistrationCentre.centreLocation.$error"
                                           ng-show="EditRegistrationCentre.centreLocation.$touched">
@@ -94,14 +94,14 @@
                                         <input type="text" name="latitude"
                                                ng-model="registrationCentre.gpsCoordinates.latitude"
                                                class="form-control input-sm form-inline"
-                                               placeholder="Enter Latitude">
+                                               placeholder="Enter Latitude" chars="only-numbers">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="fg-line">
                                         <input type="text" name="longitude" class="form-control input-sm form-inline"
                                                ng-model="registrationCentre.gpsCoordinates.longitude"
-                                               placeholder="Enter Longitude">
+                                               placeholder="Enter Longitude" chars="only-numbers">
                                     </div>
                                 </div>
                             </dd>

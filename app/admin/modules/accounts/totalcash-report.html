@@ -79,7 +79,7 @@
                                     <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
                                    <!-- <input type="text" class="form-control" data-input-mask="{mask: '00/00/0000'}" placeholder="eg: 23/05/2014">-->
                                     <input type="text"  name="TotalCashFrom" ng-model="totalCashInput.fromdate" ng-change="totalCashReportFrom" ng-focus="TotalCashFrom=true" ng-click="TotalCashFrom=true"
-                                           uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashFrom" show-button-bar="true" class="form-control" color="red" required >
+                                           uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashFrom" show-button-bar="true" class="form-control" color="red" chars="none" required >
                                     <span class="help-block"
                                           ng-messages="TotalCashReport.TotalCashFrom.$error"
                                           ng-show="TotalCashReport.TotalCashFrom.$touched">
@@ -94,7 +94,7 @@
                                     <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
                                     <!-- <input type="text" class="form-control" data-input-mask="{mask: '00/00/0000'}" placeholder="eg: 23/05/2014">-->
                                     <input type="text" name="TotalCashTo" ng-model="totalCashInput.todate" ng-change="totalCashReportTo" ng-focus="TotalCashTo=true" ng-click="TotalCashTo=true"
-                                           uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashTo" show-button-bar="true" class="form-control" required >
+                                           uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashTo" show-button-bar="true" class="form-control" chars="none" required >
                                     <span class="help-block"
                                           ng-messages="TotalCashReport.TotalCashTo.$error"
                                           ng-show="TotalCashReport.TotalCashTo.$touched">

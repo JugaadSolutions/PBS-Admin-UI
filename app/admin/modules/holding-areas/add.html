@@ -44,7 +44,7 @@
                                      ng-class="{ 'has-error': AddHoldingArea.areaName.$touched && AddHoldingArea.areaName.$invalid }">
                                     <input type="text" name="areaName" ng-model="holdingArea.Name"
                                            class="form-control"
-                                           placeholder="eg. Chamundi Hills" required>
+                                           placeholder="eg. Chamundi Hills" chars="only-letters" required>
                                             <span class="help-block"
                                                   ng-messages="AddHoldingArea.areaName.$error"
                                                   ng-show="AddHoldingArea.areaName.$touched">
@@ -75,7 +75,7 @@
                                 <div class="fg-line">
                                     <input type="number" name="capacity" ng-model="holdingArea.portCapacity"
                                            class="form-control"
-                                           placeholder="eg. 100">
+                                           placeholder="eg. 100" chars="only-numbers">
                                 </div>
                             </dd>
                         </dl>
@@ -123,14 +123,14 @@
                                         <input type="text" name="latitude"
                                                ng-model="holdingArea.gpsCoordinates.latitude"
                                                class="form-control input-sm form-inline"
-                                               placeholder="Latitude">
+                                               placeholder="Latitude" chars="only-numbers">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="fg-line">
                                         <input type="text" name="longitude" class="form-control input-sm form-inline"
                                                ng-model="holdingArea.gpsCoordinates.longitude"
-                                               placeholder="Longitude">
+                                               placeholder="Longitude" chars="only-numbers">
                                     </div>
                                 </div>
                             </dd>

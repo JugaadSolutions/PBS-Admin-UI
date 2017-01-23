@@ -44,7 +44,7 @@
                                      ng-class="{ 'has-error': AddMaintenanceCentre.centreName.$touched && AddMaintenanceCentre.centreName.$invalid }">
                                     <input type="text" name="centreName" ng-model="maintenanceCentre.Name"
                                            class="form-control"
-                                           placeholder="eg. Chamundi Hills" required>
+                                           placeholder="eg. Chamundi Hills" chars="only-letters" required>
                                             <span class="help-block"
                                                   ng-messages="AddMaintenanceCentre.centreName.$error"
                                                   ng-show="AddMaintenanceCentre.centreName.$touched">
@@ -76,7 +76,7 @@
                                     <input type="number" name="centreCapacity"
                                            ng-model="maintenanceCentre.portCapacity"
                                            class="form-control"
-                                           placeholder="eg. 100">
+                                           placeholder="eg. 100" chars="only-numbers">
                                 </div>
                             </dd>
                         </dl>
@@ -100,14 +100,14 @@
                                         <input type="text" name="latitude"
                                                ng-model="maintenanceCentre.gpsCoordinates.latitude"
                                                class="form-control input-sm form-inline"
-                                               placeholder="Latitude">
+                                               placeholder="Latitude" chars="only-numbers">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="fg-line">
                                         <input type="text" name="longitude" class="form-control input-sm form-inline"
                                                ng-model="maintenanceCentre.gpsCoordinates.longitude"
-                                               placeholder="Longitude">
+                                               placeholder="Longitude" chars="only-numbers">
                                     </div>
                                 </div>
                             </dd>

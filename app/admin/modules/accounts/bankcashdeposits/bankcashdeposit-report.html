@@ -17,7 +17,7 @@
                                  ng-class="{ 'has-error': BankCashDepositReport.BankDepositReportFromDate.$touched && BankCashDepositReport.BankDepositReportFromDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
                                 <input type="text" name="BankDepositReportFromDate" ng-model="bankDepositsInput.fromdate" ng-change="fromdate" ng-focus="BankDepositReportFromDate=true" ng-click="BankDepositReportFromDate=true"
-                                       uib-datepicker-popup="dd/MM/yyyy" is-open="BankDepositReportFromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="BankDepositReportFromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"
                                       ng-messages="BankCashDepositReport.BankDepositReportFromDate.$error"
                                       ng-show="BankCashDepositReport.BankDepositReportFromDate.$touched">
@@ -31,7 +31,7 @@
                              ng-class="{ 'has-error': BankCashDepositReport.BankDepositReportToDate.$touched && BankCashDepositReport.BankDepositReportToDate.$invalid }" >
                             <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
                             <input type="text" name="BankDepositReportToDate" ng-model="bankDepositsInput.todate" ng-change="todate" ng-focus="BankDepositReportToDate=true" ng-click="BankDepositReportToDate=true"
-                                   uib-datepicker-popup="dd/MM/yyyy" is-open="BankDepositReportToDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                   uib-datepicker-popup="dd/MM/yyyy" is-open="BankDepositReportToDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                             <span class="help-block"
                                   ng-messages="BankCashDepositReport.BankDepositReportToDate.$error"
                                   ng-show="BankCashDepositReport.BankDepositReportToDate.$touched">

@@ -55,7 +55,7 @@
                                              ng-class="{ 'has-error': BicycleForm.bicycleNumber.$touched && BicycleForm.bicycleNumber.$invalid }">
                                             <input type="text" name="bicycleNumber" ng-model="bicycle.bicycleNumber"
                                                    class="form-control"
-                                                   placeholder="eg. B101" required>
+                                                   placeholder="eg. B101" chars="only-letters" required>
                                         <span class="help-block" ng-messages="BicycleForm.bicycleNumber.$error"
                                               ng-show="BicycleForm.bicycleNumber.$touched">
                                             <small ng-message="required">Bicycle Number is required</small>
@@ -72,7 +72,7 @@
                                                    class="form-control"
                                                    minlength="16"
                                                    maxlength="16"
-                                                   placeholder="eg. E00401006B5CF08" required>
+                                                   placeholder="eg. E00401006B5CF08" chars="only-letters"  required>
                                             <span class="help-block" ng-messages="BicycleForm.cycleRFID.$error"
                                                   ng-show="BicycleForm.cycleRFID.$touched">
                                             <small ng-message="required">Bicycle RFID is required</small>

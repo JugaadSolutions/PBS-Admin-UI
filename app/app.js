@@ -203,7 +203,10 @@
         },
 
         ticketsDetails:{
-          save:'ticketdetails'
+          save:'ticketdetails',
+            get:'ticketdetails',
+            getAll:'ticketsDetails'
+
         },
 
         searchmember:{

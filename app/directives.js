@@ -195,17 +195,18 @@
         return {
             require: 'ngModel',
             restrict: 'A',
-            link: function($scope, $elem, attrs, ctrl) {
-
+            link: function($scope, $elem, attrs, ctrl)
+            {
                 var regReplace,
                     preset = {
-                        'only-numbers': '0-9',
+                        'only-numbers': '0-9.',
                         'numbers': '0-9\\s',
                         'only-letters': 'A-Za-z0-9.',
-                        'letters': 'A-Za-z0-9.,#\\s',
+                        'letters': 'A-Za-z0-9.-#,',
                         'email': '\\wÑñ@._\\-',
                         'alpha-numeric': '\\w\\s',
-                        'latin-alpha-numeric': '\\w\\sÑñáéíóúüÁÉÍÓÚÜ'
+                        'latin-alpha-numeric': '\\w\\sÑñáéíóúüÁÉÍÓÚÜ',
+                        'none':''
                     },
                     filter = preset[attrs.chars] || attrs.chars;
 

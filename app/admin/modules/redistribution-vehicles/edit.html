@@ -52,7 +52,7 @@
                                             <input type="text" name="number"
                                                    ng-model="redistributionVehicle.Name"
                                                    class="form-control"
-                                                   placeholder="eg. RV10" required>
+                                                   placeholder="eg. RV10" chars="only-letters"  required>
                                             <span class="help-block"
                                                   ng-messages="AddRedistributionVehicle.number.$error"
                                                   ng-show="AddRedistributionVehicle.number.$touched">
@@ -85,7 +85,7 @@
                                             <input type="text" name="numberPlate"
                                                    ng-model="redistributionVehicle.vehiclePlate"
                                                    class="form-control"
-                                                   placeholder="eg. KA09 1131" required>
+                                                   placeholder="eg. KA09 1131" chars="only-letters"  required>
                                             <span class="help-block"
                                                   ng-messages="AddRedistributionVehicle.numberPlate.$error"
                                                   ng-show="AddRedistributionVehicle.numberPlate.$touched">
@@ -102,7 +102,7 @@
                                             <input type="text" name="numberPlate"
                                                    ng-model="redistributionVehicle.driverId"
                                                    class="form-control"
-                                                   placeholder="eg. DL - 04241029856649">
+                                                   placeholder="eg. DL - 04241029856649" chars="only-letters" >
                                         </div>
                                     </dd>
                                 </dl>
@@ -126,7 +126,7 @@
                                             <input type="number" name="dockingPorts"
                                                    ng-model="redistributionVehicle.portCapacity"
                                                    class="form-control"
-                                                   placeholder="eg. 10">
+                                                   placeholder="eg. 10"  chars="only-numbers">
                                         </div>
                                     </dd>
                                 </dl>
@@ -151,7 +151,7 @@
                                                 <input type="text" name="latitude"
                                                        ng-model="redistributionVehicle.gpsCoordinates.latitude"
                                                        class="form-control input-sm form-inline"
-                                                       placeholder="Latitude">
+                                                       placeholder="Latitude"  chars="only-numbers">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -159,7 +159,7 @@
                                                 <input type="text" name="longitude"
                                                        class="form-control input-sm form-inline"
                                                        ng-model="redistributionVehicle.gpsCoordinates.longitude"
-                                                       placeholder="Longitude">
+                                                       placeholder="Longitude"  chars="only-numbers">
                                             </div>
                                         </div>
                                     </dd>

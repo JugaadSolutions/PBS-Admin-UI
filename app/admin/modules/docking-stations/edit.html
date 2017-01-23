@@ -61,7 +61,7 @@
                                      ng-class="{ 'has-error': EditDockingStation.name.$touched && EditDockingStation.name.$invalid }">
                                     <input type="text" name="name" ng-model="dockingStation.name"
                                            class="form-control"
-                                           placeholder="eg. Chamundi Hills" required>
+                                           placeholder="eg. Chamundi Hills" chars="only-letters" required>
                                     <span class="help-block"
                                           ng-messages="EditDockingStation.name.$error"
                                           ng-show="EditDockingStation.name.$touched">
@@ -78,7 +78,7 @@
                                      ng-class="{ 'has-error': EditDockingStation.stationNumber.$touched && EditDockingStation.stationNumber.$invalid }">
                                     <input type="text" name="stationNumber" ng-model="dockingStation.stationNumber"
                                            class="form-control" disabled
-                                           placeholder="eg. DS100" required>
+                                           placeholder="eg. DS100" chars="only-letters" required>
                                     <span class="help-block"
                                           ng-messages="EditDockingStation.stationNumber.$error"
                                           ng-show="EditDockingStation.stationNumber.$touched">
@@ -131,7 +131,7 @@
                                         <input type="text" name="latitude"
                                                ng-model="dockingStation.gpsCoordinates.latitude"
                                                class="form-control input-sm form-inline"
-                                               placeholder="Latitude" required>
+                                               placeholder="Latitude" chars="only-numbers" required>
                                         <span class="help-block" ng-messages="EditDockingStation.latitude.$error"
                                               ng-show="EditDockingStation.latitude.$touched">
                                                 <small ng-message="required">Latitude is required.</small>
@@ -143,7 +143,7 @@
                                          ng-class="{'has-error': EditDockingStation.longitude.$touched && EditDockingStation.longitude.$invalid}">
                                         <input type="text" name="longitude" class="form-control input-sm form-inline"
                                                ng-model="dockingStation.gpsCoordinates.longitude"
-                                               placeholder="Longitude" required>
+                                               placeholder="Longitude" chars="only-numbers" required>
                                         <span class="help-block" ng-messages="EditDockingStation.longitude.$error"
                                               ng-show="EditDockingStation.longitude.$touched">
                                                 <small ng-message="required">Longitude is required</small>
@@ -176,7 +176,7 @@
                                 <div class="fg-line"
                                      ng-class="{ 'has-error': EditDockingStation.ipAddress.$touched && EditDockingStation.ipAddress.$invalid }">
                                     <input type="text" name="ipAddress" ng-model="dockingStation.ipAddress"
-                                           class="form-control" disabled
+                                           class="form-control" chars="only-numbers" disabled
                                            required>
                                     <span class="help-block"
                                           ng-messages="EditDockingStation.ipAddress.$error"
@@ -193,7 +193,7 @@
                                 <div class="fg-line"
                                      ng-class="{'has-error': EditDockingStation.SubNet.$touched && EditDockingStation.SubNet.$invalid}">
                                     <input type="number" name="SubNet" min="14" ng-model="dockingStation.subnet"
-                                           class="form-control"
+                                           class="form-control" chars="only-numbers"
                                            disabled
                                            placeholder="eg. 14 and above">
                                     <span class="help-block" ng-messages="EditDockingStation.ipAddress.$error"
@@ -226,7 +226,7 @@
                                 <div class="fg-line"
                                      ng-class="{'has-error': EditDockingStation.MaxCycleAlert.$touched && EditDockingStation.MaxCycleAlert.$invalid}">
                                     <input type="number" name="MaxCycleAlert" ng-model="dockingStation.maxAlert"
-                                           class="form-control"
+                                           class="form-control" chars="only-numbers"
                                            disabled
                                            placeholder="eg. 12">
                                     <span class="help-block" ng-messages="EditDockingStation.MaxCycleAlert.$error"
@@ -243,7 +243,7 @@
                                 <div class="fg-line"
                                      ng-class="{'has-error': EditDockingStation.MinCycleAlert.$touched && EditDockingStation.MinCycleAlert.$invalid}">
                                     <input type="number" name="MinCycleAlert" ng-model="dockingStation.minAlert"
-                                           class="form-control"
+                                           class="form-control" chars="only-numbers"
                                            disabled
                                            placeholder="eg. 12">
                                     <span class="help-block" ng-messages="EditDockingStation.MinCycleAlert.$error"
@@ -259,7 +259,7 @@
                             <dd>
                                 <div class="fg-line">
                                     <input type="text" name="name" ng-model="dockingStation.commissioneddate"
-                                           class="form-control"
+                                           class="form-control" chars="none"
                                            disabled>
                                 </div>
                             </dd>

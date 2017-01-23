@@ -45,7 +45,7 @@
                                      ng-class="{ 'has-error': MembershipForm.subscriptionType.$touched && MembershipForm.subscriptionType.$invalid }">
                                     <input type="text" name="subscriptionType" ng-model="membership.subscriptionType"
                                            class="form-control"
-                                           placeholder="eg. One year pass" required>
+                                           placeholder="eg. One year pass" chars="only-letters" required>
                                         <span class="help-block" ng-messages="MembershipForm.subscriptionType.$error"
                                               ng-show="MembershipForm.subscriptionType.$touched">
                                             <small ng-message="required">Subscription Type is required</small>

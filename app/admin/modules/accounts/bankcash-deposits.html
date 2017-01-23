@@ -74,7 +74,7 @@
                             <div class="fg-line"
                                  ng-class="{ 'has-error': BankCashDeposit.CashCollectedDate.$touched && BankCashDeposit.CashCollectedDate.$invalid }">
                                 <input type="text" name="CashCollectedDate" ng-model="cashCollectedDate" ng-change="cashCollectedDate" ng-focus="CashCollectedDate=true" ng-click="CashCollectedDate=true"
-                                       uib-datepicker-popup="dd/MM/yyyy" is-open="CashCollectedDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="CashCollectedDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"
                                       ng-messages="BankCashDeposit.CashCollectedDate.$error"
                                       ng-show="BankCashDeposit.CashCollectedDate.$touched">
@@ -91,7 +91,7 @@
                             <div class="fg-line"
                                  ng-class="{ 'has-error': BankCashDeposit.DepositedDate.$touched && BankCashDeposit.DepositedDate.$invalid }">
                                 <input type="text" name="DepositedDate" ng-model="depositedDate" ng-change="depositedDate" ng-focus="DepositedDate=true" ng-click="DepositedDate=true"
-                                       uib-datepicker-popup="dd/MM/yyyy" is-open="DepositedDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="DepositedDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"
                                       ng-messages="BankCashDeposit.DepositedDate.$error"
                                       ng-show="BankCashDeposit.DepositedDate.$touched">

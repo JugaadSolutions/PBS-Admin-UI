@@ -168,7 +168,7 @@
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': MemberForm.name.$touched && MemberForm.name.$invalid }">
                                             <input type="text" name="name" ng-model="member.Name" class="form-control"
-                                                   placeholder="eg. Ashok" required>
+                                                   placeholder="eg. Ashok" chars="only-letters" required>
                                             <span class="help-block" ng-messages="MemberForm.name.$error"
                                                   ng-show="MemberForm.name.$touched">
                                                 <small ng-message="required">First Name is required</small>
@@ -646,8 +646,8 @@
                                                     <input type="tel" name="phoneNumber"
                                                            ng-model="member.phoneNumber"
                                                            class="form-control width-100"
-                                                           input-mask="{mask: '00000-00000'}"
-                                                           placeholder="eg. 00000-00000">
+                                                           input-mask=""
+                                                           placeholder="eg. 0000000000" minlength="10" maxlength="10">
                                                 </div>
                                             </div>
                                             <!--<span class="help-block"
@@ -729,7 +729,7 @@
                                         <div class="fg-line">
                                             <input type="text" name="address" ng-model="member.address"
                                                    class="form-control"
-                                                   placeholder="eg. #616, 17th Cross, Malleshwaram">
+                                                   placeholder="eg. #616, 17th Cross, Malleshwaram" chars="letters">
                                         </div>
                                     </dd>
                                 </dl>
@@ -740,8 +740,8 @@
                                         <div class="fg-line">
                                             <input type="text" name="pinCode" ng-model="member.pinCode"
                                                    class="form-control"
-                                                   input-mask="{mask: '000000'}"
-                                                   placeholder="eg. 560050">
+                                                   input-mask=""
+                                                   placeholder="eg. 560050" minlength="6" maxlength="6">
                                         </div>
                                     </dd>
                                 </dl>
@@ -769,7 +769,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <input type="text" name="education" ng-model="member.education"
-                                                   class="form-control">
+                                                   class="form-control" chars="only-letters">
                                         </div>
                                     </dd>
                                 </dl>
@@ -778,7 +778,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <input type="text" name="occupation" ng-model="member.occupation"
-                                                   class="form-control">
+                                                   class="form-control" chars="only-letters">
                                         </div>
                                     </dd>
                                 </dl>
@@ -797,7 +797,7 @@
                                             <input type="text" name="contactName"
                                                    ng-model="member.emergencyContact.contactName"
                                                    class="form-control"
-                                                   placeholder="eg. Ashok">
+                                                   placeholder="eg. Ashok" chars="only-letters">
                                         </div>
                                     </dd>
                                 </dl>
@@ -1089,8 +1089,8 @@
                                                     <input type="tel" name="contactNumber"
                                                            ng-model="member.emergencyContact.contactNumber"
                                                            class="form-control width-100"
-                                                           input-mask="{mask: '00000-00000'}"
-                                                           placeholder="eg. 00000-00000">
+                                                           input-mask=""
+                                                           placeholder="eg. 0000000000" minlength="10" maxlength="10">
                                                 </div>
                                             </div>
                                         </div>
@@ -1151,7 +1151,7 @@
                                                 <input type="text" name="documentNumber"
                                                        ng-model="document.documentNumber"
                                                        class="form-control"
-                                                       placeholder="eg. AABPS8791R" required>
+                                                       placeholder="eg. AABPS8791R" chars="only-letters" required>
                                                 <span class="help-block"
                                                       ng-messages="MemberForm.documentNumber.$error"
                                                       ng-show="MemberForm.documentNumber.$touched">
@@ -1189,7 +1189,7 @@
                                             <div class="fg-line">
                                                 <input type="text" name="description"
                                                        ng-model="document.description"
-                                                       class="form-control">
+                                                       class="form-control" chars="letters">
                                             </div>
                                         </dd>
                                     </dl>
@@ -1358,7 +1358,7 @@
                 <div class="fg-line">
                     <input type="number" name="credit" ng-model="member.credit"
                            class="form-control"
-                           placeholder="eg. 1000 INR" min="0">
+                           placeholder="eg. 1000 INR" min="0" chars="only-numbers">
                 </div>
             </dd>
         </dl>
@@ -1383,7 +1383,7 @@
                 <div class="fg-line">
                     <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
                            class="form-control"
-                           placeholder="eg. 65467476">
+                           placeholder="eg. 65467476" chars="only-letters">
                 </div>
             </dd>
         </dl>
@@ -1394,7 +1394,7 @@
                     <textarea name="comments"
                               ng-model="member.comments" class="form-control"
                               rows="4"
-                              placeholder="Additional information about the transaction">
+                              placeholder="Additional information about the transaction" chars="only-letters">
                     </textarea>
                 </div>
             </dd>
@@ -1418,7 +1418,7 @@
                     <input type="number" name="debit"
                            ng-model="member.debit"
                            class="form-control"
-                           placeholder="eg. 1000 INR" min="0">
+                           placeholder="eg. 1000 INR" min="0" chars="only-numbers">
                 </div>
             </dd>
         </dl>
@@ -1429,7 +1429,7 @@
                     <textarea name="comments"
                               ng-model="member.comments" class="form-control"
                               rows="4"
-                              placeholder="Reason of Debit">
+                              placeholder="Reason of Debit" chars="only-letters">
                     </textarea>
                 </div>
             </dd>
@@ -1481,7 +1481,7 @@
                     <textarea name="comments"
                               ng-model="member.comments" class="form-control"
                               rows="4"
-                              placeholder="Additional information about the transaction">
+                              placeholder="Additional information about the transaction" chars="only-letters">
                     </textarea>
                 </div>
             </dd>
@@ -1518,7 +1518,7 @@
                 <div class="fg-line">
                     <input type="text" name="transactionNumber" ng-model="confirmMembershipInputs.transactionNumber"
                            class="form-control"
-                           placeholder="eg. 65467476">
+                           placeholder="eg. 65467476" chars="only-letters">
                 </div>
             </dd>
         </dl>
@@ -1530,7 +1530,7 @@
                     <textarea name="comments"
                               ng-model="confirmMembershipInputs.comments" class="form-control"
                               rows="4"
-                              placeholder="Additional information about the transaction">
+                              placeholder="Additional information about the transaction" chars="only-letters">
                     </textarea>
                 </div>
             </dd>
@@ -1615,7 +1615,7 @@
                             <input type="text" name="smartCardNumber"
                                    ng-model="member.smartCardNumber"
                                    class="form-control"
-                                   placeholder="eg. 87248247238">
+                                   placeholder="eg. 87248247238" chars="only-numbers">
                         </div>
                         <span class="input-group-addon last"><button
                                 class="btn bgm-orange waves-effect pull-right" ng-click="verify()"

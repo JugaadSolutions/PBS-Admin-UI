@@ -44,7 +44,7 @@
                                      ng-class="{ 'has-error': AddDockingStation.name.$touched && AddDockingStation.name.$invalid }">
                                     <input type="text" name="name" ng-model="dockingStation.name"
                                            class="form-control"
-                                           placeholder="eg. Chamundi Hills" required>
+                                           placeholder="eg. Chamundi Hills" chars="only-letters" required>
                                             <span class="help-block"
                                                   ng-messages="AddDockingStation.name.$error"
                                                   ng-show="AddDockingStation.name.$touched">
@@ -60,7 +60,7 @@
                                      ng-class="{ 'has-error': AddDockingStation.stationNumber.$touched && AddDockingStation.stationNumber.$invalid }">
                                     <input type="text" name="stationNumber" ng-model="dockingStation.stationNumber"
                                            class="form-control"
-                                           placeholder="eg. DS100" required>
+                                           placeholder="eg. DS100" chars="only-letters" required>
                                             <span class="help-block"
                                                   ng-messages="AddDockingStation.stationNumber.$error"
                                                   ng-show="AddDockingStation.stationNumber.$touched">
@@ -77,7 +77,7 @@
                                      ng-class="{ 'has-error': AddDockingStation.noofUnits.$touched && AddDockingStation.noofUnits.$invalid }">
                                     <input type="text" name="noofUnits" ng-model="dockingStation.noofUnits"
                                            class="form-control"
-                                           placeholder="eg. 1" required>
+                                           placeholder="eg. 1" chars="only-numbers" required>
                                     <span class="help-block"
                                           ng-messages="AddDockingStation.noofUnits.$error"
                                           ng-show="AddDockingStation.noofUnits.$touched">
@@ -94,7 +94,7 @@
                                      ng-class="{ 'has-error': AddDockingStation.noofPorts.$touched && AddDockingStation.noofPorts.$invalid }">
                                     <input type="text" name="noofPorts" ng-model="dockingStation.noofPorts"
                                            class="form-control"
-                                           placeholder="eg. 1" required>
+                                           placeholder="eg. 1" chars="only-numbers" required>
                                     <span class="help-block"
                                           ng-messages="AddDockingStation.noofPorts.$error"
                                           ng-show="AddDockingStation.noofPorts.$touched">
@@ -148,7 +148,7 @@
                                         <input type="text" name="latitude"
                                                ng-model="dockingStation.gpsCoordinates.latitude"
                                                class="form-control input-sm form-inline"
-                                               placeholder="Latitude" required>
+                                               placeholder="Latitude" chars="only-numbers" required>
                                             <span class="help-block" ng-messages="AddDockingStation.latitude.$error"
                                                   ng-show="AddDockingStation.latitude.$touched">
                                                 <small ng-message="required">Latitude is required.</small>
@@ -160,7 +160,7 @@
                                          ng-class="{'has-error': AddDockingStation.longitude.$touched && AddDockingStation.longitude.$invalid}">
                                         <input type="text" name="longitude" class="form-control input-sm form-inline"
                                                ng-model="dockingStation.gpsCoordinates.longitude"
-                                               placeholder="Longitude" required>
+                                               placeholder="Longitude" chars="only-numbers" required>
                                             <span class="help-block" ng-messages="AddDockingStation.longitude.$error"
                                                   ng-show="AddDockingStation.longitude.$touched">
                                                 <small ng-message="required">Longitude is required</small>
@@ -178,7 +178,7 @@
                                     <input type="text" name="ipAddress" ng-model="dockingStation.ipAddress"
                                            class="form-control"
                                            required
-                                           placeholder="eg. 192.168.0.1">
+                                           placeholder="eg. 192.168.0.1" chars="only-numbers">
                                     <span class="help-block" ng-messages="AddDockingStation.ipAddress.$error"
                                           ng-show="AddDockingStation.ipAddress.$touched">
                                                 <small ng-message="required">IP Address is required</small>
@@ -196,7 +196,7 @@
                                     <input type="number" name="SubNet" min="14" ng-model="dockingStation.subnet"
                                            class="form-control"
                                            required
-                                           placeholder="eg. 14 and above">
+                                           placeholder="eg. 14 and above" chars="only-numbers">
                                     <span class="help-block" ng-messages="AddDockingStation.ipAddress.$error"
                                           ng-show="AddDockingStation.SubNet.$touched">
                                                 <small ng-message="required">SubNet is required</small>
@@ -229,7 +229,7 @@
                                     <input type="number" name="MaxCycleAlert" ng-model="dockingStation.maxAlert"
                                            class="form-control"
                                            required
-                                           placeholder="eg. 12">
+                                           placeholder="eg. 12" chars="only-numbers">
                                     <span class="help-block" ng-messages="AddDockingStation.MaxCycleAlert.$error"
                                           ng-show="AddDockingStation.MaxCycleAlert.$touched">
                                                 <small ng-message="required">Maximun cycle alert is required</small>
@@ -246,9 +246,9 @@
                                     <input type="number" name="MinCycleAlert" ng-model="dockingStation.minAlert"
                                            class="form-control"
                                            required
-                                           placeholder="eg. 12">
+                                           placeholder="eg. 12" chars="only-numbers">
                                     <span class="help-block" ng-messages="AddDockingStation.MinCycleAlert.$error"
-                                          ng-show="AddDockingStation.MinCycleAlert.$touched">
+                                          ng-show="AddDockingStation.MinCycleAlert.$touched" >
                                                 <small ng-message="required">Minimum cycle alert is required</small>
                                             </span>
                                 </div>
@@ -264,12 +264,11 @@
                                            ng-focus="commissionDate=true" ng-click="commissionDate=true"
                                            uib-datepicker-popup="dd/MM/yyyy" is-open="commissionDate"
                                            show-button-bar="true" class="form-control"
-                                           placeholder="eg. 16/09/2012" required>
+                                           placeholder="eg. 16/09/2012" chars="none" required>
                                     <span class="help-block"
                                           ng-messages="AddDockingStation.commissionDate.$error"
                                           ng-show="AddDockingStation.commissionDate.$touched">
                                                 <small ng-message="required">Commission Date is required</small>
-
                                             </span>
                                 </div>
                             </dd>

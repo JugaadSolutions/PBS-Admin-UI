@@ -56,7 +56,7 @@
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': BicycleForm.bicycleNumber.$touched && BicycleForm.bicycleNumber.$invalid }">
                                             <input type="text" name="bicycleNumber" ng-model="bicycle.vehicleNumber"
-
+                                                   chars="only-letters"
                                                    class="form-control"
                                                    placeholder="eg. B101" required>
                                         <span class="help-block" ng-messages="BicycleForm.bicycleNumber.$error"
@@ -75,7 +75,7 @@
                                                    class="form-control"
                                                    minlength="16"
                                                    maxlength="16"
-
+                                                   chars="only-letters"
                                                    placeholder="eg. E00401006B5CF08" required>
                                             <span class="help-block" ng-messages="BicycleForm.cycleRFID.$error"
                                                   ng-show="BicycleForm.cycleRFID.$touched">

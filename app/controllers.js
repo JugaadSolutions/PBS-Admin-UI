@@ -4167,6 +4167,10 @@
             });
         };
 
+        $scope.smember =function () {
+            alert("hi");
+        };
+
         $scope.addNewTicketDetails = function () {
             DataService.saveTicketDetails($scope.ticketsDetails).then(function (response) {
                 if (!response.error) {

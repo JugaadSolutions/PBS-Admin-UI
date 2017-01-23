@@ -74,7 +74,7 @@
                                 <div class="fg-line"
                                      ng-class="{ 'has-error': BankCashDeposit.CashCollectedDate.$touched && BankCashDeposit.CashCollectedDate.$invalid }">
                                     <input type="text" name="CashCollectedDate" ng-model="bankCashDeposit.cashCollectionDate" ng-change="cashCollectionDate" ng-focus="CashCollectedDate=true" ng-click="CashCollectedDate=true"
-                                           uib-datepicker-popup="dd/MM/yyyy" is-open="CashCollectedDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                           uib-datepicker-popup="dd/MM/yyyy" is-open="CashCollectedDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                     <span class="help-block"
                                           ng-messages="BankCashDeposit.CashCollectedDate.$error"
                                           ng-show="BankCashDeposit.CashCollectedDate.$touched">
@@ -91,7 +91,7 @@
                                 <div class="fg-line"
                                      ng-class="{ 'has-error': BankCashDeposit.DepositedDate.$touched && BankCashDeposit.DepositedDate.$invalid }">
                                     <input type="text" name="DepositedDate" ng-model="bankCashDeposit.depositDate" ng-change="depositDate" ng-focus="DepositedDate=true" ng-click="DepositedDate=true"
-                                           uib-datepicker-popup="dd/MM/yyyy" is-open="DepositedDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                                           uib-datepicker-popup="dd/MM/yyyy" is-open="DepositedDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                     <span class="help-block"
                                           ng-messages="BankCashDeposit.DepositedDate.$error"
                                           ng-show="BankCashDeposit.DepositedDate.$touched">
@@ -123,7 +123,7 @@
                                      ng-class="{ 'has-error': BankCashDeposit.BankName.$touched && BankCashDeposit.BankName.$invalid }">
                                     <input type="text" name="BankName" ng-model="bankCashDeposit.bankName"
                                            class="form-control"
-                                           placeholder="eg. SBM" required>
+                                           placeholder="eg. SBM" chars="only-letters" required>
                                     <span class="help-block"
                                           ng-messages="BankCashDeposit.BankName.$error"
                                           ng-show="BankCashDeposit.BankName.$touched">
@@ -140,7 +140,7 @@
                                      ng-class="{ 'has-error': BankCashDeposit.BranchName.$touched && BankCashDeposit.BranchName.$invalid }">
                                     <input type="text" name="BranchName" ng-model="bankCashDeposit.branch"
                                            class="form-control"
-                                           placeholder="eg. Chamundi puram" required>
+                                           placeholder="eg. Chamundi puram" chars="only-letters" required>
                                     <span class="help-block"
                                           ng-messages="BankCashDeposit.BranchName.$error"
                                           ng-show="BankCashDeposit.BranchName.$touched">
@@ -157,7 +157,7 @@
                                      ng-class="{ 'has-error': BankCashDeposit.DepositedAmount.$touched && BankCashDeposit.DepositedAmount.$invalid }">
                                     <input type="text" name="DepositedAmount" ng-model="bankCashDeposit.amount"
                                            class="form-control"
-                                           placeholder="eg. 5000" required>
+                                           placeholder="eg. 5000" chars="only-numbers" required>
                                     <span class="help-block"
                                           ng-messages="BankCashDeposit.DepositedAmount.$error"
                                           ng-show="BankCashDeposit.DepositedAmount.$touched">
@@ -174,7 +174,7 @@
                                      ng-class="{ 'has-error': BankCashDeposit.DepositorName.$touched && BankCashDeposit.DepositorName.$invalid }">
                                     <input type="text" name="DepositorName" ng-model="bankCashDeposit.depositedBy"
                                            class="form-control"
-                                           placeholder="eg. Suresh" required>
+                                           placeholder="eg. Suresh" chars="only-letters" required>
                                     <span class="help-block"
                                           ng-messages="BankCashDeposit.DepositorName.$error"
                                           ng-show="BankCashDeposit.DepositorName.$touched">
@@ -210,7 +210,7 @@
                                      ng-class="{ 'has-error': BankCashDeposit.TransactionID.$touched && BankCashDeposit.TransactionID.$invalid }">
                                     <input type="text" name="TransactionID" ng-model="bankCashDeposit.transactionId"
                                            class="form-control"
-                                           placeholder="eg. 12345789" required>
+                                           placeholder="eg. 12345789" chars="only-letters" required>
                                     <span class="help-block"
                                           ng-messages="BankCashDeposit.TransactionID.$error"
                                           ng-show="BankCashDeposit.TransactionID.$touched">
@@ -227,7 +227,7 @@
                                      ng-class="{ 'has-error': BankCashDeposit.Remarks.$touched && BankCashDeposit.Remarks.$invalid }">
                                     <input type="text" name="Remarks" ng-model="bankCashDeposit.remarks"
                                            class="form-control"
-                                           placeholder="eg. any description" required>
+                                           placeholder="eg. any description" chars="only-letters" required>
                                     <span class="help-block"
                                           ng-messages="BankCashDeposit.Remarks.$error"
                                           ng-show="BankCashDeposit.Remarks.$touched">
