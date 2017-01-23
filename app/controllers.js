@@ -270,7 +270,7 @@
             sex: '',
             phoneNumber: '',
             address: '',
-            city: 'Mysore11',
+            city: 'Mysore',
             state: 'Karnataka',
             country: 'India',
             countryCode: '91',
