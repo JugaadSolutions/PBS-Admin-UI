@@ -44,7 +44,7 @@
                                      ng-class="{ 'has-error': InternalStations.centreName.$touched && InternalStations.centreName.$invalid }">
                                     <input type="text" name="centreName" ng-model="internalStationsDetails.name"
                                            class="form-control"
-                                           placeholder="eg. " required>
+                                           placeholder="eg. " chars="only-letters" required>
                                     <span class="help-block"
                                           ng-messages="InternalStations.centreName.$error"
                                           ng-show="InternalStations.centreName.$touched">

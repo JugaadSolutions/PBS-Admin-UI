@@ -128,7 +128,8 @@
         redistributionVehicles: {
             getAll: 'redistributionport',
             save: 'redistributionport',
-            get:'redistributionport'
+            get:'redistributionport',
+            update: 'redistributionport',
            /* get: 'redistributionvehicle',
             save: 'redistributionvehicle',
             update: 'redistributionvehicle',
@@ -181,20 +182,22 @@
             getAll: 'holdingport',
             get: 'holdingport',
             save: 'holdingport',
-            update: 'holdingarea',
-            delete: 'holdingarea'
+            update: 'holdingport',
+            delete: 'holdingport'
         },
         maintenanceCentre: {
             getAll: 'maintenanceport',
-            get: 'maintenancecentre',
+            get: 'maintenanceport',
             save: 'maintenanceport',
-            update: 'maintenancecentre',
+            update: 'maintenanceport',
             delete: 'maintenancecentre'
         },
 
         registrationCentre: {
             save:'registrationcenter',
-            getAll:'registrationcenter'
+            getAll:'registrationcenter',
+            get:'registrationcenter',
+            update:'registrationcenter'
         },
 
         dockingStationCleaning:{

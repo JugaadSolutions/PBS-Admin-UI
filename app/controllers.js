@@ -3447,12 +3447,6 @@
                 $scope.redistributionVehicleMap.center.latitude = parseFloat($scope.redistributionVehicle.gpsCoordinates.latitude);
                 $scope.redistributionVehicleMap.center.longitude = parseFloat($scope.redistributionVehicle.gpsCoordinates.longitude);
 
-                $scope.redistributionVehicles.forEach(function (redistributionVehicle) {
-                   var aaaa=redistributionVehicle.StationId.name;
-
-                })
-
-
                 /*if ($scope.redistributionVehicle.purchaseDetails) {
                     $scope.redistributionVehicle.purchaseDetails.manufacturingDate = new Date($scope.redistributionVehicle.purchaseDetails.manufacturingDate);
                     $scope.redistributionVehicle.purchaseDetails.invoiceDate = new Date($scope.redistributionVehicle.purchaseDetails.invoiceDate);
@@ -3502,6 +3496,43 @@
                     }
                 }
             });
+        };
+
+        $scope.RedistributionStations = [];
+
+        DataService.getRedistributionStations().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RedistributionStations = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRedistributionCentre =function(data){
+            $scope.redistributionVehicle.StationId=data.id;
+        };
+
+        $scope.RVstaffSelections = [];
+
+        DataService.getRedistributionVehicleStaff().then(function (response) {
+                if (!response.error) {
+                    $scope.RVstaffSelections = response.data;
+                } else {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedStaff = function (data) {
+            $scope.redistributionVehicle.assignedTo = data._id;
         };
 
     }]);
@@ -3886,6 +3917,27 @@
             });
         };
 
+        $scope.HoldingStations = [];
+
+        DataService.getHoldingStations().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.HoldingStations = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedHoldingStation =function(data){
+            $scope.holdingArea.StationId=data.id;
+        };
+
+
     }]);
 
     app.controller('ManageMaintenanceCentres', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
@@ -4063,9 +4115,8 @@
             if (!response.error)
             {
                 $scope.registrationCentre = response.data;
-                $scope.registrationCentre.name;
-             /*   $scope.registrationCentreMap.center.latitude = parseFloat($scope.registrationCentre.gpsCoordinates.latitude);
-                $scope.registrationCentreMap.center.longitude = parseFloat($scope.registrationCentre.gpsCoordinates.longitude);*/
+                $scope.registrationCentreMap.center.latitude = parseFloat($scope.registrationCentre.gpsCoordinates.latitude);
+                $scope.registrationCentreMap.center.longitude = parseFloat($scope.registrationCentre.gpsCoordinates.longitude);
             }
             else {
                 growl.error(response.message);
@@ -4087,8 +4138,8 @@
             });
         };*/
 
-        $scope.updateMaintenanceCentre = function () {
-            DataService.updateMaintenanceCentre($scope.maintenanceCentre).then(function (response) {
+        $scope.updateRegistrationCentre = function () {
+            DataService.updateRegistrationCentre($scope.maintenanceCentre).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
                     $state.reload();
@@ -4111,6 +4162,23 @@
             }, function () {
                 $state.go('admin.registration-centres.manage');
             });
+        };
+
+        $scope.staffSelections = [];
+
+        DataService.getStaffs().then(function (response) {
+                if (!response.error) {
+                    $scope.staffSelections = response.data;
+                } else {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedStaff = function (data) {
+            $scope.registrationCentre.assignedTo = data.id;
         };
 
     }]);
@@ -4581,7 +4649,7 @@
     var docking_station_count;
     app.controller('kpiDetails', ['$scope', '$state', 'DataService', 'growl','$uibModal','NgTableParams', 'sweet', function ($scope, $state, DataService, growl,$uibModal,NgTableParams,sweet)
     {
-        alert(Number_of_DockingStations);
+        /*alert(Number_of_DockingStations);*/
 
         $scope.toDateKPI = new Date();
 
@@ -5354,6 +5422,26 @@
             }, function () {
                 $state.go('admin.maintenance-centres.manage');
             });
+        };
+
+        $scope.MaintenanceStations = [];
+
+        DataService.getMaintenanceStations().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.MaintenanceStations = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedMaintenanceStation =function(data){
+            $scope.maintenanceCentre.StationId=data.id;
         };
 
     }]);

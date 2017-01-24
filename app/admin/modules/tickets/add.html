@@ -49,7 +49,7 @@
                         <input type="search" name="MemberName" ng-model="searchMember.name"
                                class="form-control"
                                autofocus
-                               placeholder="eg. Ashok" required>
+                               placeholder="eg. Ashok" chars="only-letters" maxlength="20" required>
                         <span class="help-block"
                               ng-messages="TicketSearchMember.MemberName.$error"
                               ng-show="TicketSearchMember.MemberName.$touched">
@@ -75,7 +75,7 @@
                              ng-class="{ 'has-error': AddTicketsDetails.MemberName.$touched && AddTicketsDetails.MemberName.$invalid }">
                             <input type="text" name="MemberName" ng-model="ticketSubject"
                                    class="form-control"
-                                   placeholder="eg. Ashok" required>
+                                   placeholder="eg. Ashok" chars="only-letters" maxlength="20" required>
                             <span class="help-block"
                                   ng-messages="AddTicketsDetails.MemberName.$error"
                                   ng-show="AddTicketsDetails.MemberName.$touched">
@@ -92,7 +92,7 @@
                              ng-class="{ 'has-error': AddTicketsDetails.ticketSubject.$touched && AddTicketsDetails.ticketSubject.$invalid }">
                             <input type="text" name="ticketSubject" ng-model="ticketsDetails.ticketSubject"
                                    class="form-control"
-                                   placeholder="eg. Bicycle problem" required>
+                                   placeholder="eg. Bicycle problem" chars="only-letters" maxlength="20" required>
                             <span class="help-block"
                                   ng-messages="AddTicketsDetails.ticketSubject.$error"
                                   ng-show="AddTicketsDetails.ticketSubject.$touched">
@@ -109,7 +109,7 @@
                              ng-class="{ 'has-error': AddTicketsDetails.ticketDescription.$touched && AddTicketsDetails.ticketDescription.$invalid }">
                             <input type="text" name="ticketDescription" ng-model="ticketsDetails.ticketDescription"
                                    class="form-control"
-                                   placeholder="eg. Reason for the issue" required>
+                                   placeholder="eg. Reason for the issue" chars="letters" required>
                             <span class="help-block"
                                   ng-messages="AddTicketsDetails.ticketDescription.$error"
                                   ng-show="AddTicketsDetails.ticketDescription.$touched">

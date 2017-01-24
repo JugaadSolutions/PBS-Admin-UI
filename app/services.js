@@ -195,6 +195,7 @@
                 }
                 else if (_department === 'Redistribution Member Staff')
                 {
+                    _url = 'rvstaff';
                 }
                 else if (_department === 'Maintenance Center Staff')
                 {
@@ -208,6 +209,10 @@
                 }
                 else if (_department === 'Docking Station Repair Staff')
                 {
+                }
+                else if (_department === 'Holding Area Staff')
+                {
+                    _url='hastaff';
                 }
                 else if (_department === 'Operator')
                 {
@@ -567,7 +572,7 @@
             },
             updateRedistributionVehicle: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.redistributionVehicles.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.redistributionVehicles.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -616,13 +621,13 @@
             },
 
             saveFarePlan: function (data) {
-               /* var deferred = $q.defer();
+                var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.farePlan.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;*/
+                return deferred.promise;
             },
             getFarePlan: function (data) {
                 var deferred = $q.defer();
@@ -770,7 +775,7 @@
 
             getHoldingArea: function (data) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.holdingArea.get + '/' + data).then(function (result) {
+                $http.get(APINew + APIEndPoint.holdingArea.get + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -779,7 +784,7 @@
             },
             updateHoldingArea: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.holdingArea.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.holdingArea.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -808,6 +813,16 @@
             getRegistrationCentres: function () {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.registrationCentre.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            updateRegistrationCentre: function (data) {
+                var deferred = $q.defer();
+                $http.put(APINew + APIEndPoint.registrationCentre.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -1301,7 +1316,7 @@
 
             getMaintenanceCentre: function (data) {
                 var deferred = $q.defer();
-                $http.get(API + APIEndPoint.maintenanceCentre.get + '/' + data).then(function (result) {
+                $http.get(APINew + APIEndPoint.maintenanceCentre.get + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -1310,7 +1325,7 @@
             },
             updateMaintenanceCentre: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.maintenanceCentre.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.maintenanceCentre.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

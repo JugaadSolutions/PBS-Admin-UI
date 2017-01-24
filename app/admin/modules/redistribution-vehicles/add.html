@@ -121,7 +121,7 @@
                                             <input type="text" name="number"
                                                    ng-model="redistributionVehicle.Name"
                                                    class="form-control"
-                                                   placeholder="eg. RV10" chars="only-letters"  required>
+                                                   placeholder="eg. RV10" chars="number" maxlength="15" required>
                                             <span class="help-block"
                                                   ng-messages="AddRedistributionVehicle.number.$error"
                                                   ng-show="AddRedistributionVehicle.number.$touched">
@@ -156,7 +156,7 @@
                                         <div class="fg-line">
                                             <select chosen class="form-control"
                                                     data-placeholder-text-single="'SELECT THE OPTIONS'"
-                                                    ng-options="RedistributionStation as RedistributionStation.name for RedistributionStation in RedistributionStations"
+                                                    ng-options="RedistributionStationname as RedistributionStation.name for RedistributionStation in RedistributionStations"
                                                     ng-model="name"
                                                     ng-change="selectedRedistributionCentre(name)" required>
                                                 <option value="0">SELECT THE OPTIONS</option>
@@ -173,7 +173,7 @@
                                             <input type="text" name="numberPlate"
                                                    ng-model="redistributionVehicle.vehiclePlate"
                                                    class="form-control"
-                                                   placeholder="eg. KA09 1131" chars="only-letters"  required>
+                                                   placeholder="eg. KA09 1131" chars="number" maxlength="10" required>
                                             <span class="help-block"
                                                   ng-messages="AddRedistributionVehicle.numberPlate.$error"
                                                   ng-show="AddRedistributionVehicle.numberPlate.$touched">
@@ -191,7 +191,7 @@
                                             <input type="text" name="numberPlate"
                                                    ng-model="redistributionVehicle.driverId"
                                                    class="form-control"
-                                                   placeholder="eg. DL - 04241029856649" chars="only-letters" >
+                                                   placeholder="eg. DL - 04241029856649" chars="number" maxlength="20" >
                                         </div>
                                     </dd>
                                 </dl>

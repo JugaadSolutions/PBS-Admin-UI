@@ -14,7 +14,7 @@
                 <i class="zmdi zmdi-undo"></i> Change Status
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="updateRedistributionVehicle()" ng-disabled="EditRedistributionVehicle.$invalid">
+                    ng-click="updateRedistributionVehicle()" ng-disabled="">
                 <i class="zmdi zmdi-save"></i> Update
             </button>
         </div>
@@ -36,7 +36,7 @@
         </div>
 
         <div class="pm-body clearfix">
-            <form class="pmbb-edit" name="AddRedistributionVehicle">
+            <form class="pmbb-edit" name="EditRedistributionVehicle">
                 <uib-tabset justified="true">
                     <uib-tab heading="Redistribution Vehicle">
                         <div class="pmb-block">
@@ -45,17 +45,17 @@
                             </div>
                             <div class="pmbb-body p-l-30">
                                 <dl class="dl-horizontal required">
-                                    <dt class="p-t-10">Vehicle Name</dt>
+                                    <dt class="p-t-10">Vehicle Number</dt>
                                     <dd>
                                         <div class="fg-line"
-                                             ng-class="{ 'has-error': AddRedistributionVehicle.number.$touched && AddRedistributionVehicle.number.$invalid }">
+                                             ng-class="{ 'has-error': EditRedistributionVehicle.number.$touched && EditRedistributionVehicle.number.$invalid }">
                                             <input type="text" name="number"
                                                    ng-model="redistributionVehicle.Name"
                                                    class="form-control"
-                                                   placeholder="eg. RV10" chars="only-letters"  required>
+                                                   placeholder="eg. RV10" chars="number" maxlength="15"  required>
                                             <span class="help-block"
-                                                  ng-messages="AddRedistributionVehicle.number.$error"
-                                                  ng-show="AddRedistributionVehicle.number.$touched">
+                                                  ng-messages="EditRedistributionVehicle.number.$error"
+                                                  ng-show="EditRedistributionVehicle.number.$touched">
                                                 <small ng-message="required">Vehicle Number is required</small>
                                             </span>
                                         </div>
@@ -68,10 +68,10 @@
                                         <div class="fg-line">
                                             <select chosen class="form-control"
                                                     data-placeholder-text-single="'SELECT THE OPTIONS'"
-                                                    ng-options="redistributionVehicle as redistributionVehicle.StationId._id for redistributionVehicle in redistributionVehicles"
+                                                    ng-options="RedistributionStationname as RedistributionStation.name for RedistributionStation in RedistributionStations"
                                                     ng-model="name"
-                                                    ng-change="selectedFarePlan(name)" required>
-                                                <!--<option value="0">SELECT THE OPTIONS</option>-->
+                                                    ng-change="selectedRedistributionCentre(name)" required>
+                                                <option value="0">SELECT THE OPTIONS</option>
                                             </select>
                                         </div>
                                     </dd>
@@ -81,14 +81,14 @@
                                     <dt class="p-t-10">Vehicle Number Plate</dt>
                                     <dd>
                                         <div class="fg-line"
-                                             ng-class="{ 'has-error': AddRedistributionVehicle.numberPlate.$touched && AddRedistributionVehicle.numberPlate.$invalid }">
+                                             ng-class="{ 'has-error': EditRedistributionVehicle.numberPlate.$touched && EditRedistributionVehicle.numberPlate.$invalid }">
                                             <input type="text" name="numberPlate"
                                                    ng-model="redistributionVehicle.vehiclePlate"
                                                    class="form-control"
-                                                   placeholder="eg. KA09 1131" chars="only-letters"  required>
+                                                   placeholder="eg. KA09 1131" chars="number" maxlength="10"  required>
                                             <span class="help-block"
-                                                  ng-messages="AddRedistributionVehicle.numberPlate.$error"
-                                                  ng-show="AddRedistributionVehicle.numberPlate.$touched">
+                                                  ng-messages="EditRedistributionVehicle.numberPlate.$error"
+                                                  ng-show="EditRedistributionVehicle.numberPlate.$touched">
                                                 <small ng-message="required">Vehicle Plate Number is required</small>
                                             </span>
                                         </div>
@@ -102,7 +102,7 @@
                                             <input type="text" name="numberPlate"
                                                    ng-model="redistributionVehicle.driverId"
                                                    class="form-control"
-                                                   placeholder="eg. DL - 04241029856649" chars="only-letters" >
+                                                   placeholder="eg. DL - 04241029856649" chars="number" maxlength="20" >
                                         </div>
                                     </dd>
                                 </dl>
@@ -142,6 +142,34 @@
                                         </div>
                                     </dd>
                                 </dl>-->
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10">Zone ID</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen name="ZoneId" ng-model="redistributionVehicle.zoneId" placeholder-text-single="'Select Zone'"
+                                                    class="form-control w-100" required>
+                                                <option ng-value="1">Zone 1</option>
+                                                <option ng-value="2">Zone 2</option>
+                                                <option ng-value="3">Zone 3</option>
+                                                <option ng-value="4">Zone 4</option>
+                                                <option ng-value="5">Zone 5</option>
+                                            </select>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10">Assigned To</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen class="form-control"
+                                                    ng-options="RVstaffSelection as RVstaffSelection.Name for RVstaffSelection in RVstaffSelections"
+                                                    ng-model="staffName"
+                                                    ng-change="selectedStaff(staffName)" required>
+                                            </select>
+                                        </div>
+                                    </dd>
+                                </dl>
 
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">GPS Coordinates</dt>

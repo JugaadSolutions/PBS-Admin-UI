@@ -168,7 +168,7 @@
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': MemberForm.name.$touched && MemberForm.name.$invalid }">
                                             <input type="text" name="name" ng-model="member.Name" class="form-control"
-                                                   placeholder="eg. Ashok" chars="only-letters" required>
+                                                   placeholder="eg. Ashok" chars="only-letters" maxlength="20" required>
                                             <span class="help-block" ng-messages="MemberForm.name.$error"
                                                   ng-show="MemberForm.name.$touched">
                                                 <small ng-message="required">First Name is required</small>
@@ -182,7 +182,7 @@
                                         <div class="fg-line">
                                             <input type="text" name="lastName" ng-model="member.lastName"
                                                    class="form-control"
-                                                   placeholder="eg. Kumar" >
+                                                   placeholder="eg. Kumar" maxlength="20" chars="only-letters" >
                                            <!-- <span class="help-block" ng-messages="MemberForm.lastName.$error"
                                                   ng-show="MemberForm.lastName.$touched">
                                                 <small ng-message="required">Last is required</small>
@@ -205,7 +205,7 @@
                                         </div>
                                     </dd>
                                 </dl>-->
-                                <dl class="dl-horizontal">
+                               <!-- <dl class="dl-horizontal">
                                     <dt class="p-t-10">Father's Name</dt>
                                     <dd>
                                         <div class="fg-line">
@@ -213,7 +213,7 @@
                                                    class="form-control">
                                         </div>
                                     </dd>
-                                </dl>
+                                </dl>-->
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">Gender</dt>
                                     <dd>
@@ -647,7 +647,7 @@
                                                            ng-model="member.phoneNumber"
                                                            class="form-control width-100"
                                                            input-mask=""
-                                                           placeholder="eg. 0000000000" minlength="10" maxlength="10">
+                                                           placeholder="eg. 0000000000" minlength="10" maxlength="10" chars="numbers">
                                                 </div>
                                             </div>
                                             <!--<span class="help-block"
@@ -741,7 +741,7 @@
                                             <input type="text" name="pinCode" ng-model="member.pinCode"
                                                    class="form-control"
                                                    input-mask=""
-                                                   placeholder="eg. 560050" minlength="6" maxlength="6">
+                                                   placeholder="eg. 560050" minlength="6" maxlength="6" chars="numbers">
                                         </div>
                                     </dd>
                                 </dl>
@@ -760,7 +760,7 @@
                                         <div class="fg-line">
                                             <input type="number" min="5" max="100" name="age" ng-model="member.age"
                                                    class="form-control"
-                                                   placeholder="eg. 32">
+                                                   placeholder="eg. 32" maxlength="2" chars="numbers">
                                         </div>
                                     </dd>
                                 </dl>
@@ -769,7 +769,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <input type="text" name="education" ng-model="member.education"
-                                                   class="form-control" chars="only-letters">
+                                                   class="form-control" chars="only-letters" maxlength="15">
                                         </div>
                                     </dd>
                                 </dl>
@@ -778,7 +778,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <input type="text" name="occupation" ng-model="member.occupation"
-                                                   class="form-control" chars="only-letters">
+                                                   class="form-control" chars="only-letters" maxlength="15">
                                         </div>
                                     </dd>
                                 </dl>
@@ -797,7 +797,7 @@
                                             <input type="text" name="contactName"
                                                    ng-model="member.emergencyContact.contactName"
                                                    class="form-control"
-                                                   placeholder="eg. Ashok" chars="only-letters">
+                                                   placeholder="eg. Ashok" chars="only-letters" maxlength="20">
                                         </div>
                                     </dd>
                                 </dl>
@@ -1090,7 +1090,7 @@
                                                            ng-model="member.emergencyContact.contactNumber"
                                                            class="form-control width-100"
                                                            input-mask=""
-                                                           placeholder="eg. 0000000000" minlength="10" maxlength="10">
+                                                           placeholder="eg. 0000000000" minlength="10" maxlength="10" chars="numbers">
                                                 </div>
                                             </div>
                                         </div>
@@ -1151,7 +1151,7 @@
                                                 <input type="text" name="documentNumber"
                                                        ng-model="document.documentNumber"
                                                        class="form-control"
-                                                       placeholder="eg. AABPS8791R" chars="only-letters" required>
+                                                       placeholder="eg. AABPS8791R" chars="only-letters" maxlength="20" required>
                                                 <span class="help-block"
                                                       ng-messages="MemberForm.documentNumber.$error"
                                                       ng-show="MemberForm.documentNumber.$touched">
@@ -1232,7 +1232,7 @@
                                                    ng-model="member.smartCardNumber"
                                                    ng-change="member.cardChanged = true"
                                                    class="form-control"
-                                                   placeholder="eg. 87248247238">
+                                                   placeholder="eg. 87248247238" chars="only-letters" maxlength="20">
                                             </span>
                                         </div>
                                         <span class="input-group-addon last">

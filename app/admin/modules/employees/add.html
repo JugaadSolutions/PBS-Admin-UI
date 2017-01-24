@@ -54,7 +54,7 @@
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': EmployeeForm.name.$touched && EmployeeForm.name.$invalid }">
                                             <input type="text" name="name" ng-model="employee.Name" class="form-control"
-                                                   placeholder="eg. Ashok" chars="only-letters" required>
+                                                   placeholder="eg. Ashok" chars="only-letters" maxlength="20" required>
                                             <span class="help-block" ng-messages="EmployeeForm.name.$error"
                                                   ng-show="EmployeeForm.name.$touched">
                                                 <small ng-message="required">First Name is required</small>
@@ -69,7 +69,7 @@
                                              ng-class="{ 'has-error': EmployeeForm.lastName.$touched && EmployeeForm.lastName.$invalid }">
                                             <input type="text" name="lastName" ng-model="employee.lastName"
                                                    class="form-control"
-                                                   placeholder="eg. Kumar" chars="only-letters">
+                                                   placeholder="eg. Kumar" chars="only-letters" maxlength="20">
                                             <span class="help-block" ng-messages="EmployeeForm.lastName.$error"
                                                   ng-show="EmployeeForm.lastName.$touched">
                                                 <small ng-message="required">Last is required</small>
@@ -534,7 +534,7 @@
                                                            ng-model="employee.phoneNumber"
                                                            class="form-control width-100"
                                                            input-mask=""
-                                                           placeholder="eg. 0000000000" minlength="10" maxlength="10">
+                                                           placeholder="eg. 0000000000" minlength="10" maxlength="10" chars="numbers">
                                                 </div>
                                             </div>
                                             <span class="help-block"
@@ -593,7 +593,7 @@
                                             <input type="text" name="pinCode" ng-model="employee.pinCode"
                                                    class="form-control"
                                                    input-mask=""
-                                                   placeholder="eg. 560050" minlength="6" maxlength="6">
+                                                   placeholder="eg. 560050" minlength="6" maxlength="6" chars="numbers">
                                         </div>
                                     </dd>
                                 </dl>
@@ -613,7 +613,7 @@
                                         <div class="fg-line">
                                             <input type="number" min="5" max="100" name="age" ng-model="employee.age"
                                                    class="form-control"
-                                                   placeholder="eg. 32">
+                                                   placeholder="eg. 32" maxlength="2" chars="numbers">
                                         </div>
                                     </dd>
                                 </dl>
@@ -622,7 +622,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <input type="text" name="education" ng-model="employee.education"
-                                                   class="form-control" chars="only-letters">
+                                                   class="form-control" chars="only-letters" maxlength="15">
                                         </div>
                                     </dd>
                                 </dl>
@@ -631,7 +631,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <input type="text" name="occupation" ng-model="employee.occupation"
-                                                   class="form-control" chars="only-letters">
+                                                   class="form-control" chars="only-letters" maxlength="15">
                                         </div>
                                     </dd>
                                 </dl>
@@ -650,7 +650,7 @@
                                             <input type="text" name="contactName"
                                                    ng-model="employee.emergencyContact.contactName"
                                                    class="form-control"
-                                                   placeholder="eg. Ashok" chars="only-letters">
+                                                   placeholder="eg. Ashok" chars="only-letters" maxlength="20">
                                         </div>
                                     </dd>
                                 </dl>
@@ -942,7 +942,7 @@
                                                            ng-model="employee.emergencyContact.contactNumber"
                                                            class="form-control width-100"
                                                            input-mask=""
-                                                           placeholder="eg. 0000000000" minlength="10" maxlength="10">
+                                                           placeholder="eg. 0000000000" minlength="10" maxlength="10" chars="numbers">
                                                 </div>
                                             </div>
                                         </div>
@@ -1003,7 +1003,7 @@
                                                 <input type="text" name="documentNumber"
                                                        ng-model="document.documentNumber"
                                                        class="form-control"
-                                                       placeholder="eg. AABPS8791R" chars="only-letters" required>
+                                                       placeholder="eg. AABPS8791R" chars="only-letters" maxlength="20" required>
                                             <span class="help-block"
                                                   ng-messages="EmployeeForm.documentNumber.$error"
                                                   ng-show="EmployeeForm.documentNumber.$touched">
@@ -1069,7 +1069,7 @@
                                              ng-class="{ 'has-error': EmployeeForm.position.$touched && EmployeeForm.position.$invalid }">
                                             <input type="text" name="position" ng-model="employee.position"
                                                    class="form-control"
-                                                   placeholder="eg. Administrator" chars="only-letters" required>
+                                                   placeholder="eg. Administrator" chars="only-letters" maxlength="20" required>
                                             <span class="help-block"
                                                   ng-messages="EmployeeForm.position.$error"
                                                   ng-show="EmployeeForm.position.$touched">
@@ -1093,6 +1093,7 @@
                                                 <option ng-value="MaintenenceMemberStaff">Maintenance Center Staff</option>
                                                 <option ng-value="InformationTechnologyStaff">Information Technology Staff</option>
                                                 <option ng-value="DockingStationRepairStaff">Docking Station Repair Staff</option>
+                                                <option ng-value="HoldingAreaStaff">Holding Area Staff</option>
                                                 <option ng-value="Operator">Operator</option>
                                                 <option ng-value="AccountsAdmin">Accounts Admin</option>
                                                 <option ng-value="MonitorGroup">Monitor Group</option>
@@ -1110,7 +1111,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <input type="number" name="experience" ng-model="employee.experiance"
-                                                   class="form-control" placeholder="eg. 5" min="0">
+                                                   class="form-control" placeholder="eg. 5" min="0" maxlength="2" chars="numbers">
                                         </div>
                                     </dd>
                                 </dl>

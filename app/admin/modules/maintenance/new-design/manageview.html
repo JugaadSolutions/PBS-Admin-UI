@@ -93,7 +93,7 @@
                                 <input type="text" name="cleanTimeFrom"
                                        ng-model="dockingStationCleanInput.fromtime"
                                        class="form-control input-sm form-inline"
-                                       placeholder="From Time (eg. 9:30)" required>
+                                       placeholder="From Time (eg. 9:30)" chars="numbers" required>
                                 <span class="help-block" ng-messages="dockingStationClean.cleanTimeFrom.$error"
                                       ng-show="dockingStationClean.cleanTimeFrom.$touched">
                                                 <small ng-message="required">From time is required.</small>
@@ -105,7 +105,7 @@
                                  ng-class="{'has-error': dockingStationClean.cleanTimeTo.$touched && dockingStationClean.cleanTimeTo.$invalid}">
                                 <input type="text" name="cleanTimeTo" class="form-control input-sm form-inline"
                                        ng-model="dockingStationCleanInput.totime"
-                                       placeholder="To Time (eg. 13:00)" required>
+                                       placeholder="To Time (eg. 13:00)" chars="numbers" required>
                                 <span class="help-block" ng-messages="dockingStationClean.cleanTimeTo.$error"
                                       ng-show="dockingStationClean.cleanTimeTo.$touched">
                                                 <small ng-message="required">To time is required</small>
@@ -121,7 +121,7 @@
                         <div class="fg-line">
                             <input type="text" name="description"
                                    ng-model="dockingStationCleanInput.description"
-                                   class="form-control" placeholder="Enter cleaning information">
+                                   class="form-control" placeholder="Enter cleaning information" chars="letters">
                         </div>
                     </dd>
                 </dl>
