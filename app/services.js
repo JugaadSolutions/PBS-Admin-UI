@@ -677,7 +677,17 @@
                 return deferred.promise;
             },
 
-            saveHoldingArea: function (data) {
+            getFleet: function (data) {
+            var deferred = $q.defer();
+            $http.get(APINew + APIEndPoint.fleet.get + '/' + data).then(function (result) {
+                deferred.resolve(result.data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        },
+
+        saveHoldingArea: function (data) {
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.holdingArea.save, data).then(function (result) {
                     deferred.resolve(result.data);
@@ -810,9 +820,31 @@
                 return deferred.promise;
             },
 
-            getRegistrationCentres: function () {
+         /*   getRegistrationCentre: function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.registrationCentre.get + '/' + data).then(function (result) {
+                    $http.get(APINew + APIEndPoint.registrationCentre.get + '/' + data).then(function (result) {
+                        deferred.resolve(result.data);
+                    }, function (error) {
+                        deferred.reject(error);
+                    });
+                }
+                return deferred.promise;
+            },*/
+
+            getRegistrationCentres: function (data) {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.registrationCentre.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getRegistrationCentre: function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.registrationCentre.get + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -911,12 +943,12 @@
                     description:data.description,
                     createdBy:data.createdBy
                 };
-              /*  $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
+                $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;*/
+                return deferred.promise;
             },
 
             getDockingStationCleaningDetails: function () {

@@ -33,9 +33,9 @@
                             {{registrationCentres.latitude}},
                             {{registrationCentres.longitude}}
                         </td>-->
-                        <td data-title="'Status'" filter="{ 'status': 'text'}">
+                        <!--<td data-title="'Status'" filter="{ 'status': 'text'}">
                             {{registrationCentres.status}}
-                        </td>
+                        </td>-->
                         <td data-title="''" class="table-actions">
                             <ul class="actions">
                                 <li class="dropdown" uib-dropdown>
@@ -46,13 +46,13 @@
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
                                             <a href="javascript:void(0);"
-                                               ng-click="editMaintenanceCentre(maintenanceCentre._id)">Edit</a>
+                                               ng-click="editRegistrationCentre(registrationCentres._id)">Edit</a>
                                         </li>
-                                        <li>
+                                       <!-- <li>
                                             <a href="javascript:void(0);"
                                                ng-click="changeMaintenanceCentreStatus(maintenanceCentre._id)">Change
                                                 Status</a>
-                                        </li>
+                                        </li>-->
                                     </ul>
                                 </li>
                             </ul>

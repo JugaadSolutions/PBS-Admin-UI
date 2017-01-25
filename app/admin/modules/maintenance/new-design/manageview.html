@@ -93,7 +93,7 @@
                                 <input type="text" name="cleanTimeFrom"
                                        ng-model="dockingStationCleanInput.fromtime"
                                        class="form-control input-sm form-inline"
-                                       placeholder="From Time (eg. 9:30)" chars="numbers" required>
+                                       placeholder="From Time (eg. 9:30)" chars="number" required>
                                 <span class="help-block" ng-messages="dockingStationClean.cleanTimeFrom.$error"
                                       ng-show="dockingStationClean.cleanTimeFrom.$touched">
                                                 <small ng-message="required">From time is required.</small>
@@ -105,7 +105,7 @@
                                  ng-class="{'has-error': dockingStationClean.cleanTimeTo.$touched && dockingStationClean.cleanTimeTo.$invalid}">
                                 <input type="text" name="cleanTimeTo" class="form-control input-sm form-inline"
                                        ng-model="dockingStationCleanInput.totime"
-                                       placeholder="To Time (eg. 13:00)" chars="numbers" required>
+                                       placeholder="To Time (eg. 13:00)" chars="number" required>
                                 <span class="help-block" ng-messages="dockingStationClean.cleanTimeTo.$error"
                                       ng-show="dockingStationClean.cleanTimeTo.$touched">
                                                 <small ng-message="required">To time is required</small>
@@ -130,8 +130,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-link" type="button" ng-click="cancelAddNewDocknckingStationClean()">Cancel</button>
-            <button class="btn btn-link" type="button" ng-click="addDockingStationClean()" ng-disabled="dockingStationClean.$pristine"
-                    ng-click="changeMembership()">Add
+            <button class="btn btn-link" type="button" ng-click="addDockingStationClean()" ng-disabled="dockingStationClean.$pristine">Add
             </button>
         </div>
     </form>

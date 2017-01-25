@@ -2499,7 +2499,7 @@
             if (!response.error) {
                 $scope.dockingPorts = response.data;
                 $scope.dockingPorts.forEach(function (dockingPort) {
-                    dockingPort.status = StatusService.getDockingPortStatus(dockingPort.portStatus);
+                    dockingPort.portStatus = StatusService.getDockingPortStatus(dockingPort.portStatus);
                     //dockingPort.unitNumber = dockingPort.dockingUnitId.unitNumber;
                    // dockingPort.name = dockingPort.dockingStationId.name;
                 });
@@ -2586,7 +2586,8 @@
                 confirmButtonText: 'Yes, change!',
                 closeOnConfirm: true
             }, function () {
-                $scope.dockingPort.status = parseInt($scope.dockingPort.status);
+               /* $scope.dockingPort.status = parseInt($scope.dockingPort.status);*/
+                $scope.dockingPort.portStatus = parseInt($scope.dockingPort.portStatus);
                 DataService.updateDockingPort($scope.dockingPort).then(function (response) {
                     if (!response.error) {
                         growl.success(response.message);
@@ -4036,6 +4037,10 @@
             }
         );
 
+        $scope.editRegistrationCentre = function (_id) {
+            $state.go('admin.registration-centres.edit', {'id': _id});
+        };
+
 
         $scope.addNewRegistrationCentre = function () {
             $state.go('admin.registration-centres.add');
@@ -4101,7 +4106,7 @@
 
     app.controller('EditRegistrationCentre', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal) {
 
-        $scope.registrationCentre = {};
+        $scope.registrations = {};
 
         $scope.registrationCentreMap = {
             center: {
@@ -4111,12 +4116,12 @@
             zoom: 15
         };
 
-        DataService.getRegistrationCentres($stateParams.id).then(function (response) {
+        DataService.getRegistrationCentre($stateParams.id).then(function (response) {
             if (!response.error)
             {
-                $scope.registrationCentre = response.data;
-                $scope.registrationCentreMap.center.latitude = parseFloat($scope.registrationCentre.gpsCoordinates.latitude);
-                $scope.registrationCentreMap.center.longitude = parseFloat($scope.registrationCentre.gpsCoordinates.longitude);
+                $scope.registrations = response.data[0];
+                $scope.registrationCentreMap.center.latitude = parseFloat($scope.registrations[0].gpsCoordinates.latitude);
+                $scope.registrationCentreMap.center.longitude = parseFloat($scope.registrations[0].gpsCoordinates.longitude);
             }
             else {
                 growl.error(response.message);
@@ -4139,10 +4144,10 @@
         };*/
 
         $scope.updateRegistrationCentre = function () {
-            DataService.updateRegistrationCentre($scope.maintenanceCentre).then(function (response) {
+            DataService.updateRegistrationCentre($scope.registrations).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                    $state.reload();
+                   /* $state.reload();*/
                 } else {
                     growl.error(response.message);
                 }
@@ -4178,7 +4183,7 @@
             });
 
         $scope.selectedStaff = function (data) {
-            $scope.registrationCentre.assignedTo = data.id;
+            $scope.registrations.assignedTo = data.id;
         };
 
     }]);
@@ -5724,7 +5729,6 @@
                 if (!response.error)
                 {
                     $scope.FleetStations = response.data;
-                    log(FleetsStations);
                 } else
                 {
                     growl.error(response.message);
@@ -5750,6 +5754,38 @@
                 $state.go('admin.fleets.manage');
             });
         };
+    }]);
+
+    app.controller('EditFleets', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal', 'StatusService', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal, StatusService)
+    {
+
+        $scope.editFleets = {};
+
+        DataService.getFleet($stateParams.id).then(function (response) {
+            if (!response.error)
+            {
+                $scope.editFleets = response.data;
+            }
+            else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.message);
+        });
+
+        $scope.cancelUpdateFleets = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.fleets.manage');
+            });
+        };
+
     }]);
 
     app.controller('ManageReports', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter) {

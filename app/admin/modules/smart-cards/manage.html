@@ -33,7 +33,8 @@
                             {{smartCard.assignedTo._type}}
                         </td>
                         <td data-title="'Assigned To'" filter="{ 'AssignedTo': 'text'}">
-                            <a ui-sref="admin.members.edit({id: smartCard._id})">{{smartCard.assignedTo.Name}}</a>
+                            <!--<a ui-sref="admin.members.edit({id: smartCard._id})">{{smartCard.assignedTo.Name}}</a>-->
+                            {{smartCard.assignedTo.Name}}
                         </td>
                         <td data-title="'Balance'">
                             {{smartCard.balance}}

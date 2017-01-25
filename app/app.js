@@ -108,6 +108,7 @@
             getAll: 'dockport',
             get: 'dockport',
             post: 'dockingport',
+            put:'dockport',
             save: 'dockingport',
             update: 'dockport',
             delete: 'dockingport'
@@ -139,7 +140,8 @@
         fleets:{
             save:'fleet',
             get:'fleet',
-            getAll:'fleet'
+            getAll:'fleet',
+            update:'fleet'
         },
 
         redistributionStations:{

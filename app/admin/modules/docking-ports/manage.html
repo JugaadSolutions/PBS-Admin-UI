@@ -22,7 +22,8 @@
                 <table ng-table="dockingPortsTable" class="table table-striped" show-filter="true">
                     <tr ng-repeat="dockingPort in $data">
                         <td data-title="'Port Number'" filter="{ 'PortID': 'text'}">
-                            <a ui-sref="admin.docking-ports.edit({id: dockingPort._id})">{{dockingPort.PortID}}</a>
+                           <!-- <a ui-sref="admin.docking-ports.edit({id: dockingPort._id})">{{dockingPort.PortID}}</a>-->
+                            {{dockingPort.PortID}}
                         </td>
 
                        <!-- <td data-title="'UNIT ID'" filter="{ 'FPGA': 'text'}">
@@ -32,29 +33,31 @@
                             <a ui-sref="admin.docking-stations.edit({id: dockingPort.dockingStationId._id})">{{dockingPort.Name}}</a>-->
 
                         <td data-title="'UNIT ID'" filter="{ 'FPGA': 'text'}">
-                            <a ui-sref="">{{dockingPort.FPGA}}</a>
+                          <!--  <a ui-sref="">{{dockingPort.FPGA}}</a>-->
+                            {{dockingPort.FPGA}}
                         </td>
                         <td data-title="'PORT Name'" filter="{ 'Name': 'text'}">
-                            <a ui-sref="">{{dockingPort.Name}}</a>
-                   
+                          <!--  <a ui-sref="">{{dockingPort.Name}}</a>-->
+                            {{dockingPort.Name}}
+                        </td>
                      <!--   <td data-title="'Model Type'" filter="{ 'modelType': 'text'}
                             {{dockingPort.modelType}}
                         </td>-->
                       <!--  <td data-title="'Port Position'" filter="{ 'portPosition': 'text'}">
                             {{dockingPort.portPosition}}
                         </td>-->
-
                         <td data-title="'Bicycle Number'" ><!--filter="{ 'cycleRFID': 'text'}"-->
-                            <a class="pointer" ng-click="cycle(dockingPort.cycleRFID)">{{dockingPort.vehicleId[0].vehicleid.vehicleNumber}}</a>
+                            <!--<a class="pointer" ng-click="cycle(dockingPort.cycleRFID)">{{dockingPort.vehicleId[0].vehicleid.vehicleNumber}}</a>-->
+                        {{dockingPort.vehicleId[0].vehicleid.vehicleNumber}}
                         </td>
                         <td class="text-center" data-title="'PORT STATUS'" filter="{ dockingPort.status: 'text'}">
 
-                       
+                        </td>
                         <td class="text-center">
-                            <span uib-tooltip="{{dockingPort.status}}" tooltip-placement="top" ng-class="{
-                             'status-color bgm-green': dockingPort.status == 'Bicycle Available',
-                             'status-color bgm-blue': dockingPort.status == 'Empty Port',
-                             'status-color bgm-red': dockingPort.status == 'Port Error'}">&nbsp;</span>
+                            <span uib-tooltip="{{dockingPort.portStatus}}" tooltip-placement="top" ng-class="{
+                             'status-color bgm-green': dockingPort.portStatus == 'Bicycle Available',
+                             'status-color bgm-blue': dockingPort.portStatus == 'Empty Port',
+                             'status-color bgm-red': dockingPort.portStatus == 'Port Error'}">&nbsp;</span>
                         </td>
                         <td data-title="''" class="table-actions">
                             <ul class="actions">
@@ -64,9 +67,9 @@
                                     </a>
 
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li>
+                                       <!-- <li>
                                             <a href="javascript:void(0);" ng-click="editDockingPort(dockingPort._id)">Edit</a>
-                                        </li>
+                                        </li>-->
                                         <li>
                                             <a href="javascript:void(0);"
                                                ng-click="changeDockingPortStatus(dockingPort._id)">Change Status</a>
@@ -92,7 +95,7 @@
             <dt class="p-t-10 p-l-30">Status</dt>
             <dd>
                 <div class="fg-line">
-                    <select chosen name="status" ng-model="dockingPort.status" placeholder-text-single="'Select Status'"
+                    <select chosen name="status" ng-model="dockingPort.portStatus" placeholder-text-single="'Select Status'"
                             class="form-control w-100" required>
                         <option ng-value="1">Bicycle Available</option>
                         <option ng-value="2">Empty Port</option>

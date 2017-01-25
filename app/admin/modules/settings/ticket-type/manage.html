@@ -27,7 +27,8 @@
                 <table ng-table="NameValueTable" class="table table-striped" show-filter="true">
                     <tr ng-repeat="GlobalNameValue in $data">
                         <td data-title="'Ticket Type'" filter="{ 'name': 'text'}">
-                            <a ui-sref="admin.settings.ticket-type.edit({id: GlobalNameValue._id})">{{GlobalNameValue.name}}</a>
+                            <!--<a ui-sref="admin.settings.ticket-type.edit({id: GlobalNameValue._id})">{{GlobalNameValue.name}}</a>-->
+                            {{GlobalNameValue.name}}
                         </td>
                         <td data-title="'Ticket Value'">
                             <span class="fare-plan-chip" data-ng-repeat="GlobalName in GlobalNameValue.value">{{GlobalName}}</span>

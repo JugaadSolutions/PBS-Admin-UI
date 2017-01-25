@@ -776,6 +776,13 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.fleets.edit", {
+                url: "/edit",
+                templateUrl: adminViewPath + 'fleets/edit.html',
+                controller: 'EditFleets',
+                containerClass: 'sw-toggled'
+            })
+
 
             .state("admin.reports", {
                 url: "/reports",

@@ -35,11 +35,11 @@
                         <td data-title="'Name'" filter="{ currentAssociationName: 'text'}">
                             {{bicycle.currentAssociationName}}
                         </td>
-                        <td class="text-center">
+                     <!--   <td class="text-center">
                             <span uib-tooltip="{{bicycle.status}}" tooltip-placement="top"
                                   ng-class="{ 'status-color bgm-green': bicycle.status == 'Operational',
                                    'status-color bgm-red': bicycle.status == 'Non-Operational' || bicycle.status == 'Decommissioned'}">&nbsp;</span>
-                        </td>
+                        </td>-->
                         <td data-title="''" class="table-actions">
                             <ul class="actions">
                                 <li class="dropdown" uib-dropdown>
@@ -51,12 +51,12 @@
                                         <li>
                                             <a href="javascript:void(0);" ng-click="editBicycle(bicycle._id)">Edit</a>
                                         </li>
-                                        <li>
+                                       <!-- <li>
                                             <a href="javascript:void(0);"
                                                ng-if="bicycle.location != 'With a User'"
                                                ng-click="moveBicycle(bicycle._id)">Move
                                                 Bicycle</a>
-                                        </li>
+                                        </li>-->
                                     </ul>
                                 </li>
                             </ul>
