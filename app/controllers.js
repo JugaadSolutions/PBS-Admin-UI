@@ -912,15 +912,15 @@
     }]);
 
     // Search member details Controller
+    var _searched_member_id;
+    var _searched_member_name;
     app.controller('SearchMemberDetails', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
         {
-
         $scope.searchMember={
             name:_search_member_name
         };
 
         $scope.SearchDetails = [];
-
 
             DataService.memberSearch($scope.searchMember).then(function (response) {
                 if (!response.error) {
@@ -948,6 +948,95 @@
             $scope.cancelSearchMemberDetails = function () {
                 $uibModalInstance.dismiss();
             };
+
+            $scope.getDetails=function(event)
+            {
+                _searched_member_id=event.currentTarget.value;
+               /* _searched_member_name = event.currentTarget.name;*/
+                _global_search_member_name = event.currentTarget.name;
+                $scope.RaiseNewTickets();
+                /*$uibModalInstance.dismiss();*/
+            }
+
+            $scope.RaiseNewTickets = function (size) {
+                $uibModal.open({
+                    templateUrl: 'raise-tickets.html',
+                    controller: 'RaiseTickets',
+                    size: size,
+                    resolve: {
+                        items: function () {
+                        }
+                    }
+                });
+            };
+
+
+
+
+    }]);
+
+    app.controller('RaiseTickets', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
+    {
+        $scope.raiseTicketsDetails = {
+            memberName:_global_search_member_name,
+            memberId:_searched_member_id,
+            ticketSubject:'',
+            ticketDescription:'',
+            priorityName:'',
+            departmentName:'',
+            type:''
+        };
+
+
+        $scope.addNewTicketDetails = function () {
+            DataService.saveTicketDetails($scope.raiseTicketsDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.departmentNames = [];
+        $scope.valueSelections = [];
+        $scope.keyValues = [];
+        var Values;
+
+        DataService.getGlobalKeyNameValues().then(function (response)
+        {
+            if (!response.error) {
+                $scope.departmentNames = response.data;
+            }
+            else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.selectedDepartment =function(data)
+        {
+            $scope.raiseTicketsDetails.departmentName=data.name;
+
+            for (var i=0;i<data.value.length;i++)
+            {
+                Values = data.value[i];
+                $scope.valueSelections.push(Values);
+
+                $scope.selectedValue=function (Values) {
+                    $scope.raiseTicketsDetails.type=Values;
+                }
+            }
+        };
+
+        $scope.cancelRaiseTickets = function () {
+            $uibModalInstance.dismiss();
+        };
+
+
     }]);
 
     // Member Credit Modal
@@ -4216,10 +4305,12 @@
     }]);
 
     var _search_member_name;
+    var _global_search_member_name;
     app.controller('AddTicketsDetails',  ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
     {
         $scope.ticketsDetails = {
-            memberName:'',
+            SearchedmemberName:_global_search_member_name,
+            memberId:'',
             ticketSubject:'',
             ticketDescription:'',
             priorityName:'',
@@ -4265,18 +4356,19 @@
             DataService.memberSearch($scope.searchMember).then(function (response) {
                 if (!response.error) {
                     _search_member_name = $scope.searchMember.name;
-                   /* $scope.SearchMember = function (size) {
-                        $uibModal.open({
-                            templateUrl: 'member-search-details.html',
-                            controller: 'SearchMemberDetails',
-                            size: size,
-                            resolve: {
-                                items: function () {
-                                    /!* return $scope.member.credit;*!/
-                                }
-                            }
-                        });
-                    };*/
+
+                    /* $scope.SearchMember = function (size) {
+                         $uibModal.open({
+                             templateUrl: 'member-search-details.html',
+                             controller: 'SearchMemberDetails',
+                             size: size,
+                             resolve: {
+                                 items: function () {
+                                     /!* return $scope.member.credit;*!/
+                                 }
+                             }
+                         });
+                     };*/
 
                     return $uibModal.open({
                         templateUrl: 'member-search-details.html',
@@ -4284,7 +4376,8 @@
                         size: 'md',
                         resolve: {
                             member: function () {
-                               /* return selectedMember;*/
+                                return _global_search_member_name;
+                                alert(_global_search_member_name)
                             }
                         }
                     });
