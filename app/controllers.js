@@ -62,7 +62,7 @@
 
     //Login Controller
     var _login_id;
-    app.controller('LoginController', ['$state', '$scope', '$rootScope', '$timeout', 'growl', 'user', 'auth', 'DataService', function ($state, $scope, $rootScope, $timeout, growl, user, auth, DataService) {
+    app.controller('LoginController', ['$state', '$scope', '$rootScope', '$timeout', 'growl', 'user', 'auth', 'DataService','md5', function ($state, $scope, $rootScope, $timeout, growl, user, auth, DataService,md5) {
         $scope.login = true;
 
         $scope.reg = function () {
@@ -100,8 +100,6 @@
 
         var self = this;
 
-
-
         $scope.username = "";
         $scope.password = "";
 
@@ -117,6 +115,7 @@
             }
         }
 
+
         $scope.loginUser = function (username, password)
         {
             if(username == "" || username == null || password == "" || password == null)
@@ -125,6 +124,7 @@
             }
             else
             {
+                password = md5.createHash(password || '');
             user.login(username, password)
                 .then(handleRequest, handleRequest);
             $state.reload();
@@ -969,10 +969,6 @@
                     }
                 });
             };
-
-
-
-
     }]);
 
     app.controller('RaiseTickets', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
