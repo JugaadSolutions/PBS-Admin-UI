@@ -319,7 +319,7 @@
             DataService.saveMember($scope.member).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                    $state.go('admin.members.edit', {'id': response.data._id});
+                 /*   $state.go('admin.members.edit', {'id': response.data._id});*/
                 } else {
                     growl.error(response.message);
                 }
