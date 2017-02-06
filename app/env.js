@@ -1,6 +1,3 @@
-/**
- * Created by keerthiniranjan on 16/08/16.
- */
 
 /**
  * Assign __env to the root window object.
@@ -25,10 +22,7 @@
     // API url
     // For demo purposes we fetch from local file in this plunk
     // In your application this can be a url like https://api.github.com
-    // window.__env.apiUrl = 'http://192.168.0.164:3001/api/';
-  //  window.__env.apiUrl = 'http://43.251.80.79:3001/api/';
-    window.__env.apiUrlNew = 'http://43.251.80.79:13060/api/';
-  /*  window.__env.apiUrlNew = 'http://13.13.13.1:13060/api/';*/
+    window.__env.apiUrlNew = 'http://www.mytrintrin.com:13060/api/';
     window.__env.awsUrl = 'https://mytrintrin.s3.amazonaws.com/mytrintrin/';
     window.__env.googleMapsUrl = 'https://www.google.com/maps/dir/Current+Location/';
 

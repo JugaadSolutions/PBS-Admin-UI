@@ -1,6 +1,6 @@
 // =========================================================================
 // PBS Admin Services
-// =========================================================================
+// ========================================================================
 
 (function () {
     'use strict';
@@ -1202,12 +1202,24 @@
             saveTicketDetails:function(data)
             {
                 var deferred = $q.defer();
-               /* $http.post(API + APIEndPoint.ticketsDetails.save, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.ticketsDetails.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;*/
+                return deferred.promise;
+            },
+
+            getRaisedTickets: function (filters) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.ticketsDetails.getAll, {
+                    params: filters
+                }).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
             },
 
             // search member to raise a ticket

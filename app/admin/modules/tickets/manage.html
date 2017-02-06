@@ -39,6 +39,9 @@
                                         <td data-title="'Type'" filter="{ 'subscriptionType': 'text'}">
                                             {{cashTotals.pos + cashTotals.gateway + cashTotals.cash }}
                                         </td>
+                                        <td data-title="'Assigned'" filter="{ 'subscriptionType': 'text'}">
+                                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash }}
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -47,28 +50,28 @@
                     <uib-tab heading="Raised Tickets">
                         <div class="card-body">
                             <div class="table-responsive" >
-                                <table ng-table="SearchMemberDetailsTable" class="table table-striped table-vmiddle" show-filter="true">
-                                    <tr ng-repeat="SearchDetails in $data">
-                                        <td>
-                                            <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
+                                <table ng-table="raisedTicketsTable" class="table table-striped table-vmiddle" show-filter="true">
+                                    <tr ng-repeat="tickets in RaisedTickets">
+                                        <td data-title="'Date'" filter="{ ticketdate: 'text'}">
+                                            {{tickets.ticketdate | date : "dd MMM yy"}}
                                         </td>
-                                        <td data-title="'Date'" filter="{ date: 'text'}">
-                                            {{cashTotals.date | date : "dd MMM yy"}}
+                                        <td data-title="'From'" filter="{ name: 'text'}">
+                                            {{tickets.name}}
                                         </td>
-                                        <td data-title="'Member Name'" filter="{ pos: 'text'}">
-                                            {{cashTotals.pos}}
+                                        <td data-title="'Ticket Subject'" filter="{ subject: 'text'}">
+                                            <a ui-sref="admin.tickets.edit({id: tickets._id})">{{tickets.subject}}</a>
                                         </td>
-                                        <td data-title="'Ticket Subject'" filter="{ gateway: 'text'}">
-                                            {{cashTotals.gateway}}
+                                        <td data-title="'Priority'" filter="{ priority: 'text'}">
+                                            {{tickets.priority}}
                                         </td>
-                                        <td data-title="'Priority'" filter="{ 'cash': 'text'}">
-                                            {{cashTotals.cash}}
+                                        <td data-title="'Department'" filter="{ department: 'text'}">
+                                            {{tickets.department}}
                                         </td>
-                                        <td data-title="'Department'" filter="{ 'subscriptionType': 'text'}">
-                                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash }}
-                                        </td>
-                                        <td data-title="'Type'" filter="{ 'subscriptionType': 'text'}">
-                                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash }}
+                                       <!-- <td data-title="'Type'" filter="{ 'Type': 'text'}">
+                                            {{tickets.type}}
+                                        </td>-->
+                                        <td data-title="'STATUS'" filter="{ status: 'text'}">
+                                            {{tickets.status}}
                                         </td>
                                     </tr>
                                 </table>

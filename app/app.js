@@ -208,9 +208,9 @@
         },
 
         ticketsDetails:{
-          save:'ticketdetails',
-            get:'ticketdetails',
-            getAll:'ticketsDetails'
+          save:'tickets',
+            get:'tickets',
+            getAll:'tickets'
 
         },
 

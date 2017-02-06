@@ -106,6 +106,10 @@
         function handleRequest(res) {
             var token = res.data.data.token;
             _login_id=res.data.data.id;
+
+            $scope.LoginID=res.data.data.uid;
+            localStorage.ID=$scope.LoginID;
+
           /*  alert(_login_id);*/
             if (token) {
                 auth.saveToken(token);
@@ -974,13 +978,16 @@
     app.controller('RaiseTickets', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
     {
         $scope.raiseTicketsDetails = {
-            memberName:_global_search_member_name,
-            memberId:_searched_member_id,
-            ticketSubject:'',
-            ticketDescription:'',
-            priorityName:'',
-            departmentName:'',
-            type:''
+            name:_global_search_member_name,
+            user:_searched_member_id,
+            subject:'',
+            description:'',
+            channels:1,
+            priority:'',
+            department:'',
+            tickettype:'',
+            ticketdate:new Date(),
+            createdBy:_login_id,
         };
 
 
@@ -1015,7 +1022,7 @@
 
         $scope.selectedDepartment =function(data)
         {
-            $scope.raiseTicketsDetails.departmentName=data.name;
+            $scope.raiseTicketsDetails.department=data.name;
 
             for (var i=0;i<data.value.length;i++)
             {
@@ -1023,7 +1030,7 @@
                 $scope.valueSelections.push(Values);
 
                 $scope.selectedValue=function (Values) {
-                    $scope.raiseTicketsDetails.type=Values;
+                    $scope.raiseTicketsDetails.tickettype=Values;
                 }
             }
         };
@@ -4282,21 +4289,34 @@
             $state.go('admin.tickets.add');
         };
 
-    /*   $scope.searchMember={
-           name:''
-       };
+        $scope.RaisedTickets = [];
 
-        $scope.SearchMember = function () {
-            DataService.memberSearch($scope.searchMember).then(function (response) {
-                if (!response.error) {
-                    growl.success(response.message);
-                } else {
-                    growl.error(response.message);
+        DataService.getRaisedTickets().then(function (response) {
+            if (!response.error) {
+                $scope.RaisedTickets = response.data;
+                $scope.status = "Normal";
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.raisedTicketsTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.RaisedTickets, params.filter()) : $scope.RaisedTickets;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 }
-            }, function (response) {
-                growl.error(response.data.description['0']);
-            })
-        };*/
+            }
+        );
+
+
+
 
     }]);
 

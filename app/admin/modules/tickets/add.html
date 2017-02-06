@@ -249,7 +249,7 @@
                 <dd>
                     <div class="fg-line" >
                         <input type="text" name="membername"
-                               ng-model="raiseTicketsDetails.memberName"
+                               ng-model="raiseTicketsDetails.name"
                                class="form-control" disabled>
                     </div>
                 </dd>
@@ -259,7 +259,7 @@
                 <dd>
                     <div class="fg-line"
                          ng-class="{ 'has-error': AddTicketsDetails.ticketSubject.$touched && AddTicketsDetails.ticketSubject.$invalid }">
-                        <input type="text" name="ticketSubject" ng-model="raiseTicketsDetails.ticketSubject"
+                        <input type="text" name="ticketSubject" ng-model="raiseTicketsDetails.subject"
                                class="form-control"
                                placeholder="eg. Bicycle problem" chars="only-letters" maxlength="20" required>
                         <span class="help-block"
@@ -276,7 +276,7 @@
                 <dd>
                     <div class="fg-line"
                          ng-class="{ 'has-error': AddTicketsDetails.ticketDescription.$touched && AddTicketsDetails.ticketDescription.$invalid }">
-                        <input type="text" name="ticketDescription" ng-model="raiseTicketsDetails.ticketDescription"
+                        <input type="text" name="ticketDescription" ng-model="raiseTicketsDetails.description"
                                class="form-control"
                                placeholder="eg. Reason for the issue" chars="letters" required>
                         <span class="help-block"
@@ -292,13 +292,14 @@
                 <dt class="p-t-10">Priority</dt>
                 <dd>
                     <div class="fg-line">
-                        <select chosen class="form-control" ng-model="raiseTicketsDetails.priorityName"
+                        <select chosen class="form-control" ng-model="raiseTicketsDetails.priority"
                                 data-placeholder-text-single="'Select Type'"
                                 name="priorityName">
                             <option value="0">SELECT THE OPTIONS</option>
-                            <option value="Normal">Normal</option>
-                            <option value="Urgent">Urgent</option>
-                            <option value="Critical">Critical</option>
+                            <option value="1">Normal</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Urgent</option>
+                            <option value="4">Critical</option>
                         </select>
                     </div>
                 </dd>

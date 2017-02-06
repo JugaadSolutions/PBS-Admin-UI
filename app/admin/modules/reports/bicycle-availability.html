@@ -52,8 +52,9 @@
                             <td data-title="'Type'">
                                 {{requests.stationType}}
                             </td>
-                            <td data-title="'Status'">
-                                {{requests.stationStatus}}
+                            <td data-title="'Status'" ng-if="requests.stationStatus == 2">
+                                <!--{{requests.stationStatus}}-->
+                                Operational
                             </td>
                             <td data-title="'Total Units'">
                                 {{requests.noofUnits}}
