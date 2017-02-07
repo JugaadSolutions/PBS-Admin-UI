@@ -1210,11 +1210,30 @@
                 return deferred.promise;
             },
 
-            getRaisedTickets: function (filters) {
+            getRaisedTickets:function(data)
+            {
                 var deferred = $q.defer();
-                $http.get(APINew + APIEndPoint.ticketsDetails.getAll, {
-                    params: filters
-                }).then(function (result) {
+                $http.post(APINew + APIEndPoint.ticketsDetails.getAll, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getRaisedTicket: function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.ticketsDetails.get + '/' + data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            updateRaised_Ticket: function (data) {
+                var deferred = $q.defer();
+                $http.put(APINew + APIEndPoint.ticketsDetails.update + '/' + data._id, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

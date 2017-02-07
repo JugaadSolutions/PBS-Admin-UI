@@ -13,7 +13,7 @@
         <div class="card" id="profile-main">
             <form class="pmbb-edit" name="MemberForm" novalidate>
                 <uib-tabset justified="true">
-                    <uib-tab heading="Assigned Tickets">
+                    <uib-tab heading="Tickets Assigned to You">
                         <div class="card-body">
                             <div class="table-responsive" >
                                 <table ng-table="totalCashTable" class="table table-striped table-vmiddle" show-filter="true">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </uib-tab>
-                    <uib-tab heading="Raised Tickets">
+                    <uib-tab heading="Tickets Created By You">
                         <div class="card-body">
                             <div class="table-responsive" >
                                 <table ng-table="raisedTicketsTable" class="table table-striped table-vmiddle" show-filter="true">
@@ -70,6 +70,37 @@
                                        <!-- <td data-title="'Type'" filter="{ 'Type': 'text'}">
                                             {{tickets.type}}
                                         </td>-->
+                                        <td data-title="'STATUS'" filter="{ status: 'text'}">
+                                            {{tickets.status}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab heading="Unassigned Tickets">
+                        <div class="card-body">
+                            <div class="table-responsive" >
+                                <table ng-table="raisedTicketsTable" class="table table-striped table-vmiddle" show-filter="true">
+                                    <tr ng-repeat="tickets in RaisedTickets">
+                                        <td data-title="'Date'" filter="{ ticketdate: 'text'}">
+                                            {{tickets.ticketdate | date : "dd MMM yy"}}
+                                        </td>
+                                        <td data-title="'From'" filter="{ name: 'text'}">
+                                            {{tickets.name}}
+                                        </td>
+                                        <td data-title="'Ticket Subject'" filter="{ subject: 'text'}">
+                                            <a ui-sref="admin.tickets.edit({id: tickets._id})">{{tickets.subject}}</a>
+                                        </td>
+                                        <td data-title="'Priority'" filter="{ priority: 'text'}">
+                                            {{tickets.priority}}
+                                        </td>
+                                        <td data-title="'Department'" filter="{ department: 'text'}">
+                                            {{tickets.department}}
+                                        </td>
+                                        <!-- <td data-title="'Type'" filter="{ 'Type': 'text'}">
+                                             {{tickets.type}}
+                                         </td>-->
                                         <td data-title="'STATUS'" filter="{ status: 'text'}">
                                             {{tickets.status}}
                                         </td>

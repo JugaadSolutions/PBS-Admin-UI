@@ -210,7 +210,8 @@
         ticketsDetails:{
           save:'tickets',
             get:'tickets',
-            getAll:'tickets'
+            getAll:'tickets/ticketinfo',
+            update:'tickets'
 
         },
 

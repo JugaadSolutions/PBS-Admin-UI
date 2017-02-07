@@ -4285,13 +4285,32 @@
     {
         $scope.ticketsDetails = [];
 
+        var _status="Open";
+        var _assigned="All";
+        var _dept="All";
+        var _ticket_type="All";
+        var _to_date=new Date();
+        var d = new Date();
+        d.setDate(d.getDate() - 15);
+
+
+        $scope.requestForTickets={
+          status:_status,
+            createdBy:_login_id,
+            assignedEmp:_assigned,
+            todate:_to_date,
+            fromdate:d,
+            department:_dept,
+            tickettype:_ticket_type
+        };
+
         $scope.addNewTicketDetails = function () {
             $state.go('admin.tickets.add');
         };
 
         $scope.RaisedTickets = [];
 
-        DataService.getRaisedTickets().then(function (response) {
+        DataService.getRaisedTickets($scope.requestForTickets).then(function (response) {
             if (!response.error) {
                 $scope.RaisedTickets = response.data;
                 $scope.status = "Normal";
@@ -4315,8 +4334,10 @@
             }
         );
 
-
-
+       /* $scope.EditTickets = function (_id) {
+            $state.go('admin.tickets.edit', {'id': _id});
+        };
+*/
 
     }]);
 
@@ -4441,7 +4462,76 @@
 
     }]);
 
-    app.controller('EditTickets', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
+    app.controller('EditTickets', ['$scope', '$state','$stateParams', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state,$stateParams, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.RaisedTicket = {};
+
+        DataService.getRaisedTicket($stateParams.id).then(function (response) {
+            if (!response.error)
+            {
+                $scope.RaisedTicket = response.data[0];
+                if(response.data[0].priority == 1)
+                {
+                    $scope.Priority="Normal";
+                }
+                if(response.data[0].priority == 2)
+                {
+                    $scope.Priority="Medium";
+                }
+                if(response.data[0].priority == 3)
+                {
+                    $scope.Priority="Urgent";
+                }
+                if(response.data[0].priority == 4)
+                {
+                    $scope.Priority="Criticle";
+                }
+            }
+            else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.EditTicketDetails = {
+            name:'',
+            subject:'',
+            description:'',
+            priority:'',
+            status:'',
+            assignedEmp:'',
+            comments: []
+        };
+
+        $scope.addComments = function () {
+            $scope.EditTicketDetails.comments.push({})
+        };
+
+        $scope.removeComments = function ($index) {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this record in the future',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                closeOnConfirm: true
+            });
+            $scope.EditTicketDetails.comments.splice($index, 1);
+        };
+
+        $scope.updateRaisedTicket = function () {
+            DataService.updateRaised_Ticket($scope.EditTicketDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    /* $state.reload();*/
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.message);
+            })
+        };
 
         $scope.cancelUpdateTickets = function () {
             sweet.show({
