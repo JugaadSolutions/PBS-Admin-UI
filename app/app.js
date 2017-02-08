@@ -66,8 +66,10 @@
             smartCardForEmployee: 'assigncard',
             save: 'employee',
             update: 'employee',
-            delete: 'employee'
+            delete: 'employee',
+            getAllDept:'employee/departments'
         },
+
 
         registrationstaff:{
             save: 'registrationstaff',

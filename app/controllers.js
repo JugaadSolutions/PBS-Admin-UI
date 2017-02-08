@@ -10,7 +10,7 @@
     /*newly added*/
     var login_email;
     var login_id;
-
+    var login_role;
     app.controller('PBSController', ['$scope', '$state', 'auth', 'AWS', '$rootScope', function ($scope, $state, auth, AWS, $rootScope) {
 
         $scope.$on('userInfo', function (event, user) {
@@ -18,6 +18,7 @@
            /* $scope.admin = user.role !== 'employee';*/
             $scope.admin = user.role !== 'member';
             $scope.role = user.role;
+            login_role = user.role;
             /*newly added*/
             $scope.email=user.email;
             login_email = user.email;
@@ -982,13 +983,105 @@
             user:_searched_member_id,
             subject:'',
             description:'',
-            channels:1,
+            channel:1,
             priority:'',
             department:'',
-            tickettype:'',
+            /*tickettype:'',*/
+            assignedEmp:'',
             ticketdate:new Date(),
             createdBy:_login_id,
         };
+
+        /*var emp_dept;
+        $scope.Employees = [];
+        $scope.selectedDept =function(department){
+            if(department === 'Registration Member Staff')
+            {
+                emp_dept = 'registrationstaff';
+            }
+            if(department === 'Redistribution Member Staff')
+            {
+                emp_dept = 'rvstaff';
+            }
+            if(department === 'Maintenance Center Staff')
+            {
+                emp_dept = 'mcstaff';
+            }
+            if(department === 'Holding Area Staff')
+            {
+                emp_dept = 'hastaff';
+            }
+            if(department === 'Operator')
+            {
+                emp_dept = 'operator';
+            }
+            if(department === 'Accounts Admin')
+            {
+                emp_dept = 'accountstaff';
+            }
+            if(department === 'Monitor Group')
+            {
+                emp_dept = 'monitorgrp';
+            }
+            DataService.getEmp(emp_dept).then(function (response) {
+                if (!response.error) {
+                   for(var i=0;i<response.data.length;i++)
+                   {
+                       $scope.Employees.push(response.data[i]);
+                   }
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.selectedEmp = function (data) {
+            $scope.raiseTicketsDetails.assignedEmp = data._id;
+        };*/
+
+        $scope.EmpDepartments = [];
+
+        DataService.getEmpDept().then(function (response) {
+            if (!response.error) {
+                for(var i=0;i<response.data.value.length;i++)
+                {
+                    $scope.EmpDepartments.push(response.data.value[i]);
+                }
+
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.selecteDept = function (department) {
+            $scope.raiseTicketsDetails.department=department.department;
+            var _dept=department.uri;
+            $scope.Employees=[];
+            DataService.getEmp(_dept).then(function (response) {
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.Employees.push(response.data[i]);
+                    }
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            });
+        /*};*/
+        };
+
+        $scope.selectedEmp = function (data)
+        {
+            $scope.raiseTicketsDetails.assignedEmp=data._id;
+        }
 
 
         $scope.addNewTicketDetails = function () {
@@ -1002,6 +1095,8 @@
                 growl.error(response.data.description['0']);
             })
         };
+
+
 
         $scope.departmentNames = [];
         $scope.valueSelections = [];
@@ -1402,6 +1497,26 @@
             }, function (response) {
                /* growl.error(response.data.description['0']);*/
             })
+        };
+
+        $scope.EmpDepartments = [];
+
+        DataService.getEmpDept().then(function (response) {
+            if (!response.error) {
+                for(var i=0;i<response.data.value.length;i++)
+                {
+                    $scope.EmpDepartments.push(response.data.value[i]);
+                }
+
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.selectedEmp = function (data) {
+            $scope.employee.department = data.uri;
         };
 
         $scope.cancelAddEmployee = function () {
@@ -4283,6 +4398,10 @@
     /*Tickets*/
     app.controller('ManageTicketsDetails', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
+        if(login_role == 'admin')
+        {
+
+        }
         $scope.ticketsDetails = [];
 
         var _status="Open";

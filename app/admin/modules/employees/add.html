@@ -1078,21 +1078,19 @@
                                         </div>
                                     </dd>
                                 </dl>
-                                <dl class="dl-horizontal required">
+                              <!--  <dl class="dl-horizontal required">
                                     <dt class="p-t-10">Department</dt>
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': EmployeeForm.department.$touched && EmployeeForm.department.$invalid }">
-                                           <!-- <input type="text" name="department" ng-model="employee.department"
+                                           &lt;!&ndash; <input type="text" name="department" ng-model="employee.department"
                                                    class="form-control"
-                                                   placeholder="eg. Maintenance" required>-->
+                                                   placeholder="eg. Maintenance" required>&ndash;&gt;
                                             <select chosen class="form-control" ng-model="employee.department"
                                                     name="department"  placeholder="eg. Maintenance"  required>
                                                 <option ng-value="RegisteredMemberStaff">Registration Member Staff</option>
                                                 <option ng-value="RedistributionMemberStaff">Redistribution Member Staff</option>
                                                 <option ng-value="MaintenenceMemberStaff">Maintenance Center Staff</option>
-                                               <!-- <option ng-value="InformationTechnologyStaff">Information Technology Staff</option>
-                                                <option ng-value="DockingStationRepairStaff">Docking Station Repair Staff</option>-->
                                                 <option ng-value="HoldingAreaStaff">Holding Area Staff</option>
                                                 <option ng-value="Operator">Operator</option>
                                                 <option ng-value="AccountsAdmin">Accounts Admin</option>
@@ -1105,7 +1103,22 @@
                                             </span>
                                         </div>
                                     </dd>
+                                </dl>-->
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10">Departments</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen class="form-control"
+                                                    ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
+                                                    ng-model="empName"
+                                                    ng-change="selectedEmp(empName)" required>
+                                            </select>
+                                        </div>
+                                    </dd>
                                 </dl>
+
+
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">Experience</dt>
                                     <dd>

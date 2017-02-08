@@ -185,10 +185,22 @@
                 });
                 return deferred.promise;
             },
+
+            // selecting the employee to raise a ticket based on the department
+            getEmp: function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.employee.get + '/' + data + '/' + "emp").then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             saveEmployee: function (data) {
                 var deferred = $q.defer();
-                var _department = data.department;
-                var _url;
+                var _url = data.department;
+                /*var _url;
                 if (_department  === 'Registration Member Staff')
                 {
                     _url = 'registrationstaff';
@@ -229,9 +241,8 @@
                 else
                 {
 
-                }
-
-                $http.post(APINew + APIEndPoint.employee.save + '/' + _url  , data).then(function (result) {
+                }*/
+                $http.post(APINew + APIEndPoint.employee.save + '/' + _url , data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -861,6 +872,29 @@
                 });
                 return deferred.promise;
             },
+
+        /*    getEmpDept: function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.employee.getAllDept).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },*/
+
+            getEmpDept: function (filters) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.employee.getAllDept, {
+                    params: filters
+                }).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
 
             /*bank cash deposit details*/
             getBankCashDepositDetails: function () {

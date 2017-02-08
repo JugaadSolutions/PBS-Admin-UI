@@ -305,7 +305,7 @@
                 </dd>
             </dl>
 
-            <dl class="dl-horizontal required">
+            <!--<dl class="dl-horizontal required">
                 <dt class="p-t-10">Department</dt>
                 <dd>
                     <div class="fg-line">
@@ -318,9 +318,9 @@
                         </select>
                     </div>
                 </dd>
-            </dl>
+            </dl>-->
 
-            <dl class="dl-horizontal required">
+            <!--<dl class="dl-horizontal required">
                 <dt class="p-t-10">Type</dt>
                 <dd>
                     <div class="fg-line">
@@ -333,8 +333,58 @@
                         </select>
                     </div>
                 </dd>
+            </dl>-->
+
+          <!--  <dl class="dl-horizontal required">
+                <dt class="p-t-10">Department</dt>
+                <dd>
+                    <div class="fg-line"
+                         ng-class="{ 'has-error': EmployeeForm.department.$touched && EmployeeForm.department.$invalid}">
+                        <select chosen class="form-control" ng-model="department"
+                                name="department"  placeholder="eg. Maintenance"  ng-change="selectedDept(department)" required>
+                            <option ng-value="RegisteredMemberStaff">Registration Member Staff</option>
+                            <option ng-value="RedistributionMemberStaff">Redistribution Member Staff</option>
+                            <option ng-value="MaintenenceMemberStaff">Maintenance Center Staff</option>
+                            <option ng-value="HoldingAreaStaff">Holding Area Staff</option>
+                            <option ng-value="Operator">Operator</option>
+                            <option ng-value="AccountsAdmin">Accounts Admin</option>
+                            <option ng-value="MonitorGroup">Monitor Group</option>
+                        </select>
+                    </div>
+                </dd>
+            </dl>-->
+
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10">Departments</dt>
+                <dd>
+                    <div class="fg-line">
+                        <select chosen class="form-control"
+                                ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
+                                ng-model="dept"
+                                ng-change="selecteDept(dept)" required>
+                        </select>
+                    </div>
+                </dd>
             </dl>
 
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10">Employee</dt>
+                <dd>
+                    <div class="fg-line">
+                        <select chosen class="form-control"
+                                ng-options="Employee as Employee.Name for Employee in Employees"
+                                ng-model="empName"
+                                ng-change="selectedEmp(empName)" required>
+                        </select>
+
+                        <!--  <select chosen class="form-control"
+                                  ng-options="staffSelection as staffSelection.name for staffSelection in staffSelections">
+                                  ng-model="name"
+                               ng-change="">
+                          </select>-->
+                    </div>
+                </dd>
+            </dl>
 
         </div>
         <div class="modal-footer">
