@@ -18,12 +18,12 @@
     </div>
 
     <div class="card" id="profile-main">
-        <div class="pm-overview c-overflow">
+     <!--   <div class="pm-overview c-overflow">
             <div class="pmo-pic">
                 <div class="p-relative">
                     <div class="fileinput fileinput-new">
                         <div class="fileinput-preview thumbnail">
-                          <!--  <img src="assets/images/no-maps.png">-->
+                          &lt;!&ndash;  <img src="assets/images/no-maps.png">&ndash;&gt;
                             <div class="map-view">
                                 <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
                                     <ui-gmap-markers models="markers" coords="'self'" icon="'icon'">
@@ -102,7 +102,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <div class="pm-body clearfix">
             <form class="pmbb-edit" name="AddRedistributionVehicle">
@@ -150,7 +150,7 @@
                                     </dd>
                                 </dl>-->
 
-                                <dl class="dl-horizontal required">
+                                <dl class="dl-horizontal">
                                     <dt class="p-t-10">Redistribution Stations</dt>
                                     <dd>
                                         <div class="fg-line">
@@ -290,7 +290,7 @@
                                                 <input type="text" name="latitude"
                                                        ng-model="redistributionVehicle.gpsCoordinates.latitude"
                                                        class="form-control input-sm form-inline"
-                                                       placeholder="Latitude" chars="only-numbers"  required>
+                                                       placeholder="Latitude" chars="only-numbers">
                                                 <span class="help-block"
                                                       ng-messages="AddRedistributionVehicle.latitude.$error"
                                                       ng-show="AddRedistributionVehicle.latitude.$touched">
@@ -302,7 +302,7 @@
                                             <div class="fg-line">
                                                 <input type="text" name="longitude" class="form-control input-sm form-inline"
                                                        ng-model="redistributionVehicle.gpsCoordinates.longitude"
-                                                       placeholder="Longitude" chars="only-numbers"  required>
+                                                       placeholder="Longitude" chars="only-numbers">
                                                 <span class="help-block"
                                                       ng-messages="AddRedistributionVehicle.longitude.$error"
                                                       ng-show="AddRedistributionVehicle.longitude.$touched">

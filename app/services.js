@@ -1265,9 +1265,32 @@
                 return deferred.promise;
             },
 
+            saveTicketReply:function(data)
+            {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.ticketsDetails.reply + '/' + data.ticketid + '/' + "addreply", data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+
             updateRaised_Ticket: function (data) {
                 var deferred = $q.defer();
                 $http.put(APINew + APIEndPoint.ticketsDetails.update + '/' + data._id, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getTicketTypes:function(data)
+            {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.globalKeyNameValue.get + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

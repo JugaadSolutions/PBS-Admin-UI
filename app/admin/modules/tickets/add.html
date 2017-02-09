@@ -376,12 +376,19 @@
                                 ng-model="empName"
                                 ng-change="selectedEmp(empName)" required>
                         </select>
+                    </div>
+                </dd>
+            </dl>
 
-                        <!--  <select chosen class="form-control"
-                                  ng-options="staffSelection as staffSelection.name for staffSelection in staffSelections">
-                                  ng-model="name"
-                               ng-change="">
-                          </select>-->
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10">Type</dt>
+                <dd>
+                    <div class="fg-line">
+                        <select chosen class="form-control"
+                                ng-options="TicketType as TicketType for TicketType in TicketTypes"
+                                ng-model="ticketType"
+                                ng-change="selectedType(ticketType)" required>
+                        </select>
                     </div>
                 </dd>
             </dl>

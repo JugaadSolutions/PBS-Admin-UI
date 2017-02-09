@@ -213,7 +213,8 @@
           save:'tickets',
             get:'tickets',
             getAll:'tickets/ticketinfo',
-            update:'tickets'
+            update:'tickets',
+            reply:'tickets'
 
         },
 

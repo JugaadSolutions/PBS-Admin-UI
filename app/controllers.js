@@ -986,7 +986,7 @@
             channel:1,
             priority:'',
             department:'',
-            /*tickettype:'',*/
+            tickettype:'',
             assignedEmp:'',
             ticketdate:new Date(),
             createdBy:_login_id,
@@ -1068,6 +1068,26 @@
                     {
                         $scope.Employees.push(response.data[i]);
                     }
+
+                    // dataservice to fetch ticket typer based on department
+                    if($scope.raiseTicketsDetails.department === 'Registration')
+                    {
+                        var _ticket_type='Registration-ticket-types';
+                    }
+                    $scope.TicketTypes=[];
+                    DataService.getTicketTypes(_ticket_type).then(function (response) {
+                        if (!response.error) {
+                            for(var i=0;i<response.data.value.length;i++)
+                            {
+                                $scope.TicketTypes.push(response.data.value[i])
+                            }
+                        } else {
+                            growl.error(response.message);
+                        }
+                    }, function (response) {
+                        growl.error(response.data.description['0']);
+                    });
+
                     growl.success(response.message);
                 } else {
                     growl.error(response.message);
@@ -1075,12 +1095,16 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             });
-        /*};*/
         };
 
         $scope.selectedEmp = function (data)
         {
             $scope.raiseTicketsDetails.assignedEmp=data._id;
+        }
+
+        $scope.selectedType = function (data)
+        {
+            $scope.raiseTicketsDetails.tickettype=data;
         }
 
 
@@ -4432,7 +4456,6 @@
         DataService.getRaisedTickets($scope.requestForTickets).then(function (response) {
             if (!response.error) {
                 $scope.RaisedTickets = response.data;
-                $scope.status = "Normal";
             } else {
                 growl.error(response.message);
             }
@@ -4584,11 +4607,24 @@
     app.controller('EditTickets', ['$scope', '$state','$stateParams', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state,$stateParams, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.RaisedTicket = {};
+        $scope.ReplyDescriptions=[];
+        $scope.ReplyFromanddates=[];
+
+        var _ticket_id = $stateParams.id;
 
         DataService.getRaisedTicket($stateParams.id).then(function (response) {
             if (!response.error)
             {
-                $scope.RaisedTicket = response.data[0];
+                $scope.RaisedTicket = response.data[0]
+                var i=0
+                for(i=0;i<response.data[0].transactions.length;i++)
+                {
+                    $scope.ReplyDescriptions.push(response.data[0].transactions[i]);
+                    $scope.ReplyFromanddates.push(response.data[0].transactions[i].replierId)
+                }
+
+
+                $scope.AssignedTo =  $scope.RaisedTicket.assignedEmp.Name;
                 if(response.data[0].priority == 1)
                 {
                     $scope.Priority="Normal";
@@ -4627,7 +4663,7 @@
             $scope.EditTicketDetails.comments.push({})
         };
 
-        $scope.removeComments = function ($index) {
+        /*$scope.removeComments = function ($index) {
             sweet.show({
                 title: 'Are you sure?',
                 text: 'You will not be able to recover this record in the future',
@@ -4637,7 +4673,7 @@
                 closeOnConfirm: true
             });
             $scope.EditTicketDetails.comments.splice($index, 1);
-        };
+        };*/
 
         $scope.updateRaisedTicket = function () {
             DataService.updateRaised_Ticket($scope.EditTicketDetails).then(function (response) {
@@ -4651,6 +4687,59 @@
                 growl.error(response.message);
             })
         };
+
+        $scope.EmpDepartments = [];
+        DataService.getEmpDept().then(function (response) {
+            if (!response.error) {
+                for(var i=0;i<response.data.value.length;i++)
+                {
+                    $scope.EmpDepartments.push(response.data.value[i]);
+                }
+
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.selecteDept = function (dept) {
+            var _dept=dept.uri;
+            $scope.Employees=[];
+            DataService.getEmp(_dept).then(function (response) {
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.Employees.push(response.data[i]);
+                    }
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            });
+        };
+
+        $scope.replyDetails={
+            ticketid:_ticket_id,
+          replydate:new Date(),
+            description:'',
+            replierId:_login_id,
+            status:''
+        };
+
+        $scope.addReply=function () {
+            DataService.saveTicketReply($scope.replyDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success("Replied successfully");
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            });
+        }
 
         $scope.cancelUpdateTickets = function () {
             sweet.show({
