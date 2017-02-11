@@ -31,10 +31,14 @@
         </div>-->
 
         <div class="pm-body clearfix">
-            <form class="pmbb-edit" name="EditTickets">
                 <div class="pmb-block">
                     <div class="pmbb-header m-t-15">
-                        <dl class="dl-horizontal"> <h1 ng-bind="RaisedTicket.subject"></h1><h4>Open</h4></dl>
+                        <dl class="dl-horizontal"> <h1 ng-bind="RaisedTicket.subject"></h1></dl>
+                        <div>
+                           <label ng-if="RaisedTicket.status === 'Open'">Open</label>
+                            <label ng-if="RaisedTicket.status === 'Close'">Close</label>
+                            <label ng-if="RaisedTicket.status === 'Hold'">Hold</label>
+                        </div>
                       <div class="pmbb-header m-t-15"></div>
                         <h5>By</h5><h3 ng-bind="RaisedTicket.name"></h3><h5>on</h5><h3 ng-bind="RaisedTicket.ticketdate | date:'dd MMM yy'"></h3>
                         <br>
@@ -69,13 +73,15 @@
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal">
+                        <form class="pmbb-edit" name="EditTickets">
+
+                        <dl class="dl-horizontal required">
                             <dt class="p-l-30">Reply</dt>
                             <dd>
                                 <div class="fg-line">
                                         <textarea name="comments"
                                                   ng-model="replyDetails.description" class="form-control"
-                                                  rows="4">
+                                                  rows="4" required>
                             </textarea>
                                 </div>
                             </dd>
@@ -86,7 +92,7 @@
                             <dd>
                                 <div class="fg-line">
                                     <select chosen class="form-control" ng-model="replyDetails.status"
-                                            data-placeholder-text-single="'Select Credit Type'"
+                                            data-placeholder-text-single="'Select Status'"
                                             name="Status">
                                         <option value="Open">Open</option>
                                         <option value="Close">Close</option>
@@ -96,36 +102,30 @@
                             </dd>
                         </dl>
 
-                        <!--<dl class="dl-horizontal">
-                            <dt class="p-l-30">Department</dt>
+                        <dl class="dl-horizontal">
                             <dd>
-                                <div class="fg-line">
-                                    <select chosen class="form-control"
-                                            ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
-                                            ng-model="dept"
-                                            ng-change="selecteDept(dept)" required>
-                                    </select>
+                                <div class="fg-line m-t-10">
+                                    <label class="radio radio-inline m-r-20">
+                                        <input type="radio" name="internal" ng-model="replyDetails.internal" value="0">
+                                        <i class="input-helper"></i>
+                                        Internal usage
+                                    </label>
                                 </div>
                             </dd>
-                        </dl>-->
+                        </dl>
 
-                       <!-- <dl class="dl-horizontal">
-                            <dt class="p-l-30">Employee</dt>
-                            <dd>
-                                <div class="fg-line">
-                                    <select chosen class="form-control"
-                                            ng-options="Employee as Employee.Name for Employee in Employees"
-                                            ng-model="empName"
-                                            ng-change="selectedEmp(empName)" required>
-                                    </select>
-                                </div>
-                            </dd>
-                        </dl>-->
-
+                        <div style="margin-left: 180px">
                         <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                                ng-click="addReply()" ng-disabled="">
+                                ng-click="addReply()" ng-disabled="EditTickets.$invalid">
                             <i class="zmdi zmdi-save"></i> Reply
                         </button>
+
+                        <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                                ng-click="ReassignEmployee()">
+                            <i class="zmdi zmdi-save"></i> Reassign
+                        </button>
+                        </div>
+                        </form>
                     </div>
 
                     <!--<div class="pmbb-body p-l-30">
@@ -187,18 +187,6 @@
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal required">
-                            <dt class="p-t-10">Assign</dt>
-                            <dd>
-                                <div class="fg-line">
-                                    <select chosen class="form-control">
-                                        <option value="Emp1">Emp1</option>
-                                        <option value="Emp2">Emp2</option>
-                                        <option value="Emp3">Emp3</option>
-                                    </select>
-                                </div>
-                            </dd>
-                        </dl>
 
 
                         <div class="plan-wrap" ng-repeat="EditTicketDetails in EditTicketDetails.comments">
@@ -234,8 +222,71 @@
 
                     </div>-->
                 </div>
-            </form>
+
         </div>
     </div>
-
 </div>
+
+<script type="text/ng-template" id="employee-reassign-for-ticket.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Re-assign Employee</h4>
+    </div>
+    <form name="reassignForm">
+    <div class="modal-body">
+        <dl class="dl-horizontal required">
+            <dt class="p-l-30">Department</dt>
+            <dd>
+                <div class="fg-line">
+                    <select chosen class="form-control"
+                            ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
+                            ng-model="dept"
+                            ng-change="selecteDept(dept)" required>
+                    </select>
+                </div>
+            </dd>
+        </dl>
+
+         <dl class="dl-horizontal required">
+             <dt class="p-l-30">Employee</dt>
+             <dd>
+                 <div class="fg-line">
+                     <select chosen class="form-control"
+                             ng-options="Employee as Employee.Name for Employee in Employees"
+                             ng-model="empName"
+                             ng-change="selectedEmp(empName)" required>
+                     </select>
+                 </div>
+             </dd>
+         </dl>
+
+        <dl class="dl-horizontal required">
+            <dt class="p-l-30">Comments</dt>
+            <dd>
+                <div class="fg-line">
+                    <textarea name="comments"
+                              ng-model="reAssignEmployeeDetails.description" class="form-control"
+                              rows="4"
+                              placeholder="Information regarding for employee reassigning" required>
+                    </textarea>
+                </div>
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dd>
+                <div class="fg-line m-t-10">
+                    <label class="radio radio-inline m-r-20">
+                        <input type="radio" name="internal" ng-model="internal">
+                        <i class="input-helper"></i>
+                        Internal usage
+                    </label>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" ng-click="cancelReassignEmployee()">Cancel</button>
+        <button class="btn btn-link" type="button" ng-click="ReassignEmp()" ng-disabled="reassignForm.$invalid">Assign</button>
+    </div>
+    </form>
+</script>

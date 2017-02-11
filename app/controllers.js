@@ -108,8 +108,7 @@
             var token = res.data.data.token;
             _login_id=res.data.data.id;
 
-            $scope.LoginID=res.data.data.uid;
-            localStorage.ID=$scope.LoginID;
+            localStorage.LoginID=_login_id;
 
           /*  alert(_login_id);*/
             if (token) {
@@ -1073,6 +1072,30 @@
                     if($scope.raiseTicketsDetails.department === 'Registration')
                     {
                         var _ticket_type='Registration-ticket-types';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Maintenance')
+                    {
+                        var _ticket_type='';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Redistribution')
+                    {
+                        var _ticket_type='';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Operator')
+                    {
+                        var _ticket_type='';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Monitor-group')
+                    {
+                        var _ticket_type='';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Accounts')
+                    {
+                        var _ticket_type='';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Holding-area')
+                    {
+                        var _ticket_type='';
                     }
                     $scope.TicketTypes=[];
                     DataService.getTicketTypes(_ticket_type).then(function (response) {
@@ -4422,10 +4445,54 @@
     /*Tickets*/
     app.controller('ManageTicketsDetails', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
-        if(login_role == 'admin')
-        {
+        $scope.loginid=localStorage.LoginID;
+        var _logIn_Id=$scope.loginid;
 
+        if(login_role == 'registration-employee')
+        {
+            var _status_emp="Open";
+            var _createdby_emp="All";
+            var _dept_emp="All";
+            var _ticket_type_emp="All";
+            var _to_date_emp=new Date();
+            var d_emp = new Date();
+            d_emp.setDate(d_emp.getDate() - 15);
+
+            $scope.requestForTicketsEmployee={
+                status:_status_emp,
+                createdBy:_createdby_emp,
+                assignedEmp:_logIn_Id,
+                todate:_to_date_emp,
+                fromdate:d_emp,
+                department:_dept_emp,
+                tickettype:_ticket_type_emp
+            };
+
+            $scope.RaisedTicketsAssigned=[];
+            DataService.getAssignedTickets($scope.requestForTicketsEmployee).then(function (response) {
+                if (!response.error) {
+                    $scope.RaisedTicketsAssigned = response.data;
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            });
+
+            $scope.raisedTicketsTableAssigned = new NgTableParams(
+                {
+                    count: 10
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.RaisedTicketsAssigned, params.filter()) : $scope.RaisedTicketsAssigned;
+                        params.total(orderedData.length);
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
         }
+
         $scope.ticketsDetails = [];
 
         var _status="Open";
@@ -4439,7 +4506,7 @@
 
         $scope.requestForTickets={
           status:_status,
-            createdBy:_login_id,
+            createdBy:_logIn_Id,
             assignedEmp:_assigned,
             todate:_to_date,
             fromdate:d,
@@ -4604,13 +4671,14 @@
 
     }]);
 
-    app.controller('EditTickets', ['$scope', '$state','$stateParams', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state,$stateParams, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    var _ticket_id
+    app.controller('EditTickets', ['$scope', '$state','$stateParams', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state,$stateParams, DataService, NgTableParams, growl, sweet, $filter, $uibModal,StatusService)
     {
         $scope.RaisedTicket = {};
         $scope.ReplyDescriptions=[];
         $scope.ReplyFromanddates=[];
 
-        var _ticket_id = $stateParams.id;
+         _ticket_id = $stateParams.id;
 
         DataService.getRaisedTicket($stateParams.id).then(function (response) {
             if (!response.error)
@@ -4663,29 +4731,85 @@
             $scope.EditTicketDetails.comments.push({})
         };
 
-        /*$scope.removeComments = function ($index) {
-            sweet.show({
-                title: 'Are you sure?',
-                text: 'You will not be able to recover this record in the future',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                closeOnConfirm: true
-            });
-            $scope.EditTicketDetails.comments.splice($index, 1);
-        };*/
+        $scope.replyDetails={
+            ticketid:_ticket_id,
+            replydate:new Date(),
+            description:'',
+            replierId:_login_id,
+            status:'',
+            internal:''
+        };
 
-        $scope.updateRaisedTicket = function () {
-            DataService.updateRaised_Ticket($scope.EditTicketDetails).then(function (response) {
+        if($scope.replyDetails.status == '')
+        {
+            var _ticketstatus="Open";
+
+            $scope.replyDetails={
+                ticketid:_ticket_id,
+                replydate:new Date(),
+                description:'',
+                replierId:_login_id,
+                status:_ticketstatus,
+                internal:''
+            };
+        }
+        else {
+            $scope.replyDetails={
+                ticketid:_ticket_id,
+                replydate:new Date(),
+                description:'',
+                replierId:_login_id,
+                status:'',
+                internal:''
+            };
+        }
+
+        $scope.addReply=function () {
+            DataService.saveTicketReply($scope.replyDetails).then(function (response) {
                 if (!response.error) {
-                    growl.success(response.message);
-                    /* $state.reload();*/
+                    growl.success("Replied successfully");
                 } else {
                     growl.error(response.message);
                 }
             }, function (response) {
-                growl.error(response.message);
-            })
+                growl.error(response.data.description['0']);
+            });
+        }
+
+        $scope.cancelUpdateTickets = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.tickets.manage');
+            });
+        };
+
+        $scope.ReassignEmployee=function (size) {
+            $uibModal.open({
+                templateUrl: 'employee-reassign-for-ticket.html',
+                controller: 'EmployeeReassign',
+                size: size,
+                resolve: {
+                    items: function () {
+                    }
+                }
+            });
+        }
+
+    }]);
+
+    // employee reassign for tickets
+    app.controller('EmployeeReassign', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal','$uibModalInstance', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal,$uibModalInstance, StatusService)
+    {
+
+        $scope.UpdateRaisedTicket={
+            ticketid:_ticket_id,
+            assignedEmp:''
         };
 
         $scope.EmpDepartments = [];
@@ -4721,38 +4845,51 @@
             });
         };
 
-        $scope.replyDetails={
+        $scope.selectedEmp = function (data)
+        {
+            $scope.UpdateRaisedTicket.assignedEmp=data._id;
+        }
+
+
+
+        var _internal_value=0;
+        $scope.reAssignEmployeeDetails={
             ticketid:_ticket_id,
-          replydate:new Date(),
-            description:'',
             replierId:_login_id,
-            status:''
+            internal:_internal_value,
+            replydate:new Date(),
+            description:''
         };
 
-        $scope.addReply=function () {
-            DataService.saveTicketReply($scope.replyDetails).then(function (response) {
+
+        $scope.ReassignEmp=function () {
+            DataService.saveReassignEmployee($scope.reAssignEmployeeDetails).then(function (response) {
                 if (!response.error) {
-                    growl.success("Replied successfully");
+                    growl.success("Reassigned Successfully");
+                    $uibModalInstance.dismiss();
                 } else {
                     growl.error(response.message);
                 }
             }, function (response) {
-                growl.error(response.data.description['0']);
+                growl.error("");
             });
-        }
 
-        $scope.cancelUpdateTickets = function () {
-            sweet.show({
-                title: 'Are you sure?',
-                text: 'You may have unsaved data',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, leave!',
-                closeOnConfirm: true
-            }, function () {
-                $state.go('admin.tickets.manage');
-            });
-        };
+                DataService.updateRaised_Ticket($scope.UpdateRaisedTicket).then(function (response) {
+                    if (!response.error) {
+                        growl.success("Updated successfully");
+                        $uibModalInstance.dismiss();
+                    } else {
+                        growl.error(response.message);
+                    }
+                }, function (response) {
+                    growl.error(response.message);
+                })
+            };
+
+
+        $scope.cancelReassignEmployee=function () {
+            $uibModalInstance.dismiss();
+        }
     }]);
 
     //check in check out

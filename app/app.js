@@ -214,8 +214,8 @@
             get:'tickets',
             getAll:'tickets/ticketinfo',
             update:'tickets',
-            reply:'tickets'
-
+            reply:'tickets',
+            assigned:'tickets/assignedinfo'
         },
 
         searchmember:{

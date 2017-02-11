@@ -1255,6 +1255,17 @@
                 return deferred.promise;
             },
 
+            getAssignedTickets:function(data)
+            {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.ticketsDetails.assigned, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getRaisedTicket: function (data) {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.ticketsDetails.get + '/' + data).then(function (result) {
@@ -1277,9 +1288,21 @@
             },
 
 
+            // saving reassigned employee as a reply
+            saveReassignEmployee:function(data)
+            {
+            var deferred = $q.defer();
+            $http.post(APINew + APIEndPoint.ticketsDetails.reply + '/' + data.ticketid + '/' + "addreply", data).then(function (result) {
+                deferred.resolve(result.data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+            },
+
             updateRaised_Ticket: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.ticketsDetails.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.ticketsDetails.update + '/' + data.ticketid, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
