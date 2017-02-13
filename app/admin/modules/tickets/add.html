@@ -361,7 +361,7 @@
                         <select chosen class="form-control"
                                 ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
                                 ng-model="dept"
-                                ng-change="selecteDept(dept)" required>
+                                ng-change="selecteDept(dept)">
                         </select>
                     </div>
                 </dd>
@@ -374,7 +374,7 @@
                         <select chosen class="form-control"
                                 ng-options="Employee as Employee.Name for Employee in Employees"
                                 ng-model="empName"
-                                ng-change="selectedEmp(empName)" required>
+                                ng-change="selectedEmp(empName)">
                         </select>
                     </div>
                 </dd>
@@ -387,7 +387,7 @@
                         <select chosen class="form-control"
                                 ng-options="TicketType as TicketType for TicketType in TicketTypes"
                                 ng-model="ticketType"
-                                ng-change="selectedType(ticketType)" required>
+                                ng-change="selectedType(ticketType)">
                         </select>
                     </div>
                 </dd>

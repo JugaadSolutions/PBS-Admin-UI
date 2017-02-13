@@ -13,7 +13,7 @@
         <div class="card" id="profile-main">
             <form class="pmbb-edit" name="MemberForm" novalidate>
                 <uib-tabset justified="true">
-                    <uib-tab heading="Tickets Assigned to You">
+                   <!-- <uib-tab heading="Tickets Assigned to You">
                         <div class="card-body">
                             <div class="table-responsive" >
                                 <table ng-table="raisedTicketsTableAssigned" class="table table-striped table-vmiddle" show-filter="true">
@@ -40,8 +40,8 @@
                                 </table>
                             </div>
                         </div>
-                    </uib-tab>
-                    <uib-tab heading="Tickets Created By You">
+                    </uib-tab>-->
+                    <!--<uib-tab heading="Tickets Created By You">
                         <div class="card-body">
                             <div class="table-responsive" >
                                 <table ng-table="raisedTicketsTable" class="table table-striped table-vmiddle" show-filter="true">
@@ -71,38 +71,79 @@
                                 </table>
                             </div>
                         </div>
-                    </uib-tab>
-                    <uib-tab heading="Unassigned Tickets">
+                    </uib-tab>-->
+                   <!-- <uib-tab heading="Unassigned Tickets" ng-if="loginRole == 'admin'">
                         <div class="card-body">
                             <div class="table-responsive" >
-                                <table ng-table="raisedTicketsTable" class="table table-striped table-vmiddle" show-filter="true">
-                                    <tr ng-repeat="tickets in RaisedTickets">
+                                <table ng-table="UnassignedTicketsTable" class="table table-striped table-vmiddle" show-filter="true">
+                                    <tr ng-repeat="unassign in UnassignedTickets">
                                         <td data-title="'Date'" filter="{ ticketdate: 'text'}">
-                                            {{tickets.ticketdate | date : "dd MMM yy"}}
+                                            {{unassign.ticketdate | date : "dd MMM yy"}}
                                         </td>
                                         <td data-title="'From'" filter="{ name: 'text'}">
-                                            {{tickets.name}}
+                                            {{unassign.name}}
                                         </td>
                                         <td data-title="'Ticket Subject'" filter="{ subject: 'text'}">
-                                            <a ui-sref="admin.tickets.edit({id: tickets._id})">{{tickets.subject}}</a>
+                                            <a ui-sref="admin.tickets.edit({id: unassign._id})">{{unassign.subject}}</a>
                                         </td>
                                         <td data-title="'Priority'" filter="{ priority: 'text'}">
-                                            {{tickets.priority}}
+                                            {{unassign.priority}}
                                         </td>
                                         <td data-title="'Department'" filter="{ department: 'text'}">
-                                            {{tickets.department}}
+                                            {{unassign.department}}
                                         </td>
-                                        <!-- <td data-title="'Type'" filter="{ 'Type': 'text'}">
-                                             {{tickets.type}}
-                                         </td>-->
                                         <td data-title="'STATUS'" filter="{ status: 'text'}">
-                                            {{tickets.status}}
+                                            {{unassign.status}}
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
+                    </uib-tab>-->
+
+                    <uib-tab heading="Tickets Created">
+                        <div class="card-body">
+                            <div class="table-responsive" >
+                                <table ng-table="GeneralTable" class="table table-striped table-vmiddle" show-filter="false">
+                                    <tr ng-repeat="assigntome in RaisedTickets">
+                                        <td data-title="'Date'" filter="{ ticketdate: 'text'}">
+                                            {{assigntome.ticketdate | date : "dd MMM yy"}}
+                                        </td>
+                                        <td data-title="'From'" filter="{ name: 'text'}">
+                                            {{assigntome.name}}
+                                        </td>
+                                        <td data-title="'Ticket Subject'" filter="{ subject: 'text'}">
+                                            <a ui-sref="admin.tickets.edit({id: assigntome._id})">{{assigntome.subject}}</a>
+                                        </td>
+                                        <td data-title="'Priority'" filter="{ priority: 'text'}">
+                                            {{assigntome.priority}}
+                                        </td>
+                                        <td data-title="'Department'" filter="{ department: 'text'}">
+                                            {{assigntome.department}}
+                                        </td>
+                                        <td data-title="'STATUS'" filter="{ status: 'text'}">
+                                            {{assigntome.status}}
+                                        </td>
+                                        <td data-title="'Assigned To'" filter="{ 'Type': 'text'}">
+                                            {{tickets.assignedEmp.Name}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn btn-icon-text btn-success waves-effect" ng-click="GetTickets('LoginId','All','Open')">Open Tickets</button>
+                        <button class="btn btn-icon-text btn-success waves-effect" ng-click="GetTickets('All','LoginId','Open')"> Tickets Assigned To Me</button>
+                        <button class="btn btn-icon-text btn-success waves-effect" ng-click="GetTickets('All','None','Open')" ng-if="loginRole == 'admin'">Unassigned Tickets</button>
+                        <button class="btn btn-icon-text btn-success waves-effect" ng-click="GetTickets('All','LoginId','Hold')">Tickets Paused By Me</button>
+                        <button class="btn btn-icon-text btn-success waves-effect" ng-click="GetTickets('LoginId','All','Hold')">My Paused Tickets</button>
+                        <button class="btn btn-icon-text btn-success waves-effect" ng-click="GetTickets('All','LoginId','Close')">Tickets Closed By Me</button>
+                        <button class="btn btn-icon-text btn-success waves-effect" ng-click="GetTickets('All','LoginId','Close')">Tickets Closed By Me</button>
+                        <br>
+                        <br>
+                        <button class="btn btn-icon-text btn-success waves-effect" ng-click="GetTickets('LoginId','All','Close')">My Closed Tickets</button>
                     </uib-tab>
+
                 </uib-tabset>
             </form>
         </div>

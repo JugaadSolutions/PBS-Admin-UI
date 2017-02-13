@@ -19,6 +19,8 @@
             $scope.admin = user.role !== 'member';
             $scope.role = user.role;
             login_role = user.role;
+
+            localStorage.LoginRole=login_role;
             /*newly added*/
             $scope.email=user.email;
             login_email = user.email;
@@ -991,6 +993,35 @@
             createdBy:_login_id,
         };
 
+        if($scope.raiseTicketsDetails.department == '' || $scope.raiseTicketsDetails.tickettype || $scope.raiseTicketsDetails.assignedEmp)
+        {
+            $scope.raiseTicketsDetails = {
+                name:_global_search_member_name,
+                user:_searched_member_id,
+                subject:'',
+                description:'',
+                channel:1,
+                priority:'',
+                ticketdate:new Date(),
+                createdBy:_login_id,
+            };
+        }
+        else
+        {
+            $scope.raiseTicketsDetails = {
+                name:_global_search_member_name,
+                user:_searched_member_id,
+                subject:'',
+                description:'',
+                channel:1,
+                priority:'',
+                department:'',
+                tickettype:'',
+                assignedEmp:'',
+                ticketdate:new Date(),
+                createdBy:_login_id,
+            };
+        }
         /*var emp_dept;
         $scope.Employees = [];
         $scope.selectedDept =function(department){
@@ -1075,7 +1106,7 @@
                     }
                     if($scope.raiseTicketsDetails.department === 'Maintenance')
                     {
-                        var _ticket_type='';
+                        var _ticket_type='Maintenance';
                     }
                     if($scope.raiseTicketsDetails.department === 'Redistribution')
                     {
@@ -4448,105 +4479,75 @@
         $scope.loginid=localStorage.LoginID;
         var _logIn_Id=$scope.loginid;
 
-        if(login_role == 'registration-employee')
-        {
-            var _status_emp="Open";
-            var _createdby_emp="All";
-            var _dept_emp="All";
-            var _ticket_type_emp="All";
-            var _to_date_emp=new Date();
-            var d_emp = new Date();
-            d_emp.setDate(d_emp.getDate() - 15);
-
-            $scope.requestForTicketsEmployee={
-                status:_status_emp,
-                createdBy:_createdby_emp,
-                assignedEmp:_logIn_Id,
-                todate:_to_date_emp,
-                fromdate:d_emp,
-                department:_dept_emp,
-                tickettype:_ticket_type_emp
-            };
-
-            $scope.RaisedTicketsAssigned=[];
-            DataService.getAssignedTickets($scope.requestForTicketsEmployee).then(function (response) {
-                if (!response.error) {
-                    $scope.RaisedTicketsAssigned = response.data;
-                } else {
-                    growl.error(response.message);
-                }
-            }, function (response) {
-                growl.error(response.data.description['0']);
-            });
-
-            $scope.raisedTicketsTableAssigned = new NgTableParams(
-                {
-                    count: 10
-                },
-                {
-                    getData: function ($defer, params) {
-                        var orderedData = params.filter() ? $filter('filter')($scope.RaisedTicketsAssigned, params.filter()) : $scope.RaisedTicketsAssigned;
-                        params.total(orderedData.length);
-                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                    }
-                }
-            );
-        }
-
-        $scope.ticketsDetails = [];
-
-        var _status="Open";
-        var _assigned="All";
-        var _dept="All";
-        var _ticket_type="All";
-        var _to_date=new Date();
-        var d = new Date();
-        d.setDate(d.getDate() - 15);
-
-
-        $scope.requestForTickets={
-          status:_status,
-            createdBy:_logIn_Id,
-            assignedEmp:_assigned,
-            todate:_to_date,
-            fromdate:d,
-            department:_dept,
-            tickettype:_ticket_type
-        };
+        $scope.loginRole=localStorage.LoginRole;
+        var _login_role=$scope.loginRole;
 
         $scope.addNewTicketDetails = function () {
             $state.go('admin.tickets.add');
         };
 
-        $scope.RaisedTickets = [];
-
-        DataService.getRaisedTickets($scope.requestForTickets).then(function (response) {
-            if (!response.error) {
-                $scope.RaisedTickets = response.data;
-            } else {
-                growl.error(response.message);
-            }
-        }, function (response) {
-            growl.error(response.data.description['0']);
-        });
-
-        $scope.raisedTicketsTable = new NgTableParams(
+        // new process
+        $scope.GetTickets=function (created,assign,status)
+        {
+            if(created == 'LoginId')
             {
-                count: 10
-            },
-            {
-                getData: function ($defer, params) {
-                    var orderedData = params.filter() ? $filter('filter')($scope.RaisedTickets, params.filter()) : $scope.RaisedTickets;
-                    params.total(orderedData.length);
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                created = _logIn_Id;
+                if (_login_role == 'admin') {
+                    created = "All";
+
                 }
-            }
-        );
 
-       /* $scope.EditTickets = function (_id) {
-            $state.go('admin.tickets.edit', {'id': _id});
-        };
-*/
+            }
+
+            if(assign == 'LoginId')
+            {
+                assign = _logIn_Id;
+
+            }
+
+
+                var _dept_admin="All";
+                var _ticket_type_admin="All";
+                var _to_date_admin=new Date();
+                var _from_date_admin = new Date();
+                _from_date_admin.setDate(_from_date_admin.getDate() - 15);
+
+                $scope.ticketsCreatedAll={
+                    createdBy:created,
+                    assignedEmp:assign,
+                    status:status,
+                    todate:_to_date_admin,
+                    fromdate:_from_date_admin,
+                    department:_dept_admin,
+                    tickettype:_ticket_type_admin,
+                    user:'All'
+                };
+
+                DataService.getRaisedTickets($scope.ticketsCreatedAll).then(function (response) {
+                    if (!response.error) {
+                        $scope.RaisedTickets = [];
+                        $scope.RaisedTickets = response.data;
+                        $scope.GeneralTable = new NgTableParams(
+                            {
+                                count: 10
+                            },
+                            {
+                                getData: function ($defer, params) {
+                                    var orderedData = params.filter() ? $filter('filter')($scope.RaisedTickets, params.filter()) : $scope.RaisedTickets;
+                                    /* params.total(orderedData.length);
+                                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));*/
+                                }
+                            }
+                        );
+
+                    } else {
+                        growl.error(response.message);
+                    }
+                }, function (response) {
+                    growl.error(response.data.description['0']);
+                });
+
+        }
 
     }]);
 

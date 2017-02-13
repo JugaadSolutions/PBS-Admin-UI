@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="card" id="profile-main">
+    <!--<div class="card" id="profile-main">-->
        <!-- <div class="pm-overview c-overflow">
             <div class="pmo-pic">
                 <div class="p-relative">
@@ -29,18 +29,27 @@
                 </div>
             </div>
         </div>-->
+    <div class="card">
+        <div class="ch-alt m-b-0">
+            <h1 ng-bind="RaisedTicket.subject"> </h1>
+    <h2 ng-bind="RaisedTicket.name"></h2>
+            <div class="actions m-t-40">
 
+            <label ng-bind="RaisedTicket.status"></label>
+            </div>
+        </div>
+
+
+
+
+        <div class="card" id="profile-main">
         <div class="pm-body clearfix">
                 <div class="pmb-block">
-                    <div class="pmbb-header m-t-15">
-                        <dl class="dl-horizontal"> <h1 ng-bind="RaisedTicket.subject"></h1></dl>
-                        <div>
-                           <label ng-if="RaisedTicket.status === 'Open'">Open</label>
-                            <label ng-if="RaisedTicket.status === 'Close'">Close</label>
-                            <label ng-if="RaisedTicket.status === 'Hold'">Hold</label>
-                        </div>
+                    <div class="pmbb-header m-t-30">
+                        <dl class="dl-horizontal"> </h1></dl>
+
                       <div class="pmbb-header m-t-15"></div>
-                        <h5>By</h5><h3 ng-bind="RaisedTicket.name"></h3><h5>on</h5><h3 ng-bind="RaisedTicket.ticketdate | date:'dd MMM yy'"></h3>
+                        <h5>By</h5><h5>on</h5><h3 ng-bind="RaisedTicket.ticketdate | date:'dd MMM yy'"></h3>
                         <br>
                         <dl class="dl-horizontal">
                             <dt class="p-l-30">Description</dt>
@@ -221,11 +230,12 @@
                         </div>
 
                     </div>-->
-                </div>
+                <!--</div>-->
 
         </div>
     </div>
 </div>
+    </div>
 
 <script type="text/ng-template" id="employee-reassign-for-ticket.html">
     <div class="modal-header">
