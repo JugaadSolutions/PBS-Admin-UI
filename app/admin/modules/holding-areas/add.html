@@ -31,7 +31,7 @@
         </div>
 
         <div class="pm-body clearfix">
-            <form class="pmbb-edit" name="AddHoldingArea">
+            <form class="pmbb-edit" name="AddHoldingArea" novalidate>
                 <div class="pmb-block">
                     <div class="pmbb-header m-t-15">
                         <h2><i class="zmdi zmdi-collection-item m-r-10"></i>Holding Area Information</h2>
@@ -139,13 +139,19 @@
                         <dl class="dl-horizontal required">
                             <dt class="p-t-10">Status</dt>
                             <dd>
-                                <div class="fg-line">
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': AddHoldingArea.status.$touched && AddHoldingArea.status.$invalid }">
                                     <select chosen class="form-control" ng-model="holdingArea.status" name="status"
-                                            data-placeholder-text-single="'Select Area Status'">
+                                            data-placeholder-text-single="'Select Area Status'" required>
                                         <option ng-value="0">Operational</option>
                                         <option ng-value="1">Non-Operational</option>
                                         <option ng-value="-1">Shutdown</option>
                                     </select>
+                                    <span class="help-block"
+                                          ng-messages="AddHoldingArea.status.$error"
+                                          ng-show="AddHoldingArea.status.$touched">
+                                                <small ng-message="required">Holding Area Name is required</small>
+                                            </span>
                                 </div>
                             </dd>
                         </dl>

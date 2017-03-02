@@ -533,7 +533,6 @@
                                                     <input type="tel" name="phoneNumber"
                                                            ng-model="employee.phoneNumber"
                                                            class="form-control width-100"
-                                                           input-mask=""
                                                            placeholder="eg. 0000000000" minlength="10" maxlength="10" chars="numbers">
                                                 </div>
                                             </div>
@@ -592,7 +591,6 @@
                                         <div class="fg-line">
                                             <input type="text" name="pinCode" ng-model="employee.pinCode"
                                                    class="form-control"
-                                                   input-mask=""
                                                    placeholder="eg. 560050" minlength="6" maxlength="6" chars="numbers">
                                         </div>
                                     </dd>
@@ -941,7 +939,6 @@
                                                     <input type="tel" name="contactNumber"
                                                            ng-model="employee.emergencyContact.contactNumber"
                                                            class="form-control width-100"
-                                                           input-mask=""
                                                            placeholder="eg. 0000000000" minlength="10" maxlength="10" chars="numbers">
                                                 </div>
                                             </div>
@@ -1078,19 +1075,21 @@
                                         </div>
                                     </dd>
                                 </dl>
-                              <!--  <dl class="dl-horizontal required">
+                                <dl class="dl-horizontal required">
                                     <dt class="p-t-10">Department</dt>
                                     <dd>
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': EmployeeForm.department.$touched && EmployeeForm.department.$invalid }">
-                                           &lt;!&ndash; <input type="text" name="department" ng-model="employee.department"
+                                           <!-- <input type="text" name="department" ng-model="employee.department"
                                                    class="form-control"
-                                                   placeholder="eg. Maintenance" required>&ndash;&gt;
+                                                   placeholder="eg. Maintenance" required>-->
                                             <select chosen class="form-control" ng-model="employee.department"
                                                     name="department"  placeholder="eg. Maintenance"  required>
                                                 <option ng-value="RegisteredMemberStaff">Registration Member Staff</option>
                                                 <option ng-value="RedistributionMemberStaff">Redistribution Member Staff</option>
                                                 <option ng-value="MaintenenceMemberStaff">Maintenance Center Staff</option>
+                                                <option ng-value="InformationTechnologyStaff">Information Technology Staff</option>
+                                                <option ng-value="DockingStationRepairStaff">Docking Station Repair Staff</option>
                                                 <option ng-value="HoldingAreaStaff">Holding Area Staff</option>
                                                 <option ng-value="Operator">Operator</option>
                                                 <option ng-value="AccountsAdmin">Accounts Admin</option>
@@ -1103,22 +1102,7 @@
                                             </span>
                                         </div>
                                     </dd>
-                                </dl>-->
-
-                                <dl class="dl-horizontal required">
-                                    <dt class="p-t-10">Departments</dt>
-                                    <dd>
-                                        <div class="fg-line">
-                                            <select chosen class="form-control"
-                                                    ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
-                                                    ng-model="empName"
-                                                    ng-change="selectedEmp(empName)" required>
-                                            </select>
-                                        </div>
-                                    </dd>
                                 </dl>
-
-
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">Experience</dt>
                                     <dd>

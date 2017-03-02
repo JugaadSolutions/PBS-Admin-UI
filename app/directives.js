@@ -78,7 +78,7 @@
         }
     });
 
-    //Mask for input
+/*    //Mask for input
     app.directive('inputMask', function () {
         return {
             restrict: 'A',
@@ -89,7 +89,7 @@
                 element.mask(scope.inputMask.mask);
             }
         }
-    });
+    });*/
 
     // File upload
     app.directive('file', function () {
@@ -187,7 +187,7 @@
                     $interval.cancel(stopTime);
                 });
             }
-        }])
+        }]);
 
     app.directive('chars', function() {
 

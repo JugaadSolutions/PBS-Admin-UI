@@ -42,7 +42,7 @@
                             <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>
                         <td data-title="'Full Name'" filter="{ Name: 'text'}" filter="{ lastName: 'text'}">
-                            <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
+                            <a ui-sref="admin.members.edit({id: member.UserID})">{{member.Name}} {{member.lastName}}</a>
                         </td>
                         <td data-title="'Email'" filter="{ email: 'text'}">
                             {{member.email}}
@@ -56,11 +56,11 @@
                         <td data-title="'Balance'" filter="{ creditBalance: 'text'}">
                             &#8377; {{member.creditBalance}}
                         </td>
-                        <td data-title="'Smart Card'" filter="{ smartCardNumber: 'text'}">
+                        <td data-title="'Smart Card'" filter="{ cardNum: 'text'}">
                             <a ui-sref="admin.smart-cards.edit({id: member.smartCardId})">{{member.cardNum}}</a>
                         </td>
                         <td data-title="'Document Number'" filter="{ documentNumber: 'text'}">
-                            {{member.documentNumber}}
+                            {{member.documentNumber = member.documents[0].documentNumber}}
                         </td>
                         <td class="text-center">
                             <span uib-tooltip="{{member.status}}" tooltip-placement="top" ng-class="{
@@ -79,10 +79,10 @@
 
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a href="javascript:void(0);" ng-click="editMember(member._id)">Edit</a>
+                                            <a href="javascript:void(0);" ng-click="editMember(member.UserID)">Edit</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" ng-click="changeMemberStatus(member._id)">Change
+                                            <a href="javascript:void(0);" ng-click="changeMemberStatus(member.UserID)">Change
                                                 Status</a>
                                         </li>
                                     </ul>
@@ -110,9 +110,10 @@
                             class="form-control w-100" required>
                         <option ng-value="0">Prospective</option>
                         <option ng-value="1">Registered</option>
-                        <option ng-value="2">Expired</option>
+                        <option ng-value="2">Renew</option>
                         <option ng-value="-1">Cancelled</option>
                         <option ng-value="-2">Suspended</option>
+                        <option ng-value="-3">Expired</option>
                     </select>
                 </div>
             </dd>

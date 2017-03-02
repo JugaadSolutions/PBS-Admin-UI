@@ -24,16 +24,22 @@
                 <div class="p-relative">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="line-height: 239px;">
-                            <img src="assets/images/bicycle.jpg">
+                            <span ng-switch on="bicycle.vehicleType">
+                                    <img ng-switch-when="1" src='assets/images/cover-pic.jpg'>
+                                    <img ng-switch-when="2" src='assets/images/cover-pic.jpg'>
+                                    <img ng-switch-when="3" src='assets/images/cover-pic.jpg'>
+                                    <img ng-switch-default   src='assets/images/bicycle.jpg'>
+                            </span>
+                          <!--  <img ng-if=bicycle.vehicleType ==1 src="assets/images/bicycle.jpg">-->
                         </div>
-                        <a href="javascript:void(0);" class="pmop-edit"><i class="zmdi zmdi-camera"></i>
+                        <!--<a href="javascript:void(0);" class="pmop-edit"><i class="zmdi zmdi-camera"></i>
                             <span class="btn-file">
                                 <span class="hidden-xs fileinput-new ">Add Bicycle Picture</span>
                                 <span class="hidden-xs fileinput-exists">Change</span>
                                 <input type="hidden">
                                 <input type="file" accept="image/*" file="bicycle.profilePic">
                             </span>
-                        </a>
+                        </a>-->
                     </div>
                 </div>
             </div>
@@ -81,31 +87,31 @@
                                         </div>
                                     </dd>
                                 </dl>
-                               <!-- <dl class="dl-horizontal required">
-                                    <dt class="p-t-10">Model Type</dt>
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10">Bicycle Type</dt>
                                     <dd>
                                         <div class="fg-line m-t-10">
                                             <label class="radio radio-inline m-r-20">
-                                                <input type="radio" name="modelType" ng-model="bicycle.modelType"
-                                                       value="001" required>
+                                                <input type="radio" name="modelType" ng-model="bicycle.vehicleType"
+                                                       value="1" required>
                                                 <i class="input-helper"></i>
-                                                001
+                                                Normal
                                             </label>
                                             <label class="radio radio-inline m-r-20">
-                                                <input type="radio" name="modelType" ng-model="bicycle.modelType"
-                                                       value="002" required>
+                                                <input type="radio" name="modelType" ng-model="bicycle.vehicleType"
+                                                       value="2" required>
                                                 <i class="input-helper"></i>
-                                                002
+                                                Geared
                                             </label>
                                             <label class="radio radio-inline m-r-20">
-                                                <input type="radio" name="modelType" ng-model="bicycle.modelType"
-                                                       value="003" required>
+                                                <input type="radio" name="modelType" ng-model="bicycle.vehicleType"
+                                                       value="3" required>
                                                 <i class="input-helper"></i>
-                                                003
+                                                Pedal-Assist
                                             </label>
                                         </div>
                                     </dd>
-                                </dl>-->
+                                </dl>
                             </div>
                         </div>
                     </uib-tab>
@@ -223,7 +229,7 @@
 
 <script type="text/ng-template" id="bicycle-current-position.html">
     <div class="modal-header">
-        <h4 class="modal-title">Holding Area</h4>
+        <h4 class="modal-title">Choose Fleet</h4>
     </div>
     <div class="modal-body">
         <form name="MoveCurrentPosition" novalidate></form>

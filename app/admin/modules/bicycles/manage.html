@@ -24,7 +24,7 @@
                             <img ng-src="{{bicycle.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>
                         <td data-title="'Bicycle Number'" filter="{ vehicleNumber: 'text'}">
-                            <a ui-sref="admin.bicycles.edit({id: bicycle._id})">{{bicycle.vehicleNumber}}</a>
+                            <a ui-sref="admin.bicycles.edit({id: bicycle.vehicleUid})">{{bicycle.vehicleNumber}}</a>
                         </td>
                         <td data-title="'RFID'" filter="{ vehicleRFID: 'text'}">
                             {{bicycle.vehicleRFID}}
@@ -49,12 +49,12 @@
 
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a href="javascript:void(0);" ng-click="editBicycle(bicycle._id)">Edit</a>
+                                            <a href="javascript:void(0);" ng-click="editBicycle(bicycle.vehicleUid)">Edit</a>
                                         </li>
                                        <!-- <li>
                                             <a href="javascript:void(0);"
                                                ng-if="bicycle.location != 'With a User'"
-                                               ng-click="moveBicycle(bicycle._id)">Move
+                                               ng-click="moveBicycle(bicycle.vehicleUid)">Move
                                                 Bicycle</a>
                                         </li>-->
                                     </ul>

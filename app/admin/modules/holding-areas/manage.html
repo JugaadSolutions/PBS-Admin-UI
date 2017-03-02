@@ -30,7 +30,7 @@
                             {{holdingArea.Name}}
                         </td>-->
                         <td data-title="'Area Name'" filter="{ 'Name': 'text'}">
-                            <a ui-sref="admin.holding-areas.edit({id: holdingArea._id})">{{holdingArea.Name}}</a>
+                            <a ui-sref="admin.holding-areas.edit({id: holdingArea.PortID})">{{holdingArea.Name}}</a>
                         </td>
 
                         <td data-title="'Station'" filter="{ 'name': 'text'}">
@@ -62,11 +62,11 @@
 
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a href="javascript:void(0);" ng-click="editHoldingArea(holdingArea._id)">Edit</a>
+                                            <a href="javascript:void(0);" ng-click="editHoldingArea(holdingArea.PortID)">Edit</a>
                                         </li>
                                         <!--<li>
                                             <a href="javascript:void(0);"
-                                               ng-click="changeHoldingAreaStatus(holdingArea._id)">Change Status</a>
+                                               ng-click="changeHoldingAreaStatus(holdingArea.PortID)">Change Status</a>
                                         </li>-->
                                     </ul>
                                 </li>

@@ -62,7 +62,7 @@
                                      ng-class="{ 'has-error': AddSmartCard.cardRFID.$touched && AddSmartCard.cardRFID.$invalid }">
                                     <input type="text" name="cardRFID" ng-model="smartCard.cardRFID"
                                            class="form-control"
-                                           placeholder="eg. 8989831293" chars="only-letters" maxlength="16" required>
+                                           placeholder="eg. 8989831293" chars="only-letters" minlength="16" maxlength="16" required>
                                             <span class="help-block"
                                                   ng-messages="AddSmartCard.cardRFID.$error"
                                                   ng-show="AddSmartCard.cardRFID.$touched">
@@ -72,20 +72,21 @@
                             </dd>
                         </dl>
 
-                       <!-- <dl class="dl-horizontal">
+                        <dl class="dl-horizontal required">
                             <dt class="p-t-10">Card Type</dt>
                             <dd>
                                 <div class="fg-line">
                                     <select chosen class="form-control" ng-model="smartCard.cardType"
-                                            name="cardType">
-                                        <option ng-value="0">Registered Member</option>
-                                        <option ng-value="1">Employee Card</option>
+                                            name="cardType" required>
+                                        <option ng-value="1">Registered Member</option>
+                                        <option ng-value="2">Employee Card</option>
+                                        <option ng-value="3">Casual Member</option>
                                     </select>
                                 </div>
                             </dd>
-                        </dl>-->
+                        </dl>
 
-                      <!--  <dl class="dl-horizontal">
+<!--                        <dl class="dl-horizontal">
                             <dt class="p-t-10">Card Level</dt>
                             <dd>
                                 <div class="fg-line">

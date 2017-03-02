@@ -66,10 +66,8 @@
             smartCardForEmployee: 'assigncard',
             save: 'employee',
             update: 'employee',
-            delete: 'employee',
-            getAllDept:'employee/departments'
+            delete: 'employee'
         },
-
 
         registrationstaff:{
             save: 'registrationstaff',
@@ -132,7 +130,7 @@
             getAll: 'redistributionport',
             save: 'redistributionport',
             get:'redistributionport',
-            update: 'redistributionport',
+            update: 'redistributionport'
            /* get: 'redistributionvehicle',
             save: 'redistributionvehicle',
             update: 'redistributionvehicle',
@@ -210,12 +208,10 @@
         },
 
         ticketsDetails:{
-          save:'tickets',
-            get:'tickets',
-            getAll:'tickets/ticketinfo',
-            update:'tickets',
-            reply:'tickets',
-            assigned:'tickets/assignedinfo'
+          save:'ticketdetails',
+            get:'ticketdetails',
+            getAll:'ticketsDetails'
+
         },
 
         searchmember:{

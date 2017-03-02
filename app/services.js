@@ -1,6 +1,6 @@
 // =========================================================================
 // PBS Admin Services
-// ========================================================================
+// =========================================================================
 
 (function () {
     'use strict';
@@ -12,6 +12,17 @@
             getMembers: function (filters) {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.member.getAll, {
+                    params: filters
+                }).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+            getUsers: function (filters) {
+                var deferred = $q.defer();
+                $http.get(APINew + 'users', {
                     params: filters
                 }).then(function (result) {
                     deferred.resolve(result.data);
@@ -49,7 +60,7 @@
             },
             updateSmartCardForMember: function (data) {
                 var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.member.update + '/' + data._id + '/' + APIEndPoint.member.smartCardForMember, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.member.update + '/' + data.UserID + '/' + APIEndPoint.member.smartCardForMember, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -131,7 +142,7 @@
             },
             updateMember: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.member.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.member.update + '/' + data.UserID, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -163,7 +174,7 @@
                 $http.post(APINew + APIEndPoint.dockingStations.post, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
-                    deferred.reject(error);
+                    deferred.reject(error.data);
                 });
                 return deferred.promise;
             },
@@ -185,22 +196,10 @@
                 });
                 return deferred.promise;
             },
-
-            // selecting the employee to raise a ticket based on the department
-            getEmp: function (data) {
-                var deferred = $q.defer();
-                $http.get(APINew + APIEndPoint.employee.get + '/' + data + '/' + "emp").then(function (result) {
-                    deferred.resolve(result.data);
-                }, function (error) {
-                    deferred.reject(error);
-                });
-                return deferred.promise;
-            },
-
             saveEmployee: function (data) {
                 var deferred = $q.defer();
-                var _url = data.department;
-                /*var _url;
+                var _department = data.department;
+                var _url;
                 if (_department  === 'Registration Member Staff')
                 {
                     _url = 'registrationstaff';
@@ -241,8 +240,9 @@
                 else
                 {
 
-                }*/
-                $http.post(APINew + APIEndPoint.employee.save + '/' + _url , data).then(function (result) {
+                }
+
+                $http.post(APINew + APIEndPoint.employee.save + '/' + _url  , data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -260,7 +260,7 @@
             },
             updateEmployee: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.employee.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.employee.update + '/' + data.UserID, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -278,7 +278,7 @@
             },
             updateSmartCardForEmployee: function (data) {
                 var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.employee.update + '/' + data._id + '/' + APIEndPoint.employee.smartCardForEmployee, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.employee.update + '/' + data.UserID + '/' + APIEndPoint.employee.smartCardForEmployee, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -318,7 +318,7 @@
             },
             updateMembership: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.membership.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.membership.update + '/' + data.membershipId, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -506,7 +506,7 @@
             },
             updateBicycle: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.vehicle.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.vehicle.update + '/' + data.vehicleUid, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -583,7 +583,7 @@
             },
             updateRedistributionVehicle: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.redistributionVehicles.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.redistributionVehicles.update + '/' + data.PortID, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -651,7 +651,7 @@
             },
             updateFarePlan: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.farePlan.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.farePlan.update + '/' + data.fareplanUid, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -805,7 +805,7 @@
             },
             updateHoldingArea: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.holdingArea.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.holdingArea.update + '/' + data.PortID, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -865,36 +865,13 @@
 
             updateRegistrationCentre: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.registrationCentre.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.registrationCentre.update + '/' + data.StationID, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
                 return deferred.promise;
             },
-
-        /*    getEmpDept: function (data) {
-                var deferred = $q.defer();
-                $http.get(APINew + APIEndPoint.employee.getAllDept).then(function (result) {
-                    deferred.resolve(result.data);
-                }, function (error) {
-                    deferred.reject(error);
-                });
-                return deferred.promise;
-            },*/
-
-            getEmpDept: function (filters) {
-                var deferred = $q.defer();
-                $http.get(APINew + APIEndPoint.employee.getAllDept, {
-                    params: filters
-                }).then(function (result) {
-                    deferred.resolve(result.data);
-                }, function (error) {
-                    deferred.reject(error);
-                });
-                return deferred.promise;
-            },
-
 
             /*bank cash deposit details*/
             getBankCashDepositDetails: function () {
@@ -1236,89 +1213,12 @@
             saveTicketDetails:function(data)
             {
                 var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.ticketsDetails.save, data).then(function (result) {
+               /* $http.post(API + APIEndPoint.ticketsDetails.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;
-            },
-
-            getRaisedTickets:function(data)
-            {
-                var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.ticketsDetails.getAll, data).then(function (result) {
-                    deferred.resolve(result.data);
-                }, function (error) {
-                    deferred.reject(error);
-                });
-                return deferred.promise;
-            },
-
-            getAssignedTickets:function(data)
-            {
-                var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.ticketsDetails.assigned, data).then(function (result) {
-                    deferred.resolve(result.data);
-                }, function (error) {
-                    deferred.reject(error);
-                });
-                return deferred.promise;
-            },
-
-            getRaisedTicket: function (data) {
-                var deferred = $q.defer();
-                $http.get(APINew + APIEndPoint.ticketsDetails.get + '/' + data).then(function (result) {
-                    deferred.resolve(result.data);
-                }, function (error) {
-                    deferred.reject(error);
-                });
-                return deferred.promise;
-            },
-
-            saveTicketReply:function(data)
-            {
-                var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.ticketsDetails.reply + '/' + data.ticketid + '/' + "addreply", data).then(function (result) {
-                    deferred.resolve(result.data);
-                }, function (error) {
-                    deferred.reject(error);
-                });
-                return deferred.promise;
-            },
-
-
-            // saving reassigned employee as a reply
-            saveReassignEmployee:function(data)
-            {
-            var deferred = $q.defer();
-            $http.post(APINew + APIEndPoint.ticketsDetails.reply + '/' + data.ticketid + '/' + "addreply", data).then(function (result) {
-                deferred.resolve(result.data);
-            }, function (error) {
-                deferred.reject(error);
-            });
-            return deferred.promise;
-            },
-
-            updateRaised_Ticket: function (data) {
-                var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.ticketsDetails.update + '/' + data.ticketid, data).then(function (result) {
-                    deferred.resolve(result.data);
-                }, function (error) {
-                    deferred.reject(error);
-                });
-                return deferred.promise;
-            },
-
-            getTicketTypes:function(data)
-            {
-                var deferred = $q.defer();
-                $http.get(APINew + APIEndPoint.globalKeyNameValue.get + '/' + data).then(function (result) {
-                    deferred.resolve(result.data);
-                }, function (error) {
-                    deferred.reject(error);
-                });
-                return deferred.promise;
+                return deferred.promise;*/
             },
 
             // search member to raise a ticket
@@ -1468,7 +1368,7 @@
             },
             updateMaintenanceCentre: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.maintenanceCentre.update + '/' + data._id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.maintenanceCentre.update + '/' + data.PortID, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -1534,7 +1434,7 @@
             },
             updateSmartCard: function (data) {
                 var deferred = $q.defer();
-                $http.put(APINew + APIEndPoint.smartCard.update + '/' + data.id, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.smartCard.update + '/' + data.cardUid, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -1888,11 +1788,17 @@
             getSmartCardStatus: function (code) {
                 var status = '';
                 switch (code) {
-                    case  0:
-                        status = "Active";
+                    case 1:
+                        status = "Availabel";
                         break;
-                    case -1:
-                        status = "Inactive";
+                    case 2:
+                        status = "Assigned";
+                        break;
+                    case 3:
+                        status = "Damaged";
+                        break;
+                    case 4:
+                        status = "Blocked";
                         break;
                     default:
                         break;
@@ -1930,20 +1836,23 @@
             getMemberStatus: function (code) {
                 var status = '';
                 switch (code) {
-                    case  0:
+                    case 0:
                         status = "Prospective";
                         break;
-                    case  1:
+                    case 1:
                         status = "Registered";
                         break;
-                    case  2:
+                    case 2:
                         status = "Renewed";
                         break;
-                    case  -1:
+                    case -1:
                         status = "Cancelled";
                         break;
-                    case  -2:
+                    case -2:
                         status = "Suspended";
+                        break;
+                    case -3:
+                        status = "Expired";
                         break;
                     default:
                         break;
@@ -1953,11 +1862,14 @@
             getCardType: function (code) {
                 var cardType = '';
                 switch (code) {
-                    case  0:
+                    case  "1":
                         cardType = "Registered Member";
                         break;
-                    case  1:
+                    case  "2":
                         cardType = "Employee Card";
+                        break;
+                    case  "3":
+                        cardType = "Casual Member";
                         break;
                     default:
                         break;

@@ -249,7 +249,7 @@
                 <dd>
                     <div class="fg-line" >
                         <input type="text" name="membername"
-                               ng-model="raiseTicketsDetails.name"
+                               ng-model="raiseTicketsDetails.memberName"
                                class="form-control" disabled>
                     </div>
                 </dd>
@@ -259,7 +259,7 @@
                 <dd>
                     <div class="fg-line"
                          ng-class="{ 'has-error': AddTicketsDetails.ticketSubject.$touched && AddTicketsDetails.ticketSubject.$invalid }">
-                        <input type="text" name="ticketSubject" ng-model="raiseTicketsDetails.subject"
+                        <input type="text" name="ticketSubject" ng-model="raiseTicketsDetails.ticketSubject"
                                class="form-control"
                                placeholder="eg. Bicycle problem" chars="only-letters" maxlength="20" required>
                         <span class="help-block"
@@ -276,7 +276,7 @@
                 <dd>
                     <div class="fg-line"
                          ng-class="{ 'has-error': AddTicketsDetails.ticketDescription.$touched && AddTicketsDetails.ticketDescription.$invalid }">
-                        <input type="text" name="ticketDescription" ng-model="raiseTicketsDetails.description"
+                        <input type="text" name="ticketDescription" ng-model="raiseTicketsDetails.ticketDescription"
                                class="form-control"
                                placeholder="eg. Reason for the issue" chars="letters" required>
                         <span class="help-block"
@@ -292,20 +292,19 @@
                 <dt class="p-t-10">Priority</dt>
                 <dd>
                     <div class="fg-line">
-                        <select chosen class="form-control" ng-model="raiseTicketsDetails.priority"
+                        <select chosen class="form-control" ng-model="raiseTicketsDetails.priorityName"
                                 data-placeholder-text-single="'Select Type'"
                                 name="priorityName">
                             <option value="0">SELECT THE OPTIONS</option>
-                            <option value="1">Normal</option>
-                            <option value="2">Medium</option>
-                            <option value="3">Urgent</option>
-                            <option value="4">Critical</option>
+                            <option value="Normal">Normal</option>
+                            <option value="Urgent">Urgent</option>
+                            <option value="Critical">Critical</option>
                         </select>
                     </div>
                 </dd>
             </dl>
 
-            <!--<dl class="dl-horizontal required">
+            <dl class="dl-horizontal required">
                 <dt class="p-t-10">Department</dt>
                 <dd>
                     <div class="fg-line">
@@ -318,9 +317,9 @@
                         </select>
                     </div>
                 </dd>
-            </dl>-->
+            </dl>
 
-            <!--<dl class="dl-horizontal required">
+            <dl class="dl-horizontal required">
                 <dt class="p-t-10">Type</dt>
                 <dd>
                     <div class="fg-line">
@@ -333,65 +332,8 @@
                         </select>
                     </div>
                 </dd>
-            </dl>-->
-
-          <!--  <dl class="dl-horizontal required">
-                <dt class="p-t-10">Department</dt>
-                <dd>
-                    <div class="fg-line"
-                         ng-class="{ 'has-error': EmployeeForm.department.$touched && EmployeeForm.department.$invalid}">
-                        <select chosen class="form-control" ng-model="department"
-                                name="department"  placeholder="eg. Maintenance"  ng-change="selectedDept(department)" required>
-                            <option ng-value="RegisteredMemberStaff">Registration Member Staff</option>
-                            <option ng-value="RedistributionMemberStaff">Redistribution Member Staff</option>
-                            <option ng-value="MaintenenceMemberStaff">Maintenance Center Staff</option>
-                            <option ng-value="HoldingAreaStaff">Holding Area Staff</option>
-                            <option ng-value="Operator">Operator</option>
-                            <option ng-value="AccountsAdmin">Accounts Admin</option>
-                            <option ng-value="MonitorGroup">Monitor Group</option>
-                        </select>
-                    </div>
-                </dd>
-            </dl>-->
-
-            <dl class="dl-horizontal required">
-                <dt class="p-t-10">Departments</dt>
-                <dd>
-                    <div class="fg-line">
-                        <select chosen class="form-control"
-                                ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
-                                ng-model="dept"
-                                ng-change="selecteDept(dept)">
-                        </select>
-                    </div>
-                </dd>
             </dl>
 
-            <dl class="dl-horizontal required">
-                <dt class="p-t-10">Employee</dt>
-                <dd>
-                    <div class="fg-line">
-                        <select chosen class="form-control"
-                                ng-options="Employee as Employee.Name for Employee in Employees"
-                                ng-model="empName"
-                                ng-change="selectedEmp(empName)">
-                        </select>
-                    </div>
-                </dd>
-            </dl>
-
-            <dl class="dl-horizontal required">
-                <dt class="p-t-10">Type</dt>
-                <dd>
-                    <div class="fg-line">
-                        <select chosen class="form-control"
-                                ng-options="TicketType as TicketType for TicketType in TicketTypes"
-                                ng-model="ticketType"
-                                ng-change="selectedType(ticketType)">
-                        </select>
-                    </div>
-                </dd>
-            </dl>
 
         </div>
         <div class="modal-footer">

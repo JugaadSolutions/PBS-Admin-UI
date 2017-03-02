@@ -42,6 +42,7 @@
                     <!-- Status-->
                     <span ng-if="dockingStation.operationStatus ==1">Operation</span>
                     <span ng-if="dockingStation.operationStatus ==2">Non Operation</span>
+                    <span ng-if="dockingStation.operationStatus ==-1">Decommissioned</span>
                 </div>
             </div>
         </div>
@@ -286,6 +287,7 @@
                             class="form-control w-100" required>
                         <option value="1">Operational</option>
                         <option value="2">Non Operational</option>
+                        <option value="-1">Decommissioned</option>
                     </select>
                 </div>
             </dd>
