@@ -18,12 +18,12 @@
     </div>
 
     <div class="card" id="profile-main">
-     <!--   <div class="pm-overview c-overflow">
+        <div class="pm-overview c-overflow">
             <div class="pmo-pic">
                 <div class="p-relative">
                     <div class="fileinput fileinput-new">
                         <div class="fileinput-preview thumbnail">
-                          &lt;!&ndash;  <img src="assets/images/no-maps.png">&ndash;&gt;
+                            <img src="assets/images/no-maps.png">
                             <div class="map-view">
                                 <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
                                     <ui-gmap-markers models="markers" coords="'self'" icon="'icon'">
@@ -102,10 +102,10 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
         <div class="pm-body clearfix">
-            <form class="pmbb-edit" name="AddRedistributionVehicle">
+            <form class="pmbb-edit" name="AddRedistributionVehicle" novalidate>
                 <uib-tabset justified="true">
                     <uib-tab heading="Redistribution Vehicle">
                         <div class="pmb-block">
@@ -117,14 +117,14 @@
                                     <dt class="p-t-10">Vehicle Number</dt>
                                     <dd>
                                         <div class="fg-line"
-                                             ng-class="{ 'has-error': AddRedistributionVehicle.number.$touched && AddRedistributionVehicle.number.$invalid }">
-                                            <input type="text" name="number"
+                                             ng-class="{ 'has-error': AddRedistributionVehicle.Rvnumber.$touched && AddRedistributionVehicle.Rvnumber.$invalid }">
+                                            <input type="text" name="Rvnumber"
                                                    ng-model="redistributionVehicle.Name"
                                                    class="form-control"
                                                    placeholder="eg. RV10" chars="number" maxlength="15" required>
                                             <span class="help-block"
-                                                  ng-messages="AddRedistributionVehicle.number.$error"
-                                                  ng-show="AddRedistributionVehicle.number.$touched">
+                                                  ng-messages="AddRedistributionVehicle.Rvnumber.$error"
+                                                  ng-show="AddRedistributionVehicle.Rvnumber.$touched">
                                                 <small ng-message="required">Vehicle Number is required</small>
                                             </span>
                                         </div>
@@ -150,16 +150,22 @@
                                     </dd>
                                 </dl>-->
 
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal required">
                                     <dt class="p-t-10">Redistribution Stations</dt>
                                     <dd>
-                                        <div class="fg-line">
-                                            <select chosen class="form-control"
+                                        <div class="fg-line"
+                                             ng-class="{ 'has-error': AddRedistributionVehicle.rvstat.$touched && AddRedistributionVehicle.rvstat.$invalid }">
+                                            <select chosen class="form-control" name="rvstat"
                                                     data-placeholder-text-single="'SELECT THE OPTIONS'"
-                                                    ng-options="RedistributionStationname as RedistributionStation.name for RedistributionStation in RedistributionStations"
+                                                    ng-options="RedistributionStation as RedistributionStation.name for RedistributionStation in RedistributionStations"
                                                     ng-model="name"
                                                     ng-change="selectedRedistributionCentre(name)" required>
                                                 <option value="0">SELECT THE OPTIONS</option>
+                                                <span class="help-block"
+                                                      ng-messages="AddRedistributionVehicle.rvstat.$error"
+                                                      ng-show="AddRedistributionVehicle.rvstat.$touched">
+                                                <small ng-message="required">Vehicle Number is required</small>
+                                            </span>
                                             </select>
                                         </div>
                                     </dd>
@@ -208,14 +214,20 @@
                                     </dd>
                                 </dl>-->
 
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal required">
                                     <dt class="p-t-10">Holding Capacity</dt>
                                     <dd>
-                                        <div class="fg-line">
+                                        <div class="fg-line"
+                                             ng-class="{ 'has-error': AddRedistributionVehicle.dockingPorts.$touched && AddRedistributionVehicle.dockingPorts.$invalid }">
                                             <input type="number" name="dockingPorts"
                                                    ng-model="redistributionVehicle.portCapacity"
                                                    class="form-control"
-                                                   placeholder="eg. 10"  chars="only-numbers" >
+                                                   placeholder="eg. 10"  chars="only-numbers" required >
+                                            <span class="help-block"
+                                                  ng-messages="AddRedistributionVehicle.dockingPorts.$error"
+                                                  ng-show="AddRedistributionVehicle.dockingPorts.$touched">
+                                                <small ng-message="required">Holding capacity is required</small>
+                                            </span>
                                         </div>
                                     </dd>
                                 </dl>
@@ -223,7 +235,8 @@
                                 <dl class="dl-horizontal required">
                                     <dt class="p-t-10">Zone ID</dt>
                                     <dd>
-                                        <div class="fg-line">
+                                        <div class="fg-line"
+                                             ng-class="{ 'has-error': AddRedistributionVehicle.ZoneId.$touched && AddRedistributionVehicle.ZoneId.$invalid }">
                                             <select chosen name="ZoneId" ng-model="redistributionVehicle.zoneId" placeholder-text-single="'Select Zone'"
                                                     class="form-control w-100" required>
                                                 <option ng-value="1">Zone 1</option>
@@ -232,18 +245,23 @@
                                                 <option ng-value="4">Zone 4</option>
                                                 <option ng-value="5">Zone 5</option>
                                             </select>
+                                            <span class="help-block"
+                                                  ng-messages="AddRedistributionVehicle.ZoneId.$error"
+                                                  ng-show="AddRedistributionVehicle.ZoneId.$touched">
+                                                <small ng-message="required">Zone Id is required</small>
+                                            </span>
                                         </div>
                                     </dd>
                                 </dl>
 
-                                <dl class="dl-horizontal required">
+                                <dl class="dl-horizontal">
                                     <dt class="p-t-10">Assigned To</dt>
                                     <dd>
                                         <div class="fg-line">
                                             <select chosen class="form-control"
                                                     ng-options="RVstaffSelection as RVstaffSelection.Name for RVstaffSelection in RVstaffSelections"
                                                     ng-model="staffName"
-                                                    ng-change="selectedStaff(staffName)" required>
+                                                    ng-change="selectedStaff(staffName)">
                                             </select>
                                         </div>
                                     </dd>
@@ -291,11 +309,6 @@
                                                        ng-model="redistributionVehicle.gpsCoordinates.latitude"
                                                        class="form-control input-sm form-inline"
                                                        placeholder="Latitude" chars="only-numbers">
-                                                <span class="help-block"
-                                                      ng-messages="AddRedistributionVehicle.latitude.$error"
-                                                      ng-show="AddRedistributionVehicle.latitude.$touched">
-                                                 <small ng-message="required">Latitude is required</small>
-                                             </span>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -303,11 +316,6 @@
                                                 <input type="text" name="longitude" class="form-control input-sm form-inline"
                                                        ng-model="redistributionVehicle.gpsCoordinates.longitude"
                                                        placeholder="Longitude" chars="only-numbers">
-                                                <span class="help-block"
-                                                      ng-messages="AddRedistributionVehicle.longitude.$error"
-                                                      ng-show="AddRedistributionVehicle.longitude.$touched">
-                                                 <small ng-message="required">Longitude is required</small>
-                                             </span>
                                             </div>
                                         </div>
                                     </dd>

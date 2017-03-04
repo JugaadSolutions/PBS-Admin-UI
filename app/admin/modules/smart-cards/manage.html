@@ -5,7 +5,21 @@
             <h2>Manage Smart Cards
                 <small>Add or Edit Smart Cards</small>
             </h2>
-
+            <br>
+            <div class="card-body">
+                <span ng-class="{'led bgm-green':'Available'}">
+                </span>
+                <label>Available</label>
+                <span ng-class="{'led bgm-blue':'Assigned'}">
+                </span>
+                <label>Assigned</label>
+                <span ng-class="{'led bgm-red':'Damaged'}">
+                </span>
+                <label>Damaged</label>
+                <span ng-class="{'led bgm-black':'Blocked'}">
+                </span>
+                <label>Blocked</label>
+            </div>
             <button class="btn bgm-blue btn-float waves-effect" uib-tooltip="Add New Smart Card"
                     tooltip-placement="left" ng-click="addSmartCard()">
                 <i class="zmdi zmdi-plus"></i>
@@ -24,10 +38,10 @@
                     <tr ng-repeat="smartCard in $data">
 
                         <td data-title="'Card Number'" filter="{ 'cardNumber': 'text'}">
-                            <a ui-sref="admin.smart-cards.edit({id: smartCard._id})">{{smartCard.cardNumber}}</a>
+                            <a ui-sref="admin.smart-cards.edit({id: smartCard.cardUid})">{{smartCard.cardNumber}}</a>
                         </td>
                         <td data-title="'Card RFID'" filter="{ 'cardRFID': 'text'}">
-                            <a ui-sref="admin.smart-cards.edit({id: smartCard._id})">{{smartCard.cardRFID}}</a>
+                            <a ui-sref="admin.smart-cards.edit({id: smartCard.cardUid})">{{smartCard.cardRFID}}</a>
                         </td>
                         <td data-title="'Type'" filter="{ 'Type': 'text'}">
                             {{smartCard.assignedTo._type}}
@@ -37,10 +51,10 @@
                             {{smartCard.assignedTo.Name}}
                         </td>
                         <td data-title="'Balance'">
-                            {{smartCard.balance}}
+                            {{smartCard.assignedTo.creditBalance}}
                         </td>
                         <td data-title="'Membership'">
-                            {{smartCard.membershipId.subscriptionType}}
+                            {{smartCard.assignedTo.membershipId.subscriptionType}}
                         </td>
                         <td data-title="'Validity'">
                             {{smartCard.assignedTo.validity | date : "dd MMM yy"}}
@@ -58,14 +72,16 @@
                             {{smartCard.cardLevel}}
                         </td>-->
                         <!--<td data-title="'Assigned to'" filter="{ 'name': 'text'}" filter="{ 'lastName': 'text'}">
-                            <a ui-sref="admin.members.edit({id: smartCard.assignedTo._id})">{{smartCard.name}}
+                            <a ui-sref="admin.members.edit({id: smartCard.assignedTo.cardUid})">{{smartCard.name}}
                                 {{smartCard.lastName}}</a>
                         </td>-->
                         `
-                        <td class="text-center">
+                        <td data-title="'Status'" class="text-center">
                             <span uib-tooltip="{{smartCard.status}}" tooltip-placement="top" ng-class="{
-                             'status-color bgm-green': smartCard.status == 'Active',
-                             'status-color bgm-red': smartCard.status == 'Inactive'}">&nbsp;</span>
+                             'status-color bgm-green': smartCard.status == 'Availabel',
+                             'status-color bgm-blue': smartCard.status == 'Assigned',
+                             'status-color bgm-red': smartCard.status == 'Damaged',
+                             'status-color bgm-black': smartCard.status == 'Blocked'}">&nbsp;</span>
                         </td>
                         <td data-title="''" class="table-actions">
                             <ul class="actions">
@@ -77,7 +93,7 @@
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
                                             <a href="javascript:void(0);"
-                                               ng-click="editSmartCard(smartCard._id)">Edit</a>
+                                               ng-click="editSmartCard(smartCard.cardUid)">Edit</a>
                                         </li>
                                     </ul>
                                 </li>

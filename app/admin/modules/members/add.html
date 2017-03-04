@@ -532,7 +532,6 @@
                                                     <input type="tel" name="phoneNumber"
                                                            ng-model="member.phoneNumber"
                                                            class="form-control width-100"
-                                                           input-mask=""
                                                            placeholder="eg. 0000000000" chars="numbers" minlength="10" maxlength="10">
                                                 </div>
                                             </div>
@@ -626,7 +625,6 @@
                                         <div class="fg-line">
                                             <input type="text" name="pinCode" ng-model="member.pinCode"
                                                    class="form-control"
-                                                   input-mask=""
                                                    placeholder="eg. 560050" minlength="6" maxlength="6" chars="numbers">
                                         </div>
                                     </dd>
@@ -975,7 +973,6 @@
                                                     <input type="tel" name="contactNumber"
                                                            ng-model="member.emergencyContact.contactNumber"
                                                            class="form-control width-100"
-                                                           input-mask=""
                                                            placeholder="eg. 0000000000" minlength="10" maxlength="10" chars="numbers">
                                                 </div>
                                             </div>
@@ -998,7 +995,7 @@
                                                 tooltip-placement="left">
                                             <i class="zmdi zmdi-delete"></i></button>
                                     </div>
-                                    <dl class="dl-horizontal">
+                                    <dl class="dl-horizontal required" >
                                         <dt class="p-t-10">Document Type</dt>
                                         <dd>
                                             <div class="fg-line">
@@ -1012,7 +1009,7 @@
                                             </div>
                                         </dd>
                                     </dl>
-                                    <dl class="dl-horizontal" ng-show="document.documentType == 'Other'">
+                                    <dl class="dl-horizontal required" ng-show="document.documentType == 'Other'">
                                         <dt class="p-t-10">Document Name</dt>
                                         <dd>
                                             <div class="fg-line"
@@ -1029,7 +1026,7 @@
                                             </div>
                                         </dd>
                                     </dl>
-                                    <dl class="dl-horizontal" ng-show="document.documentType">
+                                    <dl class="dl-horizontal required" ng-show="document.documentType">
                                         <dt class="p-t-10">Document Number</dt>
                                         <dd>
                                             <div class="fg-line"
@@ -1046,7 +1043,7 @@
                                             </div>
                                         </dd>
                                     </dl>
-                                    <dl class="dl-horizontal" ng-show="document.documentType">
+                                    <dl class="dl-horizontal required" ng-show="document.documentType">
                                         <dt class="p-t-5">Upload Document Copy</dt>
                                         <dd>
                                             <div class="fg-line">

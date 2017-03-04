@@ -45,7 +45,7 @@
                                      ng-class="{ 'has-error': GlobalKeysValues.keyName.$touched && GlobalKeysValues.keyName.$invalid }">
                                     <input type="text" name="keyName" ng-model="globalKeyValues.name"
                                            class="form-control"
-                                           placeholder="eg. Maintenance"  required>
+                                           placeholder="eg. Maintenance" chars="only-letters" required>
                                     <span class="help-block" ng-messages="GlobalKeysValues.keyName.$error"
                                           ng-show="GlobalKeysValues.keyName.$touched">
                                             <small ng-message="required">Key Name is required</small>

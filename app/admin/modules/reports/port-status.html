@@ -98,7 +98,7 @@
                             <td data-title="'FPGA-3'">
                                 <div>
                                     <span uib-tooltip="{{ports.tooltipMessage}}"
-                                          ng-class="{'led bgm-green': ports.dockingPortId.portStatus == 1, 'led bgm-blue': ports.dockingPortId.portStatus == 2}"
+                                          ng-class="{'led bgm-green': ports.dockingPortId.portStatus == 1, 'led bgm-blue': ports.dockingPortId.portStatus == 2, 'led bgm-red': ports.dockingPortId.portStatus == -1}"
                                           ng-if="ports.dockingPortId.FPGA === 3"
                                           ng-repeat="ports in requests.portIds | orderBy:'dockingPortId.ePortNumber' | orderBy:'dockingPortId.FPGA'">{{ports.dockingPortId.ePortNumber }}
                                     </span>
@@ -107,7 +107,7 @@
                             <td data-title="'FPGA-4'">
                                 <div>
                                     <span uib-tooltip="{{ports.tooltipMessage}}"
-                                          ng-class="{'led bgm-green': ports.dockingPortId.portStatus == 1, 'led bgm-blue': ports.dockingPortId.portStatus == 2}"
+                                          ng-class="{'led bgm-green': ports.dockingPortId.portStatus == 1, 'led bgm-blue': ports.dockingPortId.portStatus == 2, 'led bgm-red': ports.dockingPortId.portStatus == -1}"
                                           ng-if="ports.dockingPortId.FPGA === 4"
                                           ng-repeat="ports in requests.portIds | orderBy:'dockingPortId.ePortNumber' | orderBy:'dockingPortId.FPGA'">{{ports.dockingPortId.ePortNumber}}
                                     </span>
@@ -116,7 +116,7 @@
                             <td data-title="'FPGA-5'">
                                 <div>
                                     <span uib-tooltip="{{ports.tooltipMessage}}"
-                                          ng-class="{'led bgm-green': ports.dockingPortId.portStatus == 1, 'led bgm-blue': ports.dockingPortId.portStatus == 2}"
+                                          ng-class="{'led bgm-green': ports.dockingPortId.portStatus == 1, 'led bgm-blue': ports.dockingPortId.portStatus == 2, 'led bgm-red': ports.dockingPortId.portStatus == -1}"
                                           ng-if="ports.dockingPortId.FPGA === 5"
                                           ng-repeat="ports in requests.portIds | orderBy:'dockingPortId.ePortNumber' | orderBy:'dockingPortId.FPGA'">{{ports.dockingPortId.ePortNumber}}
                                     </span>
@@ -125,7 +125,7 @@
                             <td data-title="'FPGA-6'">
                                 <div>
                                     <span uib-tooltip="{{ports.tooltipMessage}}"
-                                          ng-class="{'led bgm-green': ports.dockingPortId.portStatus == 1, 'led bgm-blue': ports.dockingPortId.portStatus == 2}"
+                                          ng-class="{'led bgm-green': ports.dockingPortId.portStatus == 1, 'led bgm-blue': ports.dockingPortId.portStatus == 2, 'led bgm-red': ports.dockingPortId.portStatus == -1}"
                                           ng-if="ports.dockingPortId.FPGA === 6"
                                           ng-repeat="ports in requests.portIds | orderBy:'dockingPortId.ePortNumber' | orderBy:'dockingPortId.FPGA'">{{ports.dockingPortId.ePortNumber}}
                                     </span>

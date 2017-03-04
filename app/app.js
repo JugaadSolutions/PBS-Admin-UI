@@ -70,7 +70,6 @@
             getAllDept:'employee/departments'
         },
 
-
         registrationstaff:{
             save: 'registrationstaff',
             get:'registrationstaff',
@@ -132,7 +131,7 @@
             getAll: 'redistributionport',
             save: 'redistributionport',
             get:'redistributionport',
-            update: 'redistributionport',
+            update: 'redistributionport'
            /* get: 'redistributionvehicle',
             save: 'redistributionvehicle',
             update: 'redistributionvehicle',
@@ -210,7 +209,7 @@
         },
 
         ticketsDetails:{
-          save:'tickets',
+            save:'tickets',
             get:'tickets',
             getAll:'tickets/ticketinfo',
             update:'tickets',
@@ -253,6 +252,13 @@
 
         checkInBridge:{
             save:'transactions/checkin/bridge'
+        },
+
+        topUp:{
+            save:'topups',
+            get:'topups',
+            getAll:'topups',
+            update:'topups'
         },
 
         registrationDetails:{

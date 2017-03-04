@@ -5,7 +5,7 @@
                 <small>Find out what bicycles are available</small>
                 <small>
                     <div>
-                      <!-- <b>Date : </b> <span>{{date |  date : "dd MMM yy HH:mm:ss"}}</span>-->
+                       <b>Date : </b> <span>{{date |  date : "dd MMM yy HH:mm:ss"}}</span>
                       <!-- <span>{{message}}</span>-->
                     </div>
                 </small>
@@ -52,14 +52,13 @@
                             <td data-title="'Type'">
                                 {{requests.stationType}}
                             </td>
-                          <!--  <td data-title="'Status'">
-                                &lt;!&ndash;{{requests.stationStatus}}&ndash;&gt;
-                                Operational
-                            </td>-->
+                            <td data-title="'Status'">
+                                {{requests.stationStatus}}
+                            </td>
                             <td data-title="'Total Units'">
                                 {{requests.noofUnits}}
                             </td>
-                            <td data-title="'AVAILABLE PORTS'">
+                            <td data-title="'Ports With Bicycle'">
                                 {{requests.bicycleCount}}
                             </td>
                             <td data-title="'Empty Ports'">
@@ -71,15 +70,11 @@
                             <td data-title="'Fleet %'">
                                 {{((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)}}%
                             </td>
-                            <!--<td data-title="'Status'"  ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) < 25" style="color: red">
+                            <td data-title="'Status'"  ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) < 25" style="color: red">
                                 LOW
                             </td>
-                            <td data-title="'Status'" ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) > 75 " style="color: red;">
+                            <td data-title="'Status'" ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) > 75 " style="color: black;">
                                 HIGH
-                            </td>-->
-                            <td data-title="'RV INDICATOR'">
-                                <label ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) <25" style="color: red">Low</label>
-                                <label ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) > 75" style="color: red">High</label>
                             </td>
                         </tr>
                     </table>

@@ -404,12 +404,39 @@
                 containerClass: 'sw-toggled'
             })
 
-            /*.state("admin.tickets.adminedit", {
+            .state("admin.tickets.adminedit", {
                 url: "/adminedit",
                 templateUrl: adminViewPath + 'tickets/adminedit.html',
                 controller: 'EditTickets',
                 containerClass: 'sw-toggled'
-            })*/
+            })
+
+            /*Topup plans*/
+            .state("admin.topup-plans",{
+                url:"/topup-plans",
+                templateUrl:adminViewPath + 'topup-plans/topup.html',
+                containerClass:'sw-toggled'
+            })
+            .state("admin.topup-plans.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'topup-plans/manage.html',
+                controller: 'ManageTopupPlans',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.topup-plans.add", {
+                url: "/add",
+                templateUrl: adminViewPath + 'topup-plans/add.html',
+                controller: 'AddTopupPlans',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.topup-plans.edit", {
+                url: "/edit/:id",
+                templateUrl: adminViewPath + 'topup-plans/edit.html',
+                controller: 'EditTopupPlans',
+                containerClass: 'sw-toggled'
+            })
 
             /*Ports test*/
             .state("admin.ports-testing",{

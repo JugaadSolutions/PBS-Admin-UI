@@ -23,7 +23,7 @@
                             <img ng-src="{{employee.profilePicUrl}}" style="width: 40px;" class="img-rounded">
                         </td>
                         <td data-title="'Full Name'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
-                            <a ui-sref="admin.employees.edit({id: employee._id})">{{employee.Name}}
+                            <a ui-sref="admin.employees.edit({id: employee.UserID})">{{employee.Name}}
                                 {{employee.lastName}}</a>
                         </td>
                         <td data-title="'Email'" filter="{ 'email': 'text'}">
@@ -36,7 +36,7 @@
                             {{employee._type}}
                         </td>
                         <td data-title="'Smart Cards'" filter="{ 'smartCardNumber': 'text'}">
-                            {{employee.smartCardNumber}}
+                            {{employee.cardNum}}
                         </td>
                      <!--   <td data-title="'Smart Cards'" filter="{ 'smartCardNumber': 'text'}">
                             <div class="fare-plan-chips">
@@ -59,10 +59,10 @@
 
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a href="javascript:void(0);" ng-click="editEmployee(employee._id)">Edit</a>
+                                            <a href="javascript:void(0);" ng-click="editEmployee(employee.UserID)">Edit</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" ng-click="changeEmployeeStatus(employee._id)">Change
+                                            <a href="javascript:void(0);" ng-click="changeEmployeeStatus(employee.UserID)">Change
                                                 Status</a>
                                         </li>
                                     </ul>

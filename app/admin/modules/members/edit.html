@@ -24,10 +24,15 @@
                     ng-click="addSmartCard()">
                 <i class="zmdi zmdi-card-membership"></i> Add Smart Card
             </button>
-            <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
+           <!-- <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
                     ng-if="member.status == 1 && member.membershipId"
                     ng-click="addCredit()">
                 <i class="zmdi zmdi-money"></i> Credit
+            </button>-->
+            <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
+                    ng-if="member.status == 1 && member.membershipId"
+                    ng-click="addCredit()">
+                <i class="zmdi zmdi-money"></i> Topup
             </button>
             <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
                     ng-if="member.status == 1 && member.membershipId && member.creditBalance"
@@ -35,11 +40,11 @@
                 <i class="zmdi zmdi-money"></i> Debit
             </button>
             <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
-                    ng-if="member.status == 1 && member.membershipId && member.creditBalance"   ng-click="cancelMembership()">
+                    ng-if="member.status == 1"  ng-click="cancelMembership()">
                 <i class="zmdi zmdi-card-membership"></i> Cancel
             </button>
             <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
-                    ng-if="member.status == 1 && member.membershipId && member.creditBalance"     ng-click="Suspend()">
+                    ng-if="member.status == 1"  ng-click="Suspend()">
                 <i class="zmdi zmdi-card-membership"></i> Suspend
             </button>
 
@@ -98,10 +103,10 @@
                 <h2>Status</h2>
                 <ul >
                     <li><i class="zmdi zmdi-circle" ></i><a
-                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">Suspended</a>
+                            ui-sref="admin.membership.edit({id: member.membershipId.membershipId})" class="text-muted">Suspended</a>
                     </li>
                     <li><i class="zmdi zmdi-comment-list" ></i><a
-                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">{{member.comments}}</a>
+                            ui-sref="admin.membership.edit({id: member.membershipId.membershipId})" class="text-muted">{{member.comments}}</a>
                     </li>
                 </ul>
             </div>
@@ -110,7 +115,7 @@
                 <h2>Status</h2>
                 <ul >
                     <li><i class="zmdi-circle" ></i><a
-                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">Registered</a>
+                            ui-sref="admin.membership.edit({id: member.membershipId.membershipId})" class="text-muted">Registered</a>
                     </li>
                 </ul>
             </div>
@@ -119,7 +124,7 @@
                 <h2>Status</h2>
                 <ul >
                     <li><i class="zmdi zmdi-circle" ></i><a
-                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">Cancelled</a>
+                            ui-sref="admin.membership.edit({id: member.membershipId.membershipId})" class="text-muted">Cancelled</a>
                     </li>
                    <!-- <li><i class="zmdi zmdi-comment-list" ></i><a
                             ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">{{member.comments}}</a>
@@ -131,13 +136,13 @@
                 <h2>Membership</h2>
                 <ul>
                     <li><i class="zmdi zmdi-card-membership"></i><a
-                            ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">{{member.membershipId.subscriptionType}}</a>
+                            ui-sref="admin.membership.edit({id: member.membershipId.membershipId})" class="text-muted">{{member.membershipId.subscriptionType}}</a>
                     </li>
                   <!--  <li><i class="zmdi zmdi-circle" ng-if="member.membershipId.status == -2"></i><a
                             ui-sref="admin.membership.edit({id: member.membershipId._id})" class="text-muted">Suspended</a>
                     </li>-->
                     <li><i class="zmdi zmdi-card-sim"></i><a ui-sref="admin.smart-cards.edit({id: member.smartCardId})"
-                                                             class="text-muted">{{member.smartCardNumber}}</a>
+                                                             class="text-muted">{{member.cardNum}}</a>
                     </li>
                 </ul>
             </div>
@@ -249,7 +254,6 @@
                                         <div class="fg-line"
                                              ng-class="{ 'has-error': MemberForm.emailAddress.$touched && MemberForm.emailAddress.$invalid }">
                                             <input type="email" name="emailAddress" ng-model="member.email"
-                                                   disabled
                                                    class="form-control" required>
                                             <span class="help-block" ng-messages="MemberForm.emailAddress.$error"
                                                   ng-show="MemberForm.emailAddress.$touched">
@@ -646,7 +650,7 @@
                                                     <input type="tel" name="phoneNumber"
                                                            ng-model="member.phoneNumber"
                                                            class="form-control width-100"
-                                                           input-mask=""
+
                                                            placeholder="eg. 0000000000" minlength="10" maxlength="10" chars="numbers">
                                                 </div>
                                             </div>
@@ -740,7 +744,6 @@
                                         <div class="fg-line">
                                             <input type="text" name="pinCode" ng-model="member.pinCode"
                                                    class="form-control"
-                                                   input-mask=""
                                                    placeholder="eg. 560050" minlength="6" maxlength="6" chars="numbers">
                                         </div>
                                     </dd>
@@ -1089,7 +1092,6 @@
                                                     <input type="tel" name="contactNumber"
                                                            ng-model="member.emergencyContact.contactNumber"
                                                            class="form-control width-100"
-                                                           input-mask=""
                                                            placeholder="eg. 0000000000" minlength="10" maxlength="10" chars="numbers">
                                                 </div>
                                             </div>
@@ -1216,7 +1218,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <select chosen class="form-control"
-                                                    ng-options="membership._id as membership.subscriptionType for membership in memberships"
+                                                    ng-options="membership.membershipId as membership.subscriptionType for membership in memberships"
                                                     ng-model="selectMembershipPlan"
                                                     ng-change="selectedMembershipPlan(selectMembershipPlan); member.membershipChanged = true">
                                             </select>
@@ -1349,61 +1351,22 @@
 
 <script type="text/ng-template" id="memberCreditModal.html">
     <div class="modal-header">
-        <h4 class="modal-title">Add Credit to Member</h4>
-    </div>
-    <div class="modal-body">
-        <dl class="dl-horizontal">
-            <dt class="p-t-10 p-l-30">Amount</dt>
+        <h4 class="modal-title">Topup</h4>
+        <dl class="dl-horizontal required">
+            <dt class="p-t-10">Departments</dt>
             <dd>
                 <div class="fg-line">
-                    <input type="number" name="credit" ng-model="member.credit"
-                           class="form-control"
-                           placeholder="eg. 1000 INR" min="0" chars="only-numbers">
-                </div>
-            </dd>
-        </dl>
-        <dl class="dl-horizontal">
-            <dt class="p-t-10 p-l-30">Mode of Payments</dt>
-            <dd>
-                <div class="fg-line">
-                    <select chosen class="form-control" ng-model="member.creditMode"
-                            data-placeholder-text-single="'Select Credit Type'"
-                            name="creditType">
-                        <option value="Debit Card">Debit Card</option>
-                        <option value="Credit Card">Credit Card</option>
-                        <option value="Cash">Cash</option>
-                      <!--  <option value="Cheque">Cheque</option>-->
+                    <select chosen class="form-control"
+                            ng-options="TopupData as TopupData.topupName for TopupData in TopupDatas"
+                            ng-model="dept"
+                            ng-change="selecteDept(dept)">
                     </select>
                 </div>
             </dd>
         </dl>
-        <dl class="dl-horizontal">
-            <dt class="p-t-10 p-l-30">Transaction</dt>
-            <dd>
-                <div class="fg-line">
-                    <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
-                           class="form-control"
-                           placeholder="eg. 65467476" chars="only-letters">
-                </div>
-            </dd>
-        </dl>
-        <dl class="dl-horizontal">
-            <dt class="p-l-30">Comments</dt>
-            <dd>
-                <div class="fg-line">
-                    <textarea name="comments"
-                              ng-model="member.comments" class="form-control"
-                              rows="4"
-                              placeholder="Additional information about the transaction" chars="only-letters">
-                    </textarea>
-                </div>
-            </dd>
-        </dl>
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-link" type="button" ng-click="cancelCredit()">Cancel</button>
-        <button class="btn btn-link" type="button" ng-click="addCredit()">ADD</button>
-    </div>
+
+
 </script>
 
 <script type="text/ng-template" id="memberDebitModal.html">
@@ -1419,6 +1382,19 @@
                            ng-model="member.debit"
                            class="form-control"
                            placeholder="eg. 1000 INR" min="0" chars="only-numbers">
+                </div>
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt class="p-t-10 p-l-30">Mode of Payments</dt>
+            <dd>
+                <div class="fg-line">
+                    <select chosen class="form-control" ng-model="member.creditMode"
+                            data-placeholder-text-single="'Select Credit Type'"
+                            name="creditType">
+                        <option value="Cash">Cash</option>
+                        <!--  <option value="Cheque">Cheque</option>-->
+                    </select>
                 </div>
             </dd>
         </dl>

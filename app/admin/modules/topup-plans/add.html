@@ -1,0 +1,93 @@
+<div class="container">
+
+    <div class="block-header">
+        <h2>Add Topup
+            <small>Add all required details with fields marked as * are
+                mandatory
+            </small>
+        </h2>
+        <div class="actions m-t-10">
+            <button type="button" class="btn btn-icon-text btn-default waves-effect m-r-5"
+                    ng-click="cancelAddTopup();">
+                <i class="zmdi zmdi-arrow-left"></i> Back to List
+            </button>
+            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                    ng-click="addTopup()" ng-disabled="TopupForm.$invalid">
+                <i class="zmdi zmdi-save"></i> Save
+            </button>
+        </div>
+    </div>
+
+    <div class="card" id="profile-main">
+        <div class="pm-overview c-overflow">
+            <div class="pmo-pic">
+                <div class="p-relative">
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="line-height: 239px;">
+                            <img src="assets/images/membership.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pm-body clearfix p-t-20">
+            <form class="pmbb-edit" name="TopupForm" novalidate>
+                <div class="pmb-block">
+                    <div class="pmbb-header">
+                        <h2><i class="zmdi zmdi-assignment-o m-r-5"></i> Topup Plan</h2>
+                    </div>
+                    <div class="pmbb-body p-l-30">
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Topup Name</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': TopupForm.topupName.$touched && TopupForm.topupName.$invalid }">
+                                    <input type="text" name="topupName" ng-model="TopupDetails.topupName"
+                                           class="form-control"
+                                           placeholder="eg. One year" chars="only-letters" required>
+                                    <span class="help-block" ng-messages="TopupForm.topupName.$error"
+                                          ng-show="TopupForm.topupName.$touched">
+                                            <small ng-message="required">Topup name is required</small>
+                                        </span>
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Validity</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': TopupForm.validity.$touched && TopupForm.validity.$invalid }">
+                                    <input type="number" name="validity" ng-model="TopupDetails.validity"
+                                           class="form-control"
+                                           placeholder="eg. 30 days" required>
+                                    <span class="help-block" ng-messages="TopupForm.validity.$error"
+                                          ng-show="TopupForm.validity.$touched">
+                                            <small ng-message="required">Validity is required</small>
+                                        </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Amount</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': TopupForm.Amount.$touched && TopupForm.Amount.$invalid }">
+                                    <input type="number" name="Amount" ng-model="TopupDetails.userFees"
+                                           class="form-control"
+                                           placeholder="eg. 1000" required>
+                                    <span class="help-block" ng-messages="TopupForm.Amount.$error"
+                                          ng-show="TopupForm.Amount.$touched">
+                                            <small ng-message="required">Amount is required</small>
+                                        </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

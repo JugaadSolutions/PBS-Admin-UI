@@ -20,7 +20,7 @@
                 <table ng-table="farePlansTable" class="table table-striped table-vmiddle" show-filter="true">
                     <tr ng-repeat="farePlan in $data">
                         <td data-title="'Plan Name'" filter="{ 'planName': 'text'}">
-                            <a ui-sref="admin.fare-plans.edit({id: farePlan._id})">{{farePlan.planName}}</a>
+                            <a ui-sref="admin.fare-plans.edit({id: farePlan.fareplanUid})">{{farePlan.planName}}</a>
                         </td>
                         <td data-title="'Details'">
                             <div class="fare-plan-chips">
@@ -41,7 +41,7 @@
 
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a href="javascript:void(0);" ng-click="editFarePlan(farePlan._id)">Edit</a>
+                                            <a href="javascript:void(0);" ng-click="editFarePlan(farePlan.fareplanUid)">Edit</a>
                                         </li>
                                     </ul>
                                 </li>

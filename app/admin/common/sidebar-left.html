@@ -44,10 +44,10 @@
                     <a ng-class="{'active': $state.includes('admin.reports.port-status')}"
                        ui-sref="admin.reports.port-status">Port Status</a>
                 </li>
-                <li>
+<!--                <li>
                     <a ng-class="{'active': $state.includes('admin.reports.bicycle-life-cycle')}"
                        ui-sref="admin.reports.bicycle-life-cycle">Bicycle Life Cycle</a>
-                </li>
+                </li>-->
                 <li>
                     <a ng-class="{'active': $state.includes('admin.reports.redistribution-vehicle-track')}"
                        ui-sref="admin.reports.redistribution-vehicle-track">Redistribution Vehicle Tracking</a>
@@ -92,7 +92,7 @@
                     </ul>
                 </li>
 
-                <li><a ng-class="{'active': $state.includes('')}"
+                <li><a ng-class=""
                        ui-sref="">MIS</a>
                 </li>
                 <!-- <li><a ng-class="{'active': $state.includes('admin.accounts.refunds')}"
@@ -107,7 +107,7 @@
 
         <li class="sub-menu"
             ng-class="{'active toggled': $state.includes('admin.reports')}">
-            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-tv-list"></i>Manage</a>
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-tv-list"></i>Tariff</a>
             <ul>
                 <li><a ng-class="{active: $state.includes('admin.membership')}"
                        ui-sref="admin.membership.manage"><i class="zmdi zmdi-card-membership"></i> Membership Plans</a>
@@ -115,6 +115,10 @@
                 <li>
                     <a ng-class="{'active': $state.includes('') || $state.includes('')}"
                        ui-sref="admin.fare-plans.manage"><i class="zmdi zmdi-money-box"></i> Fare Plans</a>
+                </li>
+                <li>
+                    <a ng-class="{'active': $state.includes('admin.topup-plans') || $state.includes('')}"
+                       ui-sref="admin.topup-plans.manage"><i class="zmdi zmdi-money-box"></i> Topup Plans</a>
                 </li>
             </ul>
         </li>
@@ -167,9 +171,9 @@
                     <a ng-class="{active: $state.includes('admin.smart-cards')}" ui-sref="admin.smart-cards.manage">Smart
                         Cards</a>
                 </li>
-                <li ng-if="role=='admin'">
+<!--                <li ng-if="role=='admin'">
                     <a ng-class="{active: $state.includes('admin.internal-stations')}" ui-sref="admin.internal-stations.manage">Internal Stations</a>
-                </li>
+                </li>-->
                 <li ng-if="role=='admin'">
                     <a ng-class="{active: $state.includes('admin.fleets')}" ui-sref="admin.fleets.manage">Fleet</a>
                 </li>
@@ -366,10 +370,10 @@
                     <a ng-class="{'active': $state.includes('admin.reports.port-status')}"
                        ui-sref="admin.reports.port-status">Port Status</a>
                 </li>
-                <li>
+<!--                <li>
                     <a ng-class="{'active': $state.includes('admin.reports.bicycle-life-cycle')}"
                        ui-sref="admin.reports.bicycle-life-cycle">Bicycle Life Cycle</a>
-                </li>
+                </li>-->
                 <li>
                     <a ng-class="{'active': $state.includes('admin.reports.redistribution-vehicle-track')}"
                        ui-sref="admin.reports.redistribution-vehicle-track">Redistribution Vehicle Tracking</a>

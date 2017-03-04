@@ -18,71 +18,56 @@
     </div>
 
     <!--<div class="card" id="profile-main">-->
-       <!-- <div class="pm-overview c-overflow">
-            <div class="pmo-pic">
-                <div class="p-relative">
-                    <div class="fileinput fileinput-new">
-                        <div class="fileinput-preview thumbnail">
-                            <img src="assets/images/no-maps.png">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
+    <!-- <div class="pm-overview c-overflow">
+         <div class="pmo-pic">
+             <div class="p-relative">
+                 <div class="fileinput fileinput-new">
+                     <div class="fileinput-preview thumbnail">
+                         <img src="assets/images/no-maps.png">
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>-->
     <div class="card">
         <div class="ch-alt m-b-0">
-            <h1 ng-bind="RaisedTicket.subject"> </h1>
-    <h2 ng-bind="RaisedTicket.name"></h2>
-            <div class="actions m-t-40">
-
-            <label ng-bind="RaisedTicket.status"></label>
-            </div>
-        </div>
-
-
-
-
-        <div class="card" id="profile-main">
-        <div class="pm-body clearfix">
-                <div class="pmb-block">
-                    <div class="pmbb-header m-t-30">
-                        <dl class="dl-horizontal"> </h1></dl>
-
-                      <div class="pmbb-header m-t-15"></div>
-                        <h5>By</h5><h5>on</h5><h3 ng-bind="RaisedTicket.ticketdate | date:'dd MMM yy'"></h3>
-                        <br>
-                        <dl class="dl-horizontal">
-                            <dt class="p-l-30">Description</dt>
-                            <dd>
-                                <div class="fg-line">
+            <h3 ng-bind="RaisedTicket.subject"> </h3>
+            <label>By:&nbsp;</label><label ng-bind="RaisedTicket.name" style="font-weight: bold"></label>&nbsp;|&nbsp;<label>On:&nbsp;</label><label style="font-weight: bold" ng-bind="RaisedTicket.ticketdate | date:'dd MMM yy'"></label>&nbsp;|&nbsp;
+            <label>Status:&nbsp;</label> <label ng-bind="RaisedTicket.status"></label>
+            <br>
+            <label>Priority:&nbsp;</label><label ng-bind="Priority" style="font-weight: bold"></label> | <label>Assigned To:&nbsp;</label><label ng-bind="AssignedTo" style="font-weight: bold"></label>
+            <br>
+            <div class="pmb-block">
+                <div class="pmbb-header m-t-30">
+                    <dl class="dl-horizontal">
+                        <dt class="p-l-30">Description</dt>
+                        <dd>
+                            <div class="fg-line">
                                         <textarea name="comments"
-                              ng-model="RaisedTicket.description" class="form-control"
-                              rows="4" disabled>
+                                                  ng-model="RaisedTicket.description" class="form-control"
+                                                  rows="4" disabled>
                             </textarea>
-                                </div>
-                            </dd>
-                        </dl>
-                        <h4>Priority:</h4><span ng-bind="Priority"></span>
-                        <h4>Assigned To:</h4><span ng-bind="AssignedTo"></span>
-                        <br>
-                        <br>
-                        <dl class="dl-horizontal">
-                            <dt class="p-l-30">Comments</dt>
-                            <dd>
-                                <div class="fg-line" ng-repeat="reply in ReplyDescriptions">
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl class="dl-horizontal">
+                        <dt class="p-l-30">Replies</dt>
+                        <dd>
+                            <div class="fg-line" ng-repeat="reply in ReplyDescriptions">
                                         <textarea name="comments"
                                                   ng-model="reply.description" class="form-control"
-                                                  rows="4" style="border-style: inset;border-width: 2px" disabled>
+                                                  rows="4" style="border-width: 2px" disabled>
                             </textarea>
-                                    <!--<span ng-repeat="fromdate in ReplyFromanddates">{{fromdate.Name}}</span>-->
-                                    By &nbsp;<b><span>{{reply.replierId.Name}}</span></b>&nbsp;On&nbsp;<b><span>{{reply.replydate | date:'dd MMM yy'}}</span></b>
-                                    <br>
-                                    <br>
-                                </div>
-                            </dd>
-                        </dl>
+                                <!--<span ng-repeat="fromdate in ReplyFromanddates">{{fromdate.Name}}</span>-->
+                                By &nbsp;<b><span>{{reply.replierId.Name}}</span></b>&nbsp;On&nbsp;<b><span>{{reply.replydate | date:'dd MMM yy'}}</span></b>
+                                <br>
+                                <br>
+                            </div>
+                        </dd>
+                    </dl>
 
-                        <form class="pmbb-edit" name="EditTickets">
+                    <form class="pmbb-edit" name="EditTickets">
 
                         <dl class="dl-horizontal required">
                             <dt class="p-l-30">Reply</dt>
@@ -124,179 +109,173 @@
                         </dl>
 
                         <div style="margin-left: 180px">
-                        <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                                ng-click="addReply()" ng-disabled="EditTickets.$invalid">
-                            <i class="zmdi zmdi-save"></i> Reply
-                        </button>
+                            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                                    ng-click="addReply()" ng-disabled="EditTickets.$invalid">
+                                <i class="zmdi zmdi-save"></i> Reply
+                            </button>
 
-                        <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                                ng-click="ReassignEmployee()">
-                            <i class="zmdi zmdi-save"></i> Reassign
-                        </button>
-                        </div>
-                        </form>
-                    </div>
-
-                    <!--<div class="pmbb-body p-l-30">
-                        <dl class="dl-horizontal required">
-                            <dt class="p-t-10">Member Name</dt>
-                            <dd>
-                                <div class="fg-line">
-                                    <input type="text" name="name" ng-model="RaisedTicket.name"
-                                           class="form-control"
-                                           placeholder="" disabled>
-                                </div>
-                            </dd>
-                        </dl>
-
-                        <dl class="dl-horizontal required">
-                            <dt class="p-t-10">Ticket Subject</dt>
-                            <dd>
-                                <div class="fg-line">
-                                    <input type="text" name="subject" ng-model="RaisedTicket.subject"
-                                           class="form-control"
-                                           placeholder="" disabled>
-                                </div>
-                            </dd>
-                        </dl>
-
-
-                        <dl class="dl-horizontal required">
-                            <dt class="p-t-10">Ticket Description</dt>
-                            <dd>
-                                <div class="fg-line">
-                                    <input type="text" name="description" ng-model="RaisedTicket.description"
-                                           class="form-control"
-                                           placeholder="" disabled>
-                                </div>
-                            </dd>
-                        </dl>
-
-                        <dl class="dl-horizontal required">
-                            <dt class="p-t-10">Priority</dt>
-                            <dd>
-                                <div class="fg-line">
-                                    <input type="text" name="priority" ng-model="Priority"
-                                           class="form-control"
-                                           placeholder="" disabled>
-                                </div>
-                            </dd>
-                        </dl>
-
-                        <dl class="dl-horizontal required">
-                            <dt class="p-t-10">Status</dt>
-                            <dd>
-                                <div class="fg-line">
-                                   <select chosen class="form-control">
-                                       <option value="Open">Open</option>
-                                       <option value="Close">Close</option>
-                                       <option value="Hold">Hold</option>
-                                   </select>
-                                </div>
-                            </dd>
-                        </dl>
-
-
-
-                        <div class="plan-wrap" ng-repeat="EditTicketDetails in EditTicketDetails.comments">
-                            <ng-form name="plansForm">
-                                <div class="plan-delete">
-                                    <button class="btn btn-danger btn-icon waves-effect waves-circle"
-                                            ng-click="removeComments($index)" uib-tooltip="Remove Comments"
-                                            tooltip-placement="left">
-                                        <i class="zmdi zmdi-delete"></i></button>
-                                </div>
-                                <dl class="dl-horizontal required">
-                                    <dt class="p-t-10">comments</dt>
-                                    <div class="fg-line"
-                                         ng-class="{ 'has-error': EditTickets.comments.$touched && EditTickets.comments.$invalid }">
-                                        <input type="text" name="comments" ng-model="farePlan.startTime"
-                                               class="form-control"
-                                               placeholder="eg. reply">
-                                        <span class="help-block" ng-messages="EditTickets.comments.$error"
-                                              ng-show="EditTickets.comments.$touched">
-                                            <small ng-message="required">Comments is required</small>
-                                        </span>
-                                    </div>
-                                </dl>
-                                <div class="clear"></div>
-                            </ng-form>
-                        </div>
-                        <div class="m-t-30">
-                            <button class="btn btn-primary btn-icon-text waves-effect"
-                                    ng-click="addComments()">
-                                <i class="zmdi zmdi-plus"></i>Add Comments
+                            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                                    ng-click="ReassignEmployee()">
+                                <i class="zmdi zmdi-save"></i> Reassign
                             </button>
                         </div>
+                    </form>
 
-                    </div>-->
-                <!--</div>-->
+                </div>
+            </div>
+        </div>
 
+        <!-- <div class="card" id="profile-main">
+         <div class="pm-body clearfix">
+                 <div class="pmb-block">
+                     <div class="pmbb-header m-t-30">-->
+        <!--  <dl class="dl-horizontal">
+              <dt class="p-l-30">Description</dt>
+              <dd>
+                  <div class="fg-line">
+                          <textarea name="comments"
+                ng-model="RaisedTicket.description" class="form-control"
+                rows="4" disabled>
+              </textarea>
+                  </div>
+              </dd>
+          </dl>-->
+        <!--   <dl class="dl-horizontal">
+               <dt class="p-l-30">Comments</dt>
+               <dd>
+                   <div class="fg-line" ng-repeat="reply in ReplyDescriptions">
+                           <textarea name="comments"
+                                     ng-model="reply.description" class="form-control"
+                                     rows="4" style="border-style: inset;border-width: 2px" disabled>
+               </textarea>
+                       &lt;!&ndash;<span ng-repeat="fromdate in ReplyFromanddates">{{fromdate.Name}}</span>&ndash;&gt;
+                       By &nbsp;<b><span>{{reply.replierId.Name}}</span></b>&nbsp;On&nbsp;<b><span>{{reply.replydate | date:'dd MMM yy'}}</span></b>
+                       <br>
+                       <br>
+                   </div>
+               </dd>
+           </dl>-->
+
+        <!-- <form class="pmbb-edit" name="EditTickets">
+
+                 <dl class="dl-horizontal required">
+                     <dt class="p-l-30">Reply</dt>
+                     <dd>
+                         <div class="fg-line">
+                                 <textarea name="comments"
+                                           ng-model="replyDetails.description" class="form-control"
+                                           rows="4" required>
+                     </textarea>
+                         </div>
+                     </dd>
+                 </dl>
+
+                 <dl class="dl-horizontal">
+                     <dt class="p-l-30">Status</dt>
+                     <dd>
+                         <div class="fg-line">
+                             <select chosen class="form-control" ng-model="replyDetails.status"
+                                     data-placeholder-text-single="'Select Status'"
+                                     name="Status">
+                                 <option value="Open">Open</option>
+                                 <option value="Close">Close</option>
+                                 <option value="Hold">Hold</option>
+                             </select>
+                         </div>
+                     </dd>
+                 </dl>
+
+                 <dl class="dl-horizontal">
+                     <dd>
+                         <div class="fg-line m-t-10">
+                             <label class="radio radio-inline m-r-20">
+                                 <input type="radio" name="internal" ng-model="replyDetails.internal" value="0">
+                                 <i class="input-helper"></i>
+                                 Internal usage
+                             </label>
+                         </div>
+                     </dd>
+                 </dl>
+
+                 <div style="margin-left: 180px">
+                 <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                         ng-click="addReply()" ng-disabled="EditTickets.$invalid">
+                     <i class="zmdi zmdi-save"></i> Reply
+                 </button>
+
+                 <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                         ng-click="ReassignEmployee()">
+                     <i class="zmdi zmdi-save"></i> Reassign
+                 </button>
+                 </div>
+                 </form>-->
+        <!--            </div>
         </div>
     </div>
-</div>
+</div>-->
+        <br>
     </div>
 
-<script type="text/ng-template" id="employee-reassign-for-ticket.html">
-    <div class="modal-header">
-        <h4 class="modal-title">Re-assign Employee</h4>
-    </div>
-    <form name="reassignForm">
-    <div class="modal-body">
-        <dl class="dl-horizontal required">
-            <dt class="p-l-30">Department</dt>
-            <dd>
-                <div class="fg-line">
-                    <select chosen class="form-control"
-                            ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
-                            ng-model="dept"
-                            ng-change="selecteDept(dept)" required>
-                    </select>
-                </div>
-            </dd>
-        </dl>
+    <script type="text/ng-template" id="employee-reassign-for-ticket.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Re-assign Employee</h4>
+        </div>
+        <form name="reassignForm">
+            <div class="modal-body">
+                <dl class="dl-horizontal required">
+                    <dt class="p-l-30">Department</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <select chosen class="form-control"
+                                    ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
+                                    ng-model="dept"
+                                    ng-change="selecteDept(dept)" required>
+                            </select>
+                        </div>
+                    </dd>
+                </dl>
 
-         <dl class="dl-horizontal required">
-             <dt class="p-l-30">Employee</dt>
-             <dd>
-                 <div class="fg-line">
-                     <select chosen class="form-control"
-                             ng-options="Employee as Employee.Name for Employee in Employees"
-                             ng-model="empName"
-                             ng-change="selectedEmp(empName)" required>
-                     </select>
-                 </div>
-             </dd>
-         </dl>
+                <dl class="dl-horizontal required">
+                    <dt class="p-l-30">Employee</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <select chosen class="form-control"
+                                    ng-options="Employee as Employee.Name for Employee in Employees"
+                                    ng-model="empName"
+                                    ng-change="selectedEmp(empName)" required>
+                            </select>
+                        </div>
+                    </dd>
+                </dl>
 
-        <dl class="dl-horizontal required">
-            <dt class="p-l-30">Comments</dt>
-            <dd>
-                <div class="fg-line">
+                <dl class="dl-horizontal required">
+                    <dt class="p-l-30">Comments</dt>
+                    <dd>
+                        <div class="fg-line">
                     <textarea name="comments"
                               ng-model="reAssignEmployeeDetails.description" class="form-control"
                               rows="4"
                               placeholder="Information regarding for employee reassigning" required>
                     </textarea>
-                </div>
-            </dd>
-        </dl>
+                        </div>
+                    </dd>
+                </dl>
 
-        <dl class="dl-horizontal">
-            <dd>
-                <div class="fg-line m-t-10">
-                    <label class="radio radio-inline m-r-20">
-                        <input type="radio" name="internal" ng-model="internal">
-                        <i class="input-helper"></i>
-                        Internal usage
-                    </label>
-                </div>
-            </dd>
-        </dl>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-link" type="button" ng-click="cancelReassignEmployee()">Cancel</button>
-        <button class="btn btn-link" type="button" ng-click="ReassignEmp()" ng-disabled="reassignForm.$invalid">Assign</button>
-    </div>
-    </form>
-</script>
+                <dl class="dl-horizontal">
+                    <dd>
+                        <div class="fg-line m-t-10">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" name="internal" ng-model="internal">
+                                <i class="input-helper"></i>
+                                Internal usage
+                            </label>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-link" type="button" ng-click="cancelReassignEmployee()">Cancel</button>
+                <button class="btn btn-link" type="button" ng-click="ReassignEmp()" ng-disabled="reassignForm.$invalid">Assign</button>
+            </div>
+        </form>
+    </script>

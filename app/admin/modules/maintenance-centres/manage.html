@@ -21,7 +21,7 @@
                 <table ng-table="maintenanceCentresTable" class="table table-striped table-vmiddle" show-filter="true">
                     <tr ng-repeat="maintenanceCentre in $data">
                         <td data-title="'Centre Name'" filter="{ 'name': 'text'}">
-                            <a ui-sref="admin.maintenance-centres.edit({id: maintenanceCentre._id})">{{maintenanceCentre.Name}}</a>
+                            <a ui-sref="admin.maintenance-centres.edit({id: maintenanceCentre.PortID})">{{maintenanceCentre.Name}}</a>
                         </td>
                         <td data-title="'Station'" filter="{ 'name': 'text'}">
                             {{maintenanceCentre.StationId.name}}
@@ -52,11 +52,11 @@
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
                                             <a href="javascript:void(0);"
-                                               ng-click="editMaintenanceCentre(maintenanceCentre._id)">Edit</a>
+                                               ng-click="editMaintenanceCentre(maintenanceCentre.PortID)">Edit</a>
                                         </li>
                                         <!--<li>
                                             <a href="javascript:void(0);"
-                                               ng-click="changeMaintenanceCentreStatus(maintenanceCentre._id)">Change
+                                               ng-click="changeMaintenanceCentreStatus(maintenanceCentre.PortID)">Change
                                                 Status</a>
                                         </li>-->
                                     </ul>
