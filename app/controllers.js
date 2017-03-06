@@ -384,6 +384,18 @@
             });
         };
 
+        $scope.TopupData = [];
+
+        DataService.getTopups().then(function (response) {
+            if (!response.error) {
+                $scope.TopupData = response.data;
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
         $scope.addCredit = function (size) {
             $uibModal.open({
                 templateUrl: 'memberCreditModal.html',
