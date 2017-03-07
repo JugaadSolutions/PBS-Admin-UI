@@ -9,21 +9,21 @@
                     ng-click="cancelUpdateMember();">
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
-            <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
+          <!--  <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
                     ng-if="member.documents.length && member.status == 0"
                     ng-click="verifyDocument()">
                 <i class="zmdi zmdi-card"></i> Verify Proofs
-            </button>
-            <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
+            </button>-->
+         <!--   <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
                     ng-if="member.status == 1 && !member.membershipId && !member.membershipChanged"
                     ng-click="addMembership()">
                 <i class="zmdi zmdi-card-membership"></i> Add Membership
-            </button>
-            <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
+            </button>-->
+           <!-- <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
                     ng-if="member.status == 1 && !member.smartCardNumber && member.membershipId && !member.cardChanged && !member.creditBalance <= 0"
                     ng-click="addSmartCard()">
                 <i class="zmdi zmdi-card-membership"></i> Add Smart Card
-            </button>
+            </button>-->
            <!-- <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
                     ng-if="member.status == 1 && member.membershipId"
                     ng-click="addCredit()">
@@ -34,24 +34,28 @@
                     ng-click="addCredit()">
                 <i class="zmdi zmdi-money"></i> Topup
             </button>
-            <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
+          <!--  <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
                     ng-if="member.status == 1 && member.membershipId && member.creditBalance"
                     ng-click="debit()">
                 <i class="zmdi zmdi-money"></i> Debit
-            </button>
+            </button>-->
             <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
-                    ng-if="member.status == 1"  ng-click="cancelMembership()">
+                    ng-if="member.status == 1 && login_role !=='Mysoreone-employee'"  ng-click="cancelMembership()">
                 <i class="zmdi zmdi-card-membership"></i> Cancel
             </button>
             <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
-                    ng-if="member.status == 1"  ng-click="Suspend()">
+                    ng-if="member.status == 1 && login_role !=='Mysoreone-employee'"  ng-click="Suspend()" ng-if="login_role !=='Mysoreone-employee'">
                 <i class="zmdi zmdi-card-membership"></i> Suspend
             </button>
 
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-if="member.status !== -1"
-                    ng-click="updateMember()" ng-disabled="MemberForm.$invalid && !member.documents.length">
+                    ng-click="addMember()" ng-if="member.status == 0 && member.cardNumber">
+                <i class="zmdi zmdi-save"></i> Save
+            </button>
 
+            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                    ng-if="member.status !== 0 && login_role !=='Mysoreone-employee'"
+                    ng-click="updateMember()" ng-disabled="MemberForm.$invalid && !member.documents.length">
                 <i class="zmdi zmdi-save"></i> Update
             </button>
         </div>
@@ -1206,7 +1210,7 @@
                         </div>
                     </uib-tab>
 
-                    <uib-tab heading="Membership"
+                   <!-- <uib-tab heading="Membership"
                              ng-if="member.membershipId || member.membershipChanged || member.cardChanged">
                         <div class="pmb-block">
                             <div class="pmbb-header">
@@ -1248,10 +1252,94 @@
                                 </dl>
                             </div>
                         </div>
+                    </uib-tab>-->
+                    <uib-tab heading="Membership Plan" ng-if="member.status ==0">
+                        <div class="pmb-block">
+                            <div class="pmbb-header">
+                                <h2><i class="zmdi zmdi-account m-r-5"></i> Membership Plans</h2>
+                            </div>
+                            <div class="pmbb-body p-l-30">
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10 p-l-30">Plans</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen class="form-control"
+                                                    ng-options="membership as membership.subscriptionType for membership in memberships"
+                                                    ng-model="plan"
+                                                    ng-change="selectedMembershipPlan(plan)" required>
+                                            </select>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10 p-l-30">Mode of Payments</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen class="form-control" ng-model="member.creditMode"
+                                                    data-placeholder-text-single="'Select Credit Type'"
+                                                    name="creditType" required>
+                                                <option value="Debit Card">Debit Card</option>
+                                                <option value="Credit Card">Credit Card</option>
+                                                <option value="Cash">Cash</option>
+                                            </select>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10 p-l-30">Transaction</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
+                                                   class="form-control"
+                                                   placeholder="eg. 65467476" chars="only-letters" required>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal">
+                                    <dt class="p-l-30">Comments</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                        <textarea name="comments"
+                                                  ng-model="member.comments" class="form-control"
+                                                  rows="4"
+                                                  placeholder="Additional information about the transaction" chars="only-letters">
+                                        </textarea>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                            </div>
+                        </div>
+                    </uib-tab>
+
+                    <uib-tab heading="Smart Cards" ng-if="member.status==0 && member.membershipId">
+                        <div class="pmb-block">
+                            <div class="pmbb-header">
+                                <h2><i class="zmdi zmdi-account m-r-5"></i> Smart Card</h2>
+                            </div>
+                            <div class="pmbb-body p-l-30">
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10 p-l-30">Card Number</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <input type="text" name="smartcardNumber" ng-model="member.cardNumber"
+                                                   class="form-control"
+                                                   placeholder="eg. 15" chars="only-letters" required>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                            </div>
+                        </div>
                     </uib-tab>
 
 <!--prashanth commented statistics tab on 19.11.16-->
-                    <uib-tab heading="Statistics">
+                    <uib-tab heading="Statistics" ng-if="member.status != 0">
                         <div class="mini-charts">
                             <div class="col-sm-6 col-sm-5">
                                 <div class="mini-charts-item bgm-cyan">
@@ -1352,21 +1440,64 @@
 <script type="text/ng-template" id="memberCreditModal.html">
     <div class="modal-header">
         <h4 class="modal-title">Topup</h4>
+    </div>
+    <div class="modal-body">
         <dl class="dl-horizontal required">
-            <dt class="p-t-10">Departments</dt>
+            <dt class="p-t-10 p-l-30">Plans</dt>
             <dd>
                 <div class="fg-line">
                     <select chosen class="form-control"
                             ng-options="TopupData as TopupData.topupName for TopupData in TopupDatas"
-                            ng-model="dept"
-                            ng-change="selecteDept(dept)">
+                            ng-model="plan"
+                            ng-change="selecteTopupPlan(plan)" required>
                     </select>
                 </div>
             </dd>
         </dl>
+
+        <dl class="dl-horizontal required">
+            <dt class="p-t-10 p-l-30">Mode of Payments</dt>
+            <dd>
+                <div class="fg-line">
+                    <select chosen class="form-control" ng-model="topupsDetails.creditMode"
+                            data-placeholder-text-single="'Select Credit Type'"
+                            name="creditType" required>
+                        <option value="Debit Card">Debit Card</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Cash">Cash</option>
+                    </select>
+                </div>
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal required">
+            <dt class="p-t-10 p-l-30">Transaction</dt>
+            <dd>
+                <div class="fg-line">
+                    <input type="text" name="transactionNumber" ng-model="topupsDetails.transactionNumber"
+                           class="form-control"
+                           placeholder="eg. 65467476" chars="only-letters" required>
+                </div>
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt class="p-l-30">Comments</dt>
+            <dd>
+                <div class="fg-line">
+                    <textarea name="comments"
+                              ng-model="topupsDetails.comments" class="form-control"
+                              rows="4"
+                              placeholder="Additional information about the transaction" chars="only-letters">
+                    </textarea>
+                </div>
+            </dd>
+        </dl>
     </div>
-
-
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" ng-click="cancelTopups()">Cancel</button>
+        <button class="btn btn-link" type="button" ng-click="addTopup()">Submit</button>
+    </div>
 </script>
 
 <script type="text/ng-template" id="memberDebitModal.html">
@@ -1547,15 +1678,15 @@
 </script>
 
 
-<script type="text/ng-template" id="membership-modal.html">
+<!--<script type="text/ng-template" id="membership-modal.html">
     <form name="membership" novalidate>
         <div class="modal-header">
-            <h4 class="modal-title">Change Membership</h4>
+            <h4 class="modal-title">Add Membership</h4>
         </div>
         <div class="modal-body">
             <div class="pmbb-body p-l-30">
                 <dl class="dl-horizontal">
-                    <dt class="p-t-10">Subscription Type</dt>
+                    <dt class="p-t-10 p-l-30">Subscription Type</dt>
                     <dd>
                         <div class="fg-line">
                             <select chosen class="form-control"
@@ -1563,6 +1694,45 @@
                                     ng-model="selectMembershipPlan"
                                     ng-change="selectedMembershipPlan(selectMembershipPlan)">
                             </select>
+                        </div>
+                    </dd>
+                </dl>
+
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10 p-l-30">Mode of Payments</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <select chosen class="form-control" ng-model="membershipPlanOtherDetails.creditMode"
+                                    data-placeholder-text-single="'Select Credit Type'"
+                                    name="creditType" required>
+                                <option value="Debit Card">Debit Card</option>
+                                <option value="Credit Card">Credit Card</option>
+                                <option value="Cash">Cash</option>
+                            </select>
+                        </div>
+                    </dd>
+                </dl>
+
+                <dl class="dl-horizontal required">
+                    <dt class="p-t-10 p-l-30">Transaction</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <input type="text" name="transactionNumber" ng-model="membershipPlanOtherDetails.transactionNumber"
+                                   class="form-control"
+                                   placeholder="eg. 65467476" chars="only-letters" required>
+                        </div>
+                    </dd>
+                </dl>
+
+                <dl class="dl-horizontal">
+                    <dt class="p-l-30">Comments</dt>
+                    <dd>
+                        <div class="fg-line">
+                    <textarea name="comments"
+                              ng-model="membershipPlanOtherDetails.comments" class="form-control"
+                              rows="4"
+                              placeholder="Additional information about the transaction" chars="only-letters">
+                    </textarea>
                         </div>
                     </dd>
                 </dl>
@@ -1575,7 +1745,7 @@
             </button>
         </div>
     </form>
-</script>
+</script>-->
 
 <script type="text/ng-template" id="smartCard-modal.html">
     <form name="smartCard" novalidate>

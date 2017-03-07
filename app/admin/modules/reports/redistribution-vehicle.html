@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header ch-alt ">
+            <h2>Redistribution Vehicle
+            </h2>
+        </div>
+
+        <div class="card-body">
+            <div class="data-view">
+                <div class="table-responsive">
+                    <table ng-table="rvTable" class="table table-striped table-vmiddle">
+                        <tr ng-repeat="rv in redistributionVehicle">
+                            <td data-title="'Name'">
+                                {{rv.Name}}
+                            </td>
+                            <td data-title="'Capacity'">
+                                {{rv.portCapacity}}
+                            </td>
+                            <td data-title="'Bicycles Available'">
+                                {{rv.available}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

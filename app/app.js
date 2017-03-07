@@ -43,7 +43,7 @@
         member: {
             getAll: 'member',
             get: 'member',
-            save: 'member',
+            save: 'member/add',
             credit: 'credit',
             debit: 'debit',
             update: 'member',
@@ -125,7 +125,9 @@
           /*  bicycleAvailabilityLocal: 'bicycleavailability/local',*/
             bicycleAvailabilityLocal: 'dockstation',
             moveBicycle: 'bicyclelifecycle',
-            bicycleLifeCycle: 'bicycleLifeCycle'
+            bicycleLifeCycle: 'bicycleLifeCycle',
+            summary:'vehicle/summery/all',
+            hubs:''
         },
         redistributionVehicles: {
             getAll: 'redistributionport',
@@ -173,7 +175,8 @@
         staffSelection:
         {
            /* getAll:'employee/registrationstaff'*/
-            getAll:'employee/registrationstaff/emp'
+            getAll:'employee/registrationstaff/emp',
+            getAllNew:'employee/moneregstaff/emp'
         },
 
         redistributionVehicleStaffSelection:
@@ -258,7 +261,8 @@
             save:'topups',
             get:'topups',
             getAll:'topups',
-            update:'topups'
+            update:'topups',
+            delete:'topups'
         },
 
         registrationDetails:{
@@ -354,7 +358,8 @@
                 save: 'member/transaction',
                 update: 'member/checkin',
                 checkOut: 'member/checkOut',
-                checkIn: 'member/checkIn'
+                checkIn: 'member/checkIn',
+                complete:'transactions/completed'
             }
         },
         user: {

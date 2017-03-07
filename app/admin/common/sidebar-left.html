@@ -36,15 +36,35 @@
                 <li><a ng-class="{'active': $state.includes('admin.reports.monitor-transactions')}"
                        ui-sref="admin.reports.monitor-transactions">Bicycle Transactions</a>
                 </li>
-                <li>
+               <!-- <li>
                     <a ng-class="{'active': $state.includes('admin.reports.bicycle-availability') || $state.includes('admin.reports.port-information')}"
                        ui-sref="admin.reports.bicycle-availability">Bicycle Availability</a>
+                </li>-->
+                <li class="sub-menu">
+                    <a href="" toggle-submenu>Bicycle Availability</a>
+                    <ul>
+                        <li><a ng-class="{'active': $state.includes('admin.reports.bicycle-availability')}"
+                               ui-sref="admin.reports.bicycle-availability">Hubs</a>
+                        </li>
+                        <li><a ng-class="{'active': $state.includes('admin.reports.redistribution-vehicle')}"
+                               ui-sref="admin.reports.redistribution-vehicle">Redistribution Vehicle</a>
+                        </li>
+                        <li><a ng-class="{'active': $state.includes('admin.reports.holding-area')}"
+                               ui-sref="admin.reports.holding-area">Holding Area</a>
+                        </li>
+                        <li><a ng-class="{'active': $state.includes('admin.reports.maintenance-centre')}"
+                               ui-sref="admin.reports.maintenance-centre">Maintenance Centre</a>
+                        </li>
+                        <li><a ng-class="{'active': $state.includes('admin.accounts.bankcashdeposits')}"
+                               ui-sref="admin.reports.bicycle-summary">Summary</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a ng-class="{'active': $state.includes('admin.reports.port-status')}"
                        ui-sref="admin.reports.port-status">Port Status</a>
                 </li>
-<!--                <li>
+                <!--<li>
                     <a ng-class="{'active': $state.includes('admin.reports.bicycle-life-cycle')}"
                        ui-sref="admin.reports.bicycle-life-cycle">Bicycle Life Cycle</a>
                 </li>-->
@@ -90,6 +110,10 @@
                                ui-sref="admin.maintenance.bicycle-maintenance.report">Bicycle Maintenance Report</a>
                         </li>
                     </ul>
+                </li>
+
+                <li><a ng-class="{active: $state.includes('admin.reports.bicycle-transactions')}"
+                       ui-sref="admin.reports.bicycle-transactions">Bicycle Trasaction</a>
                 </li>
 
                 <li><a ng-class=""
@@ -360,7 +384,7 @@
             <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-chart"></i>Live Data</a>
             <ul>
                 <li><a ng-class="{'active': $state.includes('admin.reports.monitor-transactions')}"
-                       ui-sref="admin.reports.monitor-transactions">Bicycle Transactions</a>
+                       ui-sref="admin.reports.monitor-transactions">Live Transactions</a>
                 </li>
                 <li>
                     <a ng-class="{'active': $state.includes('admin.reports.bicycle-availability') || $state.includes('admin.reports.port-information')}"
@@ -379,6 +403,16 @@
                        ui-sref="admin.reports.redistribution-vehicle-track">Redistribution Vehicle Tracking</a>
                 </li>
             </ul>
+        </li>
+    </ul>
+
+    <!--Login view for Operator-->
+    <ul class="main-menu" ng-if="role=='Mysoreone-employee'" >
+        <li ng-class="{active: $state.includes('admin.members')}">
+            <a ui-sref="admin.members.manage"><i class="zmdi zmdi-mood"></i> Members</a>
+        </li>
+        <li ng-class="{active: $state.includes('admin.tickets')}">
+            <a ui-sref="admin.tickets.manage"><i class="zmdi zmdi-labels"></i> Tickets</a>
         </li>
     </ul>
 

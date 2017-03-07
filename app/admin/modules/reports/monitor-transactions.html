@@ -37,23 +37,22 @@
                         <td data-title="'Checkout'">
                             {{transaction.checkOutTime | date : "dd MMM yy', ' h:mma"}}
                         </td>
-                        <td data-title="'To'">
+                      <!--  <td data-title="'To'">
                             <a ng-if="transaction.status != 'Canceled'"
                                ui-sref="admin.docking-stations.edit({id: transaction.toPort.dockingStationId.StationID})">{{transaction.toPort.Name}}</a>
-                            <!--<a ng-if="transaction.status != 'Canceled' && transaction.temporaryPort">{{transaction.temporaryPort.name}}</a>-->
-                            <a ng-if="transaction.status == 'Canceled'">--</a>
-                        </td>
-                        <td data-title="'Checkin'">
+                            <a ng-if="transaction.status == 'Canceled'">&#45;&#45;</a>
+                        </td>-->
+                       <!-- <td data-title="'Checkin'">
                             {{transaction.checkInTime | date : "dd MMM yy', ' h:mma"}}
-                        </td>
-                        <td data-title="'Duration'">
-                            <a ng-if="transaction.status == 'Canceled'">--</a>
+                        </td>-->
+                    <!--    <td data-title="'Duration'">
+                            <a ng-if="transaction.status == 'Canceled'">&#45;&#45;</a>
                             <a ng-if="transaction.status != 'Canceled'">{{(transaction.duration).toFixed(0)}}
                                 {{transaction.duration === undefined ? "" : "mins"}}</a>
                         </td>
                         <td data-title="'Cost'">
                             &#8377; {{transaction.creditsUsed}}
-                        </td>
+                        </td>-->
                         <td data-title="'Status'">
                             {{transaction.status}}
                         </td>

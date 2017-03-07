@@ -67,14 +67,14 @@
                 });
                 return deferred.promise;
             },
-            addCredit: function (id, data) {
+            saveTopupForMembership: function (id, data) {
                 var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.credit, data).then(function (result) {
+               /* $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.credit, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;
+                return deferred.promise;*/
             },
             addDebit: function (id, data) {
                 var deferred = $q.defer();
@@ -249,11 +249,10 @@
                 {
                     _url='monitorgrp';
                 }
-                else
+                else if (_department === 'Mysore One Staff')
                 {
-
+                    _url='monestaff';
                 }
-
                 $http.post(APINew + APIEndPoint.employee.save + '/' + _url  , data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
@@ -626,6 +625,17 @@
             getStaffs: function () {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.staffSelection.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            /// Both registration staff and mysore one staff
+            getStaffsNew: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.staffSelection.getAllNew).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -1384,6 +1394,16 @@
                 return deferred.promise;
             },
 
+            Delete_topup: function (data) {
+                var deferred = $q.defer();
+                $http.delete(APINew + APIEndPoint.topUp.delete + '/' + data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             /*check in check out*/
             saveCheckInCheckOut:function(data)
             {
@@ -1678,6 +1698,72 @@
                 });
                 return deferred.promise;
             },
+
+            getBicycleSummary: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.bicycle.summary).then(function (result)
+                {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getredistributionVehicleLiveData: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.redistributionVehicles.getAll).then(function (result)
+                {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            getholdingAreaLiveData: function () {
+            var deferred = $q.defer();
+            $http.get(APINew + APIEndPoint.holdingArea.getAll).then(function (result)
+            {
+                deferred.resolve(result.data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        },
+
+            getmaintenanceCentreaLiveData: function () {
+            var deferred = $q.defer();
+            $http.get(APINew + APIEndPoint.maintenanceCentre.getAll).then(function (result)
+            {
+                deferred.resolve(result.data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        },
+
+          /*  getBicycleTransactions: function () {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.reports.transactions.complete).then(function (result)
+                {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },*/
+
+            getBicycleTransactions: function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.reports.transactions.complete, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getBicycleLifeCycle: function (filters) {
                 var deferred = $q.defer();
                 $http.get(API + APIEndPoint.bicycle.bicycleLifeCycle, {
@@ -2107,7 +2193,7 @@
         }
     }]);
 
-    // Login Auth
+    /*// Login Auth
     app.service('auth', ['$window', '$location', function ($window, $location) {
 
         var self = this;
@@ -2140,7 +2226,7 @@
             var token = self.getToken();
             if (token) {
                 var params = self.parseToken(token);
-                /*return params.role;*/
+                /!*return params.role;*!/
                 return params._type;
                 return params.email;
             } else {
@@ -2148,7 +2234,7 @@
             }
         };
 
-        /*newly added*/
+        /!*newly added*!/
         self.returnEmail=function(){
             var token = self.getToken();
             if (token) {
@@ -2196,7 +2282,7 @@
 
 
     }]);
-
+*/
 
     app.factory('authInterceptor', ['auth', 'API', function (auth, API) {
 

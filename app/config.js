@@ -852,6 +852,46 @@
                 containerClass: 'sw-toggled'
             })
 
+            // bicycle availability summary
+            .state("admin.reports.bicycle-summary", {
+                url: "/bicycle-summary",
+                templateUrl: adminViewPath + 'reports/bicycle-summary.html',
+                controller: 'BicycleSummary',
+                containerClass: 'sw-toggled'
+            })
+
+            // bicycle availble in Redistribution vehicle
+            .state("admin.reports.redistribution-vehicle", {
+                url: "/redistribution-vehicle",
+                templateUrl: adminViewPath + 'reports/redistribution-vehicle.html',
+                controller: 'RedistributionVehiclesLiveData',
+                containerClass: 'sw-toggled'
+            })
+
+            // bicycle availble in Holding area
+            .state("admin.reports.holding-area", {
+                url: "/holding-area",
+                templateUrl: adminViewPath + 'reports/holding-area.html',
+                controller: 'HoldingAreaLiveData',
+                containerClass: 'sw-toggled'
+            })
+
+            // bicycle availble in maintenance centre
+            .state("admin.reports.maintenance-centre", {
+                url: "/maintenance-centre",
+                templateUrl: adminViewPath + 'reports/maintenance-centre.html',
+                controller: 'MaintenanceCentreLiveData',
+                containerClass: 'sw-toggled'
+            })
+
+            // bicylcle transaction (check out)
+            .state("admin.reports.bicycle-transactions", {
+                url: "/bicycle-transactions",
+                templateUrl: adminViewPath + 'reports/bicycle-transactions.html',
+                controller: 'BicycleTransactions',
+                containerClass: 'sw-toggled'
+            })
+
             // Temporary Simulator Routes
             .state("checkout", {
                 url: "/simulator/checkout",

@@ -1009,7 +1009,7 @@
                                             </div>
                                         </dd>
                                     </dl>
-                                    <dl class="dl-horizontal required" ng-show="document.documentType == 'Other'">
+                                    <!--<dl class="dl-horizontal required" ng-show="document.documentType == 'Other'">
                                         <dt class="p-t-10">Document Name</dt>
                                         <dd>
                                             <div class="fg-line"
@@ -1017,7 +1017,7 @@
                                                 <input type="text" name="documentName"
                                                        ng-model="document.documentName"
                                                        class="form-control"
-                                                       ng-required="document.documentType == 'Other'">
+                                                       ng-required="document.documentType == 'Other'" required>
                                             <span class="help-block"
                                                   ng-messages="MemberForm.documentName.$error"
                                                   ng-show="MemberForm.documentName.$touched">
@@ -1025,7 +1025,7 @@
                                             </span>
                                             </div>
                                         </dd>
-                                    </dl>
+                                    </dl>-->
                                     <dl class="dl-horizontal required" ng-show="document.documentType">
                                         <dt class="p-t-10">Document Number</dt>
                                         <dd>
@@ -1083,6 +1083,89 @@
                                         <i class="zmdi zmdi-plus"></i>Add Document
                                     </button>
                                 </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab heading="Membership Plan">
+                        <div class="pmb-block">
+                            <div class="pmbb-header">
+                                <h2><i class="zmdi zmdi-account m-r-5"></i> Membership Plans</h2>
+                            </div>
+                            <div class="pmbb-body p-l-30">
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10 p-l-30">Plans</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen class="form-control"
+                                                    ng-options="membership as membership.subscriptionType for membership in memberships"
+                                                    ng-model="plan"
+                                                    ng-change="selecteMembership(plan)" required>
+                                            </select>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10 p-l-30">Mode of Payments</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <select chosen class="form-control" ng-model="member.creditMode"
+                                                    data-placeholder-text-single="'Select Credit Type'"
+                                                    name="creditType" required>
+                                                <option value="Debit Card">Debit Card</option>
+                                                <option value="Credit Card">Credit Card</option>
+                                                <option value="Cash">Cash</option>
+                                            </select>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10 p-l-30">Transaction</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
+                                                   class="form-control"
+                                                   placeholder="eg. 65467476" chars="only-letters" required>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal">
+                                    <dt class="p-l-30">Comments</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                        <textarea name="comments"
+                                        ng-model="member.comments" class="form-control"
+                                        rows="4"
+                                       placeholder="Additional information about the transaction" chars="only-letters">
+                                        </textarea>
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab heading="Smart Cards">
+                        <div class="pmb-block">
+                            <div class="pmbb-header">
+                                <h2><i class="zmdi zmdi-account m-r-5"></i> Smart Card</h2>
+                            </div>
+                            <div class="pmbb-body p-l-30">
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10 p-l-30">Card Number</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <input type="text" name="smartcardNumber" ng-model="member.cardNumber"
+                                                   class="form-control"
+                                                   placeholder="eg. 15" chars="only-letters" required>
+                                        </div>
+                                    </dd>
+                                </dl>
+
                             </div>
                         </div>
                     </uib-tab>
