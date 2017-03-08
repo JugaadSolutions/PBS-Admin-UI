@@ -1008,7 +1008,7 @@
     // Search member details Controller
     var _searched_member_id;
     var _searched_member_name;
-    app.controller('SearchMemberDetails', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
+    app.controller('SearchMemberDetails', ['$scope', '$state','$stateParams', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet','AWS', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state,$stateParams, DataService, StatusService, NgTableParams, growl, sweet,AWS,$filter,$window, $uibModal,$uibModalInstance)
         {
         $scope.searchMember={
             name:_search_member_name
@@ -1049,7 +1049,6 @@
                /* _searched_member_name = event.currentTarget.name;*/
                 _global_search_member_name = event.currentTarget.name;
                 $scope.RaiseNewTickets();
-                /*$uibModalInstance.dismiss();*/
             }
 
             $scope.RaiseNewTickets = function (size) {
@@ -1309,8 +1308,7 @@
         var _logIn_Id=$scope.loginid;
 
         $scope.topupsDetails = {
-            /*credit: 0,*/
-            topupId:'',
+            credit:'',
             creditMode: '',
             transactionNumber: '',
             comments: '',
@@ -1320,7 +1318,8 @@
 
         $scope.addTopup = function () {
             DataService.saveTopupForMembership($stateParams.id, $scope.topupsDetails).then(function (response) {
-                if (!response.error && response.data != null) {
+               /* if (!response.error && response.data != null) {*/
+                if (!response.error) {
                     growl.success(response.message);
                     $uibModalInstance.dismiss();
                     $state.reload();
@@ -1351,7 +1350,7 @@
 
         $scope.selecteTopupPlan = function (data)
         {
-            $scope.topupsDetails.topupId=data.topupId;
+            $scope.topupsDetails.credit=data.topupId;
         }
 
         $scope.cancelTopups = function () {
@@ -8513,6 +8512,12 @@ var _station_id;
                 }
             }
         );
+
+    }]);
+
+    app.controller('MIS', ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
+    {
+
 
     }]);
 

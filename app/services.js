@@ -69,12 +69,13 @@
             },
             saveTopupForMembership: function (id, data) {
                 var deferred = $q.defer();
-               /* $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.credit, data).then(function (result) {
+               /* $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.credit, data).then(function (result) {*/
+                $http.post(APINew + "member" + '/' + id + '/' + APIEndPoint.adminTopups.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;*/
+                return deferred.promise;
             },
             addDebit: function (id, data) {
                 var deferred = $q.defer();

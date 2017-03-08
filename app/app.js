@@ -257,6 +257,10 @@
             save:'transactions/checkin/bridge'
         },
 
+        adminTopups:{
+            save:'topup'
+        },
+
         topUp:{
             save:'topups',
             get:'topups',

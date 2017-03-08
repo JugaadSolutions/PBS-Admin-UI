@@ -1,0 +1,173 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header ch-alt" style="text-align: center">
+            <h2>Membership Information
+            </h2>
+        </div>
+
+        <div class="card-header ch-alt ">
+        <small>Summary</small>
+        </div>
+
+        <div class="card-body">
+            <div class="data-view">
+                <div class="table-responsive">
+                    <table ng-table="bicycleSummaryTable" class="table table-striped table-vmiddle">
+                        <tr>
+                            <td data-title="'Total'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-header ch-alt ">
+            <small>Demographic Break-Up</small>
+        </div>
+
+        <div class="card-body">
+            <div class="data-view">
+                <div class="table-responsive">
+                    <table ng-table="bicycleSummaryTable" class="table table-striped table-vmiddle">
+                        <tr>
+                            <td data-title="'Local Members'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                            <td data-title="'Non-local Members'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                            <td data-title="'Foreign Members'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-header ch-alt" style="text-align: center;">
+            <h2>Usage Information
+            </h2>
+        </div>
+
+        <div class="card-body">
+            <div class="data-view">
+                <div class="table-responsive">
+                    <table ng-table="bicycleSummaryTable" class="table table-striped table-vmiddle">
+                        <tr>
+                            <td data-title="'Total hour of usage'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                            <td data-title="'Total Rides'">
+                                {{BicycleSummary.hubs}}
+                            </td>
+                            <td data-title="'Average Rides/Day'">
+                                {{BicycleSummary.mc}}
+                            </td>
+                            <td data-title="'Average Usage/Day'">
+                                {{BicycleSummary.rv}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-header ch-alt " style="text-align: center">
+            <h2>Fleet Information
+            </h2>
+        </div>
+
+        <div class="card-header ch-alt ">
+            <small>Summary</small>
+        </div>
+
+        <div class="card-body">
+            <div class="data-view">
+                <div class="table-responsive">
+                    <table ng-table="bicycleSummaryTable" class="table table-striped table-vmiddle">
+                        <tr>
+                            <td data-title="'Single Speed'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                            <td data-title="'Multi Speed'">
+                                {{BicycleSummary.hubs}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-header ch-alt ">
+            <small>Current Status</small>
+        </div>
+
+        <div class="card-body">
+            <div class="data-view">
+                <div class="table-responsive">
+                    <table ng-table="bicycleSummaryTable" class="table table-striped table-vmiddle">
+                        <tr>
+                            <td data-title="'In Use'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                            <td data-title="'Under Maintenance'">
+                                {{BicycleSummary.hubs}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-header ch-alt " style="text-align: center">
+            <h2>Revenue Information
+            </h2>
+        </div>
+
+        <div class="card-header ch-alt ">
+            <small>Summary</small>
+        </div>
+
+        <div class="card-body">
+            <div class="data-view">
+                <div class="table-responsive">
+                    <table ng-table="bicycleSummaryTable" class="table table-striped table-vmiddle">
+                        <tr>
+                            <td data-title="'Total'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-header ch-alt ">
+            <small>Break-up</small>
+        </div>
+
+        <div class="card-body">
+            <div class="data-view">
+                <div class="table-responsive">
+                    <table ng-table="bicycleSummaryTable" class="table table-striped table-vmiddle">
+                        <tr>
+                            <td data-title="'Membership Revenue'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                            <td data-title="'Usage Revenue'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                            <td data-title="'Others*'">
+                                {{BicycleSummary.ha}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

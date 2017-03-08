@@ -860,7 +860,7 @@
                 containerClass: 'sw-toggled'
             })
 
-            // bicycle availble in Redistribution vehicle
+            // bicycle available in Redistribution vehicle
             .state("admin.reports.redistribution-vehicle", {
                 url: "/redistribution-vehicle",
                 templateUrl: adminViewPath + 'reports/redistribution-vehicle.html',
@@ -868,7 +868,7 @@
                 containerClass: 'sw-toggled'
             })
 
-            // bicycle availble in Holding area
+            // bicycle available in Holding area
             .state("admin.reports.holding-area", {
                 url: "/holding-area",
                 templateUrl: adminViewPath + 'reports/holding-area.html',
@@ -876,11 +876,19 @@
                 containerClass: 'sw-toggled'
             })
 
-            // bicycle availble in maintenance centre
+            // bicycle available in maintenance centre
             .state("admin.reports.maintenance-centre", {
                 url: "/maintenance-centre",
                 templateUrl: adminViewPath + 'reports/maintenance-centre.html',
                 controller: 'MaintenanceCentreLiveData',
+                containerClass: 'sw-toggled'
+            })
+
+            // MIS
+            .state("admin.reports.mis", {
+                url: "/mis",
+                templateUrl: adminViewPath + 'reports/mis.html',
+                controller: 'MIS',
                 containerClass: 'sw-toggled'
             })
 

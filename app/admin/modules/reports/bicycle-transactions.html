@@ -80,7 +80,7 @@
 
             <div class="table-responsive" ng-if="BicycleTrasaction.length > 0">
                 <table ng-table="bicycleTransactionTable" class="table table-striped table-vmiddle" show-filter="true">
-                    <tr ng-repeat="transaction in BicycleTrasaction">
+                    <tr ng-repeat="transaction in $data">
                         <td data-title="'Member'" filter="{ Name: 'text'}">
                             <a ui-sref="admin.members.edit({id: transaction.member.UserID})">
                                 {{transaction.user.Name}}</a>
