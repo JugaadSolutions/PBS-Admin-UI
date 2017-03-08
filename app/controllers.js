@@ -8546,12 +8546,13 @@ var _station_id;
 
         $scope.bicycleTransactionTable = new NgTableParams(
             {
-                count: 1
+                count: 25
             },
             {
                 getData: function ($defer, params) {
-                    params.total($scope.BicycleTrasaction.length);
-                    $defer.resolve($scope.BicycleTrasaction.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    var orderedData = params.filter() ? $filter('filter')($scope.BicycleTrasaction, params.filter()) : $scope.BicycleTrasaction;
+                       params.total(orderedData.length);
+                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 }
             }
         );

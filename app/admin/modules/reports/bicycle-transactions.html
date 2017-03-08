@@ -91,7 +91,7 @@
                         <td data-title="'From'">
                             <a ui-sref="admin.docking-stations.edit({id: transaction.fromPort.dockingStationId.StationID})">{{transaction.fromPort.Name}}</a>
                         </td>
-                        <td data-title="'Checkout'">
+                        <td data-title="'At'">
                             {{transaction.checkOutTime | date : "dd MMM yy', ' h:mma"}}
                         </td>
                           <td data-title="'To'">
@@ -99,7 +99,7 @@
                                  ui-sref="admin.docking-stations.edit({id: transaction.toPort.dockingStationId.StationID})">{{transaction.toPort.Name}}</a>
                               <a ng-if="transaction.status == 'Canceled'">--</a>
                           </td>
-                         <td data-title="'Checkin'">
+                         <td data-title="'At'">
                              {{transaction.checkInTime | date : "dd MMM yy', ' h:mma"}}
                          </td>
                         <td data-title="'Duration'">
@@ -110,9 +110,9 @@
                         <td data-title="'Cost'">
                             &#8377; {{transaction.creditsUsed}}
                         </td>
-                        <td data-title="'Status'">
+                       <!-- <td data-title="'Status'">
                             {{transaction.status}}
-                        </td>
+                        </td>-->
                       <!--  <td data-title="''" class="table-actions">
                             <ul class="actions">
                                 <li class="dropdown" uib-dropdown>
