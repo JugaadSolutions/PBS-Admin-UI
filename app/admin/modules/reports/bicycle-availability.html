@@ -52,9 +52,9 @@
                             <td data-title="'Type'">
                                 {{requests.stationType}}
                             </td>
-                            <td data-title="'Status'">
+                          <!--  <td data-title="'Status'">
                                 {{requests.stationStatus}}
-                            </td>
+                            </td>-->
                             <td data-title="'Total Units'">
                                 {{requests.noofUnits}}
                             </td>
@@ -70,11 +70,19 @@
                             <td data-title="'Fleet %'">
                                 {{((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)}}%
                             </td>
-                            <td data-title="'Status'"  ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) < 25" style="color: red">
+                          <!--  <td data-title="'Status'"  ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) < 25" style="color: red">
                                 LOW
                             </td>
                             <td data-title="'Status'" ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) > 75 " style="color: black;">
                                 HIGH
+                            </td>-->
+                            <td data-title="'Status'">
+                                <label ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) < 25" style="color: red">
+                                   LOW
+                                </label>
+                                <label ng-if="(((requests.bicycleCount/requests.bicycleCapacity)*100).toFixed(2)) >= 75" style="color: red">
+                                    HIGH
+                                </label>
                             </td>
                         </tr>
                     </table>

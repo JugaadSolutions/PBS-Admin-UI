@@ -23,25 +23,25 @@
                         <td data-title="'Plan'" filter="{ 'subscriptionType': 'text'}">
                             <a ui-sref="admin.membership.edit({id: membership.membershipId})">{{membership.subscriptionType}}</a>
                         </td>
-                        <td data-title="'Validity'" filter="{ 'validity': 'text'}">
-                            <span ng-if="membership.validity <= 1">{{membership.validity}} day</span>
-                            <span ng-if="membership.validity > 1">{{membership.validity}} days</span>
-                        </td>
-                        <td data-title="'Fees'" filter="{ 'userFees': 'text'}">
-                            &#8377; {{membership.userFees}}
-                        </td>
-                        <td data-title="'Deposit'" filter="{ 'securityDeposit': 'text'}">
+                        <td data-title="'Security Deposit'" filter="{ 'securityDeposit': 'text'}">
                             &#8377; {{membership.securityDeposit}}
                         </td>
-                        <td data-title="'Card Fees'" filter="{ 'smartCardFees': 'text'}">
-                            &#8377; {{membership.smartCardFees}}
-                        </td>
-                        <td data-title="'Processing'" filter="{ 'processingFees': 'text'}">
+                        <td data-title="'Processing Fees'" filter="{ 'processingFees': 'text'}">
                             &#8377; {{membership.processingFees}}
+                        </td>
+                        <td data-title="'Usage Fees'" filter="{ 'userFees': 'text'}">
+                            &#8377; {{membership.userFees}}
                         </td>
                         <td data-title="'Total'" filter="{ 'total': 'text'}">
                             &#8377; {{membership.total}}
                         </td>
+                        <td data-title="'Validity'" filter="{ 'validity': 'text'}">
+                            <span ng-if="membership.validity <= 1">{{membership.validity}} day</span>
+                            <span ng-if="membership.validity > 1">{{membership.validity}} days</span>
+                        </td>
+                      <!--  <td data-title="'Card Fees'" filter="{ 'smartCardFees': 'text'}">
+                            &#8377; {{membership.smartCardFees}}
+                        </td>-->
                         <td data-title="'Fare Plan'" filter="{ 'planName': 'text'}">
                             <a ui-sref="admin.fare-plans.edit({id: membership.farePlan._id})">{{membership.planName}}</a>
                         </td>

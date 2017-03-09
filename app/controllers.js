@@ -1048,20 +1048,31 @@
                 _searched_member_id=event.currentTarget.value;
                /* _searched_member_name = event.currentTarget.name;*/
                 _global_search_member_name = event.currentTarget.name;
-                $scope.RaiseNewTickets();
+               /* $scope.RaiseNewTickets();*/
+                return $uibModal.open({
+                    templateUrl: 'raise-tickets.html',
+                    controller: 'RaiseTickets',
+                    size: 'md',
+                    resolve: {
+                        member: function () {
+                        }
+                    }
+                });
             }
 
-            $scope.RaiseNewTickets = function (size) {
+            /*$scope.RaiseNewTickets = function () {
                 $uibModal.open({
                     templateUrl: 'raise-tickets.html',
                     controller: 'RaiseTickets',
-                    size: size,
+                    size: 'md',
                     resolve: {
                         items: function () {
                         }
                     }
                 });
-            };
+            };*/
+
+
     }]);
 
     app.controller('RaiseTickets', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
@@ -4701,7 +4712,6 @@
             DataService.saveTicketDetails($scope.ticketsDetails).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                    $state.go('admin.registration-centres.edit', {'id': response.data._id});
                 } else {
                     growl.error(response.message);
                 }

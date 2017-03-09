@@ -417,6 +417,7 @@
                 templateUrl:adminViewPath + 'topup-plans/topup.html',
                 containerClass:'sw-toggled'
             })
+
             .state("admin.topup-plans.manage", {
                 url: "/manage",
                 templateUrl: adminViewPath + 'topup-plans/manage.html',
