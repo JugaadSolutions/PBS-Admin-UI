@@ -64,7 +64,7 @@
                         </td>
                         <td class="text-center">
                             <span uib-tooltip="{{member.status}}" tooltip-placement="top" ng-class="{
-                             'status-color bgm-green': member.status == 'Registered' || member.status == 'Renewed',
+                             'status-color bgm-green': member.status == 'Registered',
                              'status-color bgm-yellow': member.status == 'Prospective',
                              'status-color bgm-red': member.status == 'Cancelled',
                               'status-color bgm-black':member.status == 'Suspended',
@@ -110,7 +110,7 @@
                             class="form-control w-100" required>
                         <option ng-value="0">Prospective</option>
                         <option ng-value="1">Registered</option>
-                        <option ng-value="2">Renew</option>
+                       <!-- <option ng-value="2">Renew</option>-->
                         <option ng-value="-1">Cancelled</option>
                         <option ng-value="-2">Suspended</option>
                         <option ng-value="-3">Expired</option>

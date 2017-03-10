@@ -70,7 +70,7 @@
             saveTopupForMembership: function (id, data) {
                 var deferred = $q.defer();
                /* $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.credit, data).then(function (result) {*/
-                $http.post(APINew + "member" + '/' + id + '/' + APIEndPoint.adminTopups.save, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.member.get + '/' + id + '/' + APIEndPoint.member.topup, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -100,7 +100,7 @@
            /*membership cancel request*/
             cancelRequest: function (id) {
                 var deferred = $q.defer();
-                $http.get(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.request, {
+                $http.get(APINew + APIEndPoint.member.get + '/' + id + '/' + APIEndPoint.member.request, {
                 }).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
@@ -112,7 +112,7 @@
             /*membership cancel*/
             cancelMembership: function (id, data) {
                 var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.cancel, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.member.get + '/' + id + '/' + APIEndPoint.member.cancel, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
@@ -122,7 +122,7 @@
 
             suspendMember:function(id,data){
                 var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.suspend, data).then(function (result) {
+                $http.post(APINew + APIEndPoint.member.get + '/' + id + '/' + APIEndPoint.member.suspend, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

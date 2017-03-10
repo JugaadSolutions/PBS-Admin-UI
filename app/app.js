@@ -45,6 +45,7 @@
             get: 'member',
             save: 'member/add',
             credit: 'credit',
+            topup:'topup',
             debit: 'debit',
             update: 'member',
             membershipForMember: 'assignmembership',

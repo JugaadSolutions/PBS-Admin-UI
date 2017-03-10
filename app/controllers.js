@@ -298,7 +298,9 @@
 
         $scope.addNewDocument = function () {
             $scope.member.documents.push({});
+            $scope.display=true;
         };
+
 
       /*  $scope.verify = function () {
             var smartCard = {
@@ -590,9 +592,12 @@
             });
         };
 
+
+
         DataService.getMember($stateParams.id, filters).then(function (response) {
             if (!response.error) {
                 $scope.member = response.data;
+                $scope.documentCopy=$scope.member.documents[0].documentCopy;
                 var phone = $scope.member.phoneNumber;
                 var splitArr = phone.split("-");
                 $scope.member.countryCode = splitArr[0];
@@ -8231,7 +8236,7 @@ var _station_id;
                             title: $scope.dockingStations[i].name,
                             bicycleCount: $scope.dockingStations[i].bicycleCount,
                             bicycleCapacity: $scope.dockingStations[i].bicycleCapacity,
-                            dockingStationStatus: StatusService.getDockingStationStatus($scope.dockingStations[i].status),
+                            dockingStationStatus: StatusService.getDockingStationStatus($scope.dockingStations[i].operationStatus),
                             id: i
                         };
                         multiDockingStations.push(longAndLat);
@@ -8252,7 +8257,7 @@ var _station_id;
             }, zoom: 13
         };
 
-        $scope.options = {scrollwheel: false};
+        $scope.options = {scrollwheel: true};
         $scope.markers = multiDockingStations;
 
         $scope.windowOptions = {

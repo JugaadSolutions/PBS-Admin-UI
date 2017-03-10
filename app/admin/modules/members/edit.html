@@ -54,7 +54,7 @@
             </button>
 
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-if="member.status !== 0 && login_role !=='Mysoreone-employee'"
+                    ng-if="member.status !== 0 && login_role !== 'Mysoreone-employee'"
                     ng-click="updateMember()" ng-disabled="MemberForm.$invalid && !member.documents.length">
                 <i class="zmdi zmdi-save"></i> Update
             </button>
