@@ -59,7 +59,9 @@
          /*   cancel:'cancelmembership',*/
             request:'cancelmemberrequest',
             suspend:'suspendmembership',
-            cancel:'cancelmembership'
+            cancel:'cancelmembership',
+            otprequest:'requestotp',
+            verify:'verifyotp'
         },
         employee: {
             getAll: 'employee',

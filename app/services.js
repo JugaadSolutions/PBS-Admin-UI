@@ -40,6 +40,27 @@
                 });
                 return deferred.promise;
             },
+
+            OtpVerify: function (data) {
+            var deferred = $q.defer();
+            $http.post(APINew + APIEndPoint.member.get + '/' + APIEndPoint.member.verify, data).then(function (result) {
+                deferred.resolve(result.data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+            },
+
+            OtpResend: function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.member.get + '/' + APIEndPoint.member.otprequest, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             verifyDocument: function (data) {
                 var deferred = $q.defer();
                 $http.put(APINew + APIEndPoint.member.update + '/' + data._id, data).then(function (result) {

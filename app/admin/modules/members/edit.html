@@ -1253,7 +1253,40 @@
                             </div>
                         </div>
                     </uib-tab>-->
-                    <uib-tab heading="Membership Plan" ng-if="member.status ==0">
+                    <uib-tab heading="OTP" ng-if="otpverify === false && statusType===0">
+                        <div class="pmb-block">
+                            <div class="pmbb-header">
+                                <h2><i class="zmdi zmdi-comment-text-alt"></i> OTP</h2>
+                            </div>
+                            <div class="pmbb-body p-l-30">
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10 p-l-30">Enter OTP</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <input type="text" name="optNumber" ng-model="otpDetails.otp"
+                                                   class="form-control"
+                                                   maxlength="6" minlength="6"
+                                                   placeholder="eg. 15" chars="only-letters" required>
+                                           <!-- <span class="help-block" ng-messages="OTP.optNumber.$error"
+                                                  ng-show="OTP.optNumber.$touched">
+                                                <small ng-message="required">OTP is required</small>
+                                            </span>-->
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <br>
+                                <button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="verifyOTP()" >
+                                    <i class="zmdi zmdi-save"></i> Verify
+                                </button>
+                                <button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="resendOTP()">
+                                    <i class="zmdi zmdi-save"></i> Resend OTP
+                                </button>
+                            </div>
+                        </div>
+                        </form>
+                    </uib-tab>
+                    <uib-tab heading="Membership Plan" ng-if="Verified===true">
                         <div class="pmb-block">
                             <div class="pmbb-header">
                                 <h2><i class="zmdi zmdi-account m-r-5"></i> Membership Plans</h2>
@@ -1316,7 +1349,7 @@
                         </div>
                     </uib-tab>
 
-                    <uib-tab heading="Smart Cards" ng-if="member.status==0 && member.membershipId">
+                    <uib-tab heading="Smart Cards" ng-if="member.membershipId && statusType===0">
                         <div class="pmb-block">
                             <div class="pmbb-header">
                                 <h2><i class="zmdi zmdi-account m-r-5"></i> Smart Card</h2>

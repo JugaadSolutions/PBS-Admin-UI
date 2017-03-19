@@ -260,7 +260,7 @@
     }]);
 
     // Add Member Controller
-    app.controller('AddMember', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
+    app.controller('AddMember', ['$scope', '$state', 'DataService','$uibModal', 'growl', 'sweet', function ($scope, $state, DataService,$uibModal, growl, sweet)
     {
         $scope.loginid=localStorage.LoginID;
         var _logIn_Id=$scope.loginid;
@@ -268,19 +268,18 @@
         $scope.member = {
             Name: '',
             lastName: '',
-           /* givenName: '',*/
             fatherName: '',
             education: '',
             occupation: '',
             sex: '',
             phoneNumber: '',
+            email:'',
             address: '',
             city: 'Mysore',
             state: 'Karnataka',
-            country: 'India',
-            countryCode: '91',
+            country: '',
+            countryCode: '',
             pinCode: '',
-           /* smartCardNumber: '',*/
             profilePic: '',
             cardNumber:'',
             emergencyContact: {countryCode: '91'},
@@ -291,7 +290,7 @@
             creditMode:'',
             transactionNumber:'',
             comments:'',
-            UserID:0
+            UserID:0,
         };
 
         $scope.panCardRegex = '/[A-Z]{5}\d{4}[A-Z]{1}/i';
@@ -299,6 +298,32 @@
         $scope.addNewDocument = function () {
             $scope.member.documents.push({});
             $scope.display=true;
+        };
+
+        $scope.ShowMemberShipTab = false;
+
+        $scope.selectedCountry=function (data) {
+          $scope.Country=data;
+        };
+
+        $scope.selectedCountryCode=function (data) {
+            $scope.CountryCode=data;
+        };
+
+        $scope.selectedDocument = function (data) {
+            $scope.DocumentType= data.documentType;
+            if($scope.DocumentType === 'Aadhar')
+            {
+                $scope.ShowMemberShipTab = true;
+            }
+            else if($scope.DocumentType == 'Passport' &&  $scope.CountryCode != '91' && $scope.Country != 'India')
+            {
+                $scope.ShowMemberShipTab = true;
+            }
+            else if ($scope.DocumentType == 'Passport' &&  $scope.CountryCode == '91' && $scope.Country != 'India')
+            {
+                $scope.ShowMemberShipTab = false;
+            }
         };
 
 
@@ -322,22 +347,106 @@
         };
 
         $scope.addMember = function () {
-           /* $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;*/
-            /*if ($scope.member.emergencyContact.contactNumber) {
+
+            if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
+            {
+                var _mobile_no = "91-" + $scope.member.phoneNumber;
+            }
+
+            $scope.member = {
+                Name: $scope.member.Name,
+                lastName: $scope.member.lastName,
+                education: $scope.member.education,
+                occupation: $scope.member.occupation,
+                sex: $scope.member.sex,
+                phoneNumber: _mobile_no,
+                email:$scope.member.email,
+                address: $scope.member.address,
+                city: $scope.member.city,
+                state:$scope.member.state,
+                country:$scope.member.country,
+                countryCode: $scope.member.countryCode,
+                pinCode:$scope.member.pinCode,
+                profilePic: $scope.member.profilePic,
+                cardNumber:$scope.member.cardNumber,
+                emergencyContact: $scope.member.emergencyContact,
+                documents: $scope.member.documents,
+                smartCardKey:$scope.member.smartCardKey,
+                createdBy:_logIn_Id,
+                membershipId:$scope.member.membershipId,
+                creditMode:$scope.member.creditMode,
+                transactionNumber:$scope.member.transactionNumber,
+                comments:$scope.member.comments,
+                UserID:$scope.member.UserID,
+            };
+
+           /* $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
+            if ($scope.member.emergencyContact.contactNumber) {
                 $scope.member.emergencyContact.contactNumber = $scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
             } else {
                 $scope.member.emergencyContact.contactNumber = "";
             }*/
+
             DataService.saveMember($scope.member).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                 /*   $state.go('admin.members.edit', {'id': response.data._id});*/
                 } else {
                     growl.error(response.message);
                 }
             }, function (response) {
                 growl.error(response.data.message);
             })
+        };
+
+        $scope.ProspectiveMember=function ()
+        {
+            if($scope.member.phoneNumber === '' || $scope.member.countryCode === null)
+            {
+                growl.error("Enter your Mobile Number");
+                return;
+            }
+            else if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
+            {
+                var _mobile_number = "91-" + $scope.member.phoneNumber;
+            }
+
+            $scope.member = {
+                Name: $scope.member.Name,
+                lastName: $scope.member.lastName,
+                education: $scope.member.education,
+                occupation: $scope.member.occupation,
+                sex: $scope.member.sex,
+                phoneNumber: _mobile_number,
+                email:$scope.member.email,
+                address: $scope.member.address,
+                city: $scope.member.city,
+                state:$scope.member.state,
+                country:$scope.member.country,
+                countryCode: $scope.member.countryCode,
+                pinCode:$scope.member.pinCode,
+                profilePic: $scope.member.profilePic,
+                cardNumber:$scope.member.cardNumber,
+                emergencyContact: $scope.member.emergencyContact,
+                documents: $scope.member.documents,
+                smartCardKey:$scope.member.smartCardKey,
+                createdBy:_logIn_Id,
+                membershipId:$scope.member.membershipId,
+                creditMode:$scope.member.creditMode,
+                transactionNumber:$scope.member.transactionNumber,
+                comments:$scope.member.comments,
+                UserID:$scope.member.UserID,
+            };
+
+            DataService.saveMember($scope.member).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.message);
+            })
+
         };
 
         $scope.cancelAddMember = function () {
@@ -371,6 +480,7 @@
         $scope.selecteMembership = function (data) {
             $scope.member.membershipId = data.membershipId;
         };
+
 
     }]);
 
@@ -598,6 +708,10 @@
             if (!response.error) {
                 $scope.member = response.data;
                 $scope.documentCopy=$scope.member.documents[0].documentCopy;
+               $scope.userid = $scope.member.UserID;
+                 $scope.otpverify=$scope.member.otpVerified;
+                $scope.statusType=$scope.member.status;
+                $scope.MobileNumber=$scope.member.phoneNumber;
                 var phone = $scope.member.phoneNumber;
                 var splitArr = phone.split("-");
                 $scope.member.countryCode = splitArr[0];
@@ -776,6 +890,51 @@
             });
         };
 
+
+        $scope.otpDetails={
+            otp:'',
+            UserID:''
+        };
+
+        $scope.verifyOTP=function () {
+            if($scope.otpDetails.otp === '' || $scope.otpDetails.otp === null)
+            {
+                growl.error("Please enter the OTP number");
+                return;
+            }
+                $scope.otpDetails.UserID = $scope.userid;
+                DataService.OtpVerify($scope.otpDetails).then(function (response) {
+                    if (!response.error) {
+                        $scope.Verified = response.data.otpVerified;
+                        $scope.statusType = response.data.status;
+                        growl.success(response.message);
+                    } else {
+                        growl.error(response.message);
+                    }
+                }, function (response) {
+                    growl.error(response.data.message);
+                })
+        };
+
+        $scope.resendOtp={
+            UserID:'',
+            phoneNumber:''
+        }
+
+        $scope.resendOTP=function () {
+            $scope.resendOtp.UserID=$scope.userid;
+            $scope.resendOtp.phoneNumber=$scope.MobileNumber;
+            DataService.OtpResend($scope.resendOtp).then(function (response) {
+                if (!response.error) {
+                    growl.success("OTP request sent");
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.message);
+            });
+        }
+
         $scope.paymentsData = [];
 
         /*var filtersPayments = {
@@ -849,8 +1008,7 @@
             }, function (response) {
                 growl.error(response.data.message);
             })
-        }
-
+        };
 
     }]);
 
@@ -1051,21 +1209,11 @@
             $scope.getDetails=function(event)
             {
                 _searched_member_id=event.currentTarget.value;
-               /* _searched_member_name = event.currentTarget.name;*/
                 _global_search_member_name = event.currentTarget.name;
-               /* $scope.RaiseNewTickets();*/
-                return $uibModal.open({
-                    templateUrl: 'raise-tickets.html',
-                    controller: 'RaiseTickets',
-                    size: 'md',
-                    resolve: {
-                        member: function () {
-                        }
-                    }
-                });
+                $scope.RaiseNewTickets();
             }
 
-            /*$scope.RaiseNewTickets = function () {
+            $scope.RaiseNewTickets = function () {
                 $uibModal.open({
                     templateUrl: 'raise-tickets.html',
                     controller: 'RaiseTickets',
@@ -1075,13 +1223,16 @@
                         }
                     }
                 });
-            };*/
+            };
 
 
     }]);
 
     app.controller('RaiseTickets', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
     {
+        $scope.loginid=localStorage.LoginID;
+        var _logIn_Id=$scope.loginid;
+
         $scope.raiseTicketsDetails = {
             name:_global_search_member_name,
             user:_searched_member_id,
@@ -1093,7 +1244,7 @@
             tickettype:'',
             assignedEmp:'',
             ticketdate:new Date(),
-            createdBy:_login_id,
+            createdBy:_logIn_Id,
         };
 
         if($scope.raiseTicketsDetails.department == '' || $scope.raiseTicketsDetails.tickettype || $scope.raiseTicketsDetails.assignedEmp)
@@ -1315,6 +1466,39 @@
             $uibModalInstance.dismiss();
         };
 
+    }]);
+
+    // OTP
+    app.controller('OTPNumber', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
+    {
+        $scope.cancelOTP = function () {
+            $uibModalInstance.dismiss();
+        };
+
+
+        $scope.memberwithOTP={
+            otp:''
+         };
+
+        $scope.saveMember=function () {
+            DataService.saveMember($scope.memberwithOTP).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.message);
+            });
+        }
+    }]);
+
+    //  mobile number validation
+    app.controller('MobileNumberValidation', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
+    {
+        $scope.ok = function () {
+            $uibModalInstance.dismiss();
+        };
     }]);
 
     // Member Credit Modal
@@ -7366,7 +7550,7 @@
 
 var _station_name;
 var _station_id;
-    app.controller('DockingStationStationNewDesign', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    app.controller('DockingStationStationNewDesign', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS','$window', '$uibModal','$filter', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS,$window, $uibModal, $filter, NgTableParams)
     {
         $scope.dockingStations = [];
 
@@ -7390,12 +7574,8 @@ var _station_id;
                 growl.error(response.data);
             });
 
-        $scope.change='the data';
-        $scope.changenew='the data';
+
         $scope.getVal=function(event){
-            console.log($scope.change);
-            console.log(event.currentTarget.value);
-           /* $scope.change=event.currentTarget.value;*/
             _station_id=event.currentTarget.value;
             _station_name = event.currentTarget.name;
             $scope.AddDockingStationCleanDetails();
@@ -7413,12 +7593,13 @@ var _station_id;
                 }
             });
         };
+
     }]);
 
     app.controller('DockingStationStationNewDesign1', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
     {
-       /* alert(_station_name);
-        alert(_station_id);*/
+        $scope.loginid=localStorage.LoginID;
+        var _logIn_Id=$scope.loginid;
 
         $scope.dockingStationCleanInput={
             stationId:_station_name,
@@ -7428,14 +7609,13 @@ var _station_id;
             totime:'',
             empId:'',
             description:'',
-            createdBy:_login_id,
+            createdBy:_logIn_Id,
         };
 
         $scope.addDockingStationClean = function () {
             DataService.saveDockingStationCleaning($scope.dockingStationCleanInput).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                    /* $state.go('admin.registration-centres.edit', {'id': response.data._id});*/
                 } else {
                     growl.error(response.message);
                 }
