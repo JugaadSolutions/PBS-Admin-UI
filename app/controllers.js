@@ -269,6 +269,7 @@
             Name: '',
             lastName: '',
             fatherName: '',
+            age:'',
             education: '',
             occupation: '',
             sex: '',
@@ -347,10 +348,17 @@
         };
 
         $scope.addMember = function () {
-
+            var _mobile_no;
             if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
             {
-                var _mobile_no = "91-" + $scope.member.phoneNumber;
+                if($scope.member.countryCode === '91')
+                {
+                     _mobile_no = "91-" + $scope.member.phoneNumber;
+                }
+                else
+                    {
+                         _mobile_no=$scope.member.countryCode + '-' + $scope.member.phoneNumber;
+                    }
             }
 
             $scope.member = {
@@ -358,6 +366,7 @@
                 lastName: $scope.member.lastName,
                 education: $scope.member.education,
                 occupation: $scope.member.occupation,
+                age:$scope.member.age,
                 sex: $scope.member.sex,
                 phoneNumber: _mobile_no,
                 email:$scope.member.email,
@@ -400,14 +409,22 @@
 
         $scope.ProspectiveMember=function ()
         {
+            var _mobile_no;
             if($scope.member.phoneNumber === '' || $scope.member.countryCode === null)
             {
                 growl.error("Enter your Mobile Number");
                 return;
             }
-            else if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
+           else if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
             {
-                var _mobile_number = "91-" + $scope.member.phoneNumber;
+                if($scope.member.countryCode === '91')
+                {
+                    _mobile_no = "91-" + $scope.member.phoneNumber;
+                }
+                else
+                {
+                    _mobile_no=$scope.member.countryCode + '-' + $scope.member.phoneNumber;
+                }
             }
 
             $scope.member = {
@@ -415,6 +432,7 @@
                 lastName: $scope.member.lastName,
                 education: $scope.member.education,
                 occupation: $scope.member.occupation,
+                age:$scope.member.age,
                 sex: $scope.member.sex,
                 phoneNumber: _mobile_number,
                 email:$scope.member.email,
@@ -446,7 +464,6 @@
             }, function (response) {
                 growl.error(response.data.message);
             })
-
         };
 
         $scope.cancelAddMember = function () {
@@ -498,8 +515,6 @@
             $scope.member.documents.push({});
         };
 
-
-
         $scope.removeDocument = function ($index) {
             sweet.show({
                 title: 'Are you sure?',
@@ -529,8 +544,6 @@
             });
         };
 
-
-
         $scope.addCredit = function (size) {
             $uibModal.open({
                 templateUrl: 'memberCreditModal.html',
@@ -543,12 +556,6 @@
                 }
             });
         };
-
-       /* $scope.addCredit = function () {
-
-
-        };*/
-
 
         $scope.cancelMembership = function (size) {
             $uibModal.open({
@@ -764,6 +771,7 @@
                 closeOnConfirm: true
             }, function () {
                 $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
+
                /* if ($scope.member.emergencyContact.contactNumber) {
                     $scope.member.emergencyContact.contactNumber =$scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
                 } else {
@@ -803,6 +811,10 @@
 
         $scope.updateMember = function () {
             $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
+           /* if($scope.member.profilePic !== "" || $scope.member.profilePic !== null)
+            {
+                $scope.member.profilePic = '';
+            }*/
             /*if ($scope.member.emergencyContact.contactNumber) {
                 $scope.member.emergencyContact.contactNumber = $scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
             } else {
@@ -7008,7 +7020,7 @@
     var _daywise_toDate;
     var _location;
     var _transaction_type;
-    app.controller('dayWiseCollectionSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    app.controller('dayWiseCollectionSummary', ['$scope', '$state','DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
         $scope.daywiseCollection={
             fromdate:'',
@@ -7038,7 +7050,6 @@
                 if (!response.error)
                 {
                     growl.success(response.message);
-
                      _daywise_fromDate=$scope.daywiseCollection.fromdate;
                      _daywise_toDate=$scope.daywiseCollection.todate;
                      _location=$scope.daywiseCollection.location;
@@ -7089,6 +7100,17 @@
         $scope.selectedRegistrationCenters = function (data) {
             $scope.daywiseCollection.location = data.location;
         };
+
+        $scope.data={
+            transactionType:null
+        }
+
+        $scope.SelectedTransaction = function (data) {
+            $scope.daywiseCollection.transactionType = data;
+        };
+
+        /*$scope.Transactions = ["Registration", "Refund", "Replenishment"];*/
+
     }]);
 
     app.controller('refundsSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
@@ -7902,6 +7924,91 @@ var _station_id;
 
     }]);
 
+    // User User Account
+    app.controller('UserAccountStatus', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    {
+        $scope.userTransactionDetials={
+            userid:'',
+            /*fromDate:'',
+            toDate:''*/
+        };
+
+        $scope.Payments=[];
+
+        $scope.transactionStatisticsDetails = function () {
+            DataService.getMemberPaymentTransaction1($scope.userTransactionDetials.userid).then(function (response) {
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.Payments.push(response.data[i]);
+                    }
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.memberPaymentTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.Payments, params.filter()) : $scope.Payments;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+
+    }]);
+
+    // User Transcation Statistics
+    app.controller('UserTransactionStatistics', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    {
+        $scope.userTransactionDetials={
+            userid:'',
+           /* fromDate:'',
+            toDate:''*/
+        };
+
+        $scope.Rides = [];
+
+        $scope.transactionStatisticsDetails =function () {
+            DataService.getRidesAdmin($scope.userTransactionDetials.userid).then(function (response) {
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.Rides.push(response.data[i]);
+                    }
+
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description);
+            });
+        }
+
+
+        $scope.memberRidesTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.Rides, params.filter()) : $scope.Rides;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+    }]);
 
 
     app.controller('registrationDetails', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)

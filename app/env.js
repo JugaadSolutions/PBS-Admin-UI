@@ -20,12 +20,10 @@
     window.__env = window.__env || {};
     // API url
     // For demo purposes we fetch from local file in this plunk
-    window.__env.apiUrlNew = 'http://www.mytrintrin.com:13060/api/';
+    window.__env.apiUrlNew = 'http://www.mytrintrin.com:13065/api/';
     window.__env.awsUrl = 'https://mytrintrin.s3.amazonaws.com/mytrintrin/';
     window.__env.googleMapsUrl = 'https://www.google.com/maps/dir/Current+Location/';
-
     // Whether or not to enable debug mode
     // Setting this to false will disable console output
     window.__env.enableDebug = true;
-
 }(this));

@@ -671,6 +671,34 @@
                 containerClass: 'sw-toggled'
             })
 
+            /*User-Transaction-Statistics*/
+            .state("admin.accounts.user-transaction-statistics", {
+                url: "/accounts/user-transaction-statistics",
+                templateUrl: adminViewPath + 'accounts/user-transaction-statistics/user-transaction.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.user-transaction-statistics.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'accounts/user-transaction-statistics/manage.html',
+                controller: 'UserTransactionStatistics',
+                containerClass: 'sw-toggled'
+            })
+
+            /*User-Accounts-Status*/
+            .state("admin.accounts.user-account-status", {
+                url: "/accounts/user-account-status",
+                templateUrl: adminViewPath + 'accounts/user-account-status/user-accounts.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.user-account-status.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'accounts/user-account-status/manage.html',
+                controller: 'UserAccountStatus',
+                containerClass: 'sw-toggled'
+            })
+
             /*Registration details*/
             .state("admin.registration-details", {
                 url: "/registration-details",

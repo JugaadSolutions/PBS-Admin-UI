@@ -26,7 +26,7 @@
                         <div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
                                  ng-class="{ 'has-error': BicycleTransactions.toDate.$touched && BicycleTransactions.toDate.$invalid }" >
-                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
                                 <input type="text" name="toDate" ng-model="bicycleTrans.todate" ng-change="todate" ng-focus="toDate=true" ng-click="toDate=true"
                                        uib-datepicker-popup="dd/MM/yyyy" is-open="toDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"

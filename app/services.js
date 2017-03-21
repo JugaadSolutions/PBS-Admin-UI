@@ -1085,24 +1085,14 @@
             SendDaywiseCashCollectionDetails:function (data) {
                 if(data.location == "" || data.location == null || data.location == undefined)
                 {
-                    data.location = "All"
+                    var _location= "All"
                 }
                 var deferred = $q.defer();
-                var _transaction_type = data.transactionType;
-                var test;
-                if (_transaction_type  === 'Registration')
-                {
-                    test = 'Registration'
-                }
-                if (_transaction_type  === 'Refunds')
-                {
-                    test = 'Refunds'
-                }
                 var daywiseCollection = {
                     fromdate:data.fromdate,
                     todate:data.todate,
-                    location:data.location,
-                    transactionType : test
+                    location:_location,
+                    transactionType : data.transactionType
                 };
                 $http.post(APINew + APIEndPoint.daywiseCollection.getAll,daywiseCollection).then(function (result) {
                     deferred.resolve(result.data);
@@ -1161,6 +1151,16 @@
                     deferred.reject(error)
                 });
                 return deferred.promise;
+            },
+
+            UserTransactionDetails: function (data) {
+               /* var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.member.memberIndividualPaymentTransation + '/' + data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;*/
             },
 
             // Global key names and values
