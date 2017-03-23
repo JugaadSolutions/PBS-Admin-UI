@@ -313,8 +313,16 @@
 
         $scope.selectedDocument = function (data) {
             $scope.DocumentType= data.documentType;
+            $scope.minimunLeng=0;
+            $scope.maximumLeng=0;
+            $scope.MinimumLengthSpanShow = false;
+            $scope.MaximumLengthSpanShow = false;
             if($scope.DocumentType === 'Aadhar')
             {
+                $scope.minimunLeng =12;
+                $scope.maximumLeng =12;
+                $scope.MinimumLengthSpanShow = true;
+                $scope.MaximumLengthSpanShow = true;
                 $scope.ShowMemberShipTab = true;
             }
             else if($scope.DocumentType == 'Passport' &&  $scope.CountryCode != '91' && $scope.Country != 'India')
@@ -359,6 +367,10 @@
                     {
                          _mobile_no=$scope.member.countryCode + '-' + $scope.member.phoneNumber;
                     }
+                if($scope.email == '' || $scope.email == null)
+            {
+                var _email = '';
+            }
             }
 
             $scope.member = {
@@ -369,7 +381,7 @@
                 age:$scope.member.age,
                 sex: $scope.member.sex,
                 phoneNumber: _mobile_no,
-                email:$scope.member.email,
+                email:_email,
                 address: $scope.member.address,
                 city: $scope.member.city,
                 state:$scope.member.state,
@@ -400,10 +412,10 @@
                 if (!response.error) {
                     growl.success(response.message);
                 } else {
-                    growl.error(response.message);
+                    growl.error(response.description);
                 }
             }, function (response) {
-                growl.error(response.data.message);
+                growl.error(response.data.description);
             })
         };
 
@@ -7770,9 +7782,8 @@ var _station_id;
 
     app.controller('AddBankCashDeposits', ['$scope', '$state', 'DataService', 'growl', 'sweet', function ($scope, $state, DataService, growl, sweet)
     {
-        $scope.bankCashDeposit=[];
-
-      /*  var test = cashCollectionDate;*/
+        $scope.loginid=localStorage.LoginID;
+        var _logIn_Id=$scope.loginid;
 
         $scope.bankCashDeposit =
         {
@@ -7786,7 +7797,7 @@ var _station_id;
             depositedBy:'',
             remarks:'',
             location:'',
-            createdBy:_login_id
+            createdBy:_logIn_Id
         };
 
 
@@ -7794,7 +7805,6 @@ var _station_id;
             DataService.saveBankCashDepositDetails($scope.bankCashDeposit).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                   /* $state.go('admin.registration-centres.edit', {'id': response.data._id});*/
                 } else {
                     growl.error(response.message);
                 }
@@ -7823,7 +7833,10 @@ var _station_id;
             {
                 if (!response.error)
                 {
-                    $scope.RegistrationCenters = response.data;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.RegistrationCenters.push(response.data[i]);
+                    }
                 } else
                 {
                     growl.error(response.message);
@@ -7845,12 +7858,6 @@ var _station_id;
     var BankcashDeposit=[];
     app.controller('BankCashDepositReport', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
-
-        /*$scope.bankCashDepositReport =
-        {
-            fromdate:'',
-            todate:''
-        };*/
 
         $scope.bankDepositsInput=
         {

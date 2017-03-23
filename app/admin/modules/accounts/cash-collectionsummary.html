@@ -40,7 +40,7 @@
                        </div>
                    </div>
 
-                   <div class="col-sm-3 m-b-20">
+                  <!-- <div class="col-sm-3 m-b-20">
                        <div class="form-group fg-line">
                            <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Registration Centres</label>
                            <select chosen class="form-control"
@@ -49,7 +49,7 @@
                                    ng-change="selectedRegistrationCenters(location)" required>
                            </select>
                        </div>
-                   </div>
+                   </div>-->
 
 
                </div>
@@ -140,31 +140,19 @@
             <div class="table-responsive" >
                 <table ng-table="" class="table table-striped table-vmiddle" show-filter="true">
                     <tr ng-repeat="member in $data">
-                        <td>
-                            <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
-                        </td>
                         <td data-title="'Date'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
                             <a ui-sref="admin.members.edit({id: member._id})">{{member.Name}} {{member.lastName}}</a>
                         </td>
                         <td data-title="'Opening Balance'" filter="{ phoneNumber: 'text'}">
                             {{member.phoneNumber}}
                         </td>
-                        <td data-title="'Collection'" filter="{ 'subscriptionType': 'text'}">
+                        <td data-title="'Cash Collection'" filter="{ 'subscriptionType': 'text'}">
                             {{member.subscriptionType}}
                         </td>
-                        <td data-title="'Refund'" filter="{ creditBalance: 'text'}">
+                        <td data-title="'Refunds'" filter="{ creditBalance: 'text'}">
                             &#8377; {{member.creditBalance}}
                         </td>
-                        <td data-title="'Balance'" filter="{ creditBalance: 'text'}">
-                            &#8377; {{member.creditBalance}}
-                        </td>
-                        <td data-title="'Deposit Status'" filter="{ creditBalance: 'text'}">
-                            &#8377; {{member.creditBalance}}
-                        </td>
-                        <td data-title="'Deposited Amount'" filter="{ creditBalance: 'text'}">
-                            &#8377; {{member.creditBalance}}
-                        </td>
-                        <td data-title="'Deposited Transaction ID'" filter="{ creditBalance: 'text'}">
+                        <td data-title="'Bank Deposits'" filter="{ creditBalance: 'text'}">
                             &#8377; {{member.creditBalance}}
                         </td>
                         <td data-title="'Closing Balance'" filter="{ creditBalance: 'text'}">
