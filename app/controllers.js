@@ -7943,7 +7943,7 @@ var _station_id;
         $scope.Payments=[];
 
         $scope.transactionStatisticsDetails = function () {
-            DataService.getMemberPaymentTransaction1($scope.userTransactionDetials.userid).then(function (response) {
+            DataService.getMemberPaymentTransactionByCard($scope.userTransactionDetials.userid).then(function (response) {
                 if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
                     {
@@ -7986,7 +7986,7 @@ var _station_id;
         $scope.Rides = [];
 
         $scope.transactionStatisticsDetails =function () {
-            DataService.getRidesAdmin($scope.userTransactionDetials.userid).then(function (response) {
+            DataService.getMemberRidesByCard($scope.userTransactionDetials.userid).then(function (response) {
                 if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
                     {

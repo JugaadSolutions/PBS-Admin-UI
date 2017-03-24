@@ -54,8 +54,10 @@
            /* memberPaymentTransaction: 'paymenttransaction',*/
          /*   memberPaymentTransaction: 'paymenttransaction',*/
             memberIndividualPaymentTransation:'paymenttransaction/member',
+            memberIndividualPaymentTransationBycard:'paymenttransaction/card',
            /* memberTransaction: 'membertransaction/member'*/
             memberTransaction: 'transactions/myrides/member',
+            memberTransactionByCard: 'transactions/myrides/card',
          /*   cancel:'cancelmembership',*/
             request:'cancelmemberrequest',
             suspend:'suspendmembership',

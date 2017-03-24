@@ -1661,6 +1661,18 @@
                 });
                 return deferred.promise;
             },
+
+            // Get rides details by smart card number
+            getMemberRidesByCard: function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.member.memberTransactionByCard + '/' + data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getMemberPaymentTransaction: function (filters) {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.member.memberPaymentTransaction, {
@@ -1676,6 +1688,17 @@
             getMemberPaymentTransaction1: function (data) {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.member.memberIndividualPaymentTransation + '/' + data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            // user transaction based smart card
+            getMemberPaymentTransactionByCard: function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.member.memberIndividualPaymentTransationBycard + '/' + data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
