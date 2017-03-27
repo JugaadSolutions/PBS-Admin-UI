@@ -283,27 +283,29 @@
         },
 
         cashCollection:{
-           getAll:'cashcollectiondetails'
+           getAll:'paymenttransaction/cashcollection'
         },
 
         daywiseCollection:{
-           /* getAll:'daywisecashcollection'*/
             getAll:'paymenttransaction/daywisecollection'
         },
 
         totalCashCollection:{
-          /*  getAll:'totalcashcollection'*/
             getAll:'paymenttransaction/totalcollection'
         },
 
         bankCashDeposit: {
-            /*save:'bankcashdeposit'*/
             save:'paymenttransaction/deposit',
             getAll:'deposit'
         },
 
         bankCashDepositReport:{
             getAll:'paymenttransaction/depositinfo'
+        },
+
+        accountClosure:{
+            getAll:'paymenttransaction/dayclosure/info',
+            save:'paymenttransaction/cashclosure'
         },
 
         bicycleMaintenance:{

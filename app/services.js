@@ -1073,7 +1073,8 @@
             /*Cash Collection Details*/
             SendCashCollectionDetails:function (data) {
                 var deferred = $q.defer();
-                $http.post(API + APIEndPoint.cashCollection.getAll,data).then(function (result) {
+                /*$http.post(APINew + APIEndPoint.cashCollection.getAll,data).then(function (result) {*/
+                $http.post(APINew + APIEndPoint.totalCashCollection.getAll,data).then(function (result) {
                     deferred.resolve(result.data);
                 },function (error) {
                     deferred.reject(error)
@@ -1083,16 +1084,30 @@
 
             /*Daywise cash collections*/
             SendDaywiseCashCollectionDetails:function (data) {
+                var _location;
+                var _transaction_type;
                 if(data.location == "" || data.location == null || data.location == undefined)
                 {
-                    var _location= "All"
+                     _location= "All"
+                }
+                else /*if(data.location.location !== "" || data.location.location !== null || data.location.location !== undefined )*/
+                {
+                    _location=data.location.location;
+                }
+                if (data.transactionType == "" || data.transactionType == null || data.transactionType == undefined)
+                {
+                    _transaction_type = "All";
+                }
+                else
+                {
+                    _transaction_type = data.transactionType;
                 }
                 var deferred = $q.defer();
                 var daywiseCollection = {
                     fromdate:data.fromdate,
                     todate:data.todate,
                     location:_location,
-                    transactionType : data.transactionType
+                    transactionType :_transaction_type
                 };
                 $http.post(APINew + APIEndPoint.daywiseCollection.getAll,daywiseCollection).then(function (result) {
                     deferred.resolve(result.data);
@@ -1104,12 +1119,22 @@
 
             /*Total Cash Details*/
             SendTotalCashCollectionDetails:function (data) {
+                var _location_name;
                 if(data.location == "" || data.location == null || data.location == undefined)
                 {
-                    data.location = "All";
+                    _location_name = "All";
+                }
+                else /*if(data.location != "" || data.location != null || data.location != undefined)*/
+                {
+                    _location_name = data.location;
                 }
                 var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.totalCashCollection.getAll,data).then(function (result) {
+                var totalCashCollection = {
+                    fromdate:data.fromdate,
+                    todate:data.todate,
+                    location:_location_name
+                };
+                $http.post(APINew + APIEndPoint.totalCashCollection.getAll,totalCashCollection).then(function (result) {
                     deferred.resolve(result.data);
                 },function (error) {
                     deferred.reject(error)
@@ -1161,6 +1186,27 @@
                     deferred.reject(error);
                 });
                 return deferred.promise;*/
+            },
+
+            /*Account Closer*/
+            GetDayClosureDetails: function () {
+            var deferred = $q.defer();
+            $http.get(APINew + APIEndPoint.accountClosure.getAll).then(function (result) {
+                deferred.resolve(result.data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        },
+
+            saveDayClosureDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.accountClosure.save,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
             },
 
             // Global key names and values
@@ -1429,13 +1475,13 @@
             /*check in check out*/
             saveCheckInCheckOut:function(data)
             {
-                var deferred = $q.defer();
+               /* var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.checkIncheckOut.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;
+                return deferred.promise;*/
             },
 
             saveCheckIn:function(data)

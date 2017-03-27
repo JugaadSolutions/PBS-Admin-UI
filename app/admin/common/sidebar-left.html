@@ -89,7 +89,7 @@
                                ui-sref="admin.accounts.cash-collectionsummary">Cash Balance Report</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.accounts.totalcash-report')}"
-                               ui-sref="admin.accounts.totalcash-report">Total Cash Report</a>
+                               ui-sref="admin.accounts.totalcash-report">Total Collection Report</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.accounts.bankcashdeposits')}"
                                ui-sref="admin.accounts.bankcashdeposits.bankcashdeposit-report">Bank Cash Deposit Report</a>
@@ -128,6 +128,15 @@
                 <!-- <li><a ng-class="{'active': $state.includes('admin.accounts.refunds')}"
                         ui-sref="admin.accounts.refunds">Refunds</a>
                  </li>-->
+            </ul>
+        </li>
+
+        <li class="sub-menu">
+            <a href="" toggle-submenu><i class="zmdi zmdi-pin-account"></i>Accounts</a>
+            <ul>
+                <li><a ng-class="{'active': $state.includes('admin.accounts-closer')}"
+                       ui-sref="admin.accounts-closer.manage">Day Closure</a>
+                </li>
             </ul>
         </li>
 

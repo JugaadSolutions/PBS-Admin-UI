@@ -620,6 +620,20 @@
                 containerClass: 'sw-toggled'
             })
 
+            /*Accounts Closer*/
+            .state("admin.accounts-closer", {
+                url: "/accounts-closer",
+                templateUrl: adminViewPath + 'accounts-closer/closer.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts-closer.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'accounts-closer/manage.html',
+                controller: 'AccountsCloser',
+                containerClass: 'sw-toggled'
+            })
+
 
             /*bank*/
             .state("admin.accounts.bankcashdeposits", {

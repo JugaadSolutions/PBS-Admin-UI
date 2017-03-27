@@ -92,7 +92,6 @@
                                 <div class="form-group fg-line"
                                      ng-class="{ 'has-error': TotalCashReport.TotalCashTo.$touched && TotalCashReport.TotalCashTo.$invalid }" >
                                     <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
-                                    <!-- <input type="text" class="form-control" data-input-mask="{mask: '00/00/0000'}" placeholder="eg: 23/05/2014">-->
                                     <input type="text" name="TotalCashTo" ng-model="totalCashInput.todate" ng-change="totalCashReportTo" ng-focus="TotalCashTo=true" ng-click="TotalCashTo=true"
                                            uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashTo" show-button-bar="true" class="form-control" chars="none" required >
                                     <span class="help-block"
@@ -108,8 +107,8 @@
                                     <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Registration Centres</label>
                                     <select chosen class="form-control"
                                             ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
-                                            ng-model="location"
-                                            ng-change="selectedRegistrationCenters(location)">
+                                            ng-model="RegistrationCenter.location"
+                                            ng-change="selectedRegistrationCenters(RegistrationCenter.location)">
                                         <option value="">All</option>
                                     </select>
                                 </div>
@@ -169,17 +168,20 @@
                         <td data-title="'Date'" filter="{ date: 'text'}">
                             {{cashTotals.date | date : "dd MMM yy"}}
                         </td>
-                        <td data-title="'POS Collection Amount'" filter="{ pos: 'text'}">
+                        <td data-title="'POS'" filter="{ pos: 'text'}">
                             {{cashTotals.pos}}
                         </td>
-                        <td data-title="'PG Collection Amount'" filter="{ gateway: 'text'}">
+                        <td data-title="'Payment Gateway'" filter="{ gateway: 'text'}">
                             {{cashTotals.gateway}}
                         </td>
-                        <td data-title="'Cash Collection Amount'" filter="{ 'cash': 'text'}">
+                        <td data-title="'Cash'" filter="{ 'cash': 'text'}">
                             {{cashTotals.cash}}
                         </td>
+                        <td data-title="'Refunds'" filter="{ 'cash': 'text'}">
+                            {{cashTotals.refunds}}
+                        </td>
                         <td data-title="'Total'" filter="{ 'subscriptionType': 'text'}">
-                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash }}
+                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash - cashTotals.refunds }}
                         </td>
                     </tr>
                 </table>

@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header ch-alt m-b-20">
+            <h2>Day Closure Details</h2>
+
+            <form class="pmbb-edit" name="DaywiseCashForm" novalidate>
+
+                <div class="card-body card-padding">
+
+                    </div>
+            </form>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" >
+                <table ng-table="accountClosureTable" class="table table-striped table-vmiddle" show-filter="false">
+                    <tr ng-repeat="closure in AccountClosure">
+                        <td data-title="'Date'" >
+                            {{closure.dateTime}}
+                        </td>
+                        <td data-title="'Bank Deposit'">
+                            {{closure.bankdeposit}}
+                        </td>
+                        <td data-title="'Cash Collected'">
+                            {{closure.cashcollected}}
+                        </td>
+                        <td data-title="'Opening Balance'">
+                            {{closure.openingBalance}}
+                        </td>
+                        <td data-title="'Refunds'">
+                            {{closure.refunds}}
+                        </td>
+                        <td data-title="'Closing Balance'">
+                            {{closure.closingBalance}}
+                        </td>
+                        <td data-title="''">
+                            <button ng-click="VerifyClosureDetails()" class="btn btn-icon-text btn-success waves-effect">Verify</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
