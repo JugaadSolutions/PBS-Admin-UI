@@ -1072,9 +1072,44 @@
 
             /*Cash Collection Details*/
             SendCashCollectionDetails:function (data) {
+                var _location_name;
+                if(data.location == "" || data.location == null || data.location == undefined)
+                {
+                    _location_name = "All";
+                }
+                else /*if(data.location != "" || data.location != null || data.location != undefined)*/
+                {
+                    _location_name = data.location;
+                }
                 var deferred = $q.defer();
+                var totalCashCollection = {
+                    fromdate:data.fromdate,
+                    todate:data.todate,
+                    location:_location_name
+                };
                 /*$http.post(APINew + APIEndPoint.cashCollection.getAll,data).then(function (result) {*/
-                $http.post(APINew + APIEndPoint.totalCashCollection.getAll,data).then(function (result) {
+                $http.post(APINew + APIEndPoint.totalCashCollection.getAll,totalCashCollection).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+            // cash balance report ( All - Condition )
+            SendCashCollectionDetails1:function (data) {
+                var _location_name;
+                if(data.location == "" || data.location == null || data.location == undefined)
+                {
+                    _location_name = "All";
+                }
+                var deferred = $q.defer();
+                var totalCashCollection = {
+                    fromdate:data.fromdate,
+                    todate:data.todate,
+                    location:_location_name
+                };
+                $http.post(APINew + APIEndPoint.cashCollection.getAll,totalCashCollection).then(function (result) {
                     deferred.resolve(result.data);
                 },function (error) {
                     deferred.reject(error)
@@ -1154,12 +1189,22 @@
             },*/
 
             SendBankCashDepositDetails:function (data) {
+                var location;
                 if(data.location == "" || data.location == null || data.location == undefined)
                 {
-                    data.location="All";
+                    location="All";
+                }
+                else
+                {
+                    location=data.location;
                 }
                 var deferred = $q.defer();
-                $http.post(APINew + APIEndPoint.bankCashDepositReport.getAll,data).then(function (result) {
+                var bankDepositsInput = {
+                    fromdate:data.fromdate,
+                    todate:data.todate,
+                    location:location
+                };
+                $http.post(APINew + APIEndPoint.bankCashDepositReport.getAll,bankDepositsInput).then(function (result) {
                     deferred.resolve(result.data);
                 },function (error) {
                     deferred.reject(error)
@@ -1194,7 +1239,7 @@
             $http.get(APINew + APIEndPoint.accountClosure.getAll).then(function (result) {
                 deferred.resolve(result.data);
             }, function (error) {
-                deferred.reject(error);
+                deferred.reject(error.data.description);
             });
             return deferred.promise;
         },

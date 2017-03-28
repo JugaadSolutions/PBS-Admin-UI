@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header ch-alt text-center">
+            <img src="assets/images/trintrin.jpg" class="i-logo"/>
+            <h3>Trin Trin</h3>
+            <h2>Mysuru</h2>
+        </div>
+
+        <br>
+
+        <div class="card-header ch-alt text-center">
+            <h2>Cash Balance Report </h2>
+        </div>
+        <br>
+        <form class="pmbb-edit" name="TotalCashReport"  novalidate>
+            <div class="card-header ch-alt text-center">
+                &nbsp;&nbsp;<label>From &nbsp;:</label> <span ng-bind="cashCollectionSummeryInputs.cashCollectionfromdate | date : 'dd MMM yy '"></span>&nbsp;&nbsp;-&nbsp;&nbsp;<label>To&nbsp;:</label> <span ng-bind="cashCollectionSummeryInputs.cashCollectiontodate | date : 'dd MMM yy '"></span>&nbsp; | &nbsp;<label>Registration Centre&nbsp;:</label> <span ng-bind="cashCollectionSummeryInputs.cashCollectionlocation"></span>
+            </div>
+            <div class="card-body card-padding">
+                <div class="row">
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div >
+        <table ng-table="CashCollectionSummaryPrintTable" class="table" >
+            <tr ng-repeat="cashCollection in cashCollectionSummaryPrint">
+                <td data-title="'Date'">
+                    {{cashCollection.date | date : "dd MMM yy"}}
+                </td>
+                <td data-title="'Cash'">
+                    {{cashCollection.cash}}
+                </td>
+                <td data-title="'Refund'">
+                    {{cashCollection.refunds}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<button  class="btn btn-float bgm-red m-btn" ng-click="myFun()"><i class="zmdi zmdi-print"></i></button>
+

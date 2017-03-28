@@ -15,25 +15,25 @@
                 <table ng-table="accountClosureTable" class="table table-striped table-vmiddle" show-filter="false">
                     <tr ng-repeat="closure in AccountClosure">
                         <td data-title="'Date'" >
-                            {{closure.dateTime}}
-                        </td>
-                        <td data-title="'Bank Deposit'">
-                            {{closure.bankdeposit}}
-                        </td>
-                        <td data-title="'Cash Collected'">
-                            {{closure.cashcollected}}
+                            {{closure.dateTime | date : "dd MMM yy"}}
                         </td>
                         <td data-title="'Opening Balance'">
                             {{closure.openingBalance}}
                         </td>
+                        <td data-title="'Cash Collected'">
+                            {{closure.cashcollected}}
+                        </td>
                         <td data-title="'Refunds'">
                             {{closure.refunds}}
+                        </td>
+                        <td data-title="'Bank Deposit'">
+                            {{closure.bankdeposit}}
                         </td>
                         <td data-title="'Closing Balance'">
                             {{closure.closingBalance}}
                         </td>
                         <td data-title="''">
-                            <button ng-click="VerifyClosureDetails()" class="btn btn-icon-text btn-success waves-effect">Verify</button>
+                            <button ng-click="VerifyClosureDetails()"  class="btn btn-icon-text btn-success waves-effect">Confirm</button>
                         </td>
                     </tr>
                 </table>

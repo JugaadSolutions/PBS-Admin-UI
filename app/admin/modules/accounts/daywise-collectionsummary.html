@@ -192,7 +192,8 @@
                             {{daywises.paymentMode}}
                         </td>
                         <td data-title="'Amount'" filter="{ 'subscriptionType': 'text'}">
-                            {{daywises.balance}}
+                            <label ng-if="daywises.credit >0"> {{daywises.credit}}</label>
+                            <label ng-if="daywises.debit >0"> {{daywises.debit}}</label>
                         </td>
                     </tr>
                 </table>

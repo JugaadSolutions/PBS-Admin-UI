@@ -678,12 +678,20 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.accounts.cash-collectionsummary-print", {
+                url: "/cash-collectionsummary-print",
+                templateUrl: adminViewPath + 'accounts/cash-collectionsummary-print.html',
+                controller: 'CashCollectionSummaryPrint',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.accounts.bankcashdeposits.bankcashdeposit-report-print", {
                 url: "/bankcashdeposit-report-print",
                 templateUrl: adminViewPath + 'accounts/bankcashdeposits/bankcashdeposit-report-print.html',
                 controller: 'BankCashDepositReportPrint',
                 containerClass: 'sw-toggled'
             })
+
 
             /*User-Transaction-Statistics*/
             .state("admin.accounts.user-transaction-statistics", {

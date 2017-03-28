@@ -6983,7 +6983,10 @@
     }]);
 
     /*Accounts*/
-
+    var _from_date;
+    var _to_date;
+    var _loc;
+    var CashCollections =[];
     app.controller('CashCollectionSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
     {
         $scope.cashCollection={
@@ -6992,32 +6995,78 @@
             location:''
         };
 
-        $scope.CashCollection = [];
 
-        $scope.sendDetails = function () {
-            DataService.SendCashCollectionDetails($scope.cashCollection).then(function (response) {
-                if (!response.error) {
-                    $scope.CashCollection = response.data;
-                    $scope.cashCollectionTable = new NgTableParams(
-                        {
-                            count: 10
-                        },
-                        {
-                            getData: function ($defer, params) {
-                                var orderedData = params.filter() ? $filter('filter')($scope.CashCollection, params.filter()) : $scope.CashCollection;
-                                params.total(orderedData.length);
-                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                            }
+            $scope.TableWithRegistration = false;
+            $scope.TableWithOutRegistration = false;
+
+            $scope.sendDetails = function () {
+
+                if ($scope.cashCollection.location == "" ||$scope.cashCollection.location == null || $scope.cashCollection.location == 'All')
+                {
+                    $scope.TableWithRegistration = false;
+                    $scope.TableWithOutRegistration = true;
+                    $scope.cashBalance = [];
+                    DataService.SendCashCollectionDetails1($scope.cashCollection).then(function (response)
+                    {
+                        if (!response.error) {
+                            $scope.cashBalance = response.data;
+                            $scope.CashBalanceTable = new NgTableParams(
+                                {
+                                    count: 10
+                                },
+                                {
+                                    getData: function ($defer, params) {
+                                        var orderedData = params.filter() ? $filter('filter')($scope.cashBalance, params.filter()) : $scope.cashBalance;
+                                        params.total(orderedData.length);
+                                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                                    }
+                                }
+                            );
+                            growl.success(response.message);
+                        } else {
+                            growl.error(response.message);
                         }
-                    );
-                    growl.success(response.message);
-                } else {
-                    growl.error(response.message);
+                    }, function (response) {
+                        growl.error(response.data.description['0']);
+                    });
                 }
-            }, function (response) {
-                growl.error(response.data.description['0']);
-            })
-        };
+
+                else
+                    {
+                        $scope.TableWithRegistration = true;
+                        $scope.TableWithOutRegistration = false;
+                    $scope.CashCollection = [];
+
+                        DataService.SendCashCollectionDetails($scope.cashCollection).then(function (response) {
+                            if (!response.error) {
+                                $scope.CashCollection = response.data;
+                                CashCollections=response.data;
+                                 _from_date=$scope.cashCollection.fromdate;
+                                 _to_date=$scope.cashCollection.todate;
+                                 _loc=$scope.cashCollection.location;
+                                var CashCollection =[];
+                                $scope.cashCollectionTable = new NgTableParams(
+                                    {
+                                        count: 10
+                                    },
+                                    {
+                                        getData: function ($defer, params) {
+                                            var orderedData = params.filter() ? $filter('filter')($scope.CashCollection, params.filter()) : $scope.CashCollection;
+                                            params.total(orderedData.length);
+                                            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                                        }
+                                    }
+                                );
+                                growl.success(response.message);
+                            } else {
+                                growl.error(response.message);
+                            }
+                        }, function (response) {
+                            growl.error(response.data.description['0']);
+                        })
+
+                }
+            };
 
         $scope.RegistrationCenters=[];
 
@@ -7036,7 +7085,7 @@
             });
 
         $scope.selectedRegistrationCenters = function (data) {
-            $scope.cashCollection.RegCentre = data.location;
+            $scope.cashCollection.location = data.location;
         };
 
     }]);
@@ -7292,6 +7341,45 @@
                 }
             }
         );
+
+        $scope.myFun = function ()
+        {
+            window.print();
+        };
+
+    }]);
+
+    app.controller('CashCollectionSummaryPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.cashCollectionSummeryInputs=
+            {
+                cashCollectionfromdate:_from_date,
+                cashCollectiontodate:_to_date,
+                cashCollectionlocation:_loc,
+            };
+
+        $scope.cashCollectionSummaryPrint=[];
+
+        $scope.cashCollectionSummaryPrint=CashCollections;
+
+        $scope.CashCollectionSummaryPrintTable = new NgTableParams(
+            {
+                count: 500,
+                noPager: true
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.cashCollectionSummaryPrint, params.filter()) : $scope.cashCollectionSummaryPrint;
+                    /*params.total(orderedData.length);*/
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+        $scope.myFun = function ()
+        {
+            window.print();
+        };
 
         $scope.myFun = function ()
         {
@@ -7766,11 +7854,10 @@ var _station_id;
     }]);
 
     // Accounts Closer
-    app.controller('AccountsCloser', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    app.controller('AccountsCloser', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS','$window', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS,$window)
     {
-
         $scope.loginid=localStorage.LoginID;
-        var _logIn_Id=$scope.loginid;
+      /*  var _logIn_Id=$scope.loginid;*/
 
         $scope.AccountClosure = [];
 
@@ -7779,26 +7866,29 @@ var _station_id;
 
                     $scope.AccountClosure.push(response.data);
 
-               /* $scope.dayClosureDetails={
+                $scope.dayClosureDetails={
                     dateTime:response.data.dateTime,
                     bankdeposit:response.data.bankdeposit,
                     cashcollected:response.data.cashcollected,
                     openingBalance:response.data.openingBalance,
                     refunds:response.data.refunds,
                     closingBalance:response.data.closingBalance,
-                    createdBy:_logIn_Id
+                    createdBy:$scope.loginid
                 };
 
                 $scope.VerifyClosureDetails=function () {
                     DataService.saveDayClosureDetails($scope.dayClosureDetails).then(function (response) {
                         if (!response.error) {
-                            growl.success(response.description);
+                            /*$scope.isDisabled = true;*/
+                            growl.success(response.message);
+                            $window.location.reload();
                         } else {
-                            growl.error(response.message);
+                            growl.error(response.data.description);
                         }
                     }, function (response) {
+                        growl.error(response.data.description);
                     })
-                };*/
+                };
 
                 $scope.accountClosureTable = new NgTableParams(
                     {
@@ -7811,12 +7901,12 @@ var _station_id;
                         }
                     }
                 );
-                growl.success(response.message);
+                /*growl.success(response.message);*/
             } else {
-                growl.error(response.message);
+                growl.error(response.data.description);
             }
         }, function (response) {
-            growl.error(response.data.description['0']);
+            growl.error(response.data.description);
         });
 
     }]);
@@ -7907,8 +7997,6 @@ var _station_id;
         };
 
         $scope.bankDeposits =[];
-
-       /* $scope.BankcashDeposit=[];*/
 
         $scope.sendBankCaskDetails = function () {
             DataService.SendBankCashDepositDetails($scope.bankDepositsInput).then(function (response) {

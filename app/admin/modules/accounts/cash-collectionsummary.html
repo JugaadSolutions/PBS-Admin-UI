@@ -59,7 +59,7 @@
                <button type="button" class="btn btn-icon-text btn-success waves-effect"
                        ng-disabled="CashForm.$invalid" >
                    <i class="zmdi zmdi-eye"></i>
-                   <a ui-sref="admin.accounts.bankcashdeposits.totalcash-report-print" style="color: white">Print Report</a>
+                   <a ui-sref="admin.accounts.cash-collectionsummary-print" style="color: white">Print Report</a>
                </button>
            </div>
             </form>
@@ -67,36 +67,49 @@
         </div>
         <div class="card-body">
 
-            <div class="table-responsive" >
+            <div class="table-responsive"  ng-if="TableWithRegistration == true" >
                 <table ng-table="cashCollectionTable" class="table table-striped table-vmiddle" show-filter="true">
                     <tr ng-repeat="cash in $data">
                         <td data-title="'Date'"  filter="{ dateTime: 'text'}">
-                            <a>{{cash.date | date : "dd MMM yy"}}</a>
+                            {{cash.date | date : "dd MMM yy"}}
                         </td>
                         <td data-title="'Total Cash'" filter="{ openingBalance: 'text'}">
-                           {{cash.cash}}
+                            {{cash.cash }}
                        </td>
                         <td data-title="'Refund'" filter="{ openingBalance: 'text'}">
                            {{cash.refunds}}
                        </td>
-                      <!--<td data-title="'Opening Balance'" filter="{ openingBalance: 'text'}">
-                          {{cash.openingBalance}}
-                      </td>
-                      <td data-title="'Bank Deposits'" filter="{ 'bankDeposit': 'text'}">
-                          {{cash.bankDeposit}}
-                      </td>
-                      <td data-title="'Cash Collected'" filter="{ cashCollected: 'text'}">
-                          {{cash.cashCollected}}
-                      </td>
-                      <td data-title="'Refunds'" filter="{ refund: 'text'}">
-                           {{cash.refund}}
-                      </td>
-                      <td data-title="'Closing Balance'" filter="{ closingBalance: 'text'}">
-                           {{cash.closingBalance}}
-                      </td>-->
                     </tr>
                 </table>
             </div>
+
+                <!--table for cash balance report with out registration centre-->
+                <div class="table-responsive" ng-if="TableWithOutRegistration == true" >
+                    <table ng-table="CashBalanceTable" class="table table-striped table-vmiddle" show-filter="false">
+                        <tr ng-repeat="cash in cashBalance">
+                            <td data-title="'Date'" >
+                                {{cash.dateTime | date : "dd MMM yy"}}
+                            </td>
+                            <td data-title="'Opening Balance'">
+                                {{cash.openingBalance}}
+                            </td>
+                            <td data-title="'Cash Collected'">
+                                {{cash.cashCollected}}
+                            </td>
+                            <td data-title="'Refunds'">
+                                {{cash.refund}}
+                            </td>
+                            <td data-title="'Bank Deposit'">
+                                {{cash.bankDeposits}}
+                            </td>
+                            <td data-title="'Closing Balance'">
+                                {{cash.closingBalance}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+
         </div>
     </div>
 </div>
