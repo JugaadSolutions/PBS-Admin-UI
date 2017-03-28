@@ -5839,7 +5839,7 @@
                 var _to_year =$scope.details.todate.getFullYear();
                 var to_date=new Date(_to_year,_to_month,_to_date);
 
-                var _no_of_days=Math.round(Math.abs((from_date.getTime()-to_date.getTime())/(one_day)))+1;
+                 _no_of_days=Math.round(Math.abs((from_date.getTime()-to_date.getTime())/(one_day)))+1;
                 /*_no_of_days = (_to_date) - (_from_date) + 1 ;*/
                 var _working_hours = _no_of_days * 16 * 60 * Number_of_DockingStations;
                 var i=0;
@@ -6074,14 +6074,19 @@
                     fleet_points = 10;
                 }
 
-                if(fleet_percentage > 90 && fleet_percentage <= 95)
+                else if(fleet_percentage > 90 && fleet_percentage <= 95)
                 {
                     fleet_points = -5;
                 }
 
-                if(fleet_percentage < 90)
+                else if(fleet_percentage < 90)
                 {
                     fleet_points = -10;
+                }
+                else
+                {
+                    fleet_percentage = 0;
+                    fleet_points = 0;
                 }
 
                 $scope.bicycleFleet={
@@ -6127,6 +6132,11 @@
                 {
                     clean_percentage_points =-10;
                 }
+                else
+                {
+                    clean_percentage_value = 0;
+                    clean_percentage_points = 0;
+                }
 
                 $scope.KPIStationClean={
                     CleanValue:clean_percentage_value + "%",
@@ -6169,10 +6179,16 @@
                 {
                     trip_points = 10;
                 }
-                if(trip_percentage < 3)
+                else if(trip_percentage < 3)
                 {
                     trip_points = -10;
                 }
+                else
+                {
+                    trip_percentage = 0;
+                    trip_points = 0;
+                }
+
 
                 $scope.CycleTrips={
                     trip_value:trip_percentage + "%",
@@ -6205,6 +6221,11 @@
                 else if(_smart_card_kiosk_data < 99)
                 {
                     _smart_card_kiosk_points = -10;
+                }
+                else
+                {
+                    _smart_card_kiosk_data = 0;
+                    _smart_card_kiosk_points = 0;
                 }
 
                 $scope.SmartCardKiosk={
