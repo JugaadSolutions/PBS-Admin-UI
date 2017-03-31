@@ -118,6 +118,21 @@
                     </ul>
                 </li>
 
+                <li class="sub-menu">
+                    <a href="" toggle-submenu>SLA Reports</a>
+                    <ul>
+                        <li><a ng-class="{'active': $state.includes('admin.kpi.reports.average-cycle-per-day')}"
+                               ui-sref="admin.kpi.reports.average-cycle-per-day">Average(cycle/day)</a>
+                        </li>
+                        <li><a ng-class="{'active': $state.includes('admin.kpi.reports.cycles-available-6am')}"
+                               ui-sref="admin.kpi.reports.cycles-available-6am">Cycle Available at 6 am</a>
+                        </li>
+                        <li><a ng-class="{'active': $state.includes('admin.kpi.reports.docking-station-clean')}"
+                               ui-sref="admin.kpi.reports.docking-station-clean">Bicycle station is cleaned once</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li><a ng-class="{active: $state.includes('admin.reports.bicycle-transactions')}"
                        ui-sref="admin.reports.bicycle-transactions">Bicycle Transactions</a>
                 </li>
@@ -223,6 +238,15 @@
                                ui-sref="admin.settings.ticket-type.manage">General Type</a>
                         </li>
                     </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li class="sub-menu">
+            <a href="" toggle-submenu><i class="zmdi zmdi-format-subject"></i>IT</a>
+            <ul>
+                <li><a ng-class="{'active': $state.includes('admin.website-downtime.manage')}"
+                       ui-sref="admin.website-downtime.manage">Website Downtime</a>
                 </li>
             </ul>
         </li>

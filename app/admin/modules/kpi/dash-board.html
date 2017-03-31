@@ -194,12 +194,12 @@
 
         <form class="pmbb-edit" name="KPI" novalidate>
 
-        <div class="card" >
+        <!--<div class="card" >
             <div class="card-header ch-alt m-b-20" style="background-color:#88afa8; color:#fff;" >
                 <i class="fa fa-bell fa-fw"></i> <b>Key performance indicators for the month of September </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-icon-text btn-success waves-effect"> You are now at <strong>50 Points</strong></button>
             </div>
-        </div>
+        </div>-->
 
         <div class="card" >
             <div class="card-header ch-alt m-b-20" style="background-color:white; color:black;" >
@@ -323,8 +323,8 @@
                         ng-click="sendKpiDetails()" ng-disabled="KPI.$invalid">
                     <i class="zmdi zmdi-save"></i> Get Details
                 </button>-->
-
-
+        <!--    </div>
+        </div>-->
                 </form>
             </div>
         </div>
@@ -391,8 +391,8 @@
 
                     <td>No. of valid customer complaints (received via website)
                     </td>
-                    <td>10 per month</td>
-                    <td> 10 points </td>
+                    <td><span ng-bind="CustomerComplaints.complaints"></span></td>
+                    <td><span ng-bind="CustomerComplaints.points"></span></td>
                     <td>
                         <!--Modal0-->
                         <!--<span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal""></span>-->
@@ -688,8 +688,8 @@
                 <tr> <!--<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal6">Ref.Table</button>-->
                     <td>Percentage of cycle repaired within 4 hours of being flagged for repair by a customer
                     </td>
-                    <td>95%</td>
-                    <td>5 Points</td>
+                    <td><span ng-bind="CycleRepair.repaire"></span></td>
+                    <td><span ng-bind="CycleRepair.points"></span></td>
                     <td>
                         <!--Modal6-->
 

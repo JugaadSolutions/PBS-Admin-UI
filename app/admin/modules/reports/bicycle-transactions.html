@@ -88,6 +88,9 @@
                         <td data-title="'Bicycle Number'" filter="{vehicleNumber: 'text'}">
                             <a ui-sref="admin.bicycles.edit({id: transaction.bicycle.vehicleUid})">{{transaction.vehicle.vehicleNumber}}</a>
                         </td>
+                        <td data-title="'Card Number'">
+                            {{transaction.user.cardNum}}
+                        </td>
                         <td data-title="'From'">
                             <a ui-sref="admin.docking-stations.edit({id: transaction.fromPort.dockingStationId.StationID})">{{transaction.fromPort.Name}}</a>
                         </td>

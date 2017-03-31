@@ -1,0 +1,105 @@
+<div class="container">
+    <div class="block-header">
+        <h2>ADD Website down time
+            <small>Add all required details with fields marked as * are
+                mandatory
+            </small>
+        </h2>
+        <div class="actions m-t-10">
+            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                    ng-click="addWebsiteDowntime();" ng-disabled="WebsiteDownTime.$invalid">
+                <i class="zmdi zmdi-save"></i> Save
+            </button>
+        </div>
+    </div>
+
+    <div class="card" id="profile-main">
+        <form class="pmbb-edit" name="WebsiteDownTime">
+            <div class="pmb-block">
+
+                <div class="pmbb-body p-l-30">
+
+
+                    <dl class="dl-horizontal required">
+                        <dt class="p-t-10"> Date</dt>
+                        <dd>
+                            <div class="fg-line"
+                                 ng-class="{ 'has-error': WebsiteDownTime.date.$touched && WebsiteDownTime.date.$invalid }">
+                                <input type="text" name="date" ng-model="downTime.downDate"
+                                       ng-focus="date=true" ng-click="date=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="date"
+                                       show-button-bar="true" class="form-control"
+                                       placeholder="eg. 16/09/2012" required>
+                                <span class="help-block"
+                                      ng-messages="WebsiteDownTime.date.$error"
+                                      ng-show="WebsiteDownTime.date.$touched">
+                                                <small ng-message="required">Date is required</small>
+                                            </span>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl class="dl-horizontal required">
+                        <dt class="p-t-10">Down Time</dt>
+                        <dd>
+                            <div class="fg-line"
+                                 ng-class="{ 'has-error': WebsiteDownTime.downTime.$touched && WebsiteDownTime.downTime.$invalid }">
+                                <input type="number" name="downTime" ng-model="downTime.downTime"
+                                       class="form-control"
+                                       placeholder="eg. 30 Min" chars="numbers" maxlength="3" required>
+                                <span class="help-block"
+                                      ng-messages="WebsiteDownTime.downTime.$error"
+                                      ng-show="WebsiteDownTime.downTime.$touched">
+                                <small ng-message="required">Down time is required</small>
+                            </span>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl class="dl-horizontal required">
+                        <dt class="p-t-10">Reason</dt>
+                        <dd>
+                            <div class="fg-line"
+                                 ng-class="{ 'has-error': WebsiteDownTime.reason.$touched && WebsiteDownTime.reason.$invalid }">
+                                <input type="text" name="reason" ng-model="downTime.reason"
+                                       class="form-control"
+                                       placeholder="eg. Network issue" chars="only-letters" maxlength="20" required>
+                                <span class="help-block"
+                                      ng-messages="WebsiteDownTime.reason.$error"
+                                      ng-show="WebsiteDownTime.reason.$touched">
+                                <small ng-message="required">Reason is required</small>
+                            </span>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl class="dl-horizontal">
+                        <dt class="p-t-10">Comments</dt>
+                        <dd>
+                            <div class="fg-line"
+                                 ng-class="{ 'has-error': WebsiteDownTime.comments.$touched && WebsiteDownTime.comments.$invalid }">
+                                <input type="text" name="comments" ng-model="downTime.comments"
+                                       class="form-control"
+                                       placeholder="eg. comments" chars="only-letters" maxlength="20">
+                                <span class="help-block"
+                                      ng-messages="WebsiteDownTime.comments.$error"
+                                      ng-show="WebsiteDownTime.comments.$touched">
+                                <small ng-message="required">comments is required</small>
+                            </span>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </form>
+        <!--  <div class="pm-body clearfix">
+          </div>-->
+    </div>
+</div>
+
+
+
+

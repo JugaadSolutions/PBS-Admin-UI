@@ -748,6 +748,60 @@
                 containerClass: 'sw-toggled'
             })*/
 
+           /* .state("admin.accounts.bankcashdeposits", {
+                url: "/accounts/bankcashdeposits",
+                templateUrl: adminViewPath + 'accounts/bankcashdeposits/bankcash.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.bankcashdeposits.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'accounts/bankcashdeposits/manage.html',
+                controller: 'ManageBankCashDeposits',
+                containerClass: 'sw-toggled'
+            })*/
+
+
+            .state("admin.kpi.reports", {
+                url: "/kpi/reports",
+                templateUrl: adminViewPath + "kpi/reports/reports.html"
+            })
+
+            .state("admin.kpi.reports.average-cycle-per-day", {
+                url: "/average-cycle-per-day",
+                templateUrl: adminViewPath + 'kpi/reports/average-cycle-per-day.html',
+                controller: 'KpiReportAverageCyclePerDay',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.kpi.reports.cycles-available-6am", {
+                url: "/cycles-available-6am",
+                templateUrl: adminViewPath + 'kpi/reports/cycles-available-6am.html',
+                controller: 'KpiReportCycleAvailableAt6am',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.kpi.reports.docking-station-clean", {
+                url: "/docking-station-clean",
+                templateUrl: adminViewPath + 'kpi/reports/docking-station-clean.html',
+                controller: 'KpiReportDockingStationClean',
+                containerClass: 'sw-toggled'
+            })
+
+            // website downtime
+            .state("admin.website-downtime", {
+                url: "/website-downtime",
+                templateUrl: adminViewPath + "website-downtime/website.html"
+            })
+
+            .state("admin.website-downtime.manage", {
+                url: "/manage",
+                templateUrl: adminViewPath + 'website-downtime/manage.html',
+                controller: 'ManageWebsiteDownTime',
+                containerClass: 'sw-toggled'
+            })
+
+
             .state("admin.smart-cards", {
                 url: "/smart-cards",
                 templateUrl: adminViewPath + "smart-cards/smart-cards.html"

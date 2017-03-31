@@ -1281,7 +1281,7 @@
                 channel:1,
                 priority:'',
                 ticketdate:new Date(),
-                createdBy:_login_id,
+                createdBy:_logIn_Id,
             };
         }
         else
@@ -1297,7 +1297,7 @@
                 tickettype:'',
                 assignedEmp:'',
                 ticketdate:new Date(),
-                createdBy:_login_id,
+                createdBy:_logIn_Id,
             };
         }
         /*var emp_dept;
@@ -1384,7 +1384,7 @@
                     }
                     if($scope.raiseTicketsDetails.department === 'Maintenance')
                     {
-                        var _ticket_type='Maintenance';
+                        var _ticket_type='MaintenanceDemo';
                     }
                     if($scope.raiseTicketsDetails.department === 'Redistribution')
                     {
@@ -5841,7 +5841,8 @@
 
                  _no_of_days=Math.round(Math.abs((from_date.getTime()-to_date.getTime())/(one_day)))+1;
                 /*_no_of_days = (_to_date) - (_from_date) + 1 ;*/
-                var _working_hours = _no_of_days * 16 * 60 * Number_of_DockingStations;
+                /*var _working_hours = _no_of_days * 16 * 60 * Number_of_DockingStations;*/
+                var _working_hours = _no_of_days * 16 * 60 * 44;
                 var i=0;
                 var total=0;
                 var total_major_empty_peak=0;
@@ -5897,7 +5898,7 @@
                 {
                 percentage_points=10;
                 }
-                else if (percentage_value >= 95 && value < 98)
+                else if (percentage_value >= 95 && percentage_value < 98)
                 {
                     percentage_points=5;
                 }
@@ -5908,6 +5909,11 @@
                 else if(percentage_value < 90)
                 {
                     percentage_points=-10;
+                }
+                else
+                {
+                    percentage_value = 0;
+                    percentage_points =0;
                 }
 
 
@@ -5928,6 +5934,11 @@
                 {
                     percentage_points_total_major_empty=-10;
                 }
+                else
+                {
+                    percentage_value_major_empty = 0;
+                    percentage_points_total_major_empty = 0;
+                }
 
                 // condition for major docking staions are empty during off peak hours
                 if (percentage_value_major_empty_offpeek < 2)
@@ -5945,6 +5956,11 @@
                 else if(percentage_value_major_empty_offpeek >= 5)
                 {
                     percentage_points_total_major_empty_offpeek=-10;
+                }
+                else
+                {
+                    percentage_value_major_empty_offpeek = 0;
+                    percentage_points_total_major_empty_offpeek = 0;
                 }
 
                 // condition for minor docking staions are empty during peak hours
@@ -5964,6 +5980,11 @@
                 {
                     percentage_points_total_minor_empty=-10;
                 }
+                else
+                {
+                    percentage_value_minor_empty = 0;
+                    percentage_points_total_minor_empty = 0;
+                }
 
                 // condition for minor docking staions are empty during off peak hours
                 if (percentage_value_minor_empty_offpeek < 5)
@@ -5981,6 +6002,11 @@
                 else if(percentage_value_minor_empty_offpeek >= 10)
                 {
                     percentage_points_total_minor_empty_offpeek=-10;
+                }
+                else
+                {
+                    percentage_value_minor_empty_offpeek = 0;
+                    percentage_points_total_minor_empty_offpeek = 0;
                 }
 
                 $scope.RVDetails={
@@ -6019,6 +6045,12 @@
                 {
                     percentage_points=-10;
                 }
+                else
+                {
+                    percentage_data = 0;
+                    percentage_points = 0;
+                }
+
                 $scope.SmartCardInfo={
                    value:percentage_data + "%",
                     points:percentage_points
@@ -6114,7 +6146,8 @@
             {
                  _docking_station_clean_count = response.data.length;
 
-                clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * Number_of_DockingStations) * 100).toFixed(2);
+                /*clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * Number_of_DockingStations) * 100).toFixed(2);*/
+                clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * 44) * 100).toFixed(2);
 
                 if(clean_percentage_value >= 1)
                 {
@@ -6245,6 +6278,132 @@
                 /*growl.error(response.data.description);*/
             });
 
+            // customer complaints
+            var _total_complaints=0;
+            var _total_complaint_points;
+            $scope.CustomerComplaints = [];
+            DataService.getTickets().then(function (response)
+            {
+                if (!response.error)
+                {
+                   /* var _complaintType=0;*/
+                    var _count=0;
+                    $scope.CustomerComplaints = response.data;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        var _complaintType = response.data[i].complaintType;
+                        var _channel= response.data[i].channel;
+                      if(_channel == 1)
+                      {
+                          if(_complaintType == 2)
+                          {
+                              _total_complaints ++;
+                          }
+                      }
+                    }
+
+                    if(_total_complaints < 5)
+                    {
+                        _total_complaint_points = 10;
+                    }
+                    else if(_total_complaints >5 && _total_complaints <= 10)
+                    {
+                        _total_complaint_points = 5;
+                    }
+                    else if(_total_complaints>10 && _total_complaints<=15)
+                    {
+                        _total_complaint_points = -5;
+                    }
+                    else if(_total_complaints > 15)
+                    {
+                        _total_complaint_points = -10;
+                    }
+                    else
+                    {
+                        _total_complaints = 0;
+                        _total_complaint_points = 0;
+                    }
+                    $scope.CustomerComplaints={
+                        complaints:_total_complaints,
+                        points:_total_complaint_points
+                    };
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+            // cycle repaired within the duration of 4 hours
+            var cycle_repaired_value;
+            var cycle_repaired_ponits;
+            $scope.CycleRepair = [];
+            DataService.getTickets().then(function (response)
+            {
+                if (!response.error)
+                {
+                    var _cycle_repaire_count=0;
+                    var _cycle_repaire_value=0;
+                    var _cycle_repaire_points;
+                    var _closed_duration = 0;
+                    $scope.CycleRepair = response.data;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        var _complaintType = response.data[i].tickettype;
+                        var _duration = reponse.data[i].closedDuration;
+                        if(_complaintType == 'Cycle Repaire')
+                        {
+                            _cycle_repaire_count ++;
+                        }
+                        _closed_duration += _duration;
+                    }
+                       /* alert(_cycle_repaire_count);*/
+                       if(_closed_duration <240)
+                       {
+                           _cycle_repaire_value = (_closed_duration/_cycle_repaire_count)*100;
+                       }
+                       else
+                       {
+                           _cycle_repaire_value = 0
+                       }
+
+                    if(_cycle_repaire_value > 98)
+                    {
+                        _cycle_repaire_points = 10;
+                    }
+                    else if(_cycle_repaire_value >95 && _cycle_repaire_value <= 98)
+                    {
+                        _cycle_repaire_points = 5;
+                    }
+                    else if(_cycle_repaire_value < 95 && _cycle_repaire_value >= 90)
+                    {
+                        _cycle_repaire_points = -5;
+                    }
+                    else if(_cycle_repaire_value <= 90)
+                    {
+                        _cycle_repaire_points = -10;
+                    }
+                    else
+                    {
+                        _cycle_repaire_value = 0;
+                        _cycle_repaire_points = 0;
+                    }
+                    $scope.CycleRepair={
+                        repaire:_cycle_repaire_value,
+                        points:_cycle_repaire_points
+                    };
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
         }
     }]);
 
@@ -6572,6 +6731,162 @@
         $scope.selectedMaintenanceStation =function(data){
             $scope.maintenanceCentre.StationId=data.id;
         };
+
+    }]);
+
+    app.controller('ManageWebsiteDownTime', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.downTime=
+            {
+                downDate:'',
+                downTime:'',
+                reason:'',
+                comments:''
+            };
+        $scope.addWebsiteDowntime=function () {
+            DataService.saveDowntime($scope.downTime).then(function (response) {
+                if (!response.error) {
+
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            });
+        }
+
+    }]);
+
+    /*KPI Reports*/
+    app.controller('KpiReportAverageCyclePerDay', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.AverageCycle={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.Averagecycle=[];
+
+        // get average cycle use per cycle per day
+        $scope.AverageCycleDetails=function () {
+            DataService.GetCycleUsagePerDay($scope.AverageCycle).then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.Averagecycle = response.data;
+
+                    $scope.AverageCycleTable = new NgTableParams(
+                        {
+                            count: 10
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.Averagecycle, params.filter()) : $scope.Averagecycle;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+        }
+    }]);
+
+    app.controller('KpiReportCycleAvailableAt6am', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.CycleAvailable={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.CyclesAvailable=[];
+        
+        $scope.CycleAvailableDetails=function () {
+            // get bicycle fleet @ 6 am
+            DataService.GetBicycleDetailsAtFleet($scope.CycleAvailable).then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.CyclesAvailable = response.data;
+
+                    $scope.CycleAvailableTable = new NgTableParams(
+                        {
+                            count: 10
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.CyclesAvailable, params.filter()) : $scope.CyclesAvailable;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+        }
+
+    }]);
+
+    app.controller('KpiReportDockingStationClean', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.StationClean={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.stationClean=[];
+
+        $scope.StationCleanDetails=function () {
+            // get bicycle fleet @ 6 am
+            DataService.GetDockingStationKPIDetails($scope.StationClean).then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.stationClean = response.data;
+
+                    $scope.StationCleanTable = new NgTableParams(
+                        {
+                            count: 10
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.stationClean, params.filter()) : $scope.stationClean;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+        }
 
     }]);
 
@@ -6942,6 +7257,7 @@
                 //var ToDate = transaction.toPort;
                 $scope.transactions.forEach(function (transaction) {
                     transaction.vehicleNumber = transaction.vehicle.vehicleNumber;
+                    $scope.SmartCard = transaction.user.cardNum;
                     transaction.Name = transaction.user.Name+ ' ' + transaction.user.lastName;
                     transaction.checkOutTime = new Date(transaction.checkOutTime);
                     //transaction.checkOutTime = transaction.checkOutTime.toLocaleDateString();
@@ -8817,6 +9133,7 @@ var _station_id;
         $scope.loadBicycleAvaliability = function () {
             $state.reload();
         };
+
 
     }]);
 

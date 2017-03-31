@@ -348,6 +348,14 @@
             getAll:'kpi/kioskreport'
         },
 
+        kpiCycleRepaired:{
+            getAll:'kpi/kioskreport'
+        },
+
+        websiteDownTime:{
+           save:''
+        },
+
         smartCard: {
             getAll: 'card',
             get: 'card',
