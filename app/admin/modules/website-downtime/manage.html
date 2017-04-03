@@ -24,15 +24,17 @@
                         <dt class="p-t-10"> Date</dt>
                         <dd>
                             <div class="fg-line"
-                                 ng-class="{ 'has-error': WebsiteDownTime.date.$touched && WebsiteDownTime.date.$invalid }">
-                                <input type="text" name="date" ng-model="downTime.downDate"
+                                 ng-class="{ 'has-error': WebsiteDownTime.downDate.$touched && WebsiteDownTime.downDate.$invalid }">
+                               <!-- <input type="text" name="date" ng-model="downTime.dateTime"
                                        ng-focus="date=true" ng-click="date=true"
                                        uib-datepicker-popup="dd/MM/yyyy" is-open="date"
                                        show-button-bar="true" class="form-control"
-                                       placeholder="eg. 16/09/2012" required>
+                                       placeholder="eg. 16/09/2012" required>-->
+                                <input type="text" name="downDate" ng-model="downTime.dateTime" ng-change="dateTime" ng-focus="downDate=true" ng-click="downDate=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="downDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"
-                                      ng-messages="WebsiteDownTime.date.$error"
-                                      ng-show="WebsiteDownTime.date.$touched">
+                                      ng-messages="WebsiteDownTime.downDate.$error"
+                                      ng-show="WebsiteDownTime.downDate.$touched">
                                                 <small ng-message="required">Date is required</small>
                                             </span>
                             </div>
@@ -44,7 +46,7 @@
                         <dd>
                             <div class="fg-line"
                                  ng-class="{ 'has-error': WebsiteDownTime.downTime.$touched && WebsiteDownTime.downTime.$invalid }">
-                                <input type="number" name="downTime" ng-model="downTime.downTime"
+                                <input type="number" name="downTime" ng-model="downTime.duration"
                                        class="form-control"
                                        placeholder="eg. 30 Min" chars="numbers" maxlength="3" required>
                                 <span class="help-block"
@@ -63,7 +65,7 @@
                                  ng-class="{ 'has-error': WebsiteDownTime.reason.$touched && WebsiteDownTime.reason.$invalid }">
                                 <input type="text" name="reason" ng-model="downTime.reason"
                                        class="form-control"
-                                       placeholder="eg. Network issue" chars="only-letters" maxlength="20" required>
+                                       placeholder="eg. Network issue" chars="only-letters" required>
                                 <span class="help-block"
                                       ng-messages="WebsiteDownTime.reason.$error"
                                       ng-show="WebsiteDownTime.reason.$touched">
@@ -80,7 +82,7 @@
                                  ng-class="{ 'has-error': WebsiteDownTime.comments.$touched && WebsiteDownTime.comments.$invalid }">
                                 <input type="text" name="comments" ng-model="downTime.comments"
                                        class="form-control"
-                                       placeholder="eg. comments" chars="only-letters" maxlength="20">
+                                       placeholder="eg. comments" chars="only-letters">
                                 <span class="help-block"
                                       ng-messages="WebsiteDownTime.comments.$error"
                                       ng-show="WebsiteDownTime.comments.$touched">

@@ -352,8 +352,13 @@
             getAll:'kpi/kioskreport'
         },
 
+        kpiWebsiteDownTime:
+            {
+              getAll:'kpi/webinfo/details'
+            },
+
         websiteDownTime:{
-           save:''
+           save:'kpi/webinfo',
         },
 
         smartCard: {

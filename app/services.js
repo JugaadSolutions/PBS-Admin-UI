@@ -1357,6 +1357,16 @@
                 return deferred.promise;
             },
 
+            GetWebsiteDownTimeDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.kpiWebsiteDownTime.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
             GetSmartCardAtKiosks:function (data) {
             var deferred = $q.defer();
             $http.post(APINew + APIEndPoint.kpiSmartCardKiosks.getAll,data).then(function (result) {
@@ -1719,8 +1729,7 @@
                 return deferred.promise;
             },
 
-            /*saveDowntime: function (data) {
-
+            saveDowntime: function (data) {
                 var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.websiteDownTime.save, data).then(function (result) {
                     deferred.resolve(result.data);
@@ -1728,7 +1737,7 @@
                     deferred.reject(error);
                 });
                 return deferred.promise;
-            },*/
+            },
 
             saveSmartCard: function (data) {
 

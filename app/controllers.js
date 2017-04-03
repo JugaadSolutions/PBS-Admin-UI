@@ -4936,25 +4936,32 @@
             name:''
         }
 
+        $scope.SearchDetails = [];
+
         $scope.SearchMember = function () {
             DataService.memberSearch($scope.searchMember).then(function (response) {
                 if (!response.error) {
-                    _search_member_name = $scope.searchMember.name;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.SearchDetails.push(response.data[i]);
+                    }
+                    $scope.SearchedMembersTable = new NgTableParams(
+                        {
+                            count: 10
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.SearchDetails, params.filter()) : $scope.SearchDetails;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
 
-                    /* $scope.SearchMember = function (size) {
-                     $uibModal.open({
-                     templateUrl: 'member-search-details.html',
-                     controller: 'SearchMemberDetails',
-                     size: size,
-                     resolve: {
-                     items: function () {
-                     /!* return $scope.member.credit;*!/
-                     }
-                     }
-                     });
-                     };*/
+                    /*_search_member_name = $scope.searchMember.name;*/
 
-                    return $uibModal.open({
+
+                   /* return $uibModal.open({
                         templateUrl: 'member-search-details.html',
                         controller: 'SearchMemberDetails',
                         size: 'md',
@@ -4964,7 +4971,7 @@
                                 alert(_global_search_member_name)
                             }
                         }
-                    });
+                    });*/
 
                     growl.success(response.message);
                 } else {
@@ -4973,6 +4980,10 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             })
+        };
+
+        $scope.searchMemberRaiseTickets = function (id) {
+            $state.go('admin.tickets.raise-tickets', {'id': id});
         };
 
         $scope.EmpDepartments = [];
@@ -5198,6 +5209,209 @@
             });
         }
 
+    }]);
+
+
+    app.controller('SearchMemberRaiseTickets', ['$scope', '$state','$stateParams', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state,$stateParams, DataService, NgTableParams, growl, sweet, $filter, $uibModal,StatusService)
+    {
+        $scope.memberDetails = [];
+
+        /*var raiseTicketsDetails = {
+            name:'',
+            user:'',
+            subject:'',
+            description:'',
+            channel:1,
+            priority:'',
+            department:'',
+            tickettype:'',
+            assignedEmp:'',
+            ticketdate:new Date(),
+            createdBy:$scope.loginid,
+        };*/
+
+        var _mem_id=$stateParams.id;
+
+
+        DataService.getMember($stateParams.id).then(function (response) {
+            if (!response.error) {
+                $scope.memberDetails = response.data;
+                $scope.MemberName=response.data.Name;
+              /*  raiseTicketsDetails.name= response.data.Name;
+                raiseTicketsDetails.user = response.data.UserID;*/
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description);
+        });
+
+
+        $scope.loginid=localStorage.LoginID;
+
+
+        $scope.raiseTicketsDetails = {
+            /*name:,*/
+            user:_mem_id,
+            subject:'',
+            description:'',
+            channel:1,
+            priority:'',
+            department:'',
+            tickettype:'',
+            assignedEmp:'',
+            ticketdate:new Date(),
+            createdBy:$scope.loginid,
+        };
+
+        if($scope.raiseTicketsDetails.department == '' || $scope.raiseTicketsDetails.tickettype || $scope.raiseTicketsDetails.assignedEmp)
+        {
+            $scope.raiseTicketsDetails = {
+                /*name:raiseTicketsDetails.name,*/
+                user:_mem_id,
+                subject:'',
+                description:'',
+                channel:1,
+                priority:'',
+                department:'',
+                tickettype:'',
+                assignedEmp:'',
+                ticketdate:new Date(),
+                createdBy:$scope.loginid,
+            };
+        }
+        else
+        {
+            $scope.raiseTicketsDetails = {
+                /*name:raiseTicketsDetails.name,*/
+                user:_mem_id,
+                subject:'',
+                description:'',
+                channel:1,
+                priority:'',
+                department:'',
+                tickettype:'',
+                assignedEmp:'',
+                ticketdate:new Date(),
+                createdBy:$scope.loginid,
+            };
+        }
+
+        $scope.EmpDepartments = [];
+
+        DataService.getEmpDept().then(function (response) {
+            if (!response.error) {
+                for(var i=0;i<response.data.value.length;i++)
+                {
+                    $scope.EmpDepartments.push(response.data.value[i]);
+                }
+
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.selecteDept = function (department) {
+            $scope.raiseTicketsDetails.department=department.department;
+            var _dept=department.uri;
+            $scope.Employees=[];
+            DataService.getEmp(_dept).then(function (response) {
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.Employees.push(response.data[i]);
+                    }
+
+                    // dataservice to fetch ticket typer based on department
+                    if($scope.raiseTicketsDetails.department === 'Registration')
+                    {
+                        var _ticket_type='Registration-ticket-types';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Maintenance')
+                    {
+                        var _ticket_type='MaintenanceDemo';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Redistribution')
+                    {
+                        var _ticket_type='';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Operator')
+                    {
+                        var _ticket_type='';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Monitor-group')
+                    {
+                        var _ticket_type='';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Accounts')
+                    {
+                        var _ticket_type='';
+                    }
+                    if($scope.raiseTicketsDetails.department === 'Holding-area')
+                    {
+                        var _ticket_type='';
+                    }
+                    $scope.TicketTypes=[];
+                    DataService.getTicketTypes(_ticket_type).then(function (response) {
+                        if (!response.error) {
+                            for(var i=0;i<response.data.value.length;i++)
+                            {
+                                $scope.TicketTypes.push(response.data.value[i])
+                            }
+                        } else {
+                            growl.error(response.message);
+                        }
+                    }, function (response) {
+                        growl.error(response.data.description['0']);
+                    });
+
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            });
+        };
+
+        $scope.selectedEmp = function (data)
+        {
+          $scope.raiseTicketsDetails.assignedEmp=data._id;
+        }
+
+        $scope.selectedType = function (data)
+        {
+            $scope.raiseTicketsDetails.tickettype=data;
+        }
+
+
+        $scope.addNewTicketDetails = function () {
+            DataService.saveTicketDetails($scope.raiseTicketsDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+
+        $scope.cancelRaiseTickets = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.tickets.add');
+            });
+        };
     }]);
 
     // employee reassign for tickets
@@ -6031,12 +6245,13 @@
                 growl.error(response.data.description['0']);
             })
 
-            // get smart card details
+            // Smart card performance at the dock (taking out a cycle from docking station
             var percentage_data;
             var percentage_points;
             DataService.GetKPISmartCardReport($scope.details).then(function (response)
             {
-                percentage_data = response.data.toFixed(2);
+                percentage_data = response.data;
+
                 if(percentage_data > 99)
                 {
                     percentage_points= 10;
@@ -6045,6 +6260,11 @@
                 {
                     percentage_points=-10;
                 }
+               /* else if (percentage_data == null || percentage_data == NaN)
+                 {
+                 percentage_data = 0;
+                 percentage_points = 0;
+                 }*/
                 else
                 {
                     percentage_data = 0;
@@ -6062,6 +6282,44 @@
                 }
                 else
                     {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+            // smart card at kiosks
+            var _smart_card_kiosk_data;
+            var _smart_card_kiosk_points;
+            DataService.GetSmartCardAtKiosks($scope.details).then(function (response)
+            {
+                _smart_card_kiosk_data = response.data;
+
+                if(_smart_card_kiosk_data > 99)
+                {
+                    _smart_card_kiosk_points=10;
+                }
+                else if(_smart_card_kiosk_data < 99)
+                {
+                    _smart_card_kiosk_points = -10;
+                }
+                else
+                {
+                    _smart_card_kiosk_data = 0;
+                    _smart_card_kiosk_points = 0;
+                }
+
+                $scope.SmartCardKiosk={
+                    kiosk_value:_smart_card_kiosk_data + "%",
+                    kiosk_point:_smart_card_kiosk_points
+                }
+
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                }
+                else
+                {
                     growl.error(response.message);
                 }
             }, function (response) {
@@ -6240,30 +6498,46 @@
                 /*growl.error(response.data.description);*/
             });
 
-            // smart card at kiosks
-            var _smart_card_kiosk_data;
-            var _smart_card_kiosk_points;
-            DataService.GetSmartCardAtKiosks($scope.details).then(function (response)
-            {
-                 _smart_card_kiosk_data = response.data;
 
-                if(_smart_card_kiosk_data > 99)
+            // Website Downtime
+            var _duration=0;
+            var final_value = 0;
+            var downtime_points;
+            DataService.GetWebsiteDownTimeDetails($scope.details).then(function (response)
+            {
+                for(var i=0;i<response.data.length;i++)
                 {
-                    _smart_card_kiosk_points=10;
+                    _duration += response.data[i].duration;
                 }
-                else if(_smart_card_kiosk_data < 99)
+
+                 final_value = 100 - ( _duration * 100) / (_no_of_days * 24* 60)
+
+                if(final_value > 98)
                 {
-                    _smart_card_kiosk_points = -10;
+                    downtime_points = 10;
+                }
+                else if(final_value > 95 && final_value <= 98)
+                {
+                    downtime_points = 5;
+                }
+                else if(final_value > 90 && final_value <= 95)
+                {
+                    downtime_points = -5;
+                }
+                else if(final_value <= 90 )
+                {
+                    downtime_points = -10;
                 }
                 else
                 {
-                    _smart_card_kiosk_data = 0;
-                    _smart_card_kiosk_points = 0;
+                    final_value = 0;
+                    downtime_points = 0;
                 }
 
-                $scope.SmartCardKiosk={
-                    kiosk_value:_smart_card_kiosk_data + "%",
-                    kiosk_point:_smart_card_kiosk_points
+
+                $scope.WebsiteDownTime={
+                    downTime_value:final_value + "%",
+                    downTime_points:downtime_points
                 }
 
                 if (!response.error)
@@ -6277,6 +6551,8 @@
             }, function (response) {
                 /*growl.error(response.data.description);*/
             });
+
+
 
             // customer complaints
             var _total_complaints=0;
@@ -6353,12 +6629,17 @@
                     for(var i=0;i<response.data.length;i++)
                     {
                         var _complaintType = response.data[i].tickettype;
-                        var _duration = reponse.data[i].closedDuration;
+                        var _status = response.data[i].status;
+                        var _duration = response.data[i].closedDuration;
                         if(_complaintType == 'Cycle Repaire')
                         {
                             _cycle_repaire_count ++;
+
+                            if(_status == 'close')
+                            {
+                                _closed_duration += _duration;
+                            }
                         }
-                        _closed_duration += _duration;
                     }
                        /* alert(_cycle_repaire_count);*/
                        if(_closed_duration <240)
@@ -6367,7 +6648,8 @@
                        }
                        else
                        {
-                           _cycle_repaire_value = 0
+                           _cycle_repaire_value = 0;
+                           _cycle_repaire_points = 0;
                        }
 
                     if(_cycle_repaire_value > 98)
@@ -6736,17 +7018,20 @@
 
     app.controller('ManageWebsiteDownTime', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
+        $scope.loginid=localStorage.LoginID;
+
         $scope.downTime=
             {
-                downDate:'',
-                downTime:'',
+                dateTime:'',
+                duration:'',
                 reason:'',
-                comments:''
+                comments:'',
+                createdBy:$scope.loginid
             };
         $scope.addWebsiteDowntime=function () {
             DataService.saveDowntime($scope.downTime).then(function (response) {
                 if (!response.error) {
-
+                    growl.success(response.message);
                 } else {
                     growl.error(response.message);
                 }
@@ -6754,7 +7039,6 @@
                 growl.error(response.data.description['0']);
             });
         }
-
     }]);
 
     /*KPI Reports*/
@@ -6889,6 +7173,56 @@
         }
 
     }]);
+
+    app.controller('KpiReportSmartCardAtHub', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+
+
+    }]);
+
+    app.controller('KpiReportSmartCardAtKiosks', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.SmartCardKiosksDetails={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.cardKiosks={};
+
+        $scope.smartCardKiosks=function () {
+            DataService.GetSmartCardAtKiosks($scope.SmartCardKiosksDetails).then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.cardKiosks = response.data;
+
+                   /* $scope.SmartCardKiosksTable = new NgTableParams(
+                        {
+                            count: 10
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.cardKiosks, params.filter()) : $scope.cardKiosks;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );*/
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+        }
+
+    }]);
+
 
     app.controller('ManageSmartCards', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
         $scope.smartCards = [];

@@ -1,0 +1,148 @@
+<div class="container">
+    <div class="block-header">
+        <h2>Raise a Ticket
+            <small>Add all required details with fields marked as * are
+                mandatory
+            </small>
+        </h2>
+        <div class="actions m-t-10">
+            <button type="button" class="btn btn-icon-text btn-default waves-effect m-r-5"
+                    ng-click="cancelRaiseTickets();">
+                <i class="zmdi zmdi-arrow-left"></i> Back to List
+            </button>
+            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                    ng-click="addNewTicketDetails();" ng-disabled="AddSmartCard.$invalid">
+                <i class="zmdi zmdi-save"></i> Save
+            </button>
+        </div>
+    </div>
+
+    <div class="card" id="profile-main">
+        <div class="pm-overview c-overflow">
+            <div class="pmo-pic">
+                <div class="p-relative">
+                    <div class="fileinput fileinput-new">
+                        <div class="fileinput-preview thumbnail">
+                            <img src="assets/images/no-maps.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pm-body clearfix">
+            <form class="pmbb-edit" name="AddSmartCard">
+                <div class="pmb-block">
+                    <div class="pmbb-header m-t-15">
+                        <h2><i class="zmdi zmdi-card m-r-10"></i>Raise Tickets</h2>
+                    </div>
+                    <div class="pmbb-body p-l-30">
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10 p-l-30">Member name</dt>
+                            <dd>
+                                <div class="fg-line" >
+                                    <input type="text" name="membername"
+                                           ng-model="MemberName"
+                                           class="form-control" disabled>
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Ticket Subject</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': AddTicketsDetails.ticketSubject.$touched && AddTicketsDetails.ticketSubject.$invalid }">
+                                    <input type="text" name="ticketSubject" ng-model="raiseTicketsDetails.subject"
+                                           class="form-control"
+                                           placeholder="eg. Bicycle problem" chars="only-letters" maxlength="20" required>
+                                    <span class="help-block"
+                                          ng-messages="AddTicketsDetails.ticketSubject.$error"
+                                          ng-show="AddTicketsDetails.ticketSubject.$touched">
+                                                <small ng-message="required">Ticket Subject is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Description</dt>
+                            <dd>
+                                <div class="fg-line"
+                                     ng-class="{ 'has-error': AddTicketsDetails.ticketDescription.$touched && AddTicketsDetails.ticketDescription.$invalid }">
+                                    <input type="text" name="ticketDescription" ng-model="raiseTicketsDetails.description"
+                                           class="form-control"
+                                           placeholder="eg. Reason for the issue" chars="letters" required>
+                                    <span class="help-block"
+                                          ng-messages="AddTicketsDetails.ticketDescription.$error"
+                                          ng-show="AddTicketsDetails.ticketDescription.$touched">
+                                                <small ng-message="required">Description is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Priority</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control" ng-model="raiseTicketsDetails.priority"
+                                            data-placeholder-text-single="'Select Type'"
+                                            name="priorityName">
+                                        <option value="0">SELECT THE OPTIONS</option>
+                                        <option value="1">Normal</option>
+                                        <option value="2">Medium</option>
+                                        <option value="3">Urgent</option>
+                                        <option value="4">Critical</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Departments</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control"
+                                            ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
+                                            ng-model="dept"
+                                            ng-change="selecteDept(dept)">
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Employee</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control"
+                                            ng-options="Employee as Employee.Name for Employee in Employees"
+                                            ng-model="empName"
+                                            ng-change="selectedEmp(empName)">
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Type</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control"
+                                            ng-options="TicketType as TicketType for TicketType in TicketTypes"
+                                            ng-model="ticketType"
+                                            ng-change="selectedType(ticketType)">
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

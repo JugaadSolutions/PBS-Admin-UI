@@ -411,6 +411,13 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.tickets.raise-tickets", {
+                url: "/raise-tickets/:id",
+                templateUrl: adminViewPath + 'tickets/raise-tickets.html',
+                controller: 'SearchMemberRaiseTickets',
+                containerClass: 'sw-toggled'
+            })
+
             /*Topup plans*/
             .state("admin.topup-plans",{
                 url:"/topup-plans",
@@ -785,6 +792,20 @@
                 url: "/docking-station-clean",
                 templateUrl: adminViewPath + 'kpi/reports/docking-station-clean.html',
                 controller: 'KpiReportDockingStationClean',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.kpi.reports.smart-card-at-hub", {
+                url: "/smart-card-at-hub",
+                templateUrl: adminViewPath + 'kpi/reports/smart-card-at-hub.html',
+                controller: 'KpiReportSmartCardAtHub',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.kpi.reports.smart-card-at-kiosks", {
+                url: "/smart-card-at-kiosks",
+                templateUrl: adminViewPath + 'kpi/reports/smart-card-at-kiosks.html',
+                controller: 'KpiReportSmartCardAtKiosks',
                 containerClass: 'sw-toggled'
             })
 
