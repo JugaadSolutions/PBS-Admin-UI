@@ -979,43 +979,30 @@
             /*docking station cleaning */
             saveDockingStationCleaning: function (data) {
                 var _enteredDate=data.cleaneddate;
-                var _enteredTimeFrom = data.fromtime;
-                var _enteredTimeTo= data.totime;
 
-                var _date =_enteredDate.getDate();
-                if(_date.toString().length === 1)
-                {
-                    _date=0 +""+_enteredDate.getDate();
-                }
-                else
-                {
-                    _date=_enteredDate.getDate();
-                }
-                var _month=_enteredDate.getMonth();
-                var new_month=_month+1;
-                if(new_month.toString().length === 1)
-                {
-                    new_month=0+""+new_month;
-                }
-                else
-                {
-                    new_month;
-                }
-                var _year=_enteredDate.getFullYear();
-                var Date=_year+"-"+new_month+"-"+_date;
-               /* var _timeFrom = Date+"T"+_enteredTimeFrom+":"+"00"+":"+"000"+"Z";
-                var _timeTo =   Date+"T"+_enteredTimeTo+":"+"00"+":"+"000"+"Z";*/
-                var _timeFrom = Date+"T"+_enteredTimeFrom+"Z";
-                var _timeTo = Date+"T"+_enteredTimeTo+"Z";
+                var from_time = data.fromtime.split(':');
+                var _from_hours = from_time[0];
+                var _from_minutes = from_time[1];
 
-               /* var _timeTo = Date+"T"+_enteredTimeTo+":"+"00"+":"+"000"+"Z";*/
+                var to_time = data.totime.split(':');
+                var _to_hours = to_time[0];
+                var _to_minutes = to_time[1];
+
+               var fromTime= new Date();
+                fromTime.setHours(_from_hours);
+                fromTime.setMinutes(_from_minutes);
+
+                var toTime= new Date();
+                toTime.setHours(_to_hours);
+                toTime.setMinutes(_to_minutes);
+
                 var deferred = $q.defer();
                 var CleanDockingStation={
                     stationId:data.stationId,
                     stationIdnew:data.stationIdnew,
                     cleaneddate:data.cleaneddate,
-                    fromtime:_timeFrom,
-                    totime:_timeTo,
+                    fromtime:fromTime.toUTCString(),
+                    totime:toTime.toUTCString(),
                     empId:data.empId,
                     description:data.description,
                     createdBy:data.createdBy
