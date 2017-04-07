@@ -21,7 +21,7 @@
         <form class="pmbb-edit" name="AddTicketsDetails">
             <div class="pmb-block">
                 <div class="pmbb-header m-t-15">
-                    <h2><i class="zmdi zmdi-local-store m-r-10"></i>Raise a Ticket</h2>
+                    <h2><i class="zmdi zmdi-local-store m-r-10"></i>Members</h2>
                 </div>
 
                 <div class="pmbb-body p-l-30">
@@ -51,13 +51,12 @@
                     </div>
 
                     <!--searched member details-->
+                    <div class="card-body">
                     <div class="table-responsive">
                         <table ng-table="SearchedMembersTable" class="table table-striped" show-filter="false">
-                            <tr ng-repeat="member in $data">
+                            <tr ng-repeat="member in SearchDetails">
                                 <td data-title="'Member Name'" filter="{ 'Name': 'text'}">
-                                    <!--<button class="btn btn-icon-text btn-success waves-effect" type="button" ng-model="MemberName" value="{{member._id}}" name="{{member.Name}}" >-->
                                         <a ui-sref="admin.tickets.raise-tickets({id: member.UserID})">{{member.Name}}</a>
-                                    <!--</button>-->
                                 </td>
                                 <td data-title="'Email'" filter="{ 'email': 'text'}">
                                     {{member.email}}
@@ -67,6 +66,7 @@
                                 </td>`
                             </tr>
                         </table>
+                    </div>
                     </div>
                     <!--searched member details-->
 

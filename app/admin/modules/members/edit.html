@@ -1471,6 +1471,7 @@
 </div>
 
 <script type="text/ng-template" id="memberCreditModal.html">
+    <form name="TopupValidate" novalidate>
     <div class="modal-header">
         <h4 class="modal-title">Topup</h4>
     </div>
@@ -1523,14 +1524,16 @@
                               rows="4"
                               placeholder="Additional information about the transaction" chars="only-letters">
                     </textarea>
+                    <label style="color: red">fields marked as * are mandatory</label>
                 </div>
             </dd>
         </dl>
     </div>
     <div class="modal-footer">
         <button class="btn btn-link" type="button" ng-click="cancelTopups()">Cancel</button>
-        <button class="btn btn-link" type="button" ng-click="addTopup()">Submit</button>
+        <button class="btn btn-link" type="button" ng-click="addTopup()" ng-disabled="TopupValidate.$invalid">Submit</button>
     </div>
+    </form>
 </script>
 
 <script type="text/ng-template" id="memberDebitModal.html">

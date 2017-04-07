@@ -979,8 +979,24 @@
             /*docking station cleaning */
             saveDockingStationCleaning: function (data) {
                 var _enteredDate=data.cleaneddate;
+                var _entered_from_time=data.fromtime;
+                var _entered_to_time=data.totime;
 
-                var from_time = data.fromtime.split(':');
+                var From_Date = _enteredDate;
+                var To_Date = _enteredDate;
+
+                var From_Date1=From_Date.toLocaleTimeString();
+                var To_Date1=To_Date.toLocaleString();
+
+                alert(From_Date1);
+                alert(To_Date1);
+
+                var new1=From_Date1.setHours(_entered_from_time);
+                var new2=From_Date1.setHours(_entered_to_time);
+
+                alert(From_Date1);
+
+               /* var from_time = data.fromtime.split(':');
                 var _from_hours = from_time[0];
                 var _from_minutes = from_time[1];
 
@@ -1006,13 +1022,13 @@
                     empId:data.empId,
                     description:data.description,
                     createdBy:data.createdBy
-                };
-                $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
+                };*/
+               /* $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;
+                return deferred.promise;*/
             },
 
             getDockingStationCleaningDetails: function () {
@@ -2191,7 +2207,7 @@
                 var status = '';
                 switch (code) {
                     case 1:
-                        status = "Availabel";
+                        status = "Available";
                         break;
                     case 2:
                         status = "Assigned";

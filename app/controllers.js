@@ -305,6 +305,7 @@
 
         $scope.selectedCountry=function (data) {
           $scope.Country=data;
+          alert($scope.Country);
         };
 
         $scope.selectedCountryCode=function (data) {
@@ -446,7 +447,7 @@
                 occupation: $scope.member.occupation,
                 age:$scope.member.age,
                 sex: $scope.member.sex,
-                phoneNumber: _mobile_number,
+                phoneNumber: _mobile_no,
                 email:$scope.member.email,
                 address: $scope.member.address,
                 city: $scope.member.city,
@@ -1542,7 +1543,6 @@
 
         $scope.addTopup = function () {
             DataService.saveTopupForMembership($stateParams.id, $scope.topupsDetails).then(function (response) {
-               /* if (!response.error && response.data != null) {*/
                 if (!response.error) {
                     growl.success(response.message);
                     $uibModalInstance.dismiss();
@@ -4941,6 +4941,7 @@
         $scope.SearchMember = function () {
             DataService.memberSearch($scope.searchMember).then(function (response) {
                 if (!response.error) {
+                    $scope.SearchDetails = [];
                     for(var i=0;i<response.data.length;i++)
                     {
                         $scope.SearchDetails.push(response.data[i]);
@@ -4952,8 +4953,8 @@
                         {
                             getData: function ($defer, params) {
                                 var orderedData = params.filter() ? $filter('filter')($scope.SearchDetails, params.filter()) : $scope.SearchDetails;
-                                params.total(orderedData.length);
-                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                                /*params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));*/
                             }
                         }
                     );
@@ -4972,8 +4973,6 @@
                             }
                         }
                     });*/
-
-                    growl.success(response.message);
                 } else {
                     growl.error(response.message);
                 }
@@ -9651,10 +9650,10 @@ var _station_id;
                         $scope.BicycleTrasaction.push(response.data[i]);
                     }
                 } else {
-                    growl.error(response.message);
+                    growl.error(response.description);
                 }
             }, function (response) {
-                growl.error(response.data.description['0']);
+                growl.error(response.description);
             });
         }
 

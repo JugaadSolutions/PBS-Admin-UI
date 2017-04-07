@@ -335,6 +335,7 @@
                                                 <option value="Zambia">Zambia</option>
                                                 <option value="Zimbabwe">Zimbabwe</option>
                                                 <option value="Argentina">Argentina</option>
+                                                <option value="">Select Country</option>
                                             </select>
                                         </div>
                                     </dd>
@@ -761,6 +762,38 @@
                                 </dl>
 
                                 <dl class="dl-horizontal">
+                                    <dt class="p-t-10">Line Address</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <input type="text" name="address" ng-model="member.address"
+                                                   class="form-control"
+                                                   placeholder="eg. #616, 17th Cross, Malleshwaram" chars="letters">
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal">
+                                    <dt class="p-t-10">Zip/Pin Code</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <input type="text" name="pinCode" ng-model="member.pinCode"
+                                                   class="form-control"
+                                                   placeholder="eg. 560050" minlength="6" maxlength="6" chars="numbers">
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal">
+                                    <dt class="p-t-10">City</dt>
+                                    <dd>
+                                        <div class="fg-line">
+                                            <input type="text" name="city" ng-model="member.city" class="form-control"
+                                                   placeholder="eg. Bangalore">
+                                        </div>
+                                    </dd>
+                                </dl>
+
+                                <dl class="dl-horizontal" ng-if="Country == 'India'">
                                     <dt class="p-t-10">State</dt>
                                     <dd>
                                         <div class="fg-line">
@@ -806,36 +839,7 @@
                                         </div>
                                     </dd>
                                 </dl>
-                                <dl class="dl-horizontal">
-                                    <dt class="p-t-10">City</dt>
-                                    <dd>
-                                        <div class="fg-line">
-                                            <input type="text" name="city" ng-model="member.city" class="form-control"
-                                                   placeholder="eg. Bangalore">
-                                        </div>
-                                    </dd>
-                                </dl>
-                                <dl class="dl-horizontal">
-                                    <dt class="p-t-10">Line Address</dt>
-                                    <dd>
-                                        <div class="fg-line">
-                                            <input type="text" name="address" ng-model="member.address"
-                                                   class="form-control"
-                                                   placeholder="eg. #616, 17th Cross, Malleshwaram" chars="letters">
-                                        </div>
-                                    </dd>
-                                </dl>
 
-                                <dl class="dl-horizontal">
-                                    <dt class="p-t-10">Zip/Pin Code</dt>
-                                    <dd>
-                                        <div class="fg-line">
-                                            <input type="text" name="pinCode" ng-model="member.pinCode"
-                                                   class="form-control"
-                                                   placeholder="eg. 560050" minlength="6" maxlength="6" chars="numbers">
-                                        </div>
-                                    </dd>
-                                </dl>
                             </div>
                         </div>
                     </uib-tab>
