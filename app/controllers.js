@@ -475,7 +475,7 @@
                     growl.error(response.message);
                 }
             }, function (response) {
-                growl.error(response.data.message);
+                growl.error(response.data.description);
             })
         };
 
@@ -732,6 +732,7 @@
                  $scope.otpverify=$scope.member.otpVerified;
                 $scope.statusType=$scope.member.status;
                 $scope.MobileNumber=$scope.member.phoneNumber;
+                $scope.MemberShipID=$scope.member.membershipId;
                 var phone = $scope.member.phoneNumber;
                 var splitArr = phone.split("-");
                 $scope.member.countryCode = splitArr[0];
@@ -930,7 +931,8 @@
                 $scope.otpDetails.UserID = $scope.userid;
                 DataService.OtpVerify($scope.otpDetails).then(function (response) {
                     if (!response.error) {
-                        $scope.Verified = response.data.otpVerified;
+                        /*$scope.Verified = response.data.otpVerified;*/
+                        $scope.otpverify = response.data.otpVerified;
                         $scope.statusType = response.data.status;
                         growl.success(response.message);
                     } else {
@@ -1006,7 +1008,15 @@
                 growl.error(response.message);
             }
         }, function (response) {
-            growl.error(response.data.description);
+            if(response.data.description == 'No rides found')
+            {
+
+            }
+            else
+            {
+                growl.error(response.data.description);
+            }
+
         });
 
         $scope.ridesTable = new NgTableParams(
@@ -1033,6 +1043,14 @@
             }, function (response) {
                 growl.error(response.data.message);
             })
+        };
+
+        $scope.selectedCountry=function (data) {
+            $scope.Country=data;
+        };
+
+        $scope.selectedCountryCode=function (data) {
+            $scope.CountryCode=data;
         };
 
     }]);
@@ -9985,9 +10003,9 @@ $interval(function () {
 
             $scope.map = {
                 center: {
-                    latitude: 12.3024314,
-                    longitude: 76.6615633
-                }, zoom: 13
+                    latitude: 12.292103,
+                    longitude: 76.63796
+                }, zoom: 15
             };
 
             $scope.options = {scrollwheel: true};

@@ -982,53 +982,44 @@
                 var _entered_from_time=data.fromtime;
                 var _entered_to_time=data.totime;
 
-                var From_Date = _enteredDate;
-                var To_Date = _enteredDate;
+               /* var From_Date = data.cleaneddate;
+                var n = From_Date.toLocaleTimeString();
+                alert(n);*/
 
-                var From_Date1=From_Date.toLocaleTimeString();
-                var To_Date1=To_Date.toLocaleString();
+               var Date_time_from =new Date();
+               var Date_time_to=new Date();
 
-                alert(From_Date1);
-                alert(To_Date1);
-
-                var new1=From_Date1.setHours(_entered_from_time);
-                var new2=From_Date1.setHours(_entered_to_time);
-
-                alert(From_Date1);
-
-               /* var from_time = data.fromtime.split(':');
-                var _from_hours = from_time[0];
-                var _from_minutes = from_time[1];
+                 var from_time = data.fromtime.split(':');
+                 var _from_hours = from_time[0];
+                 var _from_minutes = from_time[1];
 
                 var to_time = data.totime.split(':');
                 var _to_hours = to_time[0];
                 var _to_minutes = to_time[1];
 
-               var fromTime= new Date();
-                fromTime.setHours(_from_hours);
-                fromTime.setMinutes(_from_minutes);
+                Date_time_from.setHours(_from_hours);
+                Date_time_from.setMinutes(_from_minutes);
 
-                var toTime= new Date();
-                toTime.setHours(_to_hours);
-                toTime.setMinutes(_to_minutes);
+                Date_time_to.setHours(_to_hours);
+                Date_time_to.setMinutes(_to_minutes);
 
                 var deferred = $q.defer();
                 var CleanDockingStation={
                     stationId:data.stationId,
                     stationIdnew:data.stationIdnew,
                     cleaneddate:data.cleaneddate,
-                    fromtime:fromTime.toUTCString(),
-                    totime:toTime.toUTCString(),
+                    fromtime:Date_time_from,
+                    totime:Date_time_to,
                     empId:data.empId,
                     description:data.description,
                     createdBy:data.createdBy
-                };*/
-               /* $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
+                };
+                $http.post(APINew + APIEndPoint.dockingStationCleaning.save, CleanDockingStation).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;*/
+                return deferred.promise;
             },
 
             getDockingStationCleaningDetails: function () {
