@@ -73,8 +73,10 @@
                     <dd>
                         <div class="fg-line"
                              ng-class="{ 'has-error': dockingStationClean.CleanDate.$touched && dockingStationClean.CleanDate.$invalid }">
-                            <input type="text" name="CleanDate" ng-model="dockingStationCleanInput.cleaneddate" ng-change="stationName" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
-                                   uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" required >
+                            <input type="text" name="CleanDate" ng-model="dockingStationCleanInput.cleaneddate"
+                                   ng-focus="CleanDate=true" ng-click="CleanDate=true" ng-change="cleaneddate"
+                                   uib-datepicker-popup="dd/MM/yyyy" is-open="CleanDate" show-button-bar="true" class="form-control"
+                                   placeholder="eg. 16/09/2012" required >
                             <span class="help-block"
                                   ng-messages="dockingStationClean.CleanDate.$error"
                                   ng-show="dockingStationClean.CleanDate.$touched">x

@@ -69,7 +69,7 @@
 
                     <form class="pmbb-edit" name="EditTickets">
 
-                        <dl class="dl-horizontal required">
+                        <dl class="dl-horizontal required" ng-if="RaisedTicket.status=='Open'">
                             <dt class="p-l-30">Reply</dt>
                             <dd>
                                 <div class="fg-line">
@@ -81,7 +81,7 @@
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal">
+                        <dl class="dl-horizontal" ng-if="RaisedTicket.status=='Open'">
                             <dt class="p-l-30">Status</dt>
                             <dd>
                                 <div class="fg-line">
@@ -96,7 +96,7 @@
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal">
+                        <dl class="dl-horizontal" ng-if="RaisedTicket.status=='Open'">
                             <dd>
                                 <div class="fg-line m-t-10">
                                     <label class="radio radio-inline m-r-20">
@@ -110,12 +110,12 @@
 
                         <div style="margin-left: 180px">
                             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                                    ng-click="addReply()" ng-disabled="EditTickets.$invalid">
+                                    ng-click="addReply()" ng-disabled="EditTickets.$invalid" ng-if="RaisedTicket.status=='Open'">
                                 <i class="zmdi zmdi-save"></i> Reply
                             </button>
 
                             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                                    ng-click="ReassignEmployee()">
+                                    ng-click="ReassignEmployee()" ng-if="RaisedTicket.status=='Open'">
                                 <i class="zmdi zmdi-save"></i> Reassign
                             </button>
                         </div>

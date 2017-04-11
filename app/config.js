@@ -979,7 +979,8 @@
             })
 
             // bicycle availability summary
-            .state("admin.reports.bicycle-summary", {
+            .state("admin.reports." +
+                "", {
                 url: "/bicycle-summary",
                 templateUrl: adminViewPath + 'reports/bicycle-summary.html',
                 controller: 'BicycleSummary',

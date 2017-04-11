@@ -305,7 +305,6 @@
 
         $scope.selectedCountry=function (data) {
           $scope.Country=data;
-          alert($scope.Country);
         };
 
         $scope.selectedCountryCode=function (data) {
@@ -458,7 +457,7 @@
                 profilePic: $scope.member.profilePic,
                 cardNumber:$scope.member.cardNumber,
                 emergencyContact: $scope.member.emergencyContact,
-                documents: $scope.member.documents,
+                documents:$scope.member.documents,
                 smartCardKey:$scope.member.smartCardKey,
                 createdBy:_logIn_Id,
                 membershipId:$scope.member.membershipId,
@@ -468,7 +467,7 @@
                 UserID:$scope.member.UserID,
             };
 
-            DataService.saveMember($scope.member).then(function (response) {
+            DataService.saveProspectiveMember($scope.member).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
                 } else {
@@ -4900,6 +4899,48 @@
                 growl.error(response.data.description['0']);
             });
         }
+
+        // on load
+        var _dept_admin="All";
+        var _ticket_type_admin="All";
+        var _to_date_admin=new Date();
+        var _from_date_admin = new Date();
+        _from_date_admin.setDate(_from_date_admin.getDate() - 15);
+
+        $scope.ticketsCreatedAll={
+            createdBy:'All',
+            assignedEmp:'All',
+            status:'Open',
+            todate:_to_date_admin,
+            fromdate:_from_date_admin,
+            department:_dept_admin,
+            tickettype:_ticket_type_admin,
+            user:'All'
+        };
+
+        DataService.getRaisedTickets($scope.ticketsCreatedAll).then(function (response) {
+            if (!response.error) {
+                $scope.RaisedTickets = [];
+                $scope.RaisedTickets = response.data;
+                $scope.GeneralTable = new NgTableParams(
+                    {
+                        count: 10
+                    },
+                    {
+                        getData: function ($defer, params) {
+                            var orderedData = params.filter() ? $filter('filter')($scope.RaisedTickets, params.filter()) : $scope.RaisedTickets;
+                            /* params.total(orderedData.length);
+                             $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));*/
+                        }
+                    }
+                );
+
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
     }]);
 
     var _search_member_name;
@@ -9647,9 +9688,8 @@ var _station_id;
 
     }]);
 
-    app.controller('BicycleTransactions', ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
+    app.controller('BicycleTransactions',['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
     {
-
         $scope.bicycleTrans={
             fromdate:'',
             todate:'',
