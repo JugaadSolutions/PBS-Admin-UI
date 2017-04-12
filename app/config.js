@@ -524,7 +524,20 @@
                 containerClass:'sw-toggled'
             })
 
-            .state("admin.maintenance.dockingstationcleaning-report",{
+            .state("admin.maintenance.clean-report", {
+                url: "/maintenance/clean-report",
+                templateUrl: adminViewPath + 'maintenance/clean-report/clean.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.maintenance.clean-report.manage",{
+                url:"/manage",
+                templateUrl:adminViewPath + 'maintenance/clean-report/manage.html',
+                controller:'DockingStationCleanReport',
+                containerClass:'sw-toggled'
+            })
+
+           /* .state("admin.maintenance.dockingstationcleaning-report",{
                 url:"/dockingstationcleaning-report",
                 templateUrl:adminViewPath + 'maintenance/dockingstationcleaning-report.html',
                 controller:'AddDockingStationCleanReport',
@@ -536,7 +549,7 @@
                 templateUrl:adminViewPath + 'maintenance/dockingstationcleaning-report-print.html',
                 controller:'AddDockingStationCleanReportPrint',
                 containerClass:'sw-toggled'
-            })
+            })*/
 
                 // global ticket type
             .state("admin.settings",{

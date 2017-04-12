@@ -7896,6 +7896,8 @@
             $scope.daywiseCollection.transactionType = data;
         };
 
+        $scope.message = "";
+
     }]);
 
     app.controller('refundsSummary', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
@@ -9681,6 +9683,45 @@ var _station_id;
         );
 
     }]);
+
+    app.controller('DockingStationCleanReport', ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
+    {
+        $scope.hubsCleaningDetails ={
+            fromdate:'',
+            todate:''
+        }
+
+        $scope.DockingStationCleanReport=[];
+
+        $scope.sendHubsCleaningDetails =function () {
+            DataService.getDockingStationCleaningDetails($scope.hubsCleaningDetails).then(function (response) {
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.DockingStationCleanReport.push(response.data[i]);
+                    }
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description);
+            });
+        }
+
+        $scope.CleanReportTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    params.total($scope.DockingStationCleanReport.length);
+                    $defer.resolve($scope.DockingStationCleanReport.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+    }]);
+
 
     app.controller('MIS', ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
     {

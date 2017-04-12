@@ -993,10 +993,6 @@
                 var _entered_from_time=data.fromtime;
                 var _entered_to_time=data.totime;
 
-               /* var From_Date = data.cleaneddate;
-                var n = From_Date.toLocaleTimeString();
-                alert(n);*/
-
                var Date_time_from =new Date();
                var Date_time_to=new Date();
 
@@ -1010,14 +1006,9 @@
 
                 Date_time_from.setHours(_from_hours);
                 Date_time_from.setMinutes(_from_minutes);
-                Date_time_from.toUTCString();
-                alert(data.cleaneddate);
-                alert(Date_time_from);
 
                 Date_time_to.setHours(_to_hours);
                 Date_time_to.setMinutes(_to_minutes);
-                Date_time_to.toUTCString();
-                alert(Date_time_to);
 
                 var deferred = $q.defer();
                 var CleanDockingStation={
@@ -1038,14 +1029,14 @@
                 return deferred.promise;
             },
 
-            getDockingStationCleaningDetails: function () {
-            var deferred = $q.defer();
-            $http.get(APINew + APIEndPoint.dockingStationCleaning.getAll).then(function (result) {
-                deferred.resolve(result.data);
-            }, function (error) {
-                deferred.reject(error);
-            });
-            return deferred.promise;
+            getDockingStationCleaningDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.dockingStationCleaning.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
             },
 
             sendBicycleMaintenanceDetails:function (data) {
