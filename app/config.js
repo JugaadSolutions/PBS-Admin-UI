@@ -542,14 +542,14 @@
                 templateUrl:adminViewPath + 'maintenance/dockingstationcleaning-report.html',
                 controller:'AddDockingStationCleanReport',
                 containerClass:'sw-toggled'
-            })
+            })*/
 
           .state("admin.maintenance.dockingstationcleaning-report-print",{
                 url:"/dockingstationcleaning-report-print",
                 templateUrl:adminViewPath + 'maintenance/dockingstationcleaning-report-print.html',
-                controller:'AddDockingStationCleanReportPrint',
+                controller:'DockingStationCleanReportPrint',
                 containerClass:'sw-toggled'
-            })*/
+            })
 
                 // global ticket type
             .state("admin.settings",{

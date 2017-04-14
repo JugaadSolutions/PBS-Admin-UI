@@ -8170,6 +8170,9 @@
 
     }]);
 
+    var _clean_from_date;
+    var _clean_to_date;
+    var StationCleanData = [];
     app.controller('DockingStationCleanReport', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
         $scope.hubsCleaningDetails ={
@@ -8182,6 +8185,9 @@
         $scope.sendHubsCleaningDetails =function () {
             DataService.getDockingStationCleaningDetails($scope.hubsCleaningDetails).then(function (response) {
                 if (!response.error) {
+                    _clean_from_date =$scope.hubsCleaningDetails.fromdate;
+                    _clean_to_date =$scope.hubsCleaningDetails.todate;
+                    StationCleanData= response.data;
                     for(var i=0;i<response.data.length;i++)
                     {
                         $scope.DockingStationCleanReport.push(response.data[i]);
@@ -8340,14 +8346,29 @@
         };
     }]);
 
-    app.controller('AddDockingStationCleanReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    app.controller('DockingStationCleanReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
-       /* alert(_dockingStation_clean_fromDate);*/
         $scope.cleanInputsDetails={
-            from_date:_dockingStation_clean_fromDate,
-            to_date:_dockingStation_clean_toDate,
-            location:_dockingStation_clean_location
-        }
+            from_date:_clean_from_date,
+            to_date:_clean_to_date
+        };
+
+       $scope.StationCleanPrint =[];
+        $scope.StationCleanPrint = StationCleanData;
+
+        $scope.StationCleanTable = new NgTableParams(
+            {
+                count: 500,
+                noPager: true
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.StationCleanPrint, params.filter()) : $scope.StationCleanPrint;
+                    /*params.total(orderedData.length);*/
+                    /*$defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));*/
+                }
+            }
+        );
 
         $scope.print = function ()
         {
