@@ -8170,89 +8170,42 @@
 
     }]);
 
-    var _dockingStation_clean_fromDate;
-    var _dockingStation_clean_toDate;
-    var _dockingStation_clean_location;
-    app.controller('AddDockingStationCleanManage', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    app.controller('DockingStationCleanReport', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
-
-        $scope.DockingStationCleanReportInputs=
-            {
+        $scope.hubsCleaningDetails ={
             fromdate:'',
-            todate:'',
-                location:'',
-        };
+            todate:''
+        }
 
-      /*  $scope.DockingStationClean = [];*/
+        $scope.DockingStationCleanReport=[];
 
-        $scope.sendCleanInputsDetails = function () {
-            DataService.sendDockingStationCleanInputsDetails($scope.DockingStationCleanReportInputs).then(function (response) {
+        $scope.sendHubsCleaningDetails =function () {
+            DataService.getDockingStationCleaningDetails($scope.hubsCleaningDetails).then(function (response) {
                 if (!response.error) {
-                    _dockingStation_clean_fromDate = $scope.DockingStationCleanReportInputs.fromdate;
-                    _dockingStation_clean_toDate = $scope.DockingStationCleanReportInputs.todate;
-                    _dockingStation_clean_location = $scope.DockingStationCleanReportInputs.location;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.DockingStationCleanReport.push(response.data[i]);
+                    }
                 } else {
                     growl.error(response.message);
                 }
             }, function (response) {
-                growl.error(response.data.description['0']);
+                growl.error(response.data.description);
             });
         }
 
-        $scope.DockingStations = [];
-
-        DataService.getDockingStations().then(function (response) {
-                if (!response.error) {
-
-                    $scope.DockingStations = response.data;
-
-                }
-                else {
-                    growl.error(response.message)
-                }
-            },
-            function(response)
-            {
-                growl.error(response.data);
-            });
-
-        $scope.selectedDockingStation = function (data) {
-            $scope.DockingStationCleanReportInputs.location = data.name;
-        };
-
-        $scope.printDockingStationCleaningReport = function () {
-            $state.go('admin.maintenance.dockingstationcleaning-report-print');
-        };
-
-        /*$scope.DockingStationClean = [];
-
-        DataService.getDockingStationCleaningDetails().then(function (response) {
-            if (!response.error)
-            {
-                $scope.DockingStationClean = response.data;
-            } else {
-                growl.error(response.message);
-            }
-        }, function (response) {
-            growl.error(response.data.description['0']);
-        });
-
-        $scope.dockingStationCleanTable = new NgTableParams(
+        $scope.CleanReportTable = new NgTableParams(
             {
                 count: 10
             },
             {
                 getData: function ($defer, params) {
-                    var orderedData = params.filter() ? $filter('filter')($scope.DockingStationClean, params.filter()) : $scope.DockingStationClean;
-                    params.total(orderedData.length);
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    params.total($scope.DockingStationCleanReport.length);
+                    $defer.resolve($scope.DockingStationCleanReport.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 }
             }
         );
 
-        $scope.addDockingStationClean = function () {
-            $state.go('admin.maintenance.add');
-        };*/
     }]);
 
 
@@ -9703,48 +9656,9 @@ var _station_id;
 
     }]);
 
-    app.controller('DockingStationCleanReport', ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
-    {
-        $scope.hubsCleaningDetails ={
-            fromdate:'',
-            todate:''
-        }
-
-        $scope.DockingStationCleanReport=[];
-
-        $scope.sendHubsCleaningDetails =function () {
-            DataService.getDockingStationCleaningDetails($scope.hubsCleaningDetails).then(function (response) {
-                if (!response.error) {
-                    for(var i=0;i<response.data.length;i++)
-                    {
-                        $scope.DockingStationCleanReport.push(response.data[i]);
-                    }
-                } else {
-                    growl.error(response.message);
-                }
-            }, function (response) {
-                growl.error(response.data.description);
-            });
-        }
-
-        $scope.CleanReportTable = new NgTableParams(
-            {
-                count: 10
-            },
-            {
-                getData: function ($defer, params) {
-                    params.total($scope.DockingStationCleanReport.length);
-                    $defer.resolve($scope.DockingStationCleanReport.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                }
-            }
-        );
-
-    }]);
-
 
     app.controller('MIS', ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
     {
-
 
     }]);
 

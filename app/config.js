@@ -499,7 +499,7 @@
             .state("admin.maintenance.manage-view",{
                 url:"/manage-view",
                 templateUrl:adminViewPath + 'maintenance/manage-view.html',
-                controller:'AddDockingStationCleanManage',
+                controller:'DockingStationCleanReport',
                 containerClass:'sw-toggled'
             })
 
@@ -524,7 +524,7 @@
                 containerClass:'sw-toggled'
             })
 
-            .state("admin.maintenance.clean-report", {
+            /*.state("admin.maintenance.clean-report", {
                 url: "/maintenance/clean-report",
                 templateUrl: adminViewPath + 'maintenance/clean-report/clean.html',
                 containerClass: 'sw-toggled'
@@ -535,16 +535,16 @@
                 templateUrl:adminViewPath + 'maintenance/clean-report/manage.html',
                 controller:'DockingStationCleanReport',
                 containerClass:'sw-toggled'
-            })
+            })*/
 
-           /* .state("admin.maintenance.dockingstationcleaning-report",{
+            /* .state("admin.maintenance.dockingstationcleaning-report",{
                 url:"/dockingstationcleaning-report",
                 templateUrl:adminViewPath + 'maintenance/dockingstationcleaning-report.html',
                 controller:'AddDockingStationCleanReport',
                 containerClass:'sw-toggled'
             })
 
-            .state("admin.maintenance.dockingstationcleaning-report-print",{
+          .state("admin.maintenance.dockingstationcleaning-report-print",{
                 url:"/dockingstationcleaning-report-print",
                 templateUrl:adminViewPath + 'maintenance/dockingstationcleaning-report-print.html',
                 controller:'AddDockingStationCleanReportPrint',
