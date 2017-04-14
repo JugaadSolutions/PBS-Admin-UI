@@ -325,6 +325,19 @@
                 $scope.MaximumLengthSpanShow = true;
                 $scope.ShowMemberShipTab = true;
             }
+            else if ($scope.DocumentType == 'Drivers license' &&  $scope.CountryCode == '91' && $scope.Country == 'India')  // send otp
+            {
+                $scope.ShowMemberShipTab = false;
+            }
+            else if ($scope.DocumentType == 'Passport' &&  $scope.CountryCode == '91' && $scope.Country == 'India')
+            {
+                $scope.ShowMemberShipTab = false;
+            }
+            else if ($scope.DocumentType == 'Other' &&  $scope.CountryCode == '91' && $scope.Country == 'India')
+            {
+                $scope.ShowMemberShipTab = false;
+            }
+            //Foreigners
             else if($scope.DocumentType == 'Passport' &&  $scope.CountryCode != '91' && $scope.Country != 'India')
             {
                 $scope.ShowMemberShipTab = true;
@@ -333,6 +346,7 @@
             {
                 $scope.ShowMemberShipTab = false;
             }
+
         };
 
 
@@ -419,6 +433,7 @@
             })
         };
 
+        $scope.isDisabled = false;
         $scope.ProspectiveMember=function ()
         {
             var _mobile_no;
@@ -476,6 +491,8 @@
             }, function (response) {
                 growl.error(response.data.description);
             })
+
+            $scope.isDisabled = true;
         };
 
         $scope.cancelAddMember = function () {
@@ -4975,7 +4992,7 @@
         };
 
         $scope.smember =function () {
-            alert("hi");
+           /* alert("hi");*/
         };
 
         $scope.addNewTicketDetails = function () {
@@ -8372,7 +8389,7 @@
 
     app.controller('AddDockingStationCleanReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
-        alert(_dockingStation_clean_fromDate);
+       /* alert(_dockingStation_clean_fromDate);*/
         $scope.cleanInputsDetails={
             from_date:_dockingStation_clean_fromDate,
             to_date:_dockingStation_clean_toDate,
@@ -8804,6 +8821,7 @@ var _station_id;
         $scope.transactionStatisticsDetails = function () {
             DataService.getMemberPaymentTransactionByCard($scope.userTransactionDetials.userid).then(function (response) {
                 if (!response.error) {
+                    $scope.Payments=[];
                     for(var i=0;i<response.data.length;i++)
                     {
                         $scope.Payments.push(response.data[i]);
@@ -8847,11 +8865,12 @@ var _station_id;
         $scope.transactionStatisticsDetails =function () {
             DataService.getMemberRidesByCard($scope.userTransactionDetials.userid).then(function (response) {
                 if (!response.error) {
+                    $scope.Rides = [];
                     for(var i=0;i<response.data.length;i++)
                     {
                         $scope.Rides.push(response.data[i]);
                     }
-
+                    growl.success(response.message);
                 } else {
                     growl.error(response.message);
                 }

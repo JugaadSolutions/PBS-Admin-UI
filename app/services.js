@@ -32,23 +32,23 @@
                 return deferred.promise;
             },
             saveMember: function (data) {
-               /* var deferred = $q.defer();
+                var deferred = $q.defer();
                 $http.post(APINew + APIEndPoint.member.save, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
                 });
-                return deferred.promise;*/
+                return deferred.promise;
             },
 
             saveProspectiveMember: function (data) {
-             /*var deferred = $q.defer();
+             var deferred = $q.defer();
              $http.post(APINew + APIEndPoint.member.save, data).then(function (result) {
              deferred.resolve(result.data);
              }, function (error) {
              deferred.reject(error);
              });
-             return deferred.promise;*/
+             return deferred.promise;
         },
 
 

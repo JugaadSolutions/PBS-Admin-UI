@@ -16,7 +16,7 @@
                 <i class="zmdi zmdi-save"></i> Save
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="ProspectiveMember()" ng-if="DocumentType === 'Passport' || DocumentType === 'Drivers license' || DocumentType === 'Other'">
+                    ng-click="ProspectiveMember()" ng-if="DocumentType === 'Passport' || DocumentType === 'Drivers license' || DocumentType === 'Other'" ng-disabled="isDisabled">
                 <i class="zmdi zmdi-save"></i> Prospective Member
             </button>
         </div>
@@ -110,7 +110,7 @@
                                         <div class="fg-line">
                                             <input type="number" min="5" max="100" name="age" ng-model="member.age"
                                                    class="form-control"
-                                                   placeholder="eg. 32" maxlength="2" chars="numbers">
+                                                   placeholder="eg. 32" maxlength="2" chars="numbers" required>
                                         </div>
                                     </dd>
                                 </dl>
@@ -120,7 +120,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <select chosen class="form-control" ng-model="member.country"
-                                                    ng-change="selectedCountry(member.country)">
+                                                    ng-change="selectedCountry(member.country)" required>
                                                 <option value="India">India</option>
                                                 <option value="Algeria">Algeria</option>
                                                 <option value="Andorra">Andorra</option>
@@ -1193,13 +1193,14 @@
                             </div>
                         </div>
                     </uib-tab>
+
                     <uib-tab heading="Documents">
                         <div class="pmb-block">
                             <div class="pmbb-header">
                                 <h2><i class="zmdi zmdi-card m-r-5"></i>Document Proofs</h2>
                             </div>
                             <div class="pmbb-body p-l-30">
-                                <div class="document-wrap" ng-repeat="document in member.documents">
+                                <div class="document-wrap" ng-repeat="document in member.documents" required>
                                     <div class="document-delete">
                                         <button class="btn btn-danger btn-icon waves-effect waves-circle"
                                                 ng-click="removeDocument($index)" uib-tooltip="Remove Document"
@@ -1211,8 +1212,8 @@
                                         <dd>
                                             <div class="fg-line">
                                                 <select name="document" chosen class="form-control" ng-model="document.documentType"
-                                                        data-placeholder-text-single="'Select Document Type'" required
-                                                        ng-change="selectedDocument(document)">
+                                                        data-placeholder-text-single="'Select Document Type'"
+                                                        ng-change="selectedDocument(document)" required>
                                                     <option value="Aadhar">Aadhar</option>
                                                     <option value="Passport">Passport</option>
                                                     <option value="Drivers license">Driver's License</option>
@@ -1228,8 +1229,8 @@
                                         <dd>
                                             <div class="fg-line">
                                                 <select name="document" chosen class="form-control" ng-model="document.documentType"
-                                                        data-placeholder-text-single="'Select Document Type'" required
-                                                        ng-change="selectedDocument(document)">
+                                                        data-placeholder-text-single="'Select Document Type'"
+                                                        ng-change="selectedDocument(document)" required>
                                                     <option value="Passport">Passport</option>
                                                     <option value="">Select Document</option>
                                                 </select>
@@ -1244,7 +1245,7 @@
                                                 <input type="text" name="documentNumber"
                                                        ng-model="document.documentNumber"
                                                        class="form-control"
-                                                       placeholder="eg. AABPS8791R" chars="numbers" ng-minlength="{{minimunLeng}}" ng-maxlength="{{maximumLeng}}" required>
+                                                       placeholder="eg. AABPS8791R" chars="only-letters" ng-minlength="{{minimunLeng}}" ng-maxlength="{{maximumLeng}}" required>
                                             <span class="help-block"
                                                   ng-messages="MemberForm.documentNumber.$error"
                                                   ng-show="MemberForm.documentNumber.$touched">
