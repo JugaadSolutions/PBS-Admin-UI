@@ -12,12 +12,12 @@
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="addMember()" ng-disabled="MemberForm.$invalid">
+                    ng-click="addMember()" ng-if="member.membershipId">
                 <i class="zmdi zmdi-save"></i> Save
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
                     ng-click="ProspectiveMember()" ng-if="DocumentType === 'Passport' || DocumentType === 'Drivers license' || DocumentType === 'Other'" ng-disabled="isDisabled">
-                <i class="zmdi zmdi-save"></i> Prospective Member
+                <i class="zmdi zmdi-save"></i> Send OTP
             </button>
         </div>
     </div>
@@ -107,10 +107,14 @@
                                 <dl class="dl-horizontal required">
                                     <dt class="p-t-10">Age</dt>
                                     <dd>
-                                        <div class="fg-line">
+                                        <div class="fg-line" ng-class="{ 'has-error': MemberForm.age.$touched && MemberForm.age.$invalid }">
                                             <input type="number" min="5" max="100" name="age" ng-model="member.age"
                                                    class="form-control"
                                                    placeholder="eg. 32" maxlength="2" chars="numbers" required>
+                                            <span class="help-block" ng-messages="MemberForm.age.$error"
+                                                  ng-show="MemberForm.age.$touched">
+                                                <small ng-message="required">Age is required</small>
+                                            </span>
                                         </div>
                                     </dd>
                                 </dl>
@@ -741,6 +745,8 @@
                                                     </option>
                                                     <option data-countryCode="AR" value="54">Argentina (+54)
                                                     </option>
+                                                    <option data-countryCode="" value="">Select Country Code
+                                                    </option>
                                                 </select>
                                                 </span>
                                             </div>
@@ -1299,7 +1305,41 @@
                             </div>
                         </div>
                     </uib-tab>
-                    <uib-tab heading="Membership Plan" ng-if="ShowMemberShipTab == true">
+
+                    <uib-tab heading="OTP" ng-if="_Document_Type == 'Passport' || _Document_Type == 'Drivers license' || _Document_Type == 'Other'" >
+                        <div class="pmb-block">
+                            <div class="pmbb-header">
+                                <h2><i class="zmdi zmdi-comment-text-alt"></i> OTP</h2>
+                            </div>
+                            <div class="pmbb-body p-l-30">
+
+                                <dl class="dl-horizontal required">
+                                    <dt class="p-t-10 p-l-30">Enter OTP</dt>
+                                    <dd>
+                                        <div class="fg-line"  ng-class="{ 'has-error': MemberForm.optNumber.$touched && MemberForm.optNumber.$invalid }">
+                                            <input type="text" name="optNumber" ng-model="otpDetails.otp"
+                                                   class="form-control"
+                                                   maxlength="6" minlength="6"
+                                                   placeholder="eg. 15" chars="only-letters" required>
+                                            <span class="help-block" ng-messages="MemberForm.optNumber.$error"
+                                                  ng-show="MemberForm.optNumber.$touched">
+                                                <small ng-message="required">OTP is required</small>
+                                            </span>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <br>
+                                <button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="verifyOTP()" >
+                                    <i class="zmdi zmdi-save"></i> Verify
+                                </button>
+                                <button type="button" class="btn btn-icon-text btn-success waves-effect" ng-click="resendOTP()">
+                                    <i class="zmdi zmdi-save"></i> Resend OTP
+                                </button>
+                            </div>
+                        </div>
+            </uib-tab>
+
+                    <uib-tab heading="Membership Plan" ng-if="ShowMemberShipTab == true || otpverify == true">
                         <div class="pmb-block">
                             <div class="pmbb-header">
                                 <h2><i class="zmdi zmdi-account m-r-5"></i> Membership Plans</h2>
@@ -1337,10 +1377,14 @@
                                 <dl class="dl-horizontal required">
                                     <dt class="p-t-10 p-l-30">Transaction</dt>
                                     <dd>
-                                        <div class="fg-line">
+                                        <div class="fg-line" ng-class="{ 'has-error': MemberForm.transactionNumber.$touched && MemberForm.transactionNumber.$invalid }">
                                             <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
                                                    class="form-control"
                                                    placeholder="eg. 65467476" chars="only-letters" required>
+                                            <span class="help-block" ng-messages="MemberForm.transactionNumber.$error"
+                                                  ng-show="MemberForm.transactionNumber.$touched">
+                                                <small ng-message="required">Trasaction Number is required</small>
+                                            </span>
                                         </div>
                                     </dd>
                                 </dl>
@@ -1371,10 +1415,14 @@
                                 <dl class="dl-horizontal required">
                                     <dt class="p-t-10 p-l-30">Card Number</dt>
                                     <dd>
-                                        <div class="fg-line">
+                                        <div class="fg-line" ng-class="{ 'has-error': MemberForm.smartcardNumber.$touched && MemberForm.smartcardNumber.$invalid }">
                                             <input type="text" name="smartcardNumber" ng-model="member.cardNumber"
                                                    class="form-control"
                                                    placeholder="eg. 15" chars="only-letters" required>
+                                            <span class="help-block" ng-messages="MemberForm.smartcardNumber.$error"
+                                                  ng-show="MemberForm.smartcardNumber.$touched">
+                                                <small ng-message="required">Smart Card Number is required</small>
+                                            </span>
                                         </div>
                                     </dd>
                                 </dl>
@@ -1387,56 +1435,3 @@
     </div>
 </div>
 
-<script type="text/ng-template" id="otp-number.html">
-    <form name="oto" novalidate>
-        <div class="modal-header">
-            <h4 class="modal-title">OTP</h4>
-        </div>
-        <div class="modal-body">
-            <div class="pmbb-body p-l-30">
-                <dl class="dl-horizontal">
-                    <dt class="p-t-10">OTP Number</dt>
-                    <div class="input-group p-l-18">
-                        <div class="fg-line">
-                            <input type="text" name="otp"
-                                   ng-model="memberwithOTP.otp"
-                                   class="form-control"
-                                   placeholder="eg.2545" chars="only-numbers">
-                        </div>
-                    </div>
-                </dl>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-link" type="button" ng-click="cancelOTP()">Cancel</button>
-            <button class="btn btn-link" type="button" ng-disabled="smartCard.$pristine"
-                    ng-click="saveMember()">Update
-            </button>
-        </div>
-    </form>
-</script>
-
-<script type="text/ng-template" id="mobile-number-validation.html">
-    <form name="oto" novalidate>
-        <div class="modal-header">
-
-        </div>
-        <div class="modal-body">
-            <div class="pmbb-body p-l-30">
-                <dl class="dl-horizontal">
-                    <div class="input-group p-l-18">
-                        <div class="fg-line">
-                            <h4>
-                                <span style="color: red">Please enter mobile Number</span>
-                            </h4>
-                        </div>
-                    </div>
-                </dl>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-link" type="button" ng-click="ok()">Ok</button>
-            </button>
-        </div>
-    </form>
-</script>

@@ -260,6 +260,8 @@
     }]);
 
     // Add Member Controller
+    var _User_ID;
+    var _mobile_number;
     app.controller('AddMember', ['$scope', '$state', 'DataService','$uibModal', 'growl', 'sweet', function ($scope, $state, DataService,$uibModal, growl, sweet)
     {
         $scope.loginid=localStorage.LoginID;
@@ -303,6 +305,7 @@
 
         $scope.ShowMemberShipTab = false;
 
+
         $scope.selectedCountry=function (data) {
           $scope.Country=data;
         };
@@ -324,6 +327,7 @@
                 $scope.MinimumLengthSpanShow = true;
                 $scope.MaximumLengthSpanShow = true;
                 $scope.ShowMemberShipTab = true;
+                $scope.ShowOTPTab=false;
             }
             else if ($scope.DocumentType == 'Drivers license' &&  $scope.CountryCode == '91' && $scope.Country == 'India')  // send otp
             {
@@ -484,6 +488,12 @@
 
             DataService.saveProspectiveMember($scope.member).then(function (response) {
                 if (!response.error) {
+                    _User_ID = response.data.UserID;
+                    _mobile_number = response.data.phoneNumber;
+                    for(var i =0;i<response.data.documents.length;i++)
+                    {
+                        $scope._Document_Type = response.data.documents[0].documentType;
+                    }
                     growl.success(response.message);
                 } else {
                     growl.error(response.message);
@@ -494,6 +504,8 @@
 
             $scope.isDisabled = true;
         };
+
+
 
         $scope.cancelAddMember = function () {
             sweet.show({
@@ -525,6 +537,52 @@
 
         $scope.selecteMembership = function (data) {
             $scope.member.membershipId = data.membershipId;
+        };
+
+        /*OTP*/
+        $scope.otpDetails={
+            otp:'',
+            UserID:''
+        };
+
+        $scope.verifyOTP=function () {
+            if($scope.otpDetails.otp === '' || $scope.otpDetails.otp === null)
+            {
+                growl.error("Please enter the OTP number");
+                return;
+            }
+            $scope.otpDetails.UserID = _User_ID;
+            DataService.OtpVerify($scope.otpDetails).then(function (response) {
+                if (!response.error) {
+                    /*$scope.Verified = response.data.otpVerified;*/
+                    $scope.otpverify = response.data.otpVerified;
+                    $scope.statusType = response.data.status;
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.message);
+            })
+        };
+
+        $scope.resendOtp={
+            UserID:'',
+            phoneNumber:''
+        }
+
+        $scope.resendOTP=function () {
+            $scope.resendOtp.UserID=_User_ID;
+            $scope.resendOtp.phoneNumber=_mobile_number;
+            DataService.OtpResend($scope.resendOtp).then(function (response) {
+                if (!response.error) {
+                    growl.success("OTP request sent");
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.message);
+            });
         };
 
 
@@ -933,7 +991,7 @@
         };
 
 
-        $scope.otpDetails={
+/*        $scope.otpDetails={
             otp:'',
             UserID:''
         };
@@ -947,7 +1005,7 @@
                 $scope.otpDetails.UserID = $scope.userid;
                 DataService.OtpVerify($scope.otpDetails).then(function (response) {
                     if (!response.error) {
-                        /*$scope.Verified = response.data.otpVerified;*/
+                        /!*$scope.Verified = response.data.otpVerified;*!/
                         $scope.otpverify = response.data.otpVerified;
                         $scope.statusType = response.data.status;
                         growl.success(response.message);
@@ -976,7 +1034,7 @@
             }, function (response) {
                 growl.error(response.message);
             });
-        }
+        };*/
 
         $scope.paymentsData = [];
 

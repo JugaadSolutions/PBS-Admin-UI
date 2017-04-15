@@ -2,9 +2,7 @@
     <div class="card">
         <div class="card-header ch-alt m-b-20">
             <h2>Docking Hubs Cleaning Report</h2>
-
             <form class="pmbb-edit" name="HubsCleaningReport" novalidate>
-
                 <div class="card-body card-padding">
                     <div class="row">
                         <div class="col-sm-3 m-b-20">
@@ -34,14 +32,13 @@
                                             </span>
                             </div>
                         </div>
-
                     </div>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
                             ng-click="sendHubsCleaningDetails()" ng-disabled="HubsCleaningReport.$invalid">
                         <i class="zmdi zmdi-save"></i> Generate Report
                     </button>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-disabled="HubsCleaningReport.$invalid" >
+                            ng-disabled="HubsCleaningReport.$invalid">
                         <i class="zmdi zmdi-eye"></i>
                         <a ui-sref="admin.maintenance.dockingstationcleaning-report-print"  style="color: white">Print Report</a>
                     </button>
