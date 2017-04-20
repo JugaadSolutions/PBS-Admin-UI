@@ -389,7 +389,7 @@
         user: {
             user: 'user',
             password: 'password/change',
-            forgotPassword: 'user/forgotpassword'
+            forgotPassword: 'users/forgotpassword'
         }
     });
 

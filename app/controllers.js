@@ -374,7 +374,25 @@
         };
 
         $scope.addMember = function () {
+
             var _mobile_no;
+
+            // User other than aadhar
+            if($scope.member.UserID !== 0)
+            {
+                if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
+                {
+                    if($scope.member.countryCode === '91')
+                    {
+                        _mobile_no = "91-" + $scope.member.phoneNumber;
+                    }
+                    else
+                    {
+                        _mobile_no=$scope.member.countryCode + '-' + $scope.member.phoneNumber;
+                    }
+                }
+            }
+            // User with Aadhar as document proof
             if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
             {
                 if($scope.member.countryCode === '91')
@@ -425,7 +443,10 @@
             } else {
                 $scope.member.emergencyContact.contactNumber = "";
             }*/
-
+           if($scope.member.UserID === 0)
+           {
+               $scope.member.UserID = _User_ID;
+           }
             DataService.saveMember($scope.member).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
@@ -490,6 +511,9 @@
                 if (!response.error) {
                     _User_ID = response.data.UserID;
                     _mobile_number = response.data.phoneNumber;
+                    $scope.MobileNumber=response.data.phoneNumber;
+                    var splitNumber= $scope.MobileNumber.split('-');
+                    $scope.member.phoneNumber = splitNumber[1];
                     for(var i =0;i<response.data.documents.length;i++)
                     {
                         $scope._Document_Type = response.data.documents[0].documentType;
@@ -584,7 +608,6 @@
                 growl.error(response.message);
             });
         };
-
 
     }]);
 
@@ -718,8 +741,9 @@
                 confirmButtonText: 'Yes, Approve',
                 closeOnConfirm: true
             }, function () {
-                $scope.member.status = 1;
-                $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
+                /*$scope.member.status = 1;*/
+                /*$scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;*/
+                $scope.member.phoneNumber = $scope.member.phoneNumber;
                 /*if ($scope.member.emergencyContact.contactNumber) {
                     $scope.member.emergencyContact.contactNumber = $scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
                 } else {
@@ -807,10 +831,11 @@
                 $scope.statusType=$scope.member.status;
                 $scope.MobileNumber=$scope.member.phoneNumber;
                 $scope.MemberShipID=$scope.member.membershipId;
-                var phone = $scope.member.phoneNumber;
-                var splitArr = phone.split("-");
+                $scope.phone = $scope.member.phoneNumber;
+                var splitArr = $scope.phone.split("-");
                 $scope.member.countryCode = splitArr[0];
-                $scope.member.phoneNumber = phone.split('-').slice(1).join('-');
+               /* $scope.member.phoneNumber = phone.split('-').slice(1).join('-');*/
+                $scope.member.phoneNumber = splitArr[1];
 
                 /*if ($scope.member.emergencyContact.contactNumber) {
                     var contactPhone = $scope.member.emergencyContact.contactNumber;
@@ -827,7 +852,8 @@
                 }
                 $scope.member.documents.forEach(function (document) {
                     //document.documentProof = AWS + 'Member/' + $scope.member.memberId + '/' + document.documentCopy + '.png';
-                    document.documentProof = "http://www.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member.UserID + '/' + document.documentCopy + '.png';
+                    /*document.documentProof = "http://www.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member.UserID + '/' + document.documentCopy + '.png';*/
+                    document.documentProof = "http://43.251.80.79/mytrintrin/" + 'Member/' + $scope.member.UserID + '/' + document.documentCopy + '.png';
                 });
                 if ($scope.member.membershipId) {
                     var membershipName = $scope.member.membershipId.subscriptionType;
@@ -858,7 +884,8 @@
                 confirmButtonText: 'Yes, remove it!',
                 closeOnConfirm: true
             }, function () {
-                $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
+                /*$scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;*/
+                $scope.member.phoneNumber = $scope.member.phoneNumber;
 
                /* if ($scope.member.emergencyContact.contactNumber) {
                     $scope.member.emergencyContact.contactNumber =$scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
@@ -898,7 +925,8 @@
         };
 
         $scope.updateMember = function () {
-            $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
+            /*$scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;*/
+            $scope.member.phoneNumber = $scope.member.phoneNumber;
            /* if($scope.member.profilePic !== "" || $scope.member.profilePic !== null)
             {
                 $scope.member.profilePic = '';
@@ -909,7 +937,17 @@
                 $scope.member.emergencyContact.contactNumber = "";
             }*/
 
-
+            if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
+            {
+                if($scope.member.countryCode === '91')
+                {
+                    $scope.member.phoneNumber = "91-" + $scope.member.phoneNumber;
+                }
+                else
+                {
+                    $scope.member.phoneNumber=$scope.member.countryCode + '-' + $scope.member.phoneNumber;
+                }
+            }
             DataService.updateMember($scope.member).then(function (response) {
                 if (!response.error) {
 /*                    if ($scope.member.membershipChanged) {
@@ -1968,7 +2006,7 @@
             city: 'Mysore',
             state: 'Karnataka',
             country: 'India',
-            countryCode: '91',
+            countryCode: '',
             pinCode: '',
             emergencyContact: {countryCode: '91'},
             documents: [],

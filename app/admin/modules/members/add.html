@@ -12,7 +12,7 @@
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="addMember()" ng-if="member.membershipId">
+                    ng-click="addMember()" ng-disabled="!member.cardNumber">
                 <i class="zmdi zmdi-save"></i> Save
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"

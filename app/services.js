@@ -1974,7 +1974,7 @@
             },
             forgotPassword: function (data) {
                 var deferred = $q.defer();
-                $http.put(API + APIEndPoint.user.forgotPassword, data).then(function (result) {
+                $http.put(APINew + APIEndPoint.user.forgotPassword, data).then(function (result) {
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);

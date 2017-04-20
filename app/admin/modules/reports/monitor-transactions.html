@@ -30,7 +30,7 @@
                         <td data-title="'Bicycle Number'" filter="{ 'vehicleNumber': 'text' }">
                             <a ui-sref="admin.bicycles.edit({id: transaction.vehicle.vehicleUid})">{{transaction.vehicleNumber}}</a>
                         </td>
-                        <td data-title="'Card Number'">
+                        <td data-title="'Card Number'" filter="{ 'cardNum': 'text' }">
                             {{transaction.user.cardNum}}
                         </td>
                         <td data-title="'From'">

@@ -26,7 +26,7 @@
                     if (!response.error) {
                         $scope.successForgot = true;
                         $scope.forget = false;
-                        growl.success(response.data.message);
+                        /*growl.success(response.message);*/
                     } else {
                         growl.error(response.message);
                     }
@@ -72,7 +72,7 @@
             }
             else
             {
-                password = md5.createHash(password || '');
+                /*password = md5.createHash(password || '');*/
                 user.login(username, password)
                     .then(handleRequest, handleRequest);
                 $state.reload();
