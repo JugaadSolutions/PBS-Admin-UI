@@ -5,13 +5,11 @@
         width: 100%;
         border: 1px solid #ddd;
     }
-
     th, td {
         border: none;
         text-align: left;
         padding: 8px;
     }
-
     tr:nth-child(even){background-color: #f2f2f2}
 </style>
 
@@ -22,22 +20,19 @@
             <h3>Trin Trin</h3>
             <h2>Mysuru</h2>
         </div>
-
         <br>
-
         <div class="card-header ch-alt text-center">
-            <h2>Bank Cash Deposit Report</h2>
+            <h2>User Transaction Statistics</h2>
         </div>
         <br>
         <form class="pmbb-edit" name="TotalCashReport"  novalidate>
             <div class="card-header ch-alt text-center">
-                &nbsp;&nbsp;<label>From &nbsp;:</label> <span ng-bind="bankCashDepositInput.bankCashDepositfromdate | date : 'dd MMM yy '"></span>&nbsp;&nbsp;-&nbsp;&nbsp;<label>To&nbsp;:</label> <span ng-bind="bankCashDepositInput.bankCashDeposittodate | date : 'dd MMM yy '"></span>&nbsp; | &nbsp;<label>Registration Centre&nbsp;:</label> <span ng-bind="bankCashDepositInput.bankCashDepositlocation"></span>
+                &nbsp;&nbsp;<label>Smart Card Number &nbsp;:</label> <span ng-bind="SmartCardNo"></span>
             </div>
             <br>
             <div style="text-align: center">
                 <button id="export" data-export="export" class="btn btn-icon-text btn-success waves-effect">Export to CSV</button>
             </div>
-            <br>
             <div class="card-body card-padding">
                 <div class="row">
                 </div>
@@ -46,33 +41,36 @@
     </div>
 
     <div >
-        <table id="table_bankcash" ng-table="BankCashDepositPrintTable" class="table" >
-            <tr ng-repeat="BankCashDepositPrint in $data">
-                <td data-title="'Deposited Date'">
-                    {{BankCashDepositPrint.depositDate | date : "dd MMM yy"}}
+        <table id="table_user_rides" ng-table="UserRidesDetailsTable" class="table" >
+            <tr ng-repeat="UserRides in UserRidesDetails">
+                <td data-title="'Check Out Time'">
+                    {{UserRides.checkOutTime |  date : "dd MMM yy"}}
                 </td>
-                <td data-title="'Deposited Transaction ID'">
-                    {{BankCashDepositPrint.transactionId}}
+                <td data-title="'Check In Time'">
+                    {{UserRides.checkInTime |  date : "dd MMM yy"}}
                 </td>
-                <td data-title="'Deposited Amount'">
-                    {{BankCashDepositPrint.amount}}
+                <td data-title="'Opening Balance'">
+                    {{UserRides.balance - ride.fare}}
                 </td>
-                <td data-title="'Bank-Branch'">
-                    {{BankCashDepositPrint.bankName + '-' + BankCashDepositPrint.branch}}
+                <td data-title="'Deducted Amount'">
+                    {{UserRides.fare}}
+                </td>
+                <td data-title="'Closing Balance'">
+                    {{UserRides.balance}}
                 </td>
             </tr>
         </table>
     </div>
 </div>
 <button  class="btn btn-float bgm-red m-btn" ng-click="myFun()"><i class="zmdi zmdi-print"></i></button>
-
 <script>
     $(function(){
         $("#export").click(function(){
-            $("#table_bankcash").tableToCSV();
+            $("#table_user_rides").tableToCSV();
         });
     });
 </script>
+
 
 
 

@@ -727,6 +727,13 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.accounts.user-transaction-statistics.user-transaction-statistics-print", {
+                url: "/user-transaction-statistics-print",
+                templateUrl: adminViewPath + 'accounts/user-transaction-statistics/user-transaction-statistics-print.html',
+                controller: 'UserAccountStatusReportPrint',
+                containerClass: 'sw-toggled'
+            })
+
             /*User-Accounts-Status*/
             .state("admin.accounts.user-account-status", {
                 url: "/accounts/user-account-status",
@@ -738,6 +745,13 @@
                 url: "/manage",
                 templateUrl: adminViewPath + 'accounts/user-account-status/manage.html',
                 controller: 'UserAccountStatus',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.accounts.user-account-status.user-accounts-report-print", {
+                url: "/user-accounts-report-print",
+                templateUrl: adminViewPath + 'accounts/user-account-status/user-accounts-report-print.html',
+                controller: 'UserAccountStatusReport',
                 containerClass: 'sw-toggled'
             })
 

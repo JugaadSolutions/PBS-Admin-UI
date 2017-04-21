@@ -449,6 +449,9 @@
            }
             DataService.saveMember($scope.member).then(function (response) {
                 if (!response.error) {
+                    $scope.MobileNumber=response.data.phoneNumber;
+                    var splitNumber= $scope.MobileNumber.split('-');
+                    $scope.member.phoneNumber = splitNumber[1];
                     growl.success(response.message);
                 } else {
                     growl.error(response.description);
@@ -7747,7 +7750,7 @@
 
     }]);
 
-    app.controller('MonitorTransactions', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    app.controller('MonitorTransactions', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
     {
         var filters = {
             filter: {
@@ -8878,12 +8881,14 @@ var _station_id;
     }]);
 
     // User User Account
+    var _smart_card_number;
+    var UserAccounts =[];
     app.controller('UserAccountStatus', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
     {
         $scope.userTransactionDetials={
             userid:'',
             /*fromDate:'',
-            toDate:''*/
+             toDate:''*/
         };
 
         $scope.Payments=[];
@@ -8891,6 +8896,8 @@ var _station_id;
         $scope.transactionStatisticsDetails = function () {
             DataService.getMemberPaymentTransactionByCard($scope.userTransactionDetials.userid).then(function (response) {
                 if (!response.error) {
+                    _smart_card_number = $scope.userTransactionDetials.userid;
+                    UserAccounts = response.data;
                     $scope.Payments=[];
                     for(var i=0;i<response.data.length;i++)
                     {
@@ -8921,7 +8928,37 @@ var _station_id;
 
     }]);
 
+    app.controller('UserAccountStatusReport', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    {
+        $scope.SmartCardNo=_smart_card_number;
+
+        $scope.UserAccountDetails=[];
+        $scope.UserAccountDetails=UserAccounts;
+
+        $scope.UserAccountDetailsTable = new NgTableParams(
+            {
+                count: 500,
+                noPager: true
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.UserAccountDetails, params.filter()) : $scope.UserAccountDetails;
+                    /*params.total(orderedData.length);*/
+                   /* $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));*/
+                }
+            }
+        );
+
+        $scope.myFun = function ()
+        {
+            window.print();
+        };
+
+    }]);
+
     // User Transcation Statistics
+    var _smart_card_no;
+    var UserRidess =[];
     app.controller('UserTransactionStatistics', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
     {
         $scope.userTransactionDetials={
@@ -8935,6 +8972,8 @@ var _station_id;
         $scope.transactionStatisticsDetails =function () {
             DataService.getMemberRidesByCard($scope.userTransactionDetials.userid).then(function (response) {
                 if (!response.error) {
+                    _smart_card_no = $scope.userTransactionDetials.userid;
+                    UserRidess = response.data;
                     $scope.Rides = [];
                     for(var i=0;i<response.data.length;i++)
                     {
@@ -8963,6 +9002,33 @@ var _station_id;
             }
         );
 
+    }]);
+
+    app.controller('UserAccountStatusReportPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    {
+        $scope.SmartCardNo=_smart_card_no;
+
+        $scope.UserRidesDetails=[];
+        $scope.UserRidesDetails=UserRidess;
+
+        $scope.UserRidesDetailsTable = new NgTableParams(
+            {
+                count: 500,
+                noPager: true
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.UserRidesDetails, params.filter()) : $scope.UserRidesDetails;
+                    /*params.total(orderedData.length);*/
+                    /* $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));*/
+                }
+            }
+        );
+
+        $scope.myFun = function ()
+        {
+            window.print();
+        };
     }]);
 
 
