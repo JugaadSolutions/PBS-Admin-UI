@@ -110,7 +110,7 @@
                                             {{assigntome.ticketdate | date : "dd MMM yy"}}
                                         </td>
                                         <td data-title="'From'" filter="{ name: 'text'}">
-                                            {{assigntome.assignedEmp.Name}}
+                                            {{assigntome.user.Name}}
                                         </td>
                                         <td data-title="'Ticket Subject'" filter="{ subject: 'text'}">
                                             <a ui-sref="admin.tickets.edit({id: assigntome._id})">{{assigntome.subject}}</a>
@@ -126,6 +126,9 @@
                                         </td>
                                         <td data-title="'STATUS'" filter="{ status: 'text'}">
                                             {{assigntome.status}}
+                                        </td>
+                                        <td data-title="'Ticket ID'" filter="{ status: 'text'}">
+                                            UT{{assigntome.uuId}}
                                         </td>
                                         <!-- <td data-title="'Assigned To'" filter="{ 'Type': 'text'}">
                                              {{tickets.assignedEmp.Name}}

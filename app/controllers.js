@@ -153,9 +153,12 @@
 
         DataService.getMembers(filters).then(function (response) {
             /*login_email;*/
+            var j=0;
             if (!response.error) {
-                var i=0;
-                $scope.membersData = response.data;
+                for (var i=0;i<response.data.length;i++)
+                {
+                    $scope.membersData.push(response.data[i]);
+                }
                 $scope.membersData.forEach(function (member) {
                     member.status = StatusService.getMemberStatus(member.status);
                     if (!member.profilePic || member.profilePic == '') {
@@ -262,6 +265,7 @@
     // Add Member Controller
     var _User_ID;
     var _mobile_number;
+    var Userid=0;
     app.controller('AddMember', ['$scope', '$state', 'DataService','$uibModal', 'growl', 'sweet', function ($scope, $state, DataService,$uibModal, growl, sweet)
     {
         $scope.loginid=localStorage.LoginID;
@@ -375,58 +379,24 @@
 
         $scope.addMember = function () {
 
-            var _mobile_no;
-
-            // User other than aadhar
-            if($scope.member.UserID !== 0)
-            {
-                if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
-                {
-                    if($scope.member.countryCode === '91')
-                    {
-                        _mobile_no = "91-" + $scope.member.phoneNumber;
-                    }
-                    else
-                    {
-                        _mobile_no=$scope.member.countryCode + '-' + $scope.member.phoneNumber;
-                    }
-                }
-            }
-            // User with Aadhar as document proof
-            if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
-            {
-                if($scope.member.countryCode === '91')
-                {
-                     _mobile_no = "91-" + $scope.member.phoneNumber;
-                }
-                else
-                    {
-                         _mobile_no=$scope.member.countryCode + '-' + $scope.member.phoneNumber;
-                    }
-                if($scope.email == '' || $scope.email == null)
-            {
-                var _email = '';
-            }
-            }
-
             $scope.member = {
-                Name: $scope.member.Name,
-                lastName: $scope.member.lastName,
-                education: $scope.member.education,
-                occupation: $scope.member.occupation,
-                age:$scope.member.age,
-                sex: $scope.member.sex,
-                phoneNumber: _mobile_no,
-                email:_email,
+                Name:  $scope.member.Name,
+                lastName:  $scope.member.lastName,
+                age: $scope.member.age,
+                education:  $scope.member.education,
+                occupation:  $scope.member.occupation,
+                sex:  $scope.member.sex,
+                phoneNumber:  $scope.member.phoneNumber,
+                email: $scope.member.email,
                 address: $scope.member.address,
-                city: $scope.member.city,
-                state:$scope.member.state,
-                country:$scope.member.country,
-                countryCode: $scope.member.countryCode,
-                pinCode:$scope.member.pinCode,
-                profilePic: $scope.member.profilePic,
+                city: 'Mysore',
+                state: 'Karnataka',
+                country:  $scope.member.country,
+                countryCode:  $scope.member.countryCode,
+                pinCode:  $scope.member.pinCode,
+                profilePic:  $scope.member.profilePic,
                 cardNumber:$scope.member.cardNumber,
-                emergencyContact: $scope.member.emergencyContact,
+                emergencyContact: {countryCode: '91'},
                 documents: $scope.member.documents,
                 smartCardKey:$scope.member.smartCardKey,
                 createdBy:_logIn_Id,
@@ -434,8 +404,41 @@
                 creditMode:$scope.member.creditMode,
                 transactionNumber:$scope.member.transactionNumber,
                 comments:$scope.member.comments,
-                UserID:$scope.member.UserID,
+                UserID:0,
             };
+
+            // User other than aadhar document proof
+            /*if($scope.member.UserID !== 0)
+            {
+                if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
+                {
+                    if($scope.member.countryCode === '91')
+                    {
+                        $scope.member.phoneNumber = "91-" + $scope.member.phoneNumber;
+                    }
+                    else
+                    {
+                        $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
+                    }
+                }
+            }*/
+
+            // User with Aadhar as document proof
+            if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
+            {
+                if($scope.member.countryCode === '91')
+                {
+                    $scope.member.phoneNumber = "91-" + $scope.member.phoneNumber;
+                }
+                else
+                    {
+                        $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
+                    }
+                if($scope.email == '' || $scope.email == null)
+                {
+                var _email = '';
+                }
+            }
 
            /* $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
             if ($scope.member.emergencyContact.contactNumber) {
@@ -443,9 +446,13 @@
             } else {
                 $scope.member.emergencyContact.contactNumber = "";
             }*/
-           if($scope.member.UserID === 0)
+           if(Userid == 0 )
            {
-               $scope.member.UserID = _User_ID;
+               $scope.member.UserID = 0;
+           }
+           else
+           {
+               $scope.member.UserID = Userid;
            }
             DataService.saveMember($scope.member).then(function (response) {
                 if (!response.error) {
@@ -464,7 +471,7 @@
         $scope.isDisabled = false;
         $scope.ProspectiveMember=function ()
         {
-            var _mobile_no;
+            /*var _mobile_no;*/
             if($scope.member.phoneNumber === '' || $scope.member.countryCode === null)
             {
                 growl.error("Enter your Mobile Number");
@@ -474,11 +481,11 @@
             {
                 if($scope.member.countryCode === '91')
                 {
-                    _mobile_no = "91-" + $scope.member.phoneNumber;
+                    $scope.member.phoneNumber = "91-" + $scope.member.phoneNumber;
                 }
                 else
                 {
-                    _mobile_no=$scope.member.countryCode + '-' + $scope.member.phoneNumber;
+                    $scope.member.phoneNumber=$scope.member.countryCode + '-' + $scope.member.phoneNumber;
                 }
             }
 
@@ -489,7 +496,7 @@
                 occupation: $scope.member.occupation,
                 age:$scope.member.age,
                 sex: $scope.member.sex,
-                phoneNumber: _mobile_no,
+                phoneNumber: $scope.member.phoneNumber,
                 email:$scope.member.email,
                 address: $scope.member.address,
                 city: $scope.member.city,
@@ -512,6 +519,10 @@
 
             DataService.saveProspectiveMember($scope.member).then(function (response) {
                 if (!response.error) {
+                   $scope.ProsMember=[];
+                    $scope.ProsMember = response.data;
+                    Userid = response.data.UserID;
+
                     _User_ID = response.data.UserID;
                     _mobile_number = response.data.phoneNumber;
                     $scope.MobileNumber=response.data.phoneNumber;
@@ -7614,14 +7625,16 @@
     }]);
 
 
-    app.controller('FleetsManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    app.controller('FleetsManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService','$stateParams', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService,$stateParams,$uibModal, AWS)
     {
         $scope.FleetsAreas = [];
 
         DataService.getFleetAreas().then(function (response) {
             if (!response.error) {
-                $scope.FleetsAreas = response.data;
-              /*  $scope.FleetsTable.reload();*/
+                for(var i=0;i<response.data.length;i++)
+                {
+                    $scope.FleetsAreas.push(response.data[i]);
+                }
             } else {
                 growl.error(response.message);
             }
@@ -7642,9 +7655,14 @@
             }
         );
 
+        $scope.editFleets = function (_id) {
+            $state.go('admin.fleets.edit', {'id': _id});
+        };
+
         $scope.addNewFleets = function () {
             $state.go('admin.fleets.add');
         };
+
     }]);
 
     app.controller('FleetsAdd', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
@@ -7703,15 +7721,15 @@
         };
     }]);
 
-    app.controller('EditFleets', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal', 'StatusService', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal, StatusService)
+    app.controller('EditFleets', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModal','$filter', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModal, $filter, NgTableParams)
     {
 
-        $scope.editFleets = {};
+        $scope.edit_Fleets = {};
 
         DataService.getFleet($stateParams.id).then(function (response) {
             if (!response.error)
             {
-                $scope.editFleets = response.data;
+                $scope.edit_Fleets = response.data;
             }
             else {
                 growl.error(response.message);
@@ -9730,9 +9748,9 @@ var _station_id;
                     available:0
                 };
 
-                rvdetails.Name=response.data[i].Name;
-                rvdetails.portCapacity=response.data[i].portCapacity;
-                rvdetails.available=response.data[i].vehicleId.length;
+                    rvdetails.Name=response.data[i].Name;
+                    rvdetails.portCapacity=response.data[i].portCapacity;
+                    rvdetails.available=response.data[i].vehicleId.length;
 
                 $scope.redistributionVehicle.push(rvdetails);
             }

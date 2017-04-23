@@ -24,36 +24,20 @@
                 </p>
             </div>
             <div class="table-responsive" ng-if="FleetsAreas.length > 0">
-                <table ng-table="FleetsTable" class="table table-striped" show-filter="true">
-                    <tr ng-repeat="FleetsAreas in $data">
+                <table ng-table="FleetsTable" class="table table-striped" show-filter="false">
+                    <tr ng-repeat="Fleets in $data">
                         <td data-title="'Fleet Name'" filter="{ 'Name': 'text'}">
-                            <!--<a ui-sref="admin.fleets.edit({id: FleetsAreas._id})">{{FleetsAreas.Name}}</a>-->
-                            {{FleetsAreas.Name}}
+                            <a ui-sref="admin.fleets.edit({id: Fleets.PortID})">{{Fleets.Name}}</a>
                         </td>
                         <td data-title="'Station'" filter="{ 'name': 'text'}">
-                            {{FleetsAreas.StationId.name}}
+                            {{Fleets.StationId.name}}
                         </td>
                         <td data-title="'Fleet Capacity'" filter="{ 'portCapacity': 'text'}">
-                            {{FleetsAreas.portCapacity}}
+                            {{Fleets.portCapacity}}
                         </td>
-                        <!--<td data-title="''" class="table-actions">
-                            <ul class="actions">
-                                <li class="dropdown" uib-dropdown>
-                                    <a href="" uib-dropdown-toggle class="dropdown-toggle">
-                                        <i class="zmdi zmdi-more-vert"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li>
-                                            <a href="javascript:void(0);" ng-click="editHoldingArea(holdingArea._id)">Edit</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"
-                                               ng-click="changeHoldingAreaStatus(holdingArea._id)">Change Status</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </td>-->
+                        <td data-title="'ID'" >
+                            {{Fleets.PortID}}
+                        </td>
                     </tr>
                 </table>
             </div>

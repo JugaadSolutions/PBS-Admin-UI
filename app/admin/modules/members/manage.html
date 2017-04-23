@@ -48,7 +48,7 @@
                             {{member.email}}
                         </td>
                         <td data-title="'Phone'" filter="{ phoneNumber: 'text'}">
-                            {{member.phoneNumber}}
+                            {{member.phoneNumber.substring(3)}}
                         </td>
                         <td data-title="'Membership'" filter="{ 'subscriptionType': 'text'}">
                             {{member.membershipId.subscriptionType}}
