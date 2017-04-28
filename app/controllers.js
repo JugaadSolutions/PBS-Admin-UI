@@ -285,11 +285,11 @@
             city: 'Mysore',
             state: 'Karnataka',
             country: '',
-            countryCode: '',
+            countryCode: '91',
             pinCode: '',
             profilePic: '',
             cardNumber:'',
-            emergencyContact: {countryCode: '91'},
+            emergencyContact: {countryCode: '91',contactName:'',contactNumber:''},
             documents: [],
             smartCardKey:'',
             createdBy:_logIn_Id,
@@ -297,10 +297,8 @@
             creditMode:'',
             transactionNumber:'',
             comments:'',
-            UserID:0,
+            UserID:'',
         };
-
-        $scope.panCardRegex = '/[A-Z]{5}\d{4}[A-Z]{1}/i';
 
         $scope.addNewDocument = function () {
             $scope.member.documents.push({});
@@ -308,7 +306,6 @@
         };
 
         $scope.ShowMemberShipTab = false;
-
 
         $scope.selectedCountry=function (data) {
           $scope.Country=data;
@@ -320,16 +317,8 @@
 
         $scope.selectedDocument = function (data) {
             $scope.DocumentType= data.documentType;
-            $scope.minimunLeng=0;
-            $scope.maximumLeng=0;
-            $scope.MinimumLengthSpanShow = false;
-            $scope.MaximumLengthSpanShow = false;
             if($scope.DocumentType === 'Aadhar')
             {
-                $scope.minimunLeng =12;
-                $scope.maximumLeng =12;
-                $scope.MinimumLengthSpanShow = true;
-                $scope.MaximumLengthSpanShow = true;
                 $scope.ShowMemberShipTab = true;
                 $scope.ShowOTPTab=false;
             }
@@ -357,73 +346,14 @@
 
         };
 
-
-      /*  $scope.verify = function () {
-            var smartCard = {
-                cardNumber: $scope.member.smartCardNumber
-            };
-            DataService.verifyCardForMember(smartCard).then(function (response) {
-                if (!response.error) {
-                    growl.success(response.message)
-                } else {
-                    growl.error(response.message);
-                }
-            }, function (response) {
-                growl.error(response.data.description);
-            });
-        };*/
-
         $scope.removeDocument = function ($index) {
             $scope.member.documents.splice($index, 1);
         };
 
         $scope.addMember = function () {
 
-            $scope.member = {
-                Name:  $scope.member.Name,
-                lastName:  $scope.member.lastName,
-                age: $scope.member.age,
-                education:  $scope.member.education,
-                occupation:  $scope.member.occupation,
-                sex:  $scope.member.sex,
-                phoneNumber:  $scope.member.phoneNumber,
-                email: $scope.member.email,
-                address: $scope.member.address,
-                city: 'Mysore',
-                state: 'Karnataka',
-                country:  $scope.member.country,
-                countryCode:  $scope.member.countryCode,
-                pinCode:  $scope.member.pinCode,
-                profilePic:  $scope.member.profilePic,
-                cardNumber:$scope.member.cardNumber,
-                emergencyContact: {countryCode: '91'},
-                documents: $scope.member.documents,
-                smartCardKey:$scope.member.smartCardKey,
-                createdBy:_logIn_Id,
-                membershipId:$scope.member.membershipId,
-                creditMode:$scope.member.creditMode,
-                transactionNumber:$scope.member.transactionNumber,
-                comments:$scope.member.comments,
-                UserID:0,
-            };
+            $scope.member.UserID = Userid;
 
-            // User other than aadhar document proof
-            /*if($scope.member.UserID !== 0)
-            {
-                if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
-                {
-                    if($scope.member.countryCode === '91')
-                    {
-                        $scope.member.phoneNumber = "91-" + $scope.member.phoneNumber;
-                    }
-                    else
-                    {
-                        $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
-                    }
-                }
-            }*/
-
-            // User with Aadhar as document proof
             if($scope.member.phoneNumber !== '' || $scope.member.phoneNumber !== null)
             {
                 if($scope.member.countryCode === '91')
@@ -440,13 +370,7 @@
                 }
             }
 
-           /* $scope.member.phoneNumber = $scope.member.countryCode + '-' + $scope.member.phoneNumber;
-            if ($scope.member.emergencyContact.contactNumber) {
-                $scope.member.emergencyContact.contactNumber = $scope.member.countryCode + '-' + $scope.member.emergencyContact.contactNumber;
-            } else {
-                $scope.member.emergencyContact.contactNumber = "";
-            }*/
-           if(Userid == 0 )
+           if($scope.member.UserID == 0)
            {
                $scope.member.UserID = 0;
            }
@@ -456,21 +380,36 @@
            }
             DataService.saveMember($scope.member).then(function (response) {
                 if (!response.error) {
-                    $scope.MobileNumber=response.data.phoneNumber;
-                    var splitNumber= $scope.MobileNumber.split('-');
+                    Userid = response.data.UserID;
+                    var splitNumber= response.data.phoneNumber.split('-');
                     $scope.member.phoneNumber = splitNumber[1];
+                     var MemberStatus=response.data.status;
                     growl.success(response.message);
+                    Userid = 0;
                 } else {
                     growl.error(response.description);
                 }
             }, function (response) {
                 growl.error(response.data.description);
+                if(response.data.data.UserId == undefined)
+                {
+                    Userid = 0;
+                    var SplitNumbers = $scope.member.phoneNumber.split('-');
+                    $scope.member.phoneNumber = SplitNumbers[1];
+                }
+                else
+                {
+                    Userid = response.data.data.UserId;
+                    var SplitNumber = $scope.member.phoneNumber.split('-');
+                    $scope.member.phoneNumber = SplitNumber[1];
+                }
             })
         };
 
-        $scope.isDisabled = false;
+       /* $scope.isDisabled = false;*/
         $scope.ProspectiveMember=function ()
         {
+            $scope.member.UserID = Userid;
             /*var _mobile_no;*/
             if($scope.member.phoneNumber === '' || $scope.member.countryCode === null)
             {
@@ -489,44 +428,15 @@
                 }
             }
 
-            $scope.member = {
-                Name: $scope.member.Name,
-                lastName: $scope.member.lastName,
-                education: $scope.member.education,
-                occupation: $scope.member.occupation,
-                age:$scope.member.age,
-                sex: $scope.member.sex,
-                phoneNumber: $scope.member.phoneNumber,
-                email:$scope.member.email,
-                address: $scope.member.address,
-                city: $scope.member.city,
-                state:$scope.member.state,
-                country:$scope.member.country,
-                countryCode: $scope.member.countryCode,
-                pinCode:$scope.member.pinCode,
-                profilePic: $scope.member.profilePic,
-                cardNumber:$scope.member.cardNumber,
-                emergencyContact: $scope.member.emergencyContact,
-                documents:$scope.member.documents,
-                smartCardKey:$scope.member.smartCardKey,
-                createdBy:_logIn_Id,
-                membershipId:$scope.member.membershipId,
-                creditMode:$scope.member.creditMode,
-                transactionNumber:$scope.member.transactionNumber,
-                comments:$scope.member.comments,
-                UserID:$scope.member.UserID,
-            };
-
             DataService.saveProspectiveMember($scope.member).then(function (response) {
                 if (!response.error) {
                    $scope.ProsMember=[];
                     $scope.ProsMember = response.data;
                     Userid = response.data.UserID;
-
                     _User_ID = response.data.UserID;
                     _mobile_number = response.data.phoneNumber;
-                    $scope.MobileNumber=response.data.phoneNumber;
-                    var splitNumber= $scope.MobileNumber.split('-');
+                   /* $scope.MobileNumber=response.data.phoneNumber;*/
+                    var splitNumber= response.data.phoneNumber.split('-');
                     $scope.member.phoneNumber = splitNumber[1];
                     for(var i =0;i<response.data.documents.length;i++)
                     {
@@ -538,12 +448,22 @@
                 }
             }, function (response) {
                 growl.error(response.data.description);
+                if(response.data.data.UserId == undefined)
+                {
+                    Userid = 0;
+                    var Split = $scope.member.phoneNumber.split('-');
+                    $scope.member.phoneNumber = Split[1];
+                }
+                else
+                {
+                    Userid = response.data.data.UserId;
+                    var Splits = $scope.member.phoneNumber.split('-');
+                    $scope.member.phoneNumber = Splits[1];
+                }
             })
 
-            $scope.isDisabled = true;
+           /* $scope.isDisabled = true;*/
         };
-
-
 
         $scope.cancelAddMember = function () {
             sweet.show({
@@ -839,17 +759,18 @@
         DataService.getMember($stateParams.id, filters).then(function (response) {
             if (!response.error) {
                 $scope.member = response.data;
-                $scope.documentCopy=$scope.member.documents[0].documentCopy;
+                if($scope.documentCopy)
+                {
+                 $scope.documentCopy=$scope.member.documents[0].documentCopy;
+                 $scope.documentNumber=$scope.member.documents[0].documentNumber;
+                }
                $scope.userid = $scope.member.UserID;
                  $scope.otpverify=$scope.member.otpVerified;
                 $scope.statusType=$scope.member.status;
-                $scope.MobileNumber=$scope.member.phoneNumber;
+                var splitNo=$scope.member.phoneNumber.split("-");
+                $scope.member.phoneNumber = splitNo[1];
                 $scope.MemberShipID=$scope.member.membershipId;
-                $scope.phone = $scope.member.phoneNumber;
-                var splitArr = $scope.phone.split("-");
-                $scope.member.countryCode = splitArr[0];
                /* $scope.member.phoneNumber = phone.split('-').slice(1).join('-');*/
-                $scope.member.phoneNumber = splitArr[1];
 
                 /*if ($scope.member.emergencyContact.contactNumber) {
                     var contactPhone = $scope.member.emergencyContact.contactNumber;
@@ -934,7 +855,7 @@
             growl.error(response.message);
         });
 
-        $scope.selectedMembershipPlan = function (data) {
+        $scope.selecteMembership = function (data) {
             $scope.member.membershipId = data.membershipId;
         };
 
@@ -1043,50 +964,7 @@
         };
 
 
-/*        $scope.otpDetails={
-            otp:'',
-            UserID:''
-        };
 
-        $scope.verifyOTP=function () {
-            if($scope.otpDetails.otp === '' || $scope.otpDetails.otp === null)
-            {
-                growl.error("Please enter the OTP number");
-                return;
-            }
-                $scope.otpDetails.UserID = $scope.userid;
-                DataService.OtpVerify($scope.otpDetails).then(function (response) {
-                    if (!response.error) {
-                        /!*$scope.Verified = response.data.otpVerified;*!/
-                        $scope.otpverify = response.data.otpVerified;
-                        $scope.statusType = response.data.status;
-                        growl.success(response.message);
-                    } else {
-                        growl.error(response.message);
-                    }
-                }, function (response) {
-                    growl.error(response.data.message);
-                })
-        };
-
-        $scope.resendOtp={
-            UserID:'',
-            phoneNumber:''
-        }
-
-        $scope.resendOTP=function () {
-            $scope.resendOtp.UserID=$scope.userid;
-            $scope.resendOtp.phoneNumber=$scope.MobileNumber;
-            DataService.OtpResend($scope.resendOtp).then(function (response) {
-                if (!response.error) {
-                    growl.success("OTP request sent");
-                } else {
-                    growl.error(response.message);
-                }
-            }, function (response) {
-                growl.error(response.message);
-            });
-        };*/
 
         $scope.paymentsData = [];
 
@@ -1178,6 +1056,151 @@
         $scope.selectedCountryCode=function (data) {
             $scope.CountryCode=data;
         };
+
+        /*new*/
+        $scope.ShowMemberShipTab = false;
+
+        $scope.selectedCountry=function (data) {
+            $scope.Country=data;
+        };
+
+        $scope.selectedCountryCode=function (data) {
+            $scope.CountryCode=data;
+        };
+
+        $scope.selectedDocument = function (data) {
+            $scope.DocumentType= data.documentType;
+            if($scope.DocumentType === 'Aadhar')
+            {
+                $scope.ShowMemberShipTab = true;
+                $scope.ShowOTPTab=false;
+            }
+            else if ($scope.DocumentType == 'Drivers license' &&  $scope.CountryCode == '91' && $scope.Country == 'India')  // send otp
+            {
+                $scope.ShowMemberShipTab = false;
+            }
+            else if ($scope.DocumentType == 'Passport' &&  $scope.CountryCode == '91' && $scope.Country == 'India')
+            {
+                $scope.ShowMemberShipTab = false;
+            }
+            else if ($scope.DocumentType == 'Other' &&  $scope.CountryCode == '91' && $scope.Country == 'India')
+            {
+                $scope.ShowMemberShipTab = false;
+            }
+            //Foreigners
+            else if($scope.DocumentType == 'Passport' &&  $scope.CountryCode != '91' && $scope.Country != 'India')
+            {
+                $scope.ShowMemberShipTab = true;
+            }
+            else if ($scope.DocumentType == 'Passport' &&  $scope.CountryCode == '91' && $scope.Country != 'India')
+            {
+                $scope.ShowMemberShipTab = false;
+            }
+
+        };
+
+        $scope.addmember=function () {
+            if($scope.member.phoneNumber != null || $scope.member.phoneNumber != '')
+            {
+                $scope.member.phoneNumber = '91-' + $scope.member.phoneNumber;
+            }
+            else
+            {
+                $scope.member.phoneNumber = $scope.Country + $scope.member.phoneNumber
+            }
+            DataService.saveMember($scope.member).then(function (response) {
+                if (!response.error) {
+                    $scope.member.UserID = response.data.UserID;
+                    var splitNumber= response.data.phoneNumber.split('-');
+                    $scope.member.phoneNumber = splitNumber[1];
+                    var MemberStatus=response.data.status;
+                    growl.success(response.message);
+                   /* Userid = 0;*/
+                } else {
+                    growl.error(response.description);
+                }
+            }, function (response) {
+                growl.error(response.data.description);
+                if(response.data.data.UserId == undefined)
+                {
+                    $scope.member.UserID=response.data.data.UserId;
+                    $scope.member.countryCode = $scope.member.country;
+                    var SplitNumbers = $scope.member.phoneNumber.split('-');
+                    $scope.member.phoneNumber = SplitNumbers[1];
+                }
+                else
+                {
+                    $scope.member.UserID = response.data.data.UserId;
+                    var SplitNumber = $scope.member.phoneNumber.split('-');
+                    $scope.member.phoneNumber = SplitNumber[1];
+                }
+            })
+        }
+
+        $scope.otpDetails={
+            otp:'',
+            UserID:''
+        };
+
+        $scope.verifyOTP=function () {
+            if($scope.otpDetails.otp === '' || $scope.otpDetails.otp === null)
+            {
+                growl.error("Please enter the OTP number");
+                return;
+            }
+            $scope.otpDetails.UserID = $scope.member.UserID;
+            DataService.OtpVerify($scope.otpDetails).then(function (response) {
+                if (!response.error) {
+                    $scope.otpverify = response.data.otpVerified;
+                    $scope.statusType = response.data.status;
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.message);
+            })
+        };
+
+        $scope.isDisabled = false;
+
+        $scope.sendOtp=function () {
+            DataService.saveProspectiveMember($scope.member).then(function (response) {
+                if (!response.error) {
+                    $scope.ProsMember=[];
+                    $scope.ProsMember = response.data;
+                    Userid = response.data.UserID;
+                    _User_ID = response.data.UserID;
+                    var splitNumber= response.data.phoneNumber.split('-');
+                    $scope.member.phoneNumber = splitNumber[1];
+                    for(var i =0;i<response.data.documents.length;i++)
+                    {
+                        $scope._Document_Type = response.data.documents[0].documentType;
+                    }
+                    $scope.isDisabled = true;
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description);
+                if(response.data.data.UserId == undefined)
+                {
+                    $scope.member.UserID = response.data.data.UserId;
+                    var Split = $scope.member.phoneNumber.split('-');
+                    $scope.member.phoneNumber = Split[1];
+                    $scope.member.countryCode=$scope.member.countryCode;
+                }
+                else
+                {
+                    $scope.member.UserID = response.data.data.UserId;
+                    var Splits = $scope.member.phoneNumber.split('-');
+                    $scope.member.phoneNumber = Splits[1];
+                    $scope.member.countryCode=$scope.member.countryCode;
+                }
+            })
+        }
+
 
     }]);
 
@@ -1397,6 +1420,7 @@
 
     }]);
 
+    var _ticket_number;
     app.controller('RaiseTickets', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
     {
         $scope.loginid=localStorage.LoginID;
@@ -1564,8 +1588,6 @@
                     }, function (response) {
                         growl.error(response.data.description['0']);
                     });
-
-                    growl.success(response.message);
                 } else {
                     growl.error(response.message);
                 }
@@ -1587,8 +1609,8 @@
 
         $scope.addNewTicketDetails = function () {
             DataService.saveTicketDetails($scope.raiseTicketsDetails).then(function (response) {
-                if (!response.error) {
-                    growl.success(response.message);
+                if (!response.error)
+                {
                 } else {
                     growl.error(response.message);
                 }
@@ -1636,6 +1658,7 @@
         };
 
     }]);
+
 
     // OTP
     app.controller('OTPNumber', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal,$uibModalInstance)
@@ -5072,6 +5095,7 @@
 
     var _search_member_name;
     var _global_search_member_name;
+    var _non_member_ticket_number;
     app.controller('AddTicketsDetails',  ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
     {
         $scope.loginid=localStorage.LoginID;
@@ -5109,7 +5133,15 @@
             // Non member ticket raising
             DataService.saveTicketDetails($scope.ticketsDetails).then(function (response) {
                 if (!response.error) {
-                    growl.success(response.message);
+                    _non_member_ticket_number = response.data.uuId;
+                    $uibModal.open({
+                        templateUrl: 'TicketNumber.html',
+                        controller: 'NonMemberTicketNumber',
+                        resolve: {
+                            items: function () {
+                            }
+                        }
+                    });
                 } else {
                     growl.error(response.message);
                 }
@@ -5259,6 +5291,17 @@
             $scope.ticketsDetails.tickettype=data;
         }
 
+    }]);
+
+    // non member raised tickets number
+    app.controller('NonMemberTicketNumber', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser)
+    {
+
+        $scope.TicketNumber = _non_member_ticket_number;
+
+        $scope.ok = function () {
+            $uibModalInstance.dismiss();
+        };
     }]);
 
     var _ticket_id
@@ -5575,7 +5618,15 @@
         $scope.addNewTicketDetails = function () {
             DataService.saveTicketDetails($scope.raiseTicketsDetails).then(function (response) {
                 if (!response.error) {
-                    growl.success(response.message);
+                    _ticket_number = response.data.uuId;
+                    $uibModal.open({
+                        templateUrl: 'TicketNumber.html',
+                        controller: 'TicketNo',
+                        resolve: {
+                            items: function () {
+                            }
+                        }
+                    });
                 } else {
                     growl.error(response.message);
                 }
@@ -5596,6 +5647,16 @@
             }, function () {
                 $state.go('admin.tickets.add');
             });
+        };
+    }]);
+
+    app.controller('TicketNo', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser)
+    {
+
+        $scope.TicketNumber = _ticket_number;
+
+        $scope.ok = function () {
+            $uibModalInstance.dismiss();
         };
     }]);
 
@@ -6215,6 +6276,22 @@
             });
         };
 
+
+
+        /*$scope.selectedPeriod=function (data) {
+            $scope.kpiPeriod=data;
+
+            if($scope.kpiPeriod == 0 )
+            {
+            $scope.New={
+              fromdate:'',
+                todate:new Date(),
+                stationState:0,
+                duration:0
+            };
+            }
+        };*/
+
         $scope.details={
             fromdate:'',
             todate:'',
@@ -6408,6 +6485,7 @@
                     percentage_points_total_minor_empty_offpeek = 0;
                 }
 
+
                 $scope.RVDetails={
                     percentage:percentage_value + "%",
                     points:percentage_points,
@@ -6421,8 +6499,11 @@
                     points_total_minor_empty_offpeek:percentage_points_total_minor_empty_offpeek
                 };
 
+                var All_Redistribution_Indicators_Points = percentage_points + percentage_points_total_major_empty + percentage_points_total_major_empty_offpeek + percentage_points_total_minor_empty + percentage_points_total_minor_empty_offpeek;
+
                 if (!response.error) {
                     growl.success(response.message);
+
                 } else {
                     growl.error(response.message);
                 }
@@ -6461,6 +6542,7 @@
                     points:percentage_points
                 };
 
+
                 if (!response.error)
                 {
                     growl.success(response.message);
@@ -6498,6 +6580,7 @@
                     kiosk_value:_smart_card_kiosk_data + "%",
                     kiosk_point:_smart_card_kiosk_points
                 }
+
 
                 if (!response.error)
                 {
@@ -6725,6 +6808,7 @@
                     downTime_points:downtime_points
                 }
 
+
                 if (!response.error)
                 {
                     growl.success(response.message);
@@ -6788,6 +6872,8 @@
                         complaints:_total_complaints,
                         points:_total_complaint_points
                     };
+
+
                     growl.success(response.message);
                 }
                 else
@@ -6862,6 +6948,9 @@
                         repaire:_cycle_repaire_value,
                         points:_cycle_repaire_points
                     };
+
+
+
                     growl.success(response.message);
                 }
                 else
@@ -6871,6 +6960,8 @@
             }, function (response) {
                 /*growl.error(response.data.description);*/
             });
+            alert(All_Redistribution_Indicators_Points + percentage_points + _smart_card_kiosk_points + fleet_points + clean_percentage_points
+                + trip_points + downtime_points + _total_complaint_points + _cycle_repaire_points);
         }
     }]);
 
@@ -7361,6 +7452,44 @@
 
     app.controller('KpiReportSmartCardAtHub', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
+        $scope.details={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+        $scope.smartCardAtHub =function ()
+        {
+            DataService.GetKPISmartCardReport($scope.details).then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.SmartCardAtHub=[];
+
+                        $scope.SmartCardAtHub=response.data
+
+                    $scope.SmartCardAtHubTable = new NgTableParams(
+                        {
+                            count: 10
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.SmartCardAtHub, params.filter()) : $scope.SmartCardAtHub;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+            });
+        }
+
 
 
     }]);
@@ -7407,6 +7536,286 @@
         }
 
     }]);
+
+    app.controller('KpiReportEmptyMajorDSPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.details={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.GetDetails = function ()
+        {
+            DataService.GetRVDetails($scope.details).then(function (response)
+            {
+                $scope.EmptyMojorDSPeak=[];
+                if (!response.error) {
+                    $scope.StartDate =  $scope.details.fromdate;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        if(response.data[i].stationtype == 'Major')
+                        {
+                            $scope.EmptyMojorDSPeak.push(response.data[i])
+                        }
+                    }
+                    growl.success(response.message);
+
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+
+            $scope.EmptyMojorDSPeakTable = new NgTableParams(
+                {
+                    count: 10
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.EmptyMojorDSPeak, params.filter()) : $scope.EmptyMojorDSPeak;
+                        params.total(orderedData.length);
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
+        }
+    }]);
+
+    app.controller('KpiReportEmptyMinorDSPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.details={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.GetDetails = function ()
+        {
+            DataService.GetRVDetails($scope.details).then(function (response)
+            {
+                $scope.EmptyMinorDSPeak=[];
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        if(response.data[i].stationtype == 'Minor')
+                        {
+                            $scope.EmptyMinorDSPeak.push(response.data[i])
+                        }
+                    }
+                    growl.success(response.message);
+
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+
+            $scope.EmptyMinorDSPeakTable = new NgTableParams(
+                {
+                    count: 10
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.EmptyMinorDSPeak, params.filter()) : $scope.EmptyMinorDSPeak;
+                        params.total(orderedData.length);
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
+        }
+    }]);
+
+    app.controller('KpiReportEmptyMajorDSOffPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.details={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.GetDetails = function ()
+        {
+            DataService.GetRVDetails($scope.details).then(function (response)
+            {
+                $scope.EmptyMajorDSOffPeak=[];
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        if(response.data[i].stationtype == 'Major')
+                        {
+                            $scope.EmptyMajorDSOffPeak.push(response.data[i])
+                        }
+                    }
+                    growl.success(response.message);
+
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+
+            $scope.EmptyMajorDSOffPeakTable = new NgTableParams(
+                {
+                    count: 10
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.EmptyMajorDSOffPeak, params.filter()) : $scope.EmptyMajorDSOffPeak;
+                        params.total(orderedData.length);
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
+        }
+    }]);
+
+    app.controller('KpiReportEmptyMinorDSOffPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.details={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.GetDetails = function ()
+        {
+            DataService.GetRVDetails($scope.details).then(function (response)
+            {
+                $scope.EmptyMinorDSOffPeek=[];
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        if(response.data[i].stationtype == 'Minor')
+                        {
+                            $scope.EmptyMinorDSOffPeek.push(response.data[i])
+                        }
+                    }
+                    growl.success(response.message);
+
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+
+            $scope.EmptyMinorDSOffPeekTable = new NgTableParams(
+                {
+                    count: 10
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.EmptyMinorDSOffPeek, params.filter()) : $scope.EmptyMinorDSOffPeek;
+                        params.total(orderedData.length);
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
+        }
+    }]);
+
+    app.controller('KpiReportEmptyFull', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.details={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.GetDetails = function ()
+        {
+            DataService.GetRVDetails($scope.details).then(function (response)
+            {
+                $scope.DSEmptyFull=[];
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                     $scope.DSEmptyFull.push(response.data[i])
+                    }
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+
+            $scope.DSEmptyFullTable = new NgTableParams(
+                {
+                    count: 10
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.DSEmptyFull, params.filter()) : $scope.DSEmptyFull;
+                        params.total(orderedData.length);
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
+        }
+    }]);
+
+    app.controller('NumberOfValidComplaints', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.details={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.ValidComplaints = [];
+
+        $scope.GetDetails=function () {
+            DataService.getTickets($scope.details).then(function (response)
+            {
+                if (!response.error)
+                {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                       /* var _complaintType = response.data[i].complaintType;
+                        var _channel= response.data[i].channel;*/
+                        if(_channel == 1)
+                        {
+                            $scope.ValidComplaints.push(response.data[i]);
+                        }
+                    }
+
+
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+            $scope.ValidComplaintsTable = new NgTableParams(
+                {
+                    count: 10
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.ValidComplaints, params.filter()) : $scope.ValidComplaints;
+                        params.total(orderedData.length);
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
+
+        }
+    }]);
+
 
 
     app.controller('ManageSmartCards', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
@@ -9881,6 +10290,7 @@ var _station_id;
                     for(var i=0;i<response.data.length;i++)
                     {
                         $scope.BicycleTrasaction.push(response.data[i]);
+                        $scope.Num1 = response.data[i].cardNum;
                     }
                 } else {
                     growl.error(response.description);

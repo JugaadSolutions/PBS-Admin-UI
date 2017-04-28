@@ -33,7 +33,7 @@
         <div class="ch-alt m-b-0">
             <br>
             &nbsp;&nbsp;<label>Subject :&nbsp;</label> <b><span ng-bind="RaisedTicket.subject"> </span></b> &nbsp;|&nbsp;<label>Ticket ID &nbsp;:&nbsp;</label><b>UT<span ng-bind="RaisedTicket.uuId"></span></b><br>
-            &nbsp;&nbsp;<label>By :&nbsp;</label> <b><span ng-bind="RaisedTicket.user.Name" style="font-weight: bold"></span></b>&nbsp;&nbsp;|&nbsp;&nbsp;<label>On :&nbsp;</label><b><span style="font-weight: bold" ng-bind="RaisedTicket.ticketdate | date:'dd MMM yy'"></span></b>&nbsp;&nbsp;|&nbsp;
+            &nbsp;&nbsp;<label>By :&nbsp;</label> <b><span ng-bind="RaisedTicket.user.Name" style="font-weight: bold" ng-if="RaisedTicket.user.Name != null"></span><span ng-bind="RaisedTicket.name" style="font-weight: bold" ng-if="RaisedTicket.name != null"></span></b>&nbsp;&nbsp;|&nbsp;&nbsp;<label>On :&nbsp;</label><b><span style="font-weight: bold" ng-bind="RaisedTicket.ticketdate | date:'dd MMM yy'"></span></b>&nbsp;&nbsp;|&nbsp;
             &nbsp;<label>Status:&nbsp;</label> <b><label ng-bind="RaisedTicket.status"></label></b>
             <br>
             &nbsp;&nbsp;<label>Priority :&nbsp;</label><b><span ng-bind="Priority" style="font-weight: bold"></span></b>&nbsp;&nbsp;|&nbsp;&nbsp;<label>Assigned To :&nbsp;</label><b><span ng-bind="AssignedTo" style="font-weight: bold"></span></b>

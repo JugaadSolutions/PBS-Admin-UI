@@ -262,6 +262,24 @@
                         </div>
                     </div>
 
+
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10">Period</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control" ng-model="KpidetailsNew.details"
+                                            data-placeholder-text-single="'Select Type'"
+                                            name="details"  ng-change="selectedPeriod(KpidetailsNew.details)" >
+                                        <option value="">Select</option>
+                                        <option value="0">Current Quater</option>
+                                        <option value="2">Jan-Mar 2017</option>
+                                        <option value="1">Oct-Dec 2016</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
+
+
                         <!--<div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line">
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Station Status</label>
@@ -286,7 +304,7 @@
 
 
                         <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                                ng-click="GetDetails()" ng-disabled="KPI.$invalid">
+                                ng-click="GetDetails()" >
                             <i class="zmdi zmdi-save"></i> Get Details
                         </button>
 
@@ -495,7 +513,7 @@
 
                 <td><span ng-bind="SmartCardInfo.value"></span></td>
                 <td><span ng-bind="SmartCardInfo.points"></span></td>
-<td>
+                <td>
 
                 <!--Modal2-->
                 <!--<span class="glyphicon glyphicon-question-sign"" data-toggle="modal" data-target="#myModal2""></span>-->

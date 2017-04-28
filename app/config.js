@@ -836,6 +836,53 @@
                 containerClass: 'sw-toggled'
             })
 
+            /*empty docking station (major) in peak hours*/
+            .state("admin.kpi.reports.empty-major-ds-peak-hours", {
+                url: "/empty-major-ds-peak-hours",
+                templateUrl: adminViewPath + 'kpi/reports/empty-major-ds-peak-hours.html',
+                controller: 'KpiReportEmptyMajorDSPeak',
+                containerClass: 'sw-toggled'
+            })
+
+            /*empty docking station (minor) in peak hours*/
+            .state("admin.kpi.reports.empty-minor-ds-peek-hours", {
+                url: "/empty-minor-ds-peek-hours",
+                templateUrl: adminViewPath + 'kpi/reports/empty-minor-ds-peek-hours.html',
+                controller: 'KpiReportEmptyMinorDSPeak',
+                containerClass: 'sw-toggled'
+            })
+
+            /*empty docking station (minor) in offpeak hours*/
+            .state("admin.kpi.reports.empty-major-ds-offpeek-hours", {
+                url: "/empty-major-ds-offpeek-hours",
+                templateUrl: adminViewPath + 'kpi/reports/empty-major-ds-offpeek-hours.html',
+                controller: 'KpiReportEmptyMajorDSOffPeak',
+                containerClass: 'sw-toggled'
+            })
+
+            /*empty docking station (minor) in offpeak hours*/
+            .state("admin.kpi.reports.empty-minor-ds-offpeek-hours", {
+                url: "/empty-minor-ds-offpeek-hours",
+                templateUrl: adminViewPath + 'kpi/reports/empty-minor-ds-offpeek-hours.html',
+                controller: 'KpiReportEmptyMinorDSOffPeak',
+                containerClass: 'sw-toggled'
+            })
+
+            /*Station neither empty nor full more than 2 hours*/
+            .state("admin.kpi.reports.stations-full-or-empty-more-than-two-hours", {
+                url: "/stations-full-or-empty-more-than-two-hours",
+                templateUrl: adminViewPath + 'kpi/reports/stations-full-or-empty-more-than-two-hours.html',
+                controller: 'KpiReportEmptyFull',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.kpi.reports.number-of-valid-complaints", {
+                url: "/number-of-valid-complaints",
+                templateUrl: adminViewPath + 'kpi/reports/number-of-valid-complaints.html',
+                controller: 'NumberOfValidComplaints',
+                containerClass: 'sw-toggled'
+            })
+
             // website downtime
             .state("admin.website-downtime", {
                 url: "/website-downtime",

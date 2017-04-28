@@ -1,21 +1,21 @@
 <div class="container">
     <div class="card">
         <div class="card-header ch-alt m-b-20">
-            <h2>Smart Card performance at kiosks</h2>
+            <h2>Major Docking Hubs are Empty during Peek Hours (8a.m-11a.m & 4p.m-7p.m)</h2>
             <br>
-            <form class="pmbb-edit" name="SmartCardKiosks" novalidate>
+            <form class="pmbb-edit" name="MajorDSEmptyPeak" novalidate>
 
                 <div class="card-body card-padding">
                     <div class="row">
                         <div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
-                                 ng-class="{ 'has-error': SmartCardKiosks.fromDate.$touched && SmartCardKiosks.fromDate.$invalid }" >
+                                 ng-class="{ 'has-error': MajorDSEmptyPeak.fromDate.$touched && MajorDSEmptyPeak.fromDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
-                                <input type="text" name="fromDate" ng-model="SmartCardKiosksDetails.fromdate" ng-change="fromdate" ng-focus="fromDate=true" ng-click="fromDate=true"
+                                <input type="text" name="fromDate" ng-model="details.fromdate" ng-change="fromdate" ng-focus="fromDate=true" ng-click="fromDate=true"
                                        uib-datepicker-popup="dd/MM/yyyy" is-open="fromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"
-                                      ng-messages="SmartCardKiosks.fromDate.$error"
-                                      ng-show="SmartCardKiosks.fromDate.$touched">
+                                      ng-messages="MajorDSEmptyPeak.fromDate.$error"
+                                      ng-show="MajorDSEmptyPeak.fromDate.$touched">
                                                 <small ng-message="required">From Date is required</small>
                                             </span>
                             </div>
@@ -23,13 +23,13 @@
 
                         <div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
-                                 ng-class="{ 'has-error': SmartCardKiosks.toDate.$touched && SmartCardKiosks.toDate.$invalid }" >
+                                 ng-class="{ 'has-error': MajorDSEmptyPeak.toDate.$touched && MajorDSEmptyPeak.toDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
-                                <input type="text" name="toDate" ng-model="SmartCardKiosksDetails.todate" ng-change="todate" ng-focus="toDate=true" ng-click="toDate=true"
+                                <input type="text" name="toDate" ng-model="details.todate" ng-change="todate" ng-focus="toDate=true" ng-click="toDate=true"
                                        uib-datepicker-popup="dd/MM/yyyy" is-open="toDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"
-                                      ng-messages="SmartCardKiosks.toDate.$error"
-                                      ng-show="SmartCardKiosks.toDate.$touched">
+                                      ng-messages="MajorDSEmptyPeak.toDate.$error"
+                                      ng-show="MajorDSEmptyPeak.toDate.$touched">
                                                 <small ng-message="required">To Date is required</small>
                                             </span>
                             </div>
@@ -37,7 +37,7 @@
 
                     </div>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="smartCardKiosks()" ng-disabled="SmartCardKiosks.$invalid">
+                            ng-click="GetDetails()" ng-disabled="MajorDSEmptyPeak.$invalid">
                         <i class="zmdi zmdi-save"></i> Generate Report
                     </button>
                     <!--  <button type="button" class="btn btn-icon-text btn-success waves-effect"
@@ -50,10 +50,22 @@
         </div>
         <div class="card-body">
             <div class="table-responsive" >
-                <table ng-table="SmartCardKiosksTable" class="table table-striped table-vmiddle">
-                    <tr>
-                        <td data-title="'Time taken between smart card tapping'">
-                            {{cardKiosks}}
+                <table ng-table="EmptyMojorDSPeakTable" class="table table-striped table-vmiddle" show-filter="false">
+                    <tr ng-repeat="peak in EmptyMojorDSPeak">
+                        <td data-title="'From Time'">
+                            {{peak.starttime |  date : "dd MMM yy h:mm"}}
+                        </td>
+                        <td data-title="'End Time'">
+                            {{peak.endtime |  date : "dd MMM yy h:mm"}}
+                        </td>
+                        <td data-title="'Peak Duration (In Minutes)'">
+                            {{(peak.peekduration).toFixed(2)}}
+                        </td>
+                     <!--   <td data-title="'Total Duration'">
+                            {{peak.timeduration}}
+                        </td>-->
+                        <td data-title="'Docking Hub'">
+                            {{peak.stationid.name}}
                         </td>
                     </tr>
                 </table>

@@ -9,6 +9,10 @@
                     ng-click="cancelUpdateMember();">
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
+            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                    ng-click="sendOtp()" ng-if="DocumentType === 'Passport' || DocumentType === 'Drivers license' || DocumentType === 'Other'" ng-disabled="isDisabled">
+                <i class="zmdi zmdi-save"></i> Send OTP
+            </button>
           <!--  <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
                     ng-if="member.documents.length && member.status == 0"
                     ng-click="verifyDocument()">
@@ -48,16 +52,21 @@
                 <i class="zmdi zmdi-card-membership"></i> Suspend
             </button>
 
-            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+            <!--<button type="button" class="btn btn-icon-text btn-success waves-effect"
                     ng-click="addMember()" ng-if="member.status == 0 && member.cardNumber">
                 <i class="zmdi zmdi-save"></i> Save
-            </button>
+            </button>-->
 
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-if="member.status !== 0 && login_role !== 'Mysoreone-employee'"
+                   ng-click="addMember()" ng-disabled="!member.cardNumber">
+               <i class="zmdi zmdi-save"></i> Save & Update
+           </button>
+
+          <!--  <button type="button" class="btn btn-icon-text btn-success waves-effect"
                     ng-click="updateMember()" ng-disabled="MemberForm.$invalid && !member.documents.length">
                 <i class="zmdi zmdi-save"></i> Update
-            </button>
+            </button>-->
+            <!--ng-if="member.status !== 0 && login_role !== 'Mysoreone-employee'"-->
         </div>
     </div>
 
@@ -95,10 +104,11 @@
             <div class="pmo-block pmo-contact hidden-xs">
                 <h2>Contact</h2>
                 <ul>
-                    <li><i class="zmdi zmdi-phone"></i><a href="tel:+{{member.countryCode}}{{member.phoneNumber}}"
-                                                          class="text-muted">{{member.countryCode}}-{{member.phoneNumber}}</a>
+                    <li><i class="zmdi zmdi-phone"></i>
+                        {{member.phoneNumber}}
                     </li>
-                    <li><i class="zmdi zmdi-email"></i><a href="mailto:{{member.email}}" class="text-muted">{{member.email}}</a>
+                    <li><i class="zmdi zmdi-email"></i>
+                        {{member.email}}
                     </li>
                 </ul>
             </div>
@@ -512,7 +522,7 @@
                                             <div class="fg-line dp-inline-block width-43 m-r-20">
                                                 <select chosen name="countryCode" ng-model="member.countryCode"
                                                         data-placeholder-text-single="'Country Code'"
-                                                        class="form-control w-100">
+                                                        class="form-control w-100" ng-change="selectedCountryCode(member.countryCode)">
                                                     <option data-countryCode="IN" value="91">India (+91)</option>
                                                     <option data-countryCode="DZ" value="213">Algeria (+213)
                                                     </option>
@@ -1349,21 +1359,38 @@
                                                 tooltip-placement="left">
                                             <i class="zmdi zmdi-delete"></i></button>
                                     </div>
-                                    <dl class="dl-horizontal">
+
+                                    <dl class="dl-horizontal" ng-if="Country === 'India'">
                                         <dt class="p-t-10">Document Type</dt>
                                         <dd>
                                             <div class="fg-line">
                                                 <select chosen class="form-control" ng-model="document.documentType"
-                                                        data-placeholder-text-single="'Select Document Type'">
+                                                        data-placeholder-text-single="'Select Document Type'"  ng-change="selectedDocument(document)">
                                                     <option value="Aadhar">Aadhar</option>
                                                     <option value="Passport">Passport</option>
-                                                    <option value="Driver's license">Driver's License</option>
+                                                    <option value="Drivers license">Driver's License</option>
                                                     <option value="Other">Other</option>
+                                                    <option value="">Select Document</option>
                                                 </select>
                                             </div>
                                         </dd>
                                     </dl>
-                                    <dl class="dl-horizontal" ng-show="document.documentType == 'Other'">
+
+                                    <dl class="dl-horizontal required" ng-if="Country !='India'" >
+                                        <dt class="p-t-10">Document Type</dt>
+                                        <dd>
+                                            <div class="fg-line">
+                                                <select name="document" chosen class="form-control" ng-model="document.documentType"
+                                                        data-placeholder-text-single="'Select Document Type'"
+                                                        ng-change="selectedDocument(document)" required>
+                                                    <option value="Passport">Passport</option>
+                                                    <option value="">Select Document</option>
+                                                </select>
+                                            </div>
+                                        </dd>
+                                    </dl>
+
+                                   <!-- <dl class="dl-horizontal" ng-show="document.documentType == 'Other'">
                                         <dt class="p-t-10">Document Name</dt>
                                         <dd>
                                             <div class="fg-line"
@@ -1379,8 +1406,9 @@
                                             </span>
                                             </div>
                                         </dd>
-                                    </dl>
-                                    <dl class="dl-horizontal" ng-show="document.documentType">
+                                    </dl>-->
+
+                                    <!--<dl class="dl-horizontal" ng-show="document.documentType">
                                         <dt class="p-t-10">Document Number</dt>
                                         <dd>
                                             <div class="fg-line"
@@ -1396,7 +1424,44 @@
                                             </span>
                                             </div>
                                         </dd>
+                                    </dl>-->
+
+                                    <dl class="dl-horizontal required" ng-show="document.documentType" ng-if="DocumentType == 'Aadhar'">
+                                        <dt class="p-t-10">Document Number</dt>
+                                        <dd>
+                                            <div class="fg-line"
+                                                 ng-class="{ 'has-error': MemberForm.documentNumber.$touched && MemberForm.documentNumber.$invalid }">
+                                                <input type="text" name="documentNumber"
+                                                       ng-model="document.documentNumber"
+                                                       class="form-control"
+                                                       placeholder="eg. 87914578912" minlength="12"  maxlength="12" chars="numbers" required>
+                                                <span class="help-block"
+                                                      ng-messages="MemberForm.documentNumber.$error"
+                                                      ng-show="MemberForm.documentNumber.$touched">
+                                                <small ng-message="required">Document Number is required</small>
+                                            </span>
+                                            </div>
+                                        </dd>
                                     </dl>
+
+                                    <dl class="dl-horizontal required" ng-show="document.documentType" ng-if="DocumentType == 'Passport' || DocumentType == 'Drivers license' || DocumentType == 'Other'">
+                                        <dt class="p-t-10">Document Number</dt>
+                                        <dd>
+                                            <div class="fg-line"
+                                                 ng-class="{ 'has-error': MemberForm.documentNumber.$touched && MemberForm.documentNumber.$invalid }">
+                                                <input type="text" name="documentNumber"
+                                                       ng-model="document.documentNumber"
+                                                       class="form-control"
+                                                       placeholder="eg. AABPS8791R" maxlength="25" chars="only-letters" required>
+                                                <span class="help-block"
+                                                      ng-messages="MemberForm.documentNumber.$error"
+                                                      ng-show="MemberForm.documentNumber.$touched">
+                                                <small ng-message="required">Document Number is required</small>
+                                            </span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+
                                     <dl class="dl-horizontal" ng-show="document.documentType">
                                         <dt class="p-t-5">Upload Document Copy</dt>
                                         <dd>
@@ -1484,8 +1549,10 @@
                             </div>
                         </div>
                     </uib-tab>-->
+
                    <!-- <uib-tab heading="OTP" ng-if="otpverify === false && statusType===0">-->
-                   <!-- <uib-tab heading="OTP" ng-if="otpverify === false">
+                   <!-- <uib-tab heading="OTP" ng-if="otpverify === false">-->
+                    <uib-tab heading="OTP" ng-if="_Document_Type == 'Passport' || _Document_Type == 'Drivers license' || _Document_Type == 'Other'">
                         <div class="pmb-block">
                             <div class="pmbb-header">
                                 <h2><i class="zmdi zmdi-comment-text-alt"></i> OTP</h2>
@@ -1517,71 +1584,76 @@
                             </div>
                         </div>
                         </form>
-                    </uib-tab>-->
-                    <uib-tab heading="Membership Plan" ng-if="otpverify===true &&  statusType===0">
-                        <div class="pmb-block">
-                            <div class="pmbb-header">
-                                <h2><i class="zmdi zmdi-account m-r-5"></i> Membership Plans</h2>
-                            </div>
-                            <div class="pmbb-body p-l-30">
+                    </uib-tab>
 
-                                <dl class="dl-horizontal required">
-                                    <dt class="p-t-10 p-l-30">Plans</dt>
-                                    <dd>
-                                        <div class="fg-line">
-                                            <select chosen class="form-control"
-                                                    ng-options="membership as membership.subscriptionType for membership in memberships"
-                                                    ng-model="plan"
-                                                    ng-change="selectedMembershipPlan(plan)" required>
-                                            </select>
-                                        </div>
-                                    </dd>
-                                </dl>
+            <uib-tab heading="Membership Plan" ng-if="ShowMemberShipTab == true || otpverify == true">
+                <div class="pmb-block">
+                    <div class="pmbb-header">
+                        <h2><i class="zmdi zmdi-account m-r-5"></i> Membership Plans</h2>
+                    </div>
+                    <div class="pmbb-body p-l-30">
 
-                                <dl class="dl-horizontal required">
-                                    <dt class="p-t-10 p-l-30">Mode of Payments</dt>
-                                    <dd>
-                                        <div class="fg-line">
-                                            <select chosen class="form-control" ng-model="member.creditMode"
-                                                    data-placeholder-text-single="'Select Credit Type'"
-                                                    name="creditType" required>
-                                                <option value="Debit Card">Debit Card</option>
-                                                <option value="Credit Card">Credit Card</option>
-                                                <option value="Cash">Cash</option>
-                                            </select>
-                                        </div>
-                                    </dd>
-                                </dl>
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10 p-l-30">Plans</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control"
+                                            ng-options="membership as membership.subscriptionType for membership in memberships"
+                                            ng-model="plan"
+                                            ng-change="selecteMembership(plan)" required>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
 
-                                <dl class="dl-horizontal required">
-                                    <dt class="p-t-10 p-l-30">Transaction</dt>
-                                    <dd>
-                                        <div class="fg-line">
-                                            <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
-                                                   class="form-control"
-                                                   placeholder="eg. 65467476" chars="only-letters" required>
-                                        </div>
-                                    </dd>
-                                </dl>
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10 p-l-30">Mode of Payments</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select chosen class="form-control" ng-model="member.creditMode"
+                                            data-placeholder-text-single="'Select Credit Type'"
+                                            name="creditType" required>
+                                        <option value="Debit Card">Debit Card</option>
+                                        <option value="Credit Card">Credit Card</option>
+                                        <option value="Cash">Cash</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </dl>
 
-                                <dl class="dl-horizontal">
-                                    <dt class="p-l-30">Comments</dt>
-                                    <dd>
-                                        <div class="fg-line">
+                        <dl class="dl-horizontal required">
+                            <dt class="p-t-10 p-l-30">Transaction</dt>
+                            <dd>
+                                <div class="fg-line" ng-class="{ 'has-error': MemberForm.transactionNumber.$touched && MemberForm.transactionNumber.$invalid }">
+                                    <input type="text" name="transactionNumber" ng-model="member.transactionNumber"
+                                           class="form-control"
+                                           placeholder="eg. 65467476" chars="only-letters" required>
+                                    <span class="help-block" ng-messages="MemberForm.transactionNumber.$error"
+                                          ng-show="MemberForm.transactionNumber.$touched">
+                                                <small ng-message="required">Trasaction Number is required</small>
+                                            </span>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-l-30">Comments</dt>
+                            <dd>
+                                <div class="fg-line">
                                         <textarea name="comments"
                                                   ng-model="member.comments" class="form-control"
                                                   rows="4"
                                                   placeholder="Additional information about the transaction" chars="only-letters">
                                         </textarea>
-                                        </div>
-                                    </dd>
-                                </dl>
+                                </div>
+                            </dd>
+                        </dl>
 
-                            </div>
-                        </div>
-                    </uib-tab>
+                    </div>
+                </div>
+            </uib-tab>
 
-                    <uib-tab heading="Smart Cards" ng-if="member.membershipId && statusType===0">
+                    <uib-tab heading="Smart Cards" ng-if="member.membershipId && statusType == 0">
                         <div class="pmb-block">
                             <div class="pmbb-header">
                                 <h2><i class="zmdi zmdi-account m-r-5"></i> Smart Card</h2>

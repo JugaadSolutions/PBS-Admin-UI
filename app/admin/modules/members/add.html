@@ -16,9 +16,10 @@
                 <i class="zmdi zmdi-save"></i> Save
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="ProspectiveMember()" ng-if="DocumentType === 'Passport' || DocumentType === 'Drivers license' || DocumentType === 'Other'" ng-disabled="isDisabled">
+                    ng-click="ProspectiveMember()" ng-if="DocumentType === 'Passport' || DocumentType === 'Drivers license' || DocumentType === 'Other'">
                 <i class="zmdi zmdi-save"></i> Send OTP
             </button>
+            <!--ng-disabled="isDisabled"-->
         </div>
     </div>
 
@@ -357,7 +358,7 @@
                                     <dd>
                                         <div class="fg-line">
                                             <input type="email" name="emailAddress" ng-model="member.email"
-                                                   class="form-control" >
+                                                   class="form-control" placeholder="ashok@gmail.com" >
                                            <!-- <span class="help-block" ng-messages="MemberForm.emailAddress.$error"
                                                   ng-show="MemberForm.emailAddress.$touched">
                                                 <small ng-message="required">Email is required</small>
@@ -372,7 +373,6 @@
                                         <div class="form-inline">
                                             <div class="fg-line dp-inline-block width-43 m-r-20">
                                                 <select chosen name="countryCode" ng-model="member.countryCode"
-                                                        data-placeholder-text-single="'Country Code'"
                                                         class="form-control w-100" ng-change="selectedCountryCode(member.countryCode)">
                                                     <option data-countryCode="IN" value="91">India (+91)</option>
                                                     <option data-countryCode="DZ"  value="213">Algeria (+213)
@@ -1243,7 +1243,8 @@
                                             </div>
                                         </dd>
                                     </dl>
-                                    <dl class="dl-horizontal required" ng-show="document.documentType">
+
+                                    <!--<dl class="dl-horizontal required" ng-show="document.documentType">
                                         <dt class="p-t-10">Document Number</dt>
                                         <dd>
                                             <div class="fg-line"
@@ -1261,7 +1262,44 @@
                                             </span>
                                             </div>
                                         </dd>
+                                    </dl>-->
+
+                                    <dl class="dl-horizontal required" ng-show="document.documentType" ng-if="DocumentType == 'Aadhar'">
+                                        <dt class="p-t-10">Document Number</dt>
+                                        <dd>
+                                            <div class="fg-line"
+                                                 ng-class="{ 'has-error': MemberForm.documentNumber.$touched && MemberForm.documentNumber.$invalid }">
+                                                <input type="text" name="documentNumber"
+                                                       ng-model="document.documentNumber"
+                                                       class="form-control"
+                                                       placeholder="eg. 87914578912" minlength="12"  maxlength="12" chars="numbers" required>
+                                                <span class="help-block"
+                                                      ng-messages="MemberForm.documentNumber.$error"
+                                                      ng-show="MemberForm.documentNumber.$touched">
+                                                <small ng-message="required">Document Number is required</small>
+                                            </span>
+                                            </div>
+                                        </dd>
                                     </dl>
+
+                                    <dl class="dl-horizontal required" ng-show="document.documentType" ng-if="DocumentType == 'Passport' || DocumentType == 'Drivers license' || DocumentType == 'Other'">
+                                        <dt class="p-t-10">Document Number</dt>
+                                        <dd>
+                                            <div class="fg-line"
+                                                 ng-class="{ 'has-error': MemberForm.documentNumber.$touched && MemberForm.documentNumber.$invalid }">
+                                                <input type="text" name="documentNumber"
+                                                       ng-model="document.documentNumber"
+                                                       class="form-control"
+                                                       placeholder="eg. AABPS8791R" maxlength="25" chars="only-letters" required>
+                                                <span class="help-block"
+                                                      ng-messages="MemberForm.documentNumber.$error"
+                                                      ng-show="MemberForm.documentNumber.$touched">
+                                                <small ng-message="required">Document Number is required</small>
+                                            </span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+
                                     <dl class="dl-horizontal required" ng-show="document.documentType">
                                         <dt class="p-t-5">Upload Document Copy</dt>
                                         <dd>

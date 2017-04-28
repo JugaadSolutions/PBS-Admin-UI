@@ -55,7 +55,7 @@
                         <td data-title="'Date'">
                             {{avail.dateAndTime |  date : "dd MMM yy"}}
                         </td>
-                        <td data-title="'cycles available at 6 am/Total cycles as per the configuration'">
+                        <td data-title="'cycles available at 6 am/Total cycles as per the configuration ( In % )'">
                             {{((avail.cyclesInPort + avail.cyclesWithRv + avail.cyclesWithHa + avail.cyclesWithMembers)/(avail.requiredFleetSize)*100).toFixed(2) }}
                         </td>
                     </tr>
