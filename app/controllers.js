@@ -754,16 +754,16 @@
             });
         };
 
-
-
         DataService.getMember($stateParams.id, filters).then(function (response) {
             if (!response.error) {
                 $scope.member = response.data;
-                if($scope.documentCopy)
-                {
-                 $scope.documentCopy=$scope.member.documents[0].documentCopy;
-                 $scope.documentNumber=$scope.member.documents[0].documentNumber;
-                }
+               for(var i=0;i<response.data.documents.length;i++)
+               {
+                   $scope.DocumentType=response.data.documents[i].documentType;
+                   $scope.var2=response.data.documents[i].documentCopy;
+                   $scope.varm=response.data.documents[i].documentNumber;
+               }
+                $scope.Country = $scope.member.country;
                $scope.userid = $scope.member.UserID;
                  $scope.otpverify=$scope.member.otpVerified;
                 $scope.statusType=$scope.member.status;
@@ -883,8 +883,10 @@
                     $scope.member.phoneNumber=$scope.member.countryCode + '-' + $scope.member.phoneNumber;
                 }
             }
+            var _age=$scope.member.age;
             DataService.updateMember($scope.member).then(function (response) {
                 if (!response.error) {
+                    $scope.Country = response.data.country;
 /*                    if ($scope.member.membershipChanged) {
                         var membershipData = {
                             _id: $scope.member._id,
@@ -1072,8 +1074,8 @@
             $scope.DocumentType= data.documentType;
             if($scope.DocumentType === 'Aadhar')
             {
-                $scope.ShowMemberShipTab = true;
-                $scope.ShowOTPTab=false;
+                    $scope.ShowMemberShipTab = true;
+                    $scope.ShowOTPTab = false;
             }
             else if ($scope.DocumentType == 'Drivers license' &&  $scope.CountryCode == '91' && $scope.Country == 'India')  // send otp
             {
@@ -1099,14 +1101,18 @@
 
         };
 
-        $scope.addmember=function () {
+        $scope.Register = false;
+        $scope.addMember=function () {
             if($scope.member.phoneNumber != null || $scope.member.phoneNumber != '')
             {
-                $scope.member.phoneNumber = '91-' + $scope.member.phoneNumber;
-            }
-            else
-            {
-                $scope.member.phoneNumber = $scope.Country + $scope.member.phoneNumber
+                if($scope.member.countryCode == '91')
+                {
+                    $scope.member.phoneNumber = '91-' + $scope.member.phoneNumber;
+                }
+                else
+                {
+                    $scope.member.phoneNumber = $scope.countryCode + $scope.member.phoneNumber
+                }
             }
             DataService.saveMember($scope.member).then(function (response) {
                 if (!response.error) {
@@ -1120,17 +1126,17 @@
                     growl.error(response.description);
                 }
             }, function (response) {
-                growl.error(response.data.description);
-                if(response.data.data.UserId == undefined)
+                growl.error(error.data.description);
+                if(error.data.data.UserId == undefined)
                 {
-                    $scope.member.UserID=response.data.data.UserId;
+                    $scope.member.UserID=error.data.data.UserId;
                     $scope.member.countryCode = $scope.member.country;
                     var SplitNumbers = $scope.member.phoneNumber.split('-');
                     $scope.member.phoneNumber = SplitNumbers[1];
                 }
                 else
                 {
-                    $scope.member.UserID = response.data.data.UserId;
+                    $scope.member.UserID = error.data.data.UserId;
                     var SplitNumber = $scope.member.phoneNumber.split('-');
                     $scope.member.phoneNumber = SplitNumber[1];
                 }
@@ -1162,15 +1168,44 @@
             })
         };
 
-        $scope.isDisabled = false;
+        $scope.resendOtp={
+            UserID:'',
+            phoneNumber:''
+        }
 
+        /*Resend OTP*/
+        $scope.resendOTP=function () {
+            $scope.resendOtp.UserID=$scope.member.UserID;
+            $scope.resendOtp.phoneNumber=$scope.member.phoneNumber;
+            DataService.OtpResend($scope.resendOtp).then(function (response) {
+                if (!response.error) {
+                    growl.success("OTP request sent");
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.message);
+            });
+        };
+
+        $scope.isDisabled = false;
         $scope.sendOtp=function () {
+            if($scope.member.phoneNumber != null || $scope.member.phoneNumber != '')
+            {
+                if($scope.member.countryCode == '91')
+                {
+                    $scope.member.phoneNumber = '91-' + $scope.member.phoneNumber;
+                }
+                else
+                {
+                    $scope.member.phoneNumber = $scope.countryCode + $scope.member.phoneNumber
+                }
+            }
             DataService.saveProspectiveMember($scope.member).then(function (response) {
                 if (!response.error) {
                     $scope.ProsMember=[];
                     $scope.ProsMember = response.data;
-                    Userid = response.data.UserID;
-                    _User_ID = response.data.UserID;
+                    $scope.member.UserID=response.data.UserID;
                     var splitNumber= response.data.phoneNumber.split('-');
                     $scope.member.phoneNumber = splitNumber[1];
                     for(var i =0;i<response.data.documents.length;i++)
@@ -7326,6 +7361,17 @@
             stationState:0,
             duration:0
         };
+
+        function daysInMonth(month,year) {
+            return new Date(year, month, 0).getDate();
+        }
+
+    //July
+        daysInMonth(7,2009); //31
+        alert(daysInMonth(7,2009));
+//February
+        daysInMonth(2,2009); //28
+        daysInMonth(2,2008); //2
 
         $scope.Averagecycle=[];
 

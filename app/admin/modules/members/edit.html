@@ -58,15 +58,18 @@
             </button>-->
 
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                   ng-click="addMember()" ng-disabled="!member.cardNumber">
-               <i class="zmdi zmdi-save"></i> Save & Update
+                   ng-click="addMember()" ng-disabled="!member.cardNumber" ng-if="statusType == 0">
+               <i class="zmdi zmdi-save"></i> Register
            </button>
+            <!--ng-disabled="!member.cardNumber"-->
 
-          <!--  <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="updateMember()" ng-disabled="MemberForm.$invalid && !member.documents.length">
+            <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                    ng-click="updateMember()" ng-disabled="DocumentType" ng-if="!member.documentCopy && !member.membershipId">
                 <i class="zmdi zmdi-save"></i> Update
-            </button>-->
+            </button>
             <!--ng-if="member.status !== 0 && login_role !== 'Mysoreone-employee'"-->
+            <!--ng-disabled="MemberForm.$invalid && !member.documents.length"-->
+            <!--ng-show="!DocCopy && !MemberShipID"-->
         </div>
     </div>
 
@@ -256,14 +259,18 @@
                                     </dd>
                                 </dl>
 
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal required">
                                    <dt class="p-t-10">Age</dt>
                                    <dd>
                                        <div class="fg-line">
-                                           <input type="number" min="5" max="100" name="age" ng-model="member.age"
+                                           <input type="number" name="age" min="5" max="100" ng-model="member.age"
                                                   class="form-control"
-                                                  placeholder="eg. 32" maxlength="2" chars="numbers">
+                                                  placeholder="eg. 32" chars="numbers">
                                        </div>
+                                       <span class="help-block" ng-messages="MemberForm.age.$error"
+                                             ng-show="MemberForm.age.$touched">
+                                                <small ng-message="required">Age is required</small>
+                                            </span>
                                    </dd>
                                </dl>
 
@@ -1049,7 +1056,7 @@
                                         </div>
                                     </dd>
                                 </dl>
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal required">
                                     <dt class="p-t-10">Contact Number</dt>
                                     <dd>
                                         <div class="form-inline">
@@ -1586,7 +1593,8 @@
                         </form>
                     </uib-tab>
 
-            <uib-tab heading="Membership Plan" ng-if="ShowMemberShipTab == true || otpverify == true">
+            <!--<uib-tab heading="Membership Plan" ng-if="ShowMemberShipTab == true || otpverify == true">-->
+            <uib-tab heading="Membership Plan" ng-if="ShowMemberShipTab == true || otpverify == true && statusType == 0">
                 <div class="pmb-block">
                     <div class="pmbb-header">
                         <h2><i class="zmdi zmdi-account m-r-5"></i> Membership Plans</h2>

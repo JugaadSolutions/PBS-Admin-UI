@@ -109,11 +109,9 @@
                                         <td data-title="'Date'" filter="{ ticketdate: 'text'}">
                                             {{assigntome.ticketdate | date : "dd MMM yy"}}
                                         </td>
-                                        <td data-title="'From'" filter="{ name: 'text'}" ng-if="assigntome.user.Name != null">
-                                            {{assigntome.user.Name}}
-                                        </td>
-                                        <td data-title="'From'" filter="{ name: 'text'}" ng-if="assigntome.name != null">
-                                            {{assigntome.name}}
+                                        <td data-title="'From'" filter="{ name: 'text'}" >
+                                            <label ng-if="assigntome.user.Name != null">{{assigntome.user.Name}}</label>
+                                            <label  ng-if="assigntome.name != null"> {{assigntome.name}}</label>
                                         </td>
                                         <td data-title="'Ticket Subject'" filter="{ subject: 'text'}">
                                             <a ui-sref="admin.tickets.edit({id: assigntome._id})">{{assigntome.subject}}</a>

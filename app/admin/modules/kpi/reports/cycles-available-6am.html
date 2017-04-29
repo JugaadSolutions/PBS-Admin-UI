@@ -35,7 +35,33 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-3 m-b-20">
+                            <dt class="p-t-10">Month</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <select name="document" chosen class="form-control" ng-model="document.documentType"
+                                            data-placeholder-text-single="'Select Document Type'"
+                                            ng-change="selectedDocument(document)" required>
+                                        <option value="January">January</option>
+                                        <option value="February">February</option>
+                                        <option value="March">March</option>
+                                        <option value="Drivers license">April</option>
+                                        <option value="Drivers license">May</option>
+                                        <option value="Drivers license">June</option>
+                                        <option value="Drivers license">July</option>
+                                        <option value="Drivers license">August</option>
+                                        <option value="Drivers license">September</option>
+                                        <option value="Drivers license">October</option>
+                                        <option value="Drivers license">November</option>
+                                        <option value="Drivers license">December</option>
+                                    </select>
+                                </div>
+                            </dd>
+                        </div>
+
                     </div>
+
+
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
                             ng-click="CycleAvailableDetails()" ng-disabled="cycleFleet.$invalid">
                         <i class="zmdi zmdi-save"></i> Generate Report
