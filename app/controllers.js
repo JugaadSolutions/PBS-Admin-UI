@@ -7862,6 +7862,893 @@
         }
     }]);
 
+    var percentage_value_report=0;
+    var percentage_points_report=0;
+
+    var percentage_value_major_empty_report=0;
+    var percentage_points_total_major_empty_report=0;
+    var percentage_value_major_empty_offpeek_report=0;
+    var percentage_points_total_major_empty_offpeek_report=0;
+
+    var percentage_value_minor_empty_report=0;
+    var percentage_points_total_minor_empty_report=0;
+    var percentage_value_minor_empty_offpeek_report=0;
+    var percentage_points_total_minor_empty_offpeek_report=0;
+
+    //values
+   var smartcard_at_hub_value=0;
+   var smartcard_at_kiosks_value=0;
+    var average_cycle_per_day_value=0;
+    var majorEmptyPeekValue=0;
+    var majorEmptyOffPeekValue=0;
+    var minorEmptyPeekValue=0;
+    var minorEmptyOffPeekValue=0;
+    var EmptyFullValue=0;
+    var stationCleanValue = 0;
+    var cycleRepairValue=0;
+    var cycleFleetValue=0;
+    var websiteDowntimeValue=0;
+    var customerComplaintsValue=0;
+
+    // points
+    var All_Redistribution_Indicators_Points_report=0;
+    var majorEmptyPeekPoints=0;
+    var majorEmptyOffpeekPoints= 0;
+    var minorEmptyPeekPoints=0;
+    var monirEmptyOffpeekPoints=0;
+    var stationEmptyFull = 0;
+    var percentage_points_at_hub=0;
+    var smart_card_points_at_kisok=0;
+    var fleet_points_report=0;
+    var docking_hub_clean_report=0;
+    var average_cycle_per_day_report=0;
+    var website_down_time_report=0;
+    var customer_valid_complaints_report=0;
+    var cycle_repair_withinFourHours_report=0;
+    var Total_Points=0;
+
+    var _no_of_days_report;
+    var docking_station_count_report;
+
+    var kpi_from_date;
+    var kpi_to_date;
+    var kpi_points;
+    app.controller('KpiReports', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        /*alert(Number_of_DockingStations);*/
+
+        $scope.toDateKPI = new Date();
+
+        var CurrentDate = new Date();
+        //   alert(CurrentDate);
+        var test = CurrentDate.getMonth() + 1;
+        //   alert(test);
+        var demo = CurrentDate.getDate();
+        // alert(demo);
+
+        if(test == 10)
+        {
+            var aa= new Date(CurrentDate.setDate(CurrentDate.getDate() - demo));
+            $scope.fromDateKPI  = new Date(CurrentDate.setMonth(CurrentDate.getMonth()));
+        }
+
+        else if(test == 11)
+        {
+            var aa1= new Date(CurrentDate.setDate(CurrentDate.getDate() - demo));
+            $scope.fromDateKPI  = new Date(CurrentDate.setMonth(CurrentDate.getMonth() - 1));
+        }
+        else {
+            // var test2;
+            $scope.fromDateKPI   = new Date(CurrentDate.setMonth(CurrentDate.getMonth() - 2));
+            /*  alert($scope.fromDateKPI);*/
+        }
+
+
+        /*  $scope.kpiDetails={
+         fromDateKPI:'',
+         toDateKPI:''
+         };
+
+         $scope.sendKpiDetails = function () {
+         DataService.SendKPIDetails($scope.kpiDetails).then(function (response) {
+         if (!response.error) {
+         growl.success(response.message);
+         } else {
+         growl.error(response.message);
+         }
+         }, function (response) {
+         growl.error(response.data.description['0']);
+         })
+         };*/
+
+        $scope.press = function (size) {
+            $uibModal.open({
+                templateUrl: 'details.html',
+                controller: 'RVDetails',
+                size: size,
+                resolve: {
+                    items: function () {
+                        /*return $scope.member.debit;*/
+                    }
+                }
+            });
+        };
+
+
+
+        /*$scope.selectedPeriod=function (data) {
+         $scope.kpiPeriod=data;
+
+         if($scope.kpiPeriod == 0 )
+         {
+         $scope.New={
+         fromdate:'',
+         todate:new Date(),
+         stationState:0,
+         duration:0
+         };
+         }
+         };*/
+
+        $scope.details={
+            fromdate:'',
+            todate:'',
+            stationState:0,
+            duration:0
+        };
+
+        $scope.GetDetails = function ()
+        {
+            DataService.GetRVDetails($scope.details).then(function (response)
+            {
+                kpi_from_date = $scope.details.fromdate;
+                kpi_to_date = $scope.details.todate;
+
+                var one_day = 24*60*60*1000;
+
+                var _from_date = $scope.details.fromdate.getDate();
+                var _from_month = $scope.details.fromdate.getMonth();
+                var _from_year = $scope.details.fromdate.getFullYear();
+                var from_date=new Date(_from_year,_from_month,_from_date);
+
+                var _to_date =$scope.details.todate.getDate();
+                var _to_month =$scope.details.todate.getMonth();
+                var _to_year =$scope.details.todate.getFullYear();
+                var to_date=new Date(_to_year,_to_month,_to_date);
+
+                _no_of_days=Math.round(Math.abs((from_date.getTime()-to_date.getTime())/(one_day)))+1;
+                /*_no_of_days = (_to_date) - (_from_date) + 1 ;*/
+                /*var _working_hours = _no_of_days * 16 * 60 * Number_of_DockingStations;*/
+                var _working_hours = _no_of_days * 16 * 60 * 44;
+                var i=0;
+                var total=0;
+                var total_major_empty_peak=0;
+                var total_major_empty_offpeak=0;
+                var total_minor_empty_peak=0;
+                var total_minor_empty_offpeak=0;
+
+                for(var i = 0; i < response.data.length; i++)
+                {
+                    var total_duration = response.data[i].timeduration;
+                    var peakduration_empty = response.data[i].peekduration;
+                    var offpeakduration_empty = response.data[i].offpeekduration;
+                    var bicycle_clean=response.data[i].stationid.name;
+
+                    // calculation for stations neither empty nor full for more then 1 minute
+                    /*if(total_duration > 1)*/
+                    if(total_duration > 120)
+                    {
+                        total += total_duration;
+                    }
+
+                    // calculation for major stations empty during peak hour
+                    if(response.data[i].stationtype === "Major")
+                    {
+                        if(response.data[i].status===2)
+                        {
+                            total_major_empty_peak += peakduration_empty;
+                            total_major_empty_offpeak += offpeakduration_empty;
+                        }
+                    }
+
+                    // calculation for minor stations empty during peak and off peak hours
+                    if(response.data[i].stationtype === "Minor")
+                    {
+                        if(response.data[i].status===2)
+                        {
+                            total_minor_empty_peak += peakduration_empty;
+                            total_minor_empty_offpeak += offpeakduration_empty;
+                        }
+                    }
+                }
+
+                percentage_value_report =  ((_working_hours - total)/(_working_hours) * 100).toFixed(2);
+
+                percentage_value_major_empty_report =  ((total_major_empty_peak)/(_working_hours) * 100).toFixed(2);
+                percentage_value_major_empty_offpeek_report =  ((total_major_empty_offpeak)/(_working_hours) * 100).toFixed(2);
+
+                percentage_value_minor_empty_report=((total_minor_empty_peak)/(_working_hours) * 100).toFixed(2);
+                percentage_value_minor_empty_offpeek_report=((total_minor_empty_offpeak)/(_working_hours) * 100).toFixed(2);
+
+                // condition for neither empty nor full for a period of longer than 2 hours
+                if(percentage_value > 98)
+                {
+                    percentage_points_report=10;
+                }
+                else if (percentage_value_report >= 95 && percentage_value_report < 98)
+                {
+                    percentage_points_report=5;
+                }
+                else if(percentage_value_report >=90 && percentage_value_report <95)
+                {
+                    percentage_points_report=-5;
+                }
+                else if(percentage_value_report < 90)
+                {
+                    percentage_points_report=-10;
+                }
+                else
+                {
+                    percentage_value_report = 0;
+                    percentage_points_report =0;
+                }
+
+
+                // condition for major docking staions are empty during peak hours
+                if (percentage_value_major_empty_report < 3)
+                {
+                    percentage_points_total_major_empty_report = 10;
+                }
+                else if(percentage_value_major_empty_report >= 3 && percentage_value_major_empty_report <5)
+                {
+                    percentage_points_total_major_empty_report=5;
+                }
+                else if(percentage_value_major_empty_report >= 5 && percentage_value_major_empty_report <8)
+                {
+                    percentage_points_total_major_empty_report=-5;
+                }
+                else if(percentage_value_major_empty_report >= 8)
+                {
+                    percentage_points_total_major_empty_report=-10;
+                }
+                else
+                {
+                    percentage_value_major_empty_report = 0;
+                    percentage_points_total_major_empty_report = 0;
+                }
+
+                // condition for major docking staions are empty during off peak hours
+                if (percentage_value_major_empty_offpeek_report < 2)
+                {
+                    percentage_points_total_major_empty_offpeek_report = 10;
+                }
+                else if(percentage_value_major_empty_offpeek_report >= 2 && percentage_value_major_empty_offpeek_report <3)
+                {
+                    percentage_points_total_major_empty_offpeek_report=5;
+                }
+                else if(percentage_value_major_empty_offpeek_report >= 3 && percentage_value_major_empty_offpeek_report <5)
+                {
+                    percentage_points_total_major_empty_offpeek_report=-5;
+                }
+                else if(percentage_value_major_empty_offpeek_report >= 5)
+                {
+                    percentage_points_total_major_empty_offpeek_report=-10;
+                }
+                else
+                {
+                    percentage_value_major_empty_offpeek_report = 0;
+                    percentage_points_total_major_empty_offpeek_report = 0;
+                }
+
+                // condition for minor docking staions are empty during peak hours
+                if (percentage_value_minor_empty_report < 10)
+                {
+                    percentage_points_total_minor_empty_report = 10;
+                }
+                else if(percentage_value_minor_empty_report >= 10 && percentage_value_minor_empty_report <20)
+                {
+                    percentage_points_total_minor_empty_report=5;
+                }
+                else if(percentage_value_minor_empty_report >= 20 && percentage_value_minor_empty_report <25)
+                {
+                    percentage_points_total_minor_empty_report=-5;
+                }
+                else if(percentage_value_minor_empty_report >= 25)
+                {
+                    percentage_points_total_minor_empty_report=-10;
+                }
+                else
+                {
+                    percentage_value_minor_empty_report = 0;
+                    percentage_points_total_minor_empty_report = 0;
+                }
+
+                // condition for minor docking staions are empty during off peak hours
+                if (percentage_value_minor_empty_offpeek_report < 5)
+                {
+                    percentage_points_total_minor_empty_offpeek_report = 10;
+                }
+                else if(percentage_value_minor_empty_offpeek_report > 5 && percentage_value_minor_empty_offpeek_report <=8)
+                {
+                    percentage_points_total_minor_empty_offpeek_report=5;
+                }
+                else if(percentage_value_minor_empty_offpeek_report >8 && percentage_value_minor_empty_offpeek_report <=10)
+                {
+                    percentage_points_total_minor_empty_offpeek_report=-5;
+                }
+                else if(percentage_value_minor_empty_offpeek_report >= 10)
+                {
+                    percentage_points_total_minor_empty_offpeek_report=-10;
+                }
+                else
+                {
+                    percentage_value_minor_empty_offpeek_report = 0;
+                    percentage_points_total_minor_empty_offpeek_report = 0;
+                }
+
+
+                $scope.RVDetails={
+                    percentage:percentage_value_report + "%",
+                    points:percentage_points_report,
+                    percentage_total_major_empty:percentage_value_major_empty_report + "%",
+                    points_total_major_empty:percentage_points_total_major_empty_report,
+                    percentage_total_major_empty_offpeek:percentage_value_major_empty_offpeek_report + "%",
+                    points_total_major_empty_offpeek:percentage_points_total_major_empty_report,
+                    percentage_total_minor_empty:percentage_value_minor_empty_report + "%",
+                    points_total_minor_empty:percentage_points_total_minor_empty_report,
+                    percentage_total_minor_empty_offpeek:percentage_value_minor_empty_offpeek_report + "%",
+                    points_total_minor_empty_offpeek:percentage_points_total_minor_empty_offpeek_report
+                };
+
+                majorEmptyPeekValue=percentage_value_major_empty_report;
+                majorEmptyPeekPoints=percentage_points_total_major_empty_report;
+
+                majorEmptyOffPeekValue = percentage_value_major_empty_offpeek_report;
+                majorEmptyOffpeekPoints= percentage_points_total_major_empty_report;
+
+                minorEmptyPeekValue = percentage_value_minor_empty_report;
+                 minorEmptyPeekPoints=percentage_points_total_minor_empty_report;
+
+                minorEmptyOffPeekValue = percentage_value_minor_empty_offpeek_report;
+                monirEmptyOffpeekPoints=percentage_points_total_minor_empty_offpeek_report;
+
+                EmptyFullValue = percentage_value_report;
+                stationEmptyFull = percentage_points_report;
+
+                All_Redistribution_Indicators_Points_report = percentage_points_report + percentage_points_total_major_empty_report + percentage_points_total_major_empty_report +
+                    percentage_points_total_minor_empty_report + percentage_points_total_minor_empty_offpeek_report;
+
+                 Total_Points = ((All_Redistribution_Indicators_Points_report) +(percentage_points_at_hub)  + (smart_card_points_at_kisok) + (fleet_points_report) +
+                (docking_hub_clean_report) + (average_cycle_per_day_report) + (website_down_time_report) + (customer_valid_complaints_report) +
+                (cycle_repair_withinFourHours_report));
+
+                kpi_points = Total_Points;
+
+                $scope.Total_Points = Total_Points;
+                if (!response.error) {
+                    growl.success(response.message);
+
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+
+
+            // Smart card performance at the dock (taking out a cycle from docking station
+            var percentage_data;
+            var percentage_points;
+            DataService.GetKPISmartCardReport($scope.details).then(function (response)
+            {
+                percentage_data = response.data;
+
+                if(percentage_data > 99)
+                {
+                    percentage_points= 10;
+                }
+                else if(percentage_data <99)
+                {
+                    percentage_points=-10;
+                }
+                /* else if (percentage_data == null || percentage_data == NaN)
+                 {
+                 percentage_data = 0;
+                 percentage_points = 0;
+                 }*/
+                else
+                {
+                    percentage_data = 0;
+                    percentage_points = 0;
+                }
+
+                $scope.SmartCardInfo={
+                    value:percentage_data + "%",
+                    points:percentage_points
+                };
+
+                  smartcard_at_hub_value = percentage_data;
+                percentage_points_at_hub = percentage_points;
+
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+
+
+            // smart card at kiosks
+            var _smart_card_kiosk_data;
+            var _smart_card_kiosk_points;
+            DataService.GetSmartCardAtKiosks($scope.details).then(function (response)
+            {
+                _smart_card_kiosk_data = response.data;
+
+                if(_smart_card_kiosk_data > 99)
+                {
+                    _smart_card_kiosk_points=10;
+                }
+                else if(_smart_card_kiosk_data < 99)
+                {
+                    _smart_card_kiosk_points = -10;
+                }
+                else
+                {
+                    _smart_card_kiosk_data = 0;
+                    _smart_card_kiosk_points = 0;
+                }
+
+                $scope.SmartCardKiosk={
+                    kiosk_value:_smart_card_kiosk_data + "%",
+                    kiosk_point:_smart_card_kiosk_points
+                };
+
+                smartcard_at_kiosks_value = _smart_card_kiosk_data;
+                smart_card_points_at_kisok = _smart_card_kiosk_points;
+
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+            // get bicycle fleet @ 6 am
+            var percentage_data;
+            var percentage_points;
+            var fleet_percentage;
+            var fleet_points;
+            DataService.GetBicycleDetailsAtFleet($scope.details).then(function (response)
+            {
+                var port_with_cycle = 0;
+                var cycles_with_rv =0;
+                var cycles_with_ha=0;
+                var cycles_with_member=0;
+                var fleet_size=0;
+                for(var i = 0; i < response.data.length; i++)
+                {
+                    var _cycle_in_port_count = response.data[i].cyclesInPort;
+                    var _cycle_with_rv = response.data[i].cyclesWithRv;
+                    var _cycle_with_Ha = response.data[i].cyclesWithHa;
+                    var _cycle_with_member=response.data[i].cyclesWithMembers;
+                    var _fleet_size = response.data[i].requiredFleetSize;
+
+                    port_with_cycle += _cycle_in_port_count;
+                    cycles_with_rv +=_cycle_with_rv;
+                    cycles_with_ha += _cycle_with_Ha;
+                    cycles_with_member += _cycle_with_member;
+                    fleet_size += _fleet_size;
+                }
+
+                fleet_percentage = ((port_with_cycle + cycles_with_rv + cycles_with_ha + cycles_with_member)/(fleet_size) * 100).toFixed(2);
+
+                if(fleet_percentage > 95 && fleet_percentage <= 98)
+                {
+                    fleet_points = 5;
+                }
+                else if(fleet_percentage > 98)
+                {
+                    fleet_points = 10;
+                }
+
+                else if(fleet_percentage > 90 && fleet_percentage <= 95)
+                {
+                    fleet_points = -5;
+                }
+
+                else if(fleet_percentage < 90)
+                {
+                    fleet_points = -10;
+                }
+                else
+                {
+                    fleet_percentage = 0;
+                    fleet_points = 0;
+                }
+
+                $scope.bicycleFleet={
+                    bicycleFleetValue:fleet_percentage + "%",
+                    bicycleFleetPoints:fleet_points
+                };
+
+                cycleFleetValue=fleet_percentage;
+                fleet_points_report = fleet_points;
+
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+            // get docking station clean details
+            var _docking_station_clean_count;
+            var clean_percentage_value;
+            var clean_percentage_points;
+            DataService.GetDockingStationKPIDetails($scope.details).then(function (response)
+            {
+                _docking_station_clean_count = response.data.length;
+
+                /*clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * Number_of_DockingStations) * 100).toFixed(2);*/
+                clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * 44) * 100).toFixed(2);
+
+                if(clean_percentage_value >= 1)
+                {
+                    clean_percentage_points = 10;
+                }
+                else if (clean_percentage_value >= 2)
+                {
+                    clean_percentage_points =5;
+                }
+                else if (clean_percentage_value >= 4)
+                {
+                    clean_percentage_points =-5;
+                }
+                else if (clean_percentage_value > 5)
+                {
+                    clean_percentage_points =-10;
+                }
+                else
+                {
+                    clean_percentage_value = 0;
+                    clean_percentage_points = 0;
+                }
+
+                $scope.KPIStationClean={
+                    CleanValue:clean_percentage_value + "%",
+                    CleanPoints:clean_percentage_points
+                };
+
+                stationCleanValue = clean_percentage_value;
+                docking_hub_clean_report = clean_percentage_points;
+
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+            // get average cycle use per cycle per day
+            var _No_of_trips;
+            var _No_of_cycles_required;
+            var total_trips=0;
+            var total_cycles=0;
+            var trip_percentage;
+            var trip_points;
+            DataService.GetCycleUsagePerDay($scope.details).then(function (response)
+            {
+                for(var i=0;i<response.data.length;i++)
+                {
+                    _No_of_trips = response.data[i].noOfTrips;
+                    _No_of_cycles_required = response.data[i].requiredNoOfCycles;
+
+                    total_trips += _No_of_trips;
+                    total_cycles += _No_of_cycles_required;
+                }
+
+                trip_percentage = ((total_trips/total_cycles)*100).toFixed(2);
+
+                if(trip_percentage >= 3)
+                {
+                    trip_points = 10;
+                }
+                else if(trip_percentage < 3)
+                {
+                    trip_points = -10;
+                }
+                else
+                {
+                    trip_percentage = 0;
+                    trip_points = 0;
+                }
+
+
+                $scope.CycleTrips={
+                    trip_value:trip_percentage + "%",
+                    trip_points:trip_points
+                }
+
+                average_cycle_per_day_value = trip_percentage;
+                average_cycle_per_day_report = trip_points;
+
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+
+            // Website Downtime
+            var _duration=0;
+            var final_value = 0;
+            var downtime_points;
+            DataService.GetWebsiteDownTimeDetails($scope.details).then(function (response)
+            {
+                for(var i=0;i<response.data.length;i++)
+                {
+                    _duration += response.data[i].duration;
+                }
+
+                final_value = 100 - ( _duration * 100) / (_no_of_days * 24* 60)
+
+                if(final_value > 98)
+                {
+                    downtime_points = 10;
+                }
+                else if(final_value > 95 && final_value <= 98)
+                {
+                    downtime_points = 5;
+                }
+                else if(final_value > 90 && final_value <= 95)
+                {
+                    downtime_points = -5;
+                }
+                else if(final_value <= 90 )
+                {
+                    downtime_points = -10;
+                }
+                else
+                {
+                    final_value = 0;
+                    downtime_points = 0;
+                }
+
+
+                $scope.WebsiteDownTime={
+                    downTime_value:final_value + "%",
+                    downTime_points:downtime_points
+                }
+
+                websiteDowntimeValue = final_value;
+                website_down_time_report = downtime_points;
+
+                if (!response.error)
+                {
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+
+
+            // customer complaints
+            var _total_complaints=0;
+            var _total_complaint_points;
+            $scope.CustomerComplaints = [];
+            DataService.getTickets().then(function (response)
+            {
+                if (!response.error)
+                {
+                    /* var _complaintType=0;*/
+                    var _count=0;
+                    $scope.CustomerComplaints = response.data;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        var _complaintType = response.data[i].complaintType;
+                        var _channel= response.data[i].channel;
+                        if(_channel == 1)
+                        {
+                            if(_complaintType == 2)
+                            {
+                                _total_complaints ++;
+                            }
+                        }
+                    }
+
+                    if(_total_complaints < 5)
+                    {
+                        _total_complaint_points = 10;
+                    }
+                    else if(_total_complaints >5 && _total_complaints <= 10)
+                    {
+                        _total_complaint_points = 5;
+                    }
+                    else if(_total_complaints>10 && _total_complaints<=15)
+                    {
+                        _total_complaint_points = -5;
+                    }
+                    else if(_total_complaints > 15)
+                    {
+                        _total_complaint_points = -10;
+                    }
+                    else
+                    {
+                        _total_complaints = 0;
+                        _total_complaint_points = 0;
+                    }
+                    $scope.CustomerComplaints={
+                        complaints:_total_complaints,
+                        points:_total_complaint_points
+                    };
+
+                    customerComplaintsValue = _total_complaints;
+                    customer_valid_complaints_report = _total_complaint_points;
+
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+
+            // cycle repaired within the duration of 4 hours
+            var cycle_repaired_value;
+            var cycle_repaired_ponits;
+            $scope.CycleRepair = [];
+            DataService.getTickets().then(function (response)
+            {
+                if (!response.error)
+                {
+                    var _cycle_repaire_count=0;
+                    var _cycle_repaire_value=0;
+                    var _cycle_repaire_points;
+                    var _closed_duration = 0;
+                    $scope.CycleRepair = response.data;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        var _complaintType = response.data[i].tickettype;
+                        var _status = response.data[i].status;
+                        var _duration = response.data[i].closedDuration;
+                        if(_complaintType == 'Cycle Repaire')
+                        {
+                            _cycle_repaire_count ++;
+
+                            if(_status == 'close')
+                            {
+                                _closed_duration += _duration;
+                            }
+                        }
+                    }
+                    /* alert(_cycle_repaire_count);*/
+                    if(_closed_duration <240)
+                    {
+                        _cycle_repaire_value = (_closed_duration/_cycle_repaire_count)*100;
+                    }
+                    else
+                    {
+                        _cycle_repaire_value = 0;
+                        _cycle_repaire_points = 0;
+                    }
+
+                    if(_cycle_repaire_value > 98)
+                    {
+                        _cycle_repaire_points = 10;
+                    }
+                    else if(_cycle_repaire_value >95 && _cycle_repaire_value <= 98)
+                    {
+                        _cycle_repaire_points = 5;
+                    }
+                    else if(_cycle_repaire_value < 95 && _cycle_repaire_value >= 90)
+                    {
+                        _cycle_repaire_points = -5;
+                    }
+                    else if(_cycle_repaire_value <= 90)
+                    {
+                        _cycle_repaire_points = -10;
+                    }
+                    else
+                    {
+                        _cycle_repaire_value = 0;
+                        _cycle_repaire_points = 0;
+                    }
+                    $scope.CycleRepair={
+                        repaire:_cycle_repaire_value,
+                        points:_cycle_repaire_points
+                    };
+
+                        cycle_repair_withinFourHours_report = _cycle_repaire_points;
+
+                    growl.success(response.message);
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description);*/
+            });
+        }
+    }]);
+
+    app.controller('KpiReportPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+
+        $scope.KpiReportPrintDetails={
+            fromdate:kpi_from_date,
+            todate:kpi_to_date,
+            points:kpi_points,
+            complaints_value:customerComplaintsValue,
+            complaints:customer_valid_complaints_report,
+            websiteDownTimevalue: websiteDowntimeValue,
+            websiteDowntime:website_down_time_report,
+            smartcardAtHubValue:smartcard_at_hub_value,
+            smartcardAtHub:percentage_points_at_hub,
+            smartcardAtKioskValue:smartcard_at_kiosks_value,
+            smartcardAtKiosks:smart_card_points_at_kisok,
+            stationCleanvalue:stationCleanValue,
+            stationClean:docking_hub_clean_report,
+            cycleRepairvalue:cycleRepairValue,
+            cycleRepair:cycle_repair_withinFourHours_report,
+            cycleAt6amValue:cycleFleetValue,
+            cycleAt6am:fleet_points_report,
+            majorpeek_value:majorEmptyPeekValue,
+            majorpeak:majorEmptyPeekPoints,
+            majoroffpeek_value:majorEmptyOffPeekValue,
+            majoroffpeak:majorEmptyOffpeekPoints,
+            minorpeek_value:minorEmptyPeekValue,
+            minorpeak:minorEmptyPeekPoints,
+            minoroffpeek_value:minorEmptyOffPeekValue,
+            minoroffpeak:monirEmptyOffpeekPoints,
+            emptyfullValue:EmptyFullValue,
+            emptyfull:stationEmptyFull,
+            cyclePerDayValue:average_cycle_per_day_value,
+            cyclePerDay:average_cycle_per_day_report
+        };
+
+        $scope.myFun = function ()
+        {
+            window.print();
+        };
+
+    }]);
+
 
 
     app.controller('ManageSmartCards', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {

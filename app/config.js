@@ -883,6 +883,20 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.reports.kpi-reports", {
+                url: "/kpi-reports",
+                templateUrl: adminViewPath + 'reports/kpi-reports.html',
+                controller: 'KpiReports',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.reports.kpi-report-print", {
+                url: "/kpi-report-print",
+                templateUrl: adminViewPath + 'reports/kpi-report-print.html',
+                controller: 'KpiReportPrint',
+                containerClass: 'sw-toggled'
+            })
+
             // website downtime
             .state("admin.website-downtime", {
                 url: "/website-downtime",

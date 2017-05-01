@@ -1,0 +1,198 @@
+<style>
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+    th, td {
+        border: none;
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even){background-color: #f2f2f2}
+</style>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header ch-alt text-center">
+            <img src="assets/images/trintrin.jpg" class="i-logo"/>
+            <h3><b>Trin Trin</b></h3>
+            <h2>Mysuru</h2>
+        </div>
+        <br>
+        <div class="card-header ch-alt text-center">
+            <h2><b>Key Performance Indicatior Report</b></h2>
+        </div>
+        <br>
+        <form class="pmbb-edit" name="TotalCashReport"  novalidate>
+            <div class="card-header ch-alt text-center">
+                &nbsp;&nbsp;<label>From &nbsp;:</label> <span ng-bind="KpiReportPrintDetails.fromdate | date : 'dd MMM yy '"></span>&nbsp;&nbsp;-&nbsp;&nbsp;
+                <label>To&nbsp;:</label> <span ng-bind="KpiReportPrintDetails.todate | date : 'dd MMM yy '"></span>&nbsp; | &nbsp;
+                 | &nbsp;<label>Points&nbsp;:</label> <span ng-bind="KpiReportPrintDetails.points"></span>
+            </div>
+        </form>
+    </div>
+
+    <div style="text-align: center">
+    <h4><b>Customer Service Indicatior</b></h4>
+    </div>
+    <br>
+
+    <div>
+        <table class="table" >
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Points</th>
+            </tr>
+            <tr>
+            <td><b>No. of valid customer complaints (received via website)</b></td>
+                <td><b>{{KpiReportPrintDetails.complaints_value}}</b></td>
+            <td><b>{{KpiReportPrintDetails.complaints}}</b></td>
+            </tr>
+            <tr>
+            <td><b>Percent of time website is online / working per month</b></td>
+            <td><b>{{KpiReportPrintDetails.websiteDownTimevalue}}</b></td>
+            <td><b>{{KpiReportPrintDetails.websiteDowntime}}</b></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+
+
+    <div style="text-align: center">
+        <h4><b>IT System Indicators</b></h4>
+    </div>
+    <br>
+
+    <div>
+        <table class="table" >
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Points</th>
+            </tr>
+            <tr>
+                <td><b>Smart card performance at the dock (taking out a cycle from docking station)</b></td>
+                <td><b>{{KpiReportPrintDetails.smartcardAtHubValue}}</b></td>
+                <td><b>{{KpiReportPrintDetails.smartcardAtHub}}</b></td>
+            </tr>
+            <tr>
+                <td><b>Smart Card performance at kiosks.</b></td>
+                <td><b>{{KpiReportPrintDetails.smartcardAtKioskValue}}</b></td>
+                <td><b>{{KpiReportPrintDetails.smartcardAtKiosks}}</b></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+
+
+    <div style="text-align: center">
+        <h4><b>Maintenence Indicators</b></h4>
+    </div>
+    <br>
+
+    <div>
+        <table class="table" >
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Points</th>
+            </tr>
+            <tr>
+                <td><b>Bicycle station is cleaned once</b></td>
+                <td><b>{{KpiReportPrintDetails.stationCleanvalue}}</b></td>
+                <td><b>{{KpiReportPrintDetails.stationClean}}</b></td>
+            </tr>
+            <tr>
+                <td><b>Percentage of cycle repaired within 4 hours of being flagged for repair by a customer</b></td>
+                <td><b>{{KpiReportPrintDetails.cycleRepairvalue}}</b></td>
+                <td><b>{{KpiReportPrintDetails.cycleRepair}}</b></td>
+            </tr>
+            <tr>
+                <td><b>Minimum percentage of total cycle fleet available at 6a.m </b></td>
+                <td><b>{{KpiReportPrintDetails.cycleAt6amValue}}</b></td>
+                <td><b>{{KpiReportPrintDetails.cycleAt6am}}</b></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+<br>
+    <div style="text-align: center">
+        <h4><b>Redistribution Indicators</b></h4>
+    </div>
+<br>
+
+    <div>
+        <table class="table" >
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Points</th>
+            </tr>
+            <tr>
+                <td><b>Percentage of time that major docking station are empty during peak hour (8a.m-11a.m & 4p.m-7p.m)</b></td>
+                <td><b>{{KpiReportPrintDetails.majorpeek_value}}</b></td>
+                <td><b>{{KpiReportPrintDetails.majorpeak}}</b></td>
+            </tr>
+            <tr>
+                <td><b>Percentage of time that major docking station are empty during off-peak hour</b></td>
+                <td><b>{{KpiReportPrintDetails.majoroffpeek_value}}</b></td>
+                <td><b>{{KpiReportPrintDetails.majoroffpeak}}</b></td>
+            </tr>
+            <tr>
+                <td><b>Percentage of time that minor docking station are empty during peak hour (8a.m-11a.m and 4p.m-7p.m)</b></td>
+                <td><b>{{KpiReportPrintDetails.minorpeek_value}}</b></td>
+                <td><b>{{KpiReportPrintDetails.minorpeak}}</b></td>
+            </tr>
+            <tr>
+                <td><b>Percentage of time minor docking stations are empty during off peak hours</b></td>
+                <td><b>{{KpiReportPrintDetails.minoroffpeek_value}}</b></td>
+                <td><b>{{KpiReportPrintDetails.minoroffpeak}}</b></td>
+            </tr>
+            <tr>
+                <td><b>Stations are neither full nor empty for a period of longer than two hours </b></td>
+                <td><b>{{KpiReportPrintDetails.emptyfullValue}}</b></td>
+                <td><b>{{KpiReportPrintDetails.emptyfull}}</b></td>
+            </tr>
+        </table>
+    </div>
+<br>
+
+    <div style="text-align: center">
+        <h4><b>Cycle Usage</b></h4>
+    </div>
+    <br>
+
+    <div>
+        <table class="table" >
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Points</th>
+                </tr>
+            <tr>
+                <td><b>Average cycle use per cycle /day1(1st & 2nd Year) </b></td>
+                <td><b>{{KpiReportPrintDetails.cyclePerDayValue}}</b></td>
+                <td><b>{{KpiReportPrintDetails.cyclePerDay}}</b></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+
+</div>
+
+<button  class="btn btn-float bgm-red m-btn" ng-click="myFun()"><i class="zmdi zmdi-print"></i></button>
+
+
+
+
