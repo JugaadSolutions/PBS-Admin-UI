@@ -6366,7 +6366,15 @@
                     var total_duration = response.data[i].timeduration;
                     var peakduration_empty = response.data[i].peekduration;
                     var offpeakduration_empty = response.data[i].offpeekduration;
-                    var bicycle_clean=response.data[i].stationid.name;
+                    //var bicycle_clean=response.data[i].stationid.name;
+                    if(response.data[i].stationid == null)
+                    {
+                        var bicycle_clean = "";
+                    }
+                    else
+                    {
+                        var bicycle_clean=response.data[i].stationid.name;
+                    }
 
                     // calculation for stations neither empty nor full for more then 1 minute
                     /*if(total_duration > 1)*/
@@ -7785,6 +7793,7 @@
                 if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
                     {
+
                      $scope.DSEmptyFull.push(response.data[i])
                     }
                     growl.success(response.message);
@@ -8032,7 +8041,14 @@
                     var total_duration = response.data[i].timeduration;
                     var peakduration_empty = response.data[i].peekduration;
                     var offpeakduration_empty = response.data[i].offpeekduration;
-                    var bicycle_clean=response.data[i].stationid.name;
+                    if(response.data[i].stationid == null)
+                    {
+                        var bicycle_clean = "";
+                    }
+                    else
+                    {
+                        var bicycle_clean=response.data[i].stationid.name;
+                    }
 
                     // calculation for stations neither empty nor full for more then 1 minute
                     /*if(total_duration > 1)*/
@@ -8071,7 +8087,7 @@
                 percentage_value_minor_empty_offpeek_report=((total_minor_empty_offpeak)/(_working_hours) * 100).toFixed(2);
 
                 // condition for neither empty nor full for a period of longer than 2 hours
-                if(percentage_value > 98)
+                if(percentage_value_report > 98)
                 {
                     percentage_points_report=10;
                 }
@@ -10049,12 +10065,13 @@ var _station_id;
 
                 $scope.dayClosureDetails={
                     dateTime:response.data.dateTime,
-                    bankdeposit:response.data.bankdeposit,
+                    bankDeposits:response.data.bankDeposits,
                     cashcollected:response.data.cashcollected,
                     openingBalance:response.data.openingBalance,
                     refunds:response.data.refunds,
                     closingBalance:response.data.closingBalance,
-                    createdBy:$scope.loginid
+                    createdBy:$scope.loginid,
+                    depositStatus:response.data.depositStatus
                 };
 
                 $scope.VerifyClosureDetails=function () {

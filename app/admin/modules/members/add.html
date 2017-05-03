@@ -12,9 +12,10 @@
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="addMember()" ng-disabled="!member.cardNumber">
+                    ng-click="addMember()" ng-disabled="MemberForm.$invalid">
                 <i class="zmdi zmdi-save"></i> Save
             </button>
+            <!--ng-disabled="!member.cardNumber"-->
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
                     ng-click="ProspectiveMember()" ng-if="DocumentType === 'Passport' || DocumentType === 'Drivers license' || DocumentType === 'Other'">
                 <i class="zmdi zmdi-save"></i> Send OTP
@@ -745,7 +746,7 @@
                                                     </option>
                                                     <option data-countryCode="AR" value="54">Argentina (+54)
                                                     </option>
-                                                    <option data-countryCode="" value="">Select Country Code
+                                                    <option value="">Select Country Code
                                                     </option>
                                                 </select>
                                                 </span>
