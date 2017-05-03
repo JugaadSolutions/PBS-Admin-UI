@@ -348,9 +348,9 @@
             getAll:'kpi/kioskreport'
         },
 
-        kpiCycleRepaired:{
+      /*  kpiCycleRepaired:{
             getAll:'kpi/kioskreport'
-        },
+        },*/
 
         kpiWebsiteDownTime:
             {
@@ -359,7 +359,20 @@
 
         websiteDownTime:{
            save:'kpi/webinfo',
+
         },
+
+        kpivalidtickets:{
+            getAll:'kpi/ticketsinfo'
+        },
+
+        kpiwebsiteDownTime:{
+            getAll:'kpi/webinfo/details'
+        },
+
+       /* kpiCycleRepaired:{
+            getAll:'tickets'
+        },*/
 
         smartCard: {
             getAll: 'card',

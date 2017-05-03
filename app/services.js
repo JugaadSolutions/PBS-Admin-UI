@@ -1388,6 +1388,40 @@
                 return deferred.promise;
             },
 
+            getValidTickets:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.kpivalidtickets.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+            getCycleRepairedWithinFourHours:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.kpivalidtickets.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+
+
+            getWebsiteDownTime:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.kpiwebsiteDownTime.getAll,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
+                });
+                return deferred.promise;
+            },
+
+
+
             saveTicketDetails:function(data)
             {
                 var deferred = $q.defer();

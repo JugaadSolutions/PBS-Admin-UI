@@ -127,9 +127,9 @@
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.cycles-available-6am')}"
                                ui-sref="admin.kpi.reports.cycles-available-6am">Cycle Available at 6 am</a>
                         </li>
-                        <li><a ng-class="{'active': $state.includes('admin.kpi.reports.docking-station-clean')}"
+                       <!-- <li><a ng-class="{'active': $state.includes('admin.kpi.reports.docking-station-clean')}"
                                ui-sref="admin.kpi.reports.docking-station-clean">Bicycle station is cleaned once</a>
-                        </li>
+                        </li>-->
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.smart-card-at-hub')}"
                                ui-sref="admin.kpi.reports.smart-card-at-hub">Smart card performance at the hub</a>
                         </li>
@@ -149,10 +149,16 @@
                                ui-sref="admin.kpi.reports.empty-minor-ds-offpeek-hours">Minor DS Empty in Off Peek hours</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.stations-full-or-empty-more-than-two-hours')}"
-                               ui-sref="admin.kpi.reports.stations-full-or-empty-more-than-two-hours">Hubs Neither Full Nor Empty </a>
+                               ui-sref="admin.kpi.reports.stations-full-or-empty-more-than-two-hours">Hubs Full or Empty more then 2 hrs</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.number-of-valid-complaints')}"
-                               ui-sref="admin.kpi.reports.number-of-valid-complaints">Number Of Valid Complaints</a>
+                               ui-sref="admin.kpi.reports.number-of-valid-complaints">Valid Complaints</a>
+                        </li>
+                        <li><a ng-class="{'active': $state.includes('admin.kpi.reports.bicycle-repair-within-4hrs')}"
+                               ui-sref="admin.kpi.reports.bicycle-repair-within-4hrs">Bicycle Repair Report</a>
+                        </li>
+                        <li><a ng-class="{'active': $state.includes('admin.kpi.reports.website-downtime')}"
+                               ui-sref="admin.kpi.reports.website-downtime">Website DownTime</a>
                         </li>
                     </ul>
                 </li>

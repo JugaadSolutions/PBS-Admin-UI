@@ -1,21 +1,21 @@
 <div class="container">
     <div class="card">
         <div class="card-header ch-alt m-b-20">
-            <h2>Valid Complaints From Website</h2>
+            <h2>Bicycle Repaire Report</h2>
             <br>
-            <form class="pmbb-edit" name="ValidComplaints" novalidate>
+            <form class="pmbb-edit" name="BicycleRepair" novalidate>
 
                 <div class="card-body card-padding">
                     <div class="row">
                         <div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
-                                 ng-class="{ 'has-error': ValidComplaints.fromDate.$touched && ValidComplaints.fromDate.$invalid }" >
+                                 ng-class="{ 'has-error': BicycleRepair.fromDate.$touched && BicycleRepair.fromDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
                                 <input type="text" name="fromDate" ng-model="details.fromdate" ng-change="fromdate" ng-focus="fromDate=true" ng-click="fromDate=true"
                                        uib-datepicker-popup="dd/MM/yyyy" is-open="fromDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"
-                                      ng-messages="ValidComplaints.fromDate.$error"
-                                      ng-show="ValidComplaints.fromDate.$touched">
+                                      ng-messages="BicycleRepair.fromDate.$error"
+                                      ng-show="BicycleRepair.fromDate.$touched">
                                                 <small ng-message="required">From Date is required</small>
                                             </span>
                             </div>
@@ -23,13 +23,13 @@
 
                         <div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
-                                 ng-class="{ 'has-error': ValidComplaints.toDate.$touched && ValidComplaints.toDate.$invalid }" >
+                                 ng-class="{ 'has-error': BicycleRepair.toDate.$touched && BicycleRepair.toDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
                                 <input type="text" name="toDate" ng-model="details.todate" ng-change="todate" ng-focus="toDate=true" ng-click="toDate=true"
                                        uib-datepicker-popup="dd/MM/yyyy" is-open="toDate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"
-                                      ng-messages="ValidComplaints.toDate.$error"
-                                      ng-show="ValidComplaints.toDate.$touched">
+                                      ng-messages="BicycleRepair.toDate.$error"
+                                      ng-show="BicycleRepair.toDate.$touched">
                                                 <small ng-message="required">To Date is required</small>
                                             </span>
                             </div>
@@ -37,7 +37,7 @@
 
                     </div>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="GetDetails()" ng-disabled="ValidComplaints.$invalid">
+                            ng-click="GetDetails()" ng-disabled="BicycleRepair.$invalid">
                         <i class="zmdi zmdi-save"></i> Generate Report
                     </button>
                     <!--  <button type="button" class="btn btn-icon-text btn-success waves-effect"
@@ -50,19 +50,19 @@
         </div>
         <div class="card-body">
             <div class="table-responsive" >
-                <table ng-table="ValidComplaintsTable" class="table table-striped table-vmiddle" show-filter="false">
-                    <tr ng-repeat="complaints in $data">
+                <table ng-table="BicycleRepairTable" class="table table-striped table-vmiddle" show-filter="false">
+                    <tr ng-repeat="repair in BicycleRepair">
                         <td data-title="'Date'">
-                            {{complaints.ticketdate | date: "dd MMM yy"}}
-                        </td>
-                        <td data-title="'Complaints'">
-                            {{complaints.subject}}
+                            {{repair.ticketdate | date: "dd MMM yy"}}
                         </td>
                         <td data-title="'Status'">
-                            {{complaints.status}}
+                            {{repair.status}}
                         </td>
-                        <td data-title="'Type'">
-                            {{complaints.tickettype}}
+                        <td data-title="'Duration'">
+                            {{(repair.closedDuration).toFixed(2)}}
+                        </td>
+                        <td data-title="'Ticket ID'">
+                            UT{{repair.uuId}}
                         </td>
                     </tr>
                 </table>

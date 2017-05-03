@@ -883,6 +883,20 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.kpi.reports.bicycle-repair-within-4hrs", {
+                url: "/bicycle-repair-within-4hrs",
+                templateUrl: adminViewPath + 'kpi/reports/bicycle-repair-within-4hrs.html',
+                controller: 'BicycleRepairWithinFourHours',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.kpi.reports.website-downtime", {
+                url: "/website-downtime",
+                templateUrl: adminViewPath + 'kpi/reports/website-downtime.html',
+                controller: 'SLAWebsiteDownTime',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.reports.kpi-reports", {
                 url: "/kpi-reports",
                 templateUrl: adminViewPath + 'reports/kpi-reports.html',

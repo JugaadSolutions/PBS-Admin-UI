@@ -7376,7 +7376,7 @@
 
     //July
         daysInMonth(7,2009); //31
-        alert(daysInMonth(7,2009));
+        /*alert(daysInMonth(7,2009));*/
 //February
         daysInMonth(2,2009); //28
         daysInMonth(2,2008); //2
@@ -7824,36 +7824,35 @@
         $scope.details={
             fromdate:'',
             todate:'',
-            stationState:0,
-            duration:0
+            complaintType:2
         };
 
-        $scope.ValidComplaints = [];
-
-        $scope.GetDetails=function () {
-            DataService.getTickets($scope.details).then(function (response)
+        $scope.GetDetails = function ()
+        {
+            DataService.getValidTickets($scope.details).then(function (response)
             {
-                if (!response.error)
-                {
+                $scope.ValidComplaints = [];
+                if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
                     {
-                       /* var _complaintType = response.data[i].complaintType;
-                        var _channel= response.data[i].channel;*/
+                        var _complaint_type = response.data[i].complaintType;
+                        var _channel = response.data[i].channel;
+                        var _status = response.data[i].status;
                         if(_channel == 1)
                         {
+                            if(_complaint_type == 2)
+                            {
                             $scope.ValidComplaints.push(response.data[i]);
+                            }
                         }
                     }
-
-
-                }
-                else
-                {
+                    growl.success(response.message);
+                } else {
                     growl.error(response.message);
                 }
             }, function (response) {
-                /*growl.error(response.data.description);*/
-            });
+                growl.error(response.data.description['0']);
+            })
 
             $scope.ValidComplaintsTable = new NgTableParams(
                 {
@@ -7867,8 +7866,100 @@
                     }
                 }
             );
-
         }
+
+    }]);
+
+    app.controller('BicycleRepairWithinFourHours', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.details={
+            fromdate:'',
+            todate:'',
+            complaintType:2
+        };
+
+        $scope.GetDetails = function ()
+        {
+            // Bicycle repair with in 4 hours
+            DataService.getCycleRepairedWithinFourHours($scope.details).then(function (response)
+            {
+                $scope.BicycleRepair = [];
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        var _status = response.data[i].status;
+                        var _duration = response.data[i].closedDuration;
+                                if(_status == 'Close')
+                                {
+                                   /* if(_duration < 0)
+                                    {*/
+                                        $scope.BicycleRepair.push(response.data[i]);
+                                    /*}*/
+                                }
+                    }
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+
+            $scope.BicycleRepairTable = new NgTableParams(
+                {
+                    count: 10
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.BicycleRepair, params.filter()) : $scope.BicycleRepair;
+                        params.total(orderedData.length);
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
+        }
+
+    }]);
+
+    app.controller('SLAWebsiteDownTime', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.details={
+            fromdate:'',
+            todate:'',
+        };
+
+        $scope.GetDetails = function ()
+        {
+            DataService.getWebsiteDownTime($scope.details).then(function (response)
+            {
+                $scope.WesiteDownTime = [];
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                     $scope.WesiteDownTime.push(response.data[i]);
+                    }
+                    growl.success(response.message);
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+
+            $scope.WesiteDownTimeTable = new NgTableParams(
+                {
+                    count: 10
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.WesiteDownTime, params.filter()) : $scope.WesiteDownTime;
+                        params.total(orderedData.length);
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
+        }
+
     }]);
 
     var percentage_value_report=0;
