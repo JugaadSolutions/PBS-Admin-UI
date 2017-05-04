@@ -9,7 +9,7 @@
 
            <div class="card-body card-padding">
                <div class="row">
-                   <div class="col-sm-3 m-b-20">
+                   <div class="col-sm-2 m-b-10">
                        <div class="form-group fg-line"
                             ng-class="{ 'has-error': CashForm.joiningDate1.$touched && CashForm.joiningDate1.$invalid }" >
                            <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
@@ -23,7 +23,7 @@
                        </div>
                    </div>
 
-                   <div class="col-sm-3 m-b-20">
+                   <div class="col-sm-2 m-b-10">
                        <div class="form-group fg-line"
                             ng-class="{ 'has-error': CashForm.joiningDate2.$touched && CashForm.joiningDate2.$invalid }" >
                            <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
@@ -37,25 +37,56 @@
                        </div>
                    </div>
 
+                   <div class="col-sm-1 m-b-10">
+                           <label>OR</label>
+                   </div>
 
-                       <div class="col-sm-3 m-b-20">
-                           <div class="form-group fg-line">
-                               <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Registration Centres</label>
-                               <select chosen class="form-control"
-                                       ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
-                                       ng-model="RegistrationCenter.location"
-                                       ng-change="selectedRegistrationCenters(RegistrationCenter.location)">
-                                   <option value="">All</option>
-                               </select>
-                           </div>
+                   <div class="col-sm-2 m-b-10">
+                       <div class="form-group fg-line">
+                           <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Month</label>
+                           <select name="document" chosen class="form-control" ng-model="cashCollection.month"
+                                   data-placeholder-text-single="'Select Document Type'">
+                               <option value="1">January</option>
+                               <option value="2">Feb</option>
+                               <option value="3">March</option>
+                               <option value="">Select Document</option>
+                           </select>
                        </div>
+                   </div>
+
+                   <div class="col-sm-2 m-b-10">
+                       <div class="form-group fg-line">
+                           <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Year</label>
+                           <select name="document" chosen class="form-control" ng-model="cashCollection.year"
+                                   data-placeholder-text-single="'Select Document Type'">
+                               <option value="2016">2016</option>
+                               <option value="2017">2017</option>
+                               <option value="">Select Document</option>
+                           </select>
+                       </div>
+                   </div>
+
+                   <div class="col-sm-2 m-b-15">
+                       <div class="form-group fg-line">
+                         &nbsp;<label>Registration Centres</label>
+                           <select chosen class="form-control"
+                                   ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
+                                   ng-model="RegistrationCenter.location"
+                                   ng-change="selectedRegistrationCenters(RegistrationCenter.location)">
+                               <option value="">All</option>
+                           </select>
+                       </div>
+                   </div>
+
+
 
 
                </div>
                <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                       ng-click="sendDetails()" ng-disabled="CashForm.$invalid">
+                       ng-click="sendDetails()">
                    <i class="zmdi zmdi-save"></i> Generate Report
                </button>
+               <!--ng-disabled="CashForm.$invalid"-->
                <button type="button" class="btn btn-icon-text btn-success waves-effect"
                        ng-disabled="CashForm.$invalid" >
                    <i class="zmdi zmdi-eye"></i>
@@ -69,7 +100,7 @@
 
             <div class="table-responsive"  ng-if="TableWithRegistration == true" >
                 <table ng-table="cashCollectionTable" class="table table-striped table-vmiddle" show-filter="true">
-                    <tr ng-repeat="cash in $data">
+                    <tr ng-repeat="cash in CashCollection">
                         <td data-title="'Date'"  filter="{ dateTime: 'text'}">
                             {{cash.date | date : "dd MMM yy"}}
                         </td>

@@ -81,9 +81,6 @@
             <div class="table-responsive" >
                 <table id="export_table" ng-table="daywiseTable" class="table table-striped table-vmiddle" show-filter="false">
                     <tr ng-repeat="daywises in $data">
-                        <td>
-                            <img ng-src="{{member.profilePicUrl}}" style="width: 40px;" class="img-rounded">
-                        </td>
                         <td data-title="'Date'" filter="{ creditBalance: 'text'}">
                             {{daywises.createdAt |  date : "dd MMM yy"}}
                         </td>

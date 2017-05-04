@@ -72,7 +72,7 @@
             }
             else
             {
-            /*  password = md5.createHash(password || '');*/
+              /*password = md5.createHash(password || '');*/
                 user.login(username, password)
                     .then(handleRequest, handleRequest);
                 $state.reload();

@@ -6869,8 +6869,9 @@
             // customer complaints
             var _total_complaints=0;
             var _total_complaint_points;
+            $scope.details.complaintType=2;
             $scope.CustomerComplaints = [];
-            DataService.getTickets().then(function (response)
+            DataService.getTickets($scope.details).then(function (response)
             {
                 if (!response.error)
                 {
@@ -7824,15 +7825,41 @@
         $scope.details={
             fromdate:'',
             todate:'',
-            complaintType:2
+            complaintType:2,
+          /*  month:'',
+            year:''*/
         };
 
         $scope.GetDetails = function ()
         {
+
+           /* var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
+            var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+
+            if($scope.details.fromdate == '' || $scope.details.fromdate == null && $scope.details.todate == '' || $scope.details.todate == null)
+            {
+                $scope.details =
+                    {
+                        fromdate:_fromdate,
+                        todate:_todate,
+                        complaintType:2
+                    };
+            }
+            else if ($scope.details.month == '' || $scope.details.month == null && $scope.details.year == '' || $scope.details.year == null)
+            {
+                $scope.details =
+                    {
+                        fromdate:$scope.details.fromdate,
+                        todate:$scope.details.todate,
+                        complaintType:2
+                    };
+            }*/
+
             DataService.getValidTickets($scope.details).then(function (response)
             {
                 $scope.ValidComplaints = [];
-                if (!response.error) {
+                if (!response.error)
+                {
                     for(var i=0;i<response.data.length;i++)
                     {
                         var _complaint_type = response.data[i].complaintType;
@@ -7847,6 +7874,8 @@
                         }
                     }
                     growl.success(response.message);
+                  /*  $scope.details.fromdate = '';
+                    $scope.details.todate = '';*/
                 } else {
                     growl.error(response.message);
                 }
@@ -8676,7 +8705,7 @@
             var _total_complaints=0;
             var _total_complaint_points;
             $scope.CustomerComplaints = [];
-            DataService.getTickets().then(function (response)
+            DataService.getTickets($scope.details).then(function (response)
             {
                 if (!response.error)
                 {
@@ -9304,14 +9333,41 @@
         $scope.cashCollection={
             fromdate:'',
             todate:'',
-            location:''
+            location:'',
+            month:'',
+            year:''
         };
-
 
             $scope.TableWithRegistration = false;
             $scope.TableWithOutRegistration = false;
 
             $scope.sendDetails = function () {
+
+                var firstDay = new Date($scope.cashCollection.year,$scope.cashCollection.month - 1, 1);
+                var fromdate = firstDay;
+                var lastDay = new Date( $scope.cashCollection.year,$scope.cashCollection.month, 1);
+                var todate = lastDay;
+
+
+                if($scope.cashCollection.fromdate == '' || $scope.cashCollection.fromdate == null && $scope.cashCollection.todate == '' || $scope.cashCollection.todate == null)
+                {
+                   var _fromdate= fromdate;
+                    var _todate = todate;
+                    var _location = $scope.cashCollection.location ;
+                }
+                else if($scope.cashCollection.month == '' || $scope.cashCollection.month == null && $scope.cashCollection.year == '' || $scope.cashCollection.year == null)
+                {
+                    var _fromdate= $scope.cashCollection.fromdate;
+                    var _todate = $scope.cashCollection.todate;
+                    var _location = $scope.cashCollection.location ;
+                }
+
+
+                $scope.cashCollection={
+                    fromdate:_fromdate,
+                    todate:_todate,
+                    location:_location,
+                };
 
                 if ($scope.cashCollection.location == "" ||$scope.cashCollection.location == null || $scope.cashCollection.location == 'All')
                 {
@@ -9334,6 +9390,8 @@
                                     }
                                 }
                             );
+                           /* $scope.cashCollection.fromdate = '';
+                            $scope.cashCollection.todate='';*/
                             growl.success(response.message);
                         } else {
                             growl.error(response.message);
@@ -9423,19 +9481,18 @@
             DataService.SendDaywiseCashCollectionDetails($scope.daywiseCollection).then(function (response) {
                 if (!response.error)
                 {
-                    growl.success(response.message);
-                     _daywise_fromDate=$scope.daywiseCollection.fromdate;
-                     _daywise_toDate=$scope.daywiseCollection.todate;
-                     _location=$scope.daywiseCollection.location;
-                    _transaction_type=$scope.daywiseCollection.transactionType;
+                _daywise_fromDate=$scope.daywiseCollection.fromdate;
+                _daywise_toDate=$scope.daywiseCollection.todate;
+                _location=$scope.daywiseCollection.location;
+                _transaction_type=$scope.daywiseCollection.transactionType;
 
-                    $scope.daywises = response.data;
+                 $scope.daywises = response.data;
 
-                    DayWise=response.data;
+                 DayWise=response.data;
 
-                    $scope.daywiseTable = new NgTableParams(
+                  $scope.daywiseTable = new NgTableParams(
                         {
-                            count: 10
+                            count: 20
                         },
                         {
                             getData: function ($defer, params) {
@@ -9480,6 +9537,41 @@
         };
 
         $scope.message = "";
+
+    }]);
+
+    // daywise-collection summary report print
+    app.controller('DaywsieCollectionSummaryReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.daywiseCollectionSummaryInput=
+            {
+                DayWisefromdate:_daywise_fromDate,
+                DayWisetodate:_daywise_toDate,
+                DayWiselocation:_location,
+                DayWiseTransactionType:_transaction_type
+            };
+
+        $scope.DayWiseSummaryPrint=[];
+        $scope.DayWiseSummaryPrint=DayWise;
+
+        $scope.DayWiseCollectionSummaryPrintTable = new NgTableParams(
+            {
+                count: 5000,
+                noPager: true
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.DayWiseSummaryPrint, params.filter()) : $scope.DayWiseSummaryPrint;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+        $scope.myFun = function ()
+        {
+            window.print();
+        };
 
     }]);
 
@@ -9628,40 +9720,7 @@
     }]);
 
 
-    // daywise-collection summary report print
-    app.controller('DaywsieCollectionSummaryReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
-    {
-        $scope.daywiseCollectionSummaryInput=
-            {
-                DayWisefromdate:_daywise_fromDate,
-                DayWisetodate:_daywise_toDate,
-                DayWiselocation:_location,
-                DayWiseTransactionType:_transaction_type
-            };
 
-        $scope.DayWiseSummaryPrint=[];
-        $scope.DayWiseSummaryPrint=DayWise;
-
-        $scope.DayWiseCollectionSummaryPrintTable = new NgTableParams(
-            {
-                count: 500,
-                noPager: true
-            },
-            {
-                getData: function ($defer, params) {
-                    var orderedData = params.filter() ? $filter('filter')($scope.DayWiseSummaryPrint, params.filter()) : $scope.DayWiseSummaryPrint;
-                    /*params.total(orderedData.length);*/
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                }
-            }
-        );
-
-        $scope.myFun = function ()
-        {
-            window.print();
-        };
-
-    }]);
 
     app.controller('CashCollectionSummaryPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {

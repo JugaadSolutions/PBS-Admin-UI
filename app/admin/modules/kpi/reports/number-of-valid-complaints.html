@@ -35,9 +35,48 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-1 m-b-10">
+                            <label>OR</label>
+                        </div>
+
+                        <div class="col-sm-2 m-b-10">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Month</label>
+                                <select name="month" chosen class="form-control" ng-model="details.month"
+                                        data-placeholder-text-single="'Select Document Type'" required>
+                                    <option value="1">January</option>
+                                    <option value="2">Feb</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                    <option value="">Select Month</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2 m-b-10">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Year</label>
+                                <select name="year" chosen class="form-control" ng-model="details.year"
+                                        data-placeholder-text-single="'Select Document Type'" required>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2017">2018</option>
+                                    <option value="">Select Year</option>
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="GetDetails()" ng-disabled="ValidComplaints.$invalid">
+                            ng-click="GetDetails()">
                         <i class="zmdi zmdi-save"></i> Generate Report
                     </button>
                     <!--  <button type="button" class="btn btn-icon-text btn-success waves-effect"
@@ -51,7 +90,7 @@
         <div class="card-body">
             <div class="table-responsive" >
                 <table ng-table="ValidComplaintsTable" class="table table-striped table-vmiddle" show-filter="false">
-                    <tr ng-repeat="complaints in $data">
+                    <tr ng-repeat="complaints in ValidComplaints">
                         <td data-title="'Date'">
                             {{complaints.ticketdate | date: "dd MMM yy"}}
                         </td>
