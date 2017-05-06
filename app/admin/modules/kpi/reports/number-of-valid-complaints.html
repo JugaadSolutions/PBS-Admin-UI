@@ -7,7 +7,8 @@
 
                 <div class="card-body card-padding">
                     <div class="row">
-                        <div class="col-sm-3 m-b-20">
+
+                       <!-- <div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
                                  ng-class="{ 'has-error': ValidComplaints.fromDate.$touched && ValidComplaints.fromDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
@@ -19,9 +20,9 @@
                                                 <small ng-message="required">From Date is required</small>
                                             </span>
                             </div>
-                        </div>
+                        </div>-->
 
-                        <div class="col-sm-3 m-b-20">
+                        <!--<div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
                                  ng-class="{ 'has-error': ValidComplaints.toDate.$touched && ValidComplaints.toDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
@@ -33,11 +34,11 @@
                                                 <small ng-message="required">To Date is required</small>
                                             </span>
                             </div>
-                        </div>
+                        </div>-->
 
-                        <div class="col-sm-1 m-b-10">
+                      <!--  <div class="col-sm-1 m-b-10">
                             <label>OR</label>
-                        </div>
+                        </div>-->
 
                         <div class="col-sm-2 m-b-10">
                             <div class="form-group fg-line">
@@ -68,7 +69,6 @@
                                         data-placeholder-text-single="'Select Document Type'" required>
                                     <option value="2016">2016</option>
                                     <option value="2017">2017</option>
-                                    <option value="2017">2018</option>
                                     <option value="">Select Year</option>
                                 </select>
                             </div>
@@ -76,9 +76,15 @@
 
                     </div>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="GetDetails()">
+                            ng-click="GetDetails()" ng-disabled="ValidComplaints.$invalid">
                         <i class="zmdi zmdi-save"></i> Generate Report
                     </button>
+
+                    <br>
+                    <br>
+                    <div ng-if="SelectedMonth && SelectedYear">
+                        <b><span>Selected Month : {{SelectedMonth}}</span></b> &nbsp; | &nbsp;<b><span>Selected Year : {{SelectedYear}}</span></b>
+                    </div>
                     <!--  <button type="button" class="btn btn-icon-text btn-success waves-effect"
                               ng-disabled="DaywiseCashForm.$invalid" >
                           <i class="zmdi zmdi-eye"></i>

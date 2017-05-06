@@ -27,7 +27,16 @@
         <br>
         <form class="pmbb-edit" name="TotalCashReport"  novalidate>
             <div class="card-header ch-alt text-center">
-                &nbsp;&nbsp;<label>From &nbsp;:</label> <span ng-bind="daywiseCollectionSummaryInput.DayWisefromdate | date : 'dd MMM yy '"></span>&nbsp;&nbsp;-&nbsp;&nbsp;<label>To&nbsp;:</label> <span ng-bind="daywiseCollectionSummaryInput.DayWisetodate | date : 'dd MMM yy '"></span>&nbsp; | &nbsp;<label>Registration Centre&nbsp;:</label> <span ng-bind="daywiseCollectionSummaryInput.DayWiselocation"></span>&nbsp; | &nbsp;<label>Transaction Type&nbsp;:</label> <span ng-bind="daywiseCollectionSummaryInput.DayWiseTransactionType"></span>
+                &nbsp;&nbsp;<label>From &nbsp;:</label>
+                <span ng-bind="daywiseCollectionSummaryInput.DayWisefromdate | date : 'dd MMM yy '"></span>&nbsp;&nbsp;-&nbsp;
+                &nbsp;<label>To&nbsp;:</label>
+                <span ng-bind="daywiseCollectionSummaryInput.DayWisetodate | date : 'dd MMM yy '"></span>&nbsp; | &nbsp;
+                <label>Registration Centre&nbsp;:</label>
+                <span ng-if="daywiseCollectionSummaryInput.DayWiselocation == '' || daywiseCollectionSummaryInput.DayWiselocation == null || daywiseCollectionSummaryInput.DayWiselocation == undefined">All</span>&nbsp;
+                <span ng-if="daywiseCollectionSummaryInput.DayWiselocation != ''">{{daywiseCollectionSummaryInput.DayWiselocation}}</span>&nbsp; |
+                &nbsp;<label>Transaction Type&nbsp;:</label>
+                <span ng-if="daywiseCollectionSummaryInput.DayWiseTransactionType == '' || daywiseCollectionSummaryInput.DayWiseTransactionType == null || daywiseCollectionSummaryInput.DayWiseTransactionType == undefined">All</span>&nbsp;
+                <span ng-if="daywiseCollectionSummaryInput.DayWiselocation != ''">{{daywiseCollectionSummaryInput.DayWiseTransactionType}}</span>&nbsp;
             </div>
             <br>
             <div style="text-align: center">

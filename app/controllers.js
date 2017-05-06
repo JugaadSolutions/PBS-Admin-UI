@@ -6559,7 +6559,7 @@
             var percentage_points;
             DataService.GetKPISmartCardReport($scope.details).then(function (response)
             {
-                percentage_data = response.data;
+                percentage_data = response.data.total;
 
                 if(percentage_data > 99)
                 {
@@ -6603,7 +6603,7 @@
             var _smart_card_kiosk_points;
             DataService.GetSmartCardAtKiosks($scope.details).then(function (response)
             {
-                _smart_card_kiosk_data = response.data;
+                _smart_card_kiosk_data = response.data.total;
 
                 if(_smart_card_kiosk_data > 99)
                 {
@@ -7365,32 +7365,40 @@
     app.controller('KpiReportAverageCyclePerDay', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.AverageCycle={
-            fromdate:'',
-            todate:'',
+           /* fromdate:'',
+            todate:'',*/
+           month:'',
+            year:'',
             stationState:0,
             duration:0
         };
 
-        function daysInMonth(month,year) {
-            return new Date(year, month, 0).getDate();
-        }
-
-    //July
-        daysInMonth(7,2009); //31
-        /*alert(daysInMonth(7,2009));*/
-//February
-        daysInMonth(2,2009); //28
-        daysInMonth(2,2008); //2
-
-        $scope.Averagecycle=[];
-
         // get average cycle use per cycle per day
-        $scope.AverageCycleDetails=function () {
+        $scope.AverageCycleDetails=function ()
+        {
+            var _fromdate = new Date($scope.AverageCycle.year,($scope.AverageCycle.month - 1), 1);
+            var _todate = new Date($scope.AverageCycle.year,$scope.AverageCycle.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.AverageCycle.year;
+
+            $scope.Averagecycle=[];
+
+            $scope.AverageCycle.fromdate = _fromdate;
+            $scope.AverageCycle.todate = _todate;
+
             DataService.GetCycleUsagePerDay($scope.AverageCycle).then(function (response)
             {
                 if (!response.error)
                 {
-                    $scope.Averagecycle = response.data;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.Averagecycle.push(response.data[i]);
+                    }
 
                     $scope.AverageCycleTable = new NgTableParams(
                         {
@@ -7404,8 +7412,9 @@
                             }
                         }
                     );
-
-                    growl.success(response.message);
+                  /*  growl.success(response.message);*/
+                    $scope.AverageCycle.month = '';
+                    $scope.AverageCycle.year='';
                 }
                 else
                 {
@@ -7420,21 +7429,40 @@
     app.controller('KpiReportCycleAvailableAt6am', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.CycleAvailable={
-            fromdate:'',
-            todate:'',
+           /* fromdate:'',
+            todate:'',*/
+            month:'',
+            year:'',
             stationState:0,
             duration:0
         };
 
-        $scope.CyclesAvailable=[];
-        
-        $scope.CycleAvailableDetails=function () {
+        $scope.CycleAvailableDetails=function ()
+        {
+
+            var _fromdate = new Date($scope.CycleAvailable.year,$scope.CycleAvailable.month - 1, 1);
+            var _todate = new Date( $scope.CycleAvailable.year,$scope.CycleAvailable.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.CycleAvailable.year;
+
+            $scope.CycleAvailable.fromdate = _fromdate;
+            $scope.CycleAvailable.todate = _todate;
             // get bicycle fleet @ 6 am
             DataService.GetBicycleDetailsAtFleet($scope.CycleAvailable).then(function (response)
             {
                 if (!response.error)
                 {
-                    $scope.CyclesAvailable = response.data;
+                    $scope.CyclesAvailable=[];
+
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.CyclesAvailable.push(response.data[i]);
+                    }
 
                     $scope.CycleAvailableTable = new NgTableParams(
                         {
@@ -7448,7 +7476,9 @@
                             }
                         }
                     );
-                    growl.success(response.message);
+                    /*growl.success(response.message);*/
+                    $scope.CycleAvailable.month='';
+                    $scope.CycleAvailable.year='';
                 }
                 else
                 {
@@ -7508,20 +7538,40 @@
     app.controller('KpiReportSmartCardAtHub', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
-            fromdate:'',
-            todate:'',
+          /*  fromdate:'',
+            todate:'',*/
+            month:'',
+            year:'',
             stationState:0,
             duration:0
         };
         $scope.smartCardAtHub =function ()
         {
+            var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
+            var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.details.year;
+
+            $scope.details.fromdate = _fromdate;
+            $scope.details.todate = _todate;
+
             DataService.GetKPISmartCardReport($scope.details).then(function (response)
             {
                 if (!response.error)
                 {
                     $scope.SmartCardAtHub=[];
 
-                        $scope.SmartCardAtHub=response.data
+                        $scope.Value=response.data.total;
+
+                        for(var i=0;i<response.data.checkouts.length;i++)
+                        {
+                            $scope.SmartCardAtHub.push(response.data.checkouts[i]);
+                        }
 
                     $scope.SmartCardAtHubTable = new NgTableParams(
                         {
@@ -7535,7 +7585,8 @@
                             }
                         }
                     );
-
+                    $scope.details.month ='';
+                    $scope.details.year='';
                 }
                 else
                 {
@@ -7552,22 +7603,43 @@
     app.controller('KpiReportSmartCardAtKiosks', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.SmartCardKiosksDetails={
-            fromdate:'',
-            todate:'',
+           /* fromdate:'',
+            todate:'',*/
+           month:'',
+            year:'',
             stationState:0,
             duration:0
         };
 
-        $scope.cardKiosks={};
+        $scope.smartCardKiosks=function ()
+        {
+            var _fromdate = new Date($scope.SmartCardKiosksDetails.year,$scope.SmartCardKiosksDetails.month - 1, 1);
+            var _todate = new Date( $scope.SmartCardKiosksDetails.year,$scope.SmartCardKiosksDetails.month, 1);
 
-        $scope.smartCardKiosks=function () {
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[ _fromdate.getMonth()];
+            $scope.SelectedYear= $scope.SmartCardKiosksDetails.year;
+
+            $scope.SmartCardKiosksDetails.fromdate = _fromdate;
+            $scope.SmartCardKiosksDetails.todate = _todate;
+
             DataService.GetSmartCardAtKiosks($scope.SmartCardKiosksDetails).then(function (response)
             {
                 if (!response.error)
                 {
-                    $scope.cardKiosks = response.data;
+                    $scope.cardKiosks=[];
 
-                   /* $scope.SmartCardKiosksTable = new NgTableParams(
+                    $scope.Value = response.data.total;
+
+                    for(var i=0;i<response.data.kiosks.length;i++)
+                    {
+                        $scope.cardKiosks.push(response.data.kiosks[i]);
+                    }
+
+                    $scope.SmartCardKiosksTable = new NgTableParams(
                         {
                             count: 10
                         },
@@ -7578,8 +7650,10 @@
                                 $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                             }
                         }
-                    );*/
-                    growl.success(response.message);
+                    );
+                    $scope.SmartCardKiosksDetails.month =='';
+                    $scope.SmartCardKiosksDetails.year='';
+                    /*growl.success(response.message);*/
                 }
                 else
                 {
@@ -7595,14 +7669,28 @@
     app.controller('KpiReportEmptyMajorDSPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
-            fromdate:'',
-            todate:'',
+           /* fromdate:'',
+            todate:'',*/
+           month :'',
+            year:'',
             stationState:0,
             duration:0
         };
 
         $scope.GetDetails = function ()
         {
+            var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
+            var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.details.year;
+
+            $scope.details.fromdate = _fromdate;
+            $scope.details.todate = _todate;
             DataService.GetRVDetails($scope.details).then(function (response)
             {
                 $scope.EmptyMojorDSPeak=[];
@@ -7615,8 +7703,9 @@
                             $scope.EmptyMojorDSPeak.push(response.data[i])
                         }
                     }
-                    growl.success(response.message);
-
+                    /*growl.success(response.message);*/
+                    $scope.details.month ='';
+                    $scope.details.year='';
                 } else {
                     growl.error(response.message);
                 }
@@ -7642,14 +7731,29 @@
     app.controller('KpiReportEmptyMinorDSPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
-            fromdate:'',
-            todate:'',
+          /*  fromdate:'',
+            todate:'',*/
+          month:'',
+            year:'',
             stationState:0,
             duration:0
         };
 
         $scope.GetDetails = function ()
         {
+            var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
+            var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.details.year;
+
+            $scope.details.fromdate = _fromdate;
+            $scope.details.todate = _todate;
+
             DataService.GetRVDetails($scope.details).then(function (response)
             {
                 $scope.EmptyMinorDSPeak=[];
@@ -7661,7 +7765,10 @@
                             $scope.EmptyMinorDSPeak.push(response.data[i])
                         }
                     }
-                    growl.success(response.message);
+
+                    /*growl.success(response.message);*/
+                    $scope.details.month = '';
+                    $scope.details.year = '';
 
                 } else {
                     growl.error(response.message);
@@ -7688,14 +7795,29 @@
     app.controller('KpiReportEmptyMajorDSOffPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
-            fromdate:'',
-            todate:'',
+           /* fromdate:'',
+            todate:'',*/
+           month:'',
+            year:'',
             stationState:0,
             duration:0
         };
 
         $scope.GetDetails = function ()
         {
+            var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
+            var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.details.year;
+
+            $scope.details.fromdate = _fromdate;
+            $scope.details.todate = _todate;
+
             DataService.GetRVDetails($scope.details).then(function (response)
             {
                 $scope.EmptyMajorDSOffPeak=[];
@@ -7707,7 +7829,9 @@
                             $scope.EmptyMajorDSOffPeak.push(response.data[i])
                         }
                     }
-                    growl.success(response.message);
+                    /*growl.success(response.message);*/
+                    $scope.details.month = '';
+                    $scope.details.year = '';
 
                 } else {
                     growl.error(response.message);
@@ -7734,14 +7858,29 @@
     app.controller('KpiReportEmptyMinorDSOffPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
-            fromdate:'',
-            todate:'',
+          /*  fromdate:'',
+            todate:'',*/
+          month:'',
+            year:'',
             stationState:0,
             duration:0
         };
 
         $scope.GetDetails = function ()
         {
+            var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
+            var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.details.year;
+
+            $scope.details.fromdate = _fromdate;
+            $scope.details.todate = _todate;
+
             DataService.GetRVDetails($scope.details).then(function (response)
             {
                 $scope.EmptyMinorDSOffPeek=[];
@@ -7753,8 +7892,9 @@
                             $scope.EmptyMinorDSOffPeek.push(response.data[i])
                         }
                     }
-                    growl.success(response.message);
-
+                    /*growl.success(response.message);*/
+                    $scope.details.month = '';
+                    $scope.details.year = '';
                 } else {
                     growl.error(response.message);
                 }
@@ -7780,14 +7920,29 @@
     app.controller('KpiReportEmptyFull', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
-            fromdate:'',
-            todate:'',
+           /* fromdate:'',
+            todate:'',*/
+           month:'',
+            year:'',
             stationState:0,
             duration:0
         };
 
         $scope.GetDetails = function ()
         {
+            var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
+            var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.details.year;
+
+            $scope.details.fromdate = _fromdate;
+            $scope.details.todate = _todate;
+
             DataService.GetRVDetails($scope.details).then(function (response)
             {
                 $scope.DSEmptyFull=[];
@@ -7797,7 +7952,9 @@
 
                      $scope.DSEmptyFull.push(response.data[i])
                     }
-                    growl.success(response.message);
+                    /*growl.success(response.message);*/
+                    $scope.details.month='';
+                    $scope.details.year ='';
                 } else {
                     growl.error(response.message);
                 }
@@ -7823,20 +7980,26 @@
     app.controller('NumberOfValidComplaints', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
-            fromdate:'',
-            todate:'',
-            complaintType:2,
-          /*  month:'',
-            year:''*/
+           /* fromdate:'',
+            todate:'',*/
+            month:'',
+            year:''
         };
 
         $scope.GetDetails = function ()
         {
 
-           /* var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
+           var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
             var _todate = new Date( $scope.details.year,$scope.details.month, 1);
 
-            if($scope.details.fromdate == '' || $scope.details.fromdate == null && $scope.details.todate == '' || $scope.details.todate == null)
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.details.year;
+
+            /* if($scope.details.fromdate == '' || $scope.details.fromdate == null && $scope.details.todate == '' || $scope.details.todate == null)
             {
                 $scope.details =
                     {
@@ -7854,6 +8017,11 @@
                         complaintType:2
                     };
             }*/
+
+
+            $scope.details.fromdate = _fromdate;
+            $scope.details.todate = _todate;
+            $scope.details.complaintType = 2;
 
             DataService.getValidTickets($scope.details).then(function (response)
             {
@@ -7873,9 +8041,9 @@
                             }
                         }
                     }
-                    growl.success(response.message);
-                  /*  $scope.details.fromdate = '';
-                    $scope.details.todate = '';*/
+                    /*growl.success(response.message);*/
+                    $scope.details.month = '';
+                    $scope.details.year = '';
                 } else {
                     growl.error(response.message);
                 }
@@ -7902,13 +8070,27 @@
     app.controller('BicycleRepairWithinFourHours', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
-            fromdate:'',
-            todate:'',
+         /*   fromdate:'',
+            todate:'',*/
+            month:'',
+            year:'',
             complaintType:2
         };
 
         $scope.GetDetails = function ()
         {
+            var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
+            var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.details.year;
+
+            $scope.details.fromdate = _fromdate;
+            $scope.details.todate = _todate;
             // Bicycle repair with in 4 hours
             DataService.getCycleRepairedWithinFourHours($scope.details).then(function (response)
             {
@@ -7916,8 +8098,11 @@
                 if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
                     {
+                        var _complaintType = response.data[i].tickettype;
                         var _status = response.data[i].status;
                         var _duration = response.data[i].closedDuration;
+                        if(_complaintType == "Cycle Repaire")
+                        {
                                 if(_status == 'Close')
                                 {
                                    /* if(_duration < 0)
@@ -7925,8 +8110,11 @@
                                         $scope.BicycleRepair.push(response.data[i]);
                                     /*}*/
                                 }
+                        }
                     }
-                    growl.success(response.message);
+                    /*growl.success(response.message);*/
+                    $scope.details.month = '';
+                    $scope.details.year = '';
                 } else {
                     growl.error(response.message);
                 }
@@ -7953,12 +8141,28 @@
     app.controller('SLAWebsiteDownTime', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
-            fromdate:'',
-            todate:'',
+           /* fromdate:'',
+            todate:'',*/
+           month:'',
+            year:''
         };
 
         $scope.GetDetails = function ()
         {
+
+            var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
+            var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.details.year;
+
+            $scope.details.fromdate = _fromdate;
+            $scope.details.todate = _todate;
+
             DataService.getWebsiteDownTime($scope.details).then(function (response)
             {
                 $scope.WesiteDownTime = [];
@@ -7967,7 +8171,9 @@
                     {
                      $scope.WesiteDownTime.push(response.data[i]);
                     }
-                    growl.success(response.message);
+                    $scope.details.year='';
+                    $scope.details.month = '';
+                    /*growl.success(response.message);*/
                 } else {
                     growl.error(response.message);
                 }
@@ -8377,7 +8583,7 @@
             var percentage_points;
             DataService.GetKPISmartCardReport($scope.details).then(function (response)
             {
-                percentage_data = response.data;
+                percentage_data = response.data.total;
 
                 if(percentage_data > 99)
                 {
@@ -8425,7 +8631,7 @@
             var _smart_card_kiosk_points;
             DataService.GetSmartCardAtKiosks($scope.details).then(function (response)
             {
-                _smart_card_kiosk_data = response.data;
+                _smart_card_kiosk_data = response.data.total;
 
                 if(_smart_card_kiosk_data > 99)
                 {
@@ -8704,6 +8910,7 @@
             // customer complaints
             var _total_complaints=0;
             var _total_complaint_points;
+            $scope.details.complaintType=2;
             $scope.CustomerComplaints = [];
             DataService.getTickets($scope.details).then(function (response)
             {
@@ -9483,7 +9690,7 @@
                 {
                 _daywise_fromDate=$scope.daywiseCollection.fromdate;
                 _daywise_toDate=$scope.daywiseCollection.todate;
-                _location=$scope.daywiseCollection.location;
+                _location=$scope.daywiseCollection.location.location;
                 _transaction_type=$scope.daywiseCollection.transactionType;
 
                  $scope.daywises = response.data;
