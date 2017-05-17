@@ -5487,14 +5487,30 @@
 
         $scope.Valid = function ()
         {
-            if ($scope.complaintType)
+            if($scope.ValidTickets.valid == true)
             {
-                alert("Valid Tickets");
+                $scope.UpdateDetails=
+                {
+                  ticketid:_ticket_id,
+                  complaintType:1
+                };
+                //alert($scope.UpdateDetails.ticketid);
+                //alert($scope.UpdateDetails.complaintType);
             }
-            else if(!$scope.complaintType)
+            else
             {
-                alert("Invalid Tickets");
+                alert("Please Choose Valid Complaints option to update");
             }
+            DataService.UpdateValidTicketDetails($scope.UpdateDetails).then(function (response) {
+                if (!response.error) {
+                    growl.success("Updated successfully");
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                //growl.error(response.data.description['0']);
+            });
+
         };
 
     }]);

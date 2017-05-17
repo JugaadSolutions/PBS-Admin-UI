@@ -183,6 +183,18 @@
                 });
                 return deferred.promise;
             },
+
+            // updateing the valid tickets
+            UpdateValidTicketDetails: function (data) {
+                var deferred = $q.defer();
+                $http.put(APINew + APIEndPoint.ticketsDetails.update + '/' + data.ticketid, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getEmployees: function (filters) {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.employee.getAll + '/' , {
