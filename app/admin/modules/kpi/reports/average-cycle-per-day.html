@@ -97,7 +97,7 @@
                             {{avgCycle.createdDate |  date : "dd MMM yy"}}
                         </td>
                         <td data-title="'No. of trips/Time duration'" filter="{ creditBalance: 'text'}">
-                            {{((avgCycle.noOfTrips/avgCycle.requiredNoOfCycles)*100).toFixed(2)}}
+                            {{(avgCycle.noOfTrips/avgCycle.requiredNoOfCycles).toFixed(2)}}
                         </td>
                     </tr>
                 </table>

@@ -14,7 +14,6 @@
 
     app.constant('API', __env.apiUrl);
     app.constant('APINew',__env.apiUrlNew);
-    app.constant('AWS', __env.awsUrl);
     app.constant('GOOGLEMAPURL', __env.googleMapsUrl);
 
     app.config(['$httpProvider', function ($httpProvider) {
@@ -222,7 +221,7 @@
             getAll:'tickets/ticketinfo',
             update:'tickets',
             reply:'tickets',
-            assigned:'tickets/assignedinfo'
+            assigned:'tickets/assignedinfo',
         },
 
         searchmember:{

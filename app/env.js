@@ -19,10 +19,10 @@
 (function (window) {
     window.__env = window.__env || {};
     // API url
-    // For demo purposes we fetch from local file in this plunk
-  /*  window.__env.apiUrlNew = 'https://www.mytrintrin.com:13070/api/';*/
-  window.__env.apiUrlNew = 'http://43.251.80.79:13060/api/';
-    window.__env.awsUrl = 'https://mytrintrin.s3.amazonaws.com/mytrintrin/';
+    /*window.__env.apiUrlNew = 'http://164.100.133.17:13060/api/';*/
+    window.__env.apiUrlNew = 'https://www.mytrintrin.com:13070/api/';
+    /*window.__env.apiUrlNew = 'https://www.mytrintrin.com:13060/api/';*/
+   /* window.__env.apiUrlNew = 'http://43.251.80.79:13060/api/';*/
     window.__env.googleMapsUrl = 'https://www.google.com/maps/dir/Current+Location/';
     // Whether or not to enable debug mode
     // Setting this to false will disable console output

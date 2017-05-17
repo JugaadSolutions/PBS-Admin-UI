@@ -37,7 +37,7 @@
                        </div>
                    </div>
 
-                   <div class="col-sm-1 m-b-10">
+                   <!--<div class="col-sm-1 m-b-10">
                            <label>OR</label>
                    </div>
 
@@ -64,7 +64,7 @@
                                <option value="">Select Document</option>
                            </select>
                        </div>
-                   </div>
+                   </div>-->
 
                    <div class="col-sm-2 m-b-15">
                        <div class="form-group fg-line">
@@ -83,7 +83,7 @@
 
                </div>
                <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                       ng-click="sendDetails()">
+                       ng-click="sendDetails()" ng-disabled="CashForm.$invalid">
                    <i class="zmdi zmdi-save"></i> Generate Report
                </button>
                <!--ng-disabled="CashForm.$invalid"-->
@@ -99,7 +99,7 @@
         <div class="card-body">
 
             <div class="table-responsive"  ng-if="TableWithRegistration == true" >
-                <table ng-table="cashCollectionTable" class="table table-striped table-vmiddle" show-filter="true">
+                <table ng-table="cashCollectionTable" class="table table-striped table-vmiddle">
                     <tr ng-repeat="cash in CashCollection">
                         <td data-title="'Date'"  filter="{ dateTime: 'text'}">
                             {{cash.date | date : "dd MMM yy"}}
@@ -116,7 +116,7 @@
 
                 <!--table for cash balance report with out registration centre-->
                 <div class="table-responsive" ng-if="TableWithOutRegistration == true" >
-                    <table ng-table="CashBalanceTable" class="table table-striped table-vmiddle" show-filter="false">
+                    <table ng-table="CashBalanceTable" class="table table-striped table-vmiddle">
                         <tr ng-repeat="cash in cashBalance">
                             <td data-title="'Date'" >
                                 {{cash.dateTime | date : "dd MMM yy"}}

@@ -11,7 +11,7 @@
     var login_email;
     var login_id;
     var login_role;
-    app.controller('PBSController', ['$scope', '$state', 'auth', 'AWS', '$rootScope', function ($scope, $state, auth, AWS, $rootScope) {
+    app.controller('PBSController', ['$scope', '$state', 'auth', '$rootScope', function ($scope, $state, auth,$rootScope) {
 
         $scope.$on('userInfo', function (event, user) {
             $scope.profileName = user.profileName;
@@ -23,7 +23,6 @@
             login_email = user.email;
 
             login_id=user.id;
-            //$scope.profilePic = AWS + 'Employee/' + user._id + '/' + member.picture + '.png';
 
             /*if ($scope.role=="member")
             {
@@ -135,7 +134,7 @@
     }]);*/
 
     // Manage Members Controller
-    app.controller('ManageMembers', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS) {
+    app.controller('ManageMembers', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal) {
         $scope.membersData = [];
         $scope.memberDocument=[];
 
@@ -546,7 +545,7 @@
     }]);
 
     // Edit Member Controller
-    app.controller('EditMember', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModal','$filter', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModal, $filter, NgTableParams)
+    app.controller('EditMember', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal','$filter', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal, $filter, NgTableParams)
     {
         $scope.login_role= localStorage.LoginRole
 
@@ -786,7 +785,6 @@
                     $scope.profilePicUrl = "http://www.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member.UserID  + '/' + $scope.member.profilePic + '.png';
                 }
                 $scope.member.documents.forEach(function (document) {
-                    //document.documentProof = AWS + 'Member/' + $scope.member.memberId + '/' + document.documentCopy + '.png';
                     /*document.documentProof = "http://www.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member.UserID + '/' + document.documentCopy + '.png';*/
                     document.documentProof = "http://43.251.80.79/mytrintrin/" + 'Member/' + $scope.member.UserID + '/' + document.documentCopy + '.png';
                 });
@@ -1398,7 +1396,7 @@
     // Search member details Controller
     var _searched_member_id;
     var _searched_member_name;
-    app.controller('SearchMemberDetails', ['$scope', '$state','$stateParams', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet','AWS', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state,$stateParams, DataService, StatusService, NgTableParams, growl, sweet,AWS,$filter,$window, $uibModal,$uibModalInstance)
+    app.controller('SearchMemberDetails', ['$scope', '$state','$stateParams', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal','$uibModalInstance', function ($scope, $state,$stateParams, DataService, StatusService, NgTableParams, growl, sweet,$filter,$window, $uibModal,$uibModalInstance)
         {
         $scope.searchMember={
             name:_search_member_name
@@ -1588,7 +1586,8 @@
                     }
                     if($scope.raiseTicketsDetails.department === 'Maintenance')
                     {
-                        var _ticket_type='MaintenanceDemo';
+                        /*var _ticket_type='MaintenanceDemo';*/
+                        var _ticket_type='Maintenance';
                     }
                     if($scope.raiseTicketsDetails.department === 'Redistribution')
                     {
@@ -1729,7 +1728,7 @@
     }]);
 
     // Member Credit Modal
-    app.controller('CreditModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser)
+    app.controller('CreditModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance, loggedInUser)
     {
         $scope.loginid=localStorage.LoginID;
         var _logIn_Id=$scope.loginid;
@@ -1786,7 +1785,7 @@
     }]);
 
     // Member Debit Modal
-    app.controller('DebitModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser) {
+    app.controller('DebitModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance, loggedInUser) {
 
         $scope.member = {
             debit: 0,
@@ -1816,7 +1815,7 @@
     }]);
 
     // cancel membership
-    app.controller('CancelMembershipModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance','$uibModal', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance,$uibModal, loggedInUser) {
+    app.controller('CancelMembershipModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance','$uibModal', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance,$uibModal, loggedInUser) {
 
         DataService.cancelRequest($stateParams.id).then(function (response) {
             if (!response.error && response.data != null) {
@@ -1881,7 +1880,7 @@
     }]);
 
     // cancel membership response
-    app.controller('ConfirmMembershipCancel', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser) {
+    app.controller('ConfirmMembershipCancel', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance, loggedInUser) {
 
         $scope.confirmMembershipInputs={
             modeOfRefund:'',
@@ -1916,7 +1915,7 @@
     }]);
 
     // suspend membership
-    app.controller('SuspendMembershipModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser) {
+    app.controller('SuspendMembershipModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance, loggedInUser) {
 
         $scope.member = {
             comments: ''
@@ -1951,7 +1950,7 @@
     }]);
 
     // Manage Employees Controller
-    app.controller('ManageEmployees', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService, AWS) {
+    app.controller('ManageEmployees', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
         $scope.employeesData = [];
 
         var filters = {
@@ -2065,11 +2064,8 @@
         var _logIn_Id=$scope.loginid;
 
         $scope.employee = {
-            /*name: '',*/
             Name:'',
             lastName: '',
-           /* givenName: '',*/
-            fatherName: '',
             education: '',
             occupation: '',
             sex: '',
@@ -2109,12 +2105,11 @@
             DataService.saveEmployee($scope.employee).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
-                    $state.go('admin.employees.edit', {'id': response.data._id});
                 } else {
-                    growl.error(response.message);
+                    growl.error(response.data.description);
                 }
             }, function (response) {
-               /* growl.error(response.data.description['0']);*/
+                growl.error(response.data.description);
             })
         };
 
@@ -2133,7 +2128,7 @@
     }]);
 
     // Edit Member Controller
-    app.controller('EditEmployee', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$filter', 'AWS', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, $filter, AWS, $uibModal) {
+    app.controller('EditEmployee', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, $filter, $uibModal) {
         $scope.employee = {
             countryCode: '91',
             emergencyContact: {countryCode: '91'}
@@ -2597,7 +2592,7 @@
     }]);
 
     //Edit Membership
-    app.controller('EditMembership', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModal)
+    app.controller('EditMembership', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal)
     {
         $scope.membership = {};
 
@@ -2610,7 +2605,6 @@
         DataService.getMembership($stateParams.id, filters).then(function (response) {
             if (!response.error) {
                 $scope.membership = response.data;
-                //$scope.profilePicUrl = AWS + 'Membership/' + response.data.membershipId + '/' + response.data.picture + '.png';
                 var farePlanName = $scope.membership.farePlan.planName;
                 DataService.getFarePlans().then(function (response) {
                     if (!response.error) {
@@ -3641,7 +3635,6 @@
                    // if (!bicycle.picture || bicycle.picture == '') {
                         bicycle.profilePicUrl = 'assets/images/bicycle.jpg';
                    // } else {
-                    //    bicycle.profilePicUrl = AWS + 'Bicycle/' + response.data.picture + '.png';
                    // }
                     if (bicycle.dockingStationId) {
                         bicycle.stationName = bicycle.dockingStationId.name;
@@ -3966,7 +3959,7 @@
     }]);
 
 // Add Bicycle Controller
-    app.controller('EditBicycle', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModal) {
+    app.controller('EditBicycle', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal) {
         $scope.bicycle = {};
 
         DataService.getBicycle($stateParams.id).then(function (response) {
@@ -3974,9 +3967,6 @@
                 $scope.bicycle = response.data;
              //  if (!$scope.bicycle.picture || $scope.bicycle.picture == '') {
                     $scope.profilePicUrl = 'assets/images/bicycle.jpg';
-                   /*               } else {
-                    $scope.profilePicUrl = AWS + 'Bicycle/' + response.data.picture + '.png';
-                }*/
                 /*if ($scope.bicycle.purchaseDetails) {
                     $scope.bicycle.purchaseDetails.manufacturingDate = new Date($scope.bicycle.purchaseDetails.manufacturingDate);
                     $scope.bicycle.purchaseDetails.invoiceDate = new Date($scope.bicycle.purchaseDetails.invoiceDate);
@@ -4442,7 +4432,7 @@
     }]);
 
 // Add FarePlan Controller
-    app.controller('EditFarePlan', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModal) {
+    app.controller('EditFarePlan', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal) {
         $scope.farePlan = {};
 
         $scope.addFarePlanDetails = function () {
@@ -4464,7 +4454,6 @@
         DataService.getFarePlan($stateParams.id).then(function (response) {
             if (!response.error) {
                 $scope.farePlan = response.data;
-                //$scope.profilePicUrl = AWS + 'FarePlan/' + response.data.farePlanId + '/' + response.data.picture + '.png';
             } else {
                 growl.error(response.message);
             }
@@ -5131,7 +5120,7 @@
     var _search_member_name;
     var _global_search_member_name;
     var _non_member_ticket_number;
-    app.controller('AddTicketsDetails',  ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    app.controller('AddTicketsDetails',  ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
     {
         $scope.loginid=localStorage.LoginID;
         var _logIn_Id=$scope.loginid;
@@ -5329,7 +5318,7 @@
     }]);
 
     // non member raised tickets number
-    app.controller('NonMemberTicketNumber', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser)
+    app.controller('NonMemberTicketNumber', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance, loggedInUser)
     {
 
         $scope.TicketNumber = _non_member_ticket_number;
@@ -5472,6 +5461,42 @@
             });
         }
 
+       /* $scope.Valid=function()
+        {
+            var ValidTicket =
+                {
+                    complaintType:''
+                };
+            if(ValidTicket.complaintType == 1)
+            {
+            $scope.ValidTicketDetails={
+                ticketid:_ticket_id,
+                complaintType:1
+            };
+                DataService.UpdateValidTicket($scope.ValidTicketDetails).then(function (response) {
+                    if (!response.error) {
+                        growl.success("Replied successfully");
+                    } else {
+                        growl.error(response.message);
+                    }
+                }, function (response) {
+                    growl.error(response.data.description['0']);
+                });
+            }
+        }*/
+
+        $scope.Valid = function ()
+        {
+            if ($scope.complaintType)
+            {
+                alert("Valid Tickets");
+            }
+            else if(!$scope.complaintType)
+            {
+                alert("Invalid Tickets");
+            }
+        };
+
     }]);
 
 
@@ -5594,7 +5619,7 @@
                     }
                     if($scope.raiseTicketsDetails.department === 'Maintenance')
                     {
-                        var _ticket_type='MaintenanceDemo';
+                        var _ticket_type='Maintenance';
                     }
                     if($scope.raiseTicketsDetails.department === 'Redistribution')
                     {
@@ -5685,7 +5710,7 @@
         };
     }]);
 
-    app.controller('TicketNo', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModalInstance, loggedInUser)
+    app.controller('TicketNo', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance, loggedInUser)
     {
 
         $scope.TicketNumber = _ticket_number;
@@ -7361,7 +7386,7 @@
         }
     }]);
 
-    /*KPI Reports*/
+    /*sla report - average cycle use per cycle per day */
     app.controller('KpiReportAverageCyclePerDay', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.AverageCycle={
@@ -7535,6 +7560,7 @@
 
     }]);
 
+    /*SLA - smart card performance at docking hub*/
     app.controller('KpiReportSmartCardAtHub', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
@@ -7600,6 +7626,7 @@
 
     }]);
 
+    /*SLA - smart card performance at kiosks*/
     app.controller('KpiReportSmartCardAtKiosks', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.SmartCardKiosksDetails={
@@ -7695,10 +7722,10 @@
             {
                 $scope.EmptyMojorDSPeak=[];
                 if (!response.error) {
-                    $scope.StartDate =  $scope.details.fromdate;
+                    /*$scope.StartDate =  $scope.details.fromdate;*/
                     for(var i=0;i<response.data.length;i++)
                     {
-                        if(response.data[i].stationtype == 'Major')
+                        if(response.data[i].stationtype == "Major")
                         {
                             $scope.EmptyMojorDSPeak.push(response.data[i])
                         }
@@ -7742,7 +7769,9 @@
         $scope.GetDetails = function ()
         {
             var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
-            var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+          //  var _fromdate = new Date("may 1, 2014 12:00:00");
+           var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+           // var _todate = new Date("may 30, 2014 12:00:00");
 
             var monthNames = ["January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
@@ -7760,13 +7789,11 @@
                 if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
                     {
-                        if(response.data[i].stationtype == 'Minor')
-                        {
-                            $scope.EmptyMinorDSPeak.push(response.data[i])
-                        }
+                            if (response.data[i].stationtype == "Minor")
+                            {
+                                $scope.EmptyMinorDSPeak.push(response.data[i]);
+                            }
                     }
-
-                    /*growl.success(response.message);*/
                     $scope.details.month = '';
                     $scope.details.year = '';
 
@@ -7949,10 +7976,12 @@
                 if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
                     {
-
-                     $scope.DSEmptyFull.push(response.data[i])
+                       var Start_Month = new Date(response.data[i].starttime).getMonth() + 1;
+                       if( Start_Month == $scope.details.month)
+                       {
+                           $scope.DSEmptyFull.push(response.data[i])
+                       }
                     }
-                    /*growl.success(response.message);*/
                     $scope.details.month='';
                     $scope.details.year ='';
                 } else {
@@ -9310,7 +9339,7 @@
     }]);
 
 
-    app.controller('FleetsManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService','$stateParams', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService,$stateParams,$uibModal, AWS)
+    app.controller('FleetsManage', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService','$stateParams', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService,$stateParams,$uibModal)
     {
         $scope.FleetsAreas = [];
 
@@ -9406,7 +9435,7 @@
         };
     }]);
 
-    app.controller('EditFleets', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS', '$uibModal','$filter', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS, $uibModal, $filter, NgTableParams)
+    app.controller('EditFleets', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal','$filter', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal, $filter, NgTableParams)
     {
 
         $scope.edit_Fleets = {};
@@ -9453,7 +9482,7 @@
 
     }]);
 
-    app.controller('MonitorTransactions', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    app.controller('MonitorTransactions', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
     {
         var filters = {
             filter: {
@@ -9540,42 +9569,14 @@
         $scope.cashCollection={
             fromdate:'',
             todate:'',
-            location:'',
-            month:'',
-            year:''
+            location:''
         };
 
             $scope.TableWithRegistration = false;
             $scope.TableWithOutRegistration = false;
 
-            $scope.sendDetails = function () {
-
-                var firstDay = new Date($scope.cashCollection.year,$scope.cashCollection.month - 1, 1);
-                var fromdate = firstDay;
-                var lastDay = new Date( $scope.cashCollection.year,$scope.cashCollection.month, 1);
-                var todate = lastDay;
-
-
-                if($scope.cashCollection.fromdate == '' || $scope.cashCollection.fromdate == null && $scope.cashCollection.todate == '' || $scope.cashCollection.todate == null)
-                {
-                   var _fromdate= fromdate;
-                    var _todate = todate;
-                    var _location = $scope.cashCollection.location ;
-                }
-                else if($scope.cashCollection.month == '' || $scope.cashCollection.month == null && $scope.cashCollection.year == '' || $scope.cashCollection.year == null)
-                {
-                    var _fromdate= $scope.cashCollection.fromdate;
-                    var _todate = $scope.cashCollection.todate;
-                    var _location = $scope.cashCollection.location ;
-                }
-
-
-                $scope.cashCollection={
-                    fromdate:_fromdate,
-                    todate:_todate,
-                    location:_location,
-                };
-
+            $scope.sendDetails = function ()
+            {
                 if ($scope.cashCollection.location == "" ||$scope.cashCollection.location == null || $scope.cashCollection.location == 'All')
                 {
                     $scope.TableWithRegistration = false;
@@ -9585,6 +9586,12 @@
                     {
                         if (!response.error) {
                             $scope.cashBalance = response.data;
+
+                            _from_date = $scope.cashCollection.fromdate;
+                            _to_date = $scope.cashCollection.todate;
+                            _loc = $scope.cashCollection.location;
+                            CashCollections = response.data;
+
                             $scope.CashBalanceTable = new NgTableParams(
                                 {
                                     count: 10
@@ -9614,14 +9621,17 @@
                         $scope.TableWithOutRegistration = false;
                     $scope.CashCollection = [];
 
-                        DataService.SendCashCollectionDetails($scope.cashCollection).then(function (response) {
-                            if (!response.error) {
+                        DataService.SendCashCollectionDetails($scope.cashCollection).then(function (response)
+                        {
+                            if (!response.error)
+                            {
                                 $scope.CashCollection = response.data;
+
                                 CashCollections=response.data;
                                  _from_date=$scope.cashCollection.fromdate;
                                  _to_date=$scope.cashCollection.todate;
                                  _loc=$scope.cashCollection.location;
-                                var CashCollection =[];
+                                var CashCollection = response.data;
                                 $scope.cashCollectionTable = new NgTableParams(
                                     {
                                         count: 10
@@ -9663,6 +9673,76 @@
 
         $scope.selectedRegistrationCenters = function (data) {
             $scope.cashCollection.location = data.location;
+        };
+    }]);
+
+    app.controller('CashCollectionSummaryPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
+    {
+        $scope.cashCollectionSummeryInputs=
+            {
+                cashCollectionfromdate:_from_date,
+                cashCollectiontodate:_to_date,
+                cashCollectionlocation:_loc,
+            };
+
+        $scope.CashCollectionSummaryWithOutRegistrationCentre = false;
+        $scope.CashCollectionSummaryWithRegistrationCentre = false;
+
+        if ($scope.cashCollectionSummeryInputs.cashCollectionlocation == '' || $scope.cashCollectionSummeryInputs.cashCollectionlocation == null || $scope.cashCollectionSummeryInputs.cashCollectionlocation == undefined)
+        {
+            $scope.CashCollectionSummaryWithOutRegistrationCentre = true;
+
+            $scope.cashCollectionSummaryPrint=[];
+
+            $scope.cashCollectionSummaryPrint=CashCollections;
+
+            $scope.CashCollectionSummaryPrintTable = new NgTableParams(
+                {
+                    count: 500,
+                    noPager: true
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.cashCollectionSummaryPrint, params.filter()) : $scope.cashCollectionSummaryPrint;
+                        /*params.total(orderedData.length);*/
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
+        }
+
+        else
+        {
+            $scope.CashCollectionSummaryWithRegistrationCentre = true;
+
+            $scope.cashCollectionSummaryPrintWithReg=[];
+
+            $scope.cashCollectionSummaryPrintWithReg=CashCollections;
+
+            $scope.CashCollectionSummaryPrintWithRegTable = new NgTableParams(
+                {
+                    count: 500,
+                    noPager: true
+                },
+                {
+                    getData: function ($defer, params) {
+                        var orderedData = params.filter() ? $filter('filter')($scope.cashCollectionSummaryPrintWithReg, params.filter()) : $scope.cashCollectionSummaryPrintWithReg;
+                        /*params.total(orderedData.length);*/
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                }
+            );
+        }
+
+
+        $scope.myFun = function ()
+        {
+            window.print();
+        };
+
+        $scope.myFun = function ()
+        {
+            window.print();
         };
 
     }]);
@@ -9926,48 +10006,6 @@
         };
     }]);
 
-
-
-
-    app.controller('CashCollectionSummaryPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
-    {
-        $scope.cashCollectionSummeryInputs=
-            {
-                cashCollectionfromdate:_from_date,
-                cashCollectiontodate:_to_date,
-                cashCollectionlocation:_loc,
-            };
-
-        $scope.cashCollectionSummaryPrint=[];
-
-        $scope.cashCollectionSummaryPrint=CashCollections;
-
-        $scope.CashCollectionSummaryPrintTable = new NgTableParams(
-            {
-                count: 500,
-                noPager: true
-            },
-            {
-                getData: function ($defer, params) {
-                    var orderedData = params.filter() ? $filter('filter')($scope.cashCollectionSummaryPrint, params.filter()) : $scope.cashCollectionSummaryPrint;
-                    /*params.total(orderedData.length);*/
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                }
-            }
-        );
-
-        $scope.myFun = function ()
-        {
-            window.print();
-        };
-
-        $scope.myFun = function ()
-        {
-            window.print();
-        };
-
-    }]);
-
     // bank cash deposit deposit report print
     app.controller('BankCashDepositReportPrint', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
@@ -10211,7 +10249,7 @@
 
 var _station_name;
 var _station_id;
-    app.controller('DockingStationStationNewDesign', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', 'AWS','$window', '$uibModal','$filter', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, AWS,$window, $uibModal, $filter, NgTableParams)
+    app.controller('DockingStationStationNewDesign', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet','$window', '$uibModal','$filter', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet,$window, $uibModal, $filter, NgTableParams)
     {
         $scope.dockingStations = [];
 
@@ -10360,7 +10398,7 @@ var _station_id;
     }]);*/
 
     // Manage Members Controller
-    app.controller('ManageBankCashDeposits', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    app.controller('ManageBankCashDeposits', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
     {
 
         $scope.bankcashdepositsDetails = [];
@@ -10408,7 +10446,7 @@ var _station_id;
     }]);
 
     // Accounts Closer
-    app.controller('AccountsCloser', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS','$window', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS,$window)
+    app.controller('AccountsCloser', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal','$window', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal,$window)
     {
         $scope.loginid=localStorage.LoginID;
       /*  var _logIn_Id=$scope.loginid;*/
@@ -10617,7 +10655,7 @@ var _station_id;
     // User User Account
     var _smart_card_number;
     var UserAccounts =[];
-    app.controller('UserAccountStatus', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    app.controller('UserAccountStatus', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
     {
         $scope.userTransactionDetials={
             userid:'',
@@ -10662,7 +10700,7 @@ var _station_id;
 
     }]);
 
-    app.controller('UserAccountStatusReport', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    app.controller('UserAccountStatusReport', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
     {
         $scope.SmartCardNo=_smart_card_number;
 
@@ -10693,7 +10731,7 @@ var _station_id;
     // User Transcation Statistics
     var _smart_card_no;
     var UserRidess =[];
-    app.controller('UserTransactionStatistics', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    app.controller('UserTransactionStatistics', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
     {
         $scope.userTransactionDetials={
             userid:'',
@@ -10738,7 +10776,7 @@ var _station_id;
 
     }]);
 
-    app.controller('UserAccountStatusReportPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    app.controller('UserAccountStatusReportPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
     {
         $scope.SmartCardNo=_smart_card_no;
 
@@ -11110,7 +11148,7 @@ var _station_id;
 
 
 // Edit Member Controller
-    app.controller('EditProfile', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$filter', 'AWS', 'loggedInUser', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, $filter, AWS, loggedInUser, $uibModal) {
+    app.controller('EditProfile', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$filter', 'loggedInUser', '$uibModal', function ($scope, $state, $stateParams, DataService, growl, sweet, $filter, loggedInUser, $uibModal) {
         $scope.employee = {};
 
         $scope.addNewDocument = function () {
@@ -11579,7 +11617,7 @@ var _station_id;
 
     }]);
 
-    app.controller('BicycleTransactions',['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', 'AWS', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal, AWS)
+    app.controller('BicycleTransactions',['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
     {
         $scope.bicycleTrans={
             fromdate:'',
@@ -11746,7 +11784,6 @@ var _station_id;
                             if (dockingPortId.dockingPortId.portStatus == 1) {
                                 var _data= {};
                                 _data=dockingPortId.dockingPortId.vehicleId;
-
                                 dockingPortId.tooltipMessage = _data[0].vehicleid.vehicleNumber;
                             }
 

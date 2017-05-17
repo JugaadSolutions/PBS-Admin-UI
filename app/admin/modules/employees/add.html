@@ -12,7 +12,8 @@
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="addEmployees()" ng-disabled="EmployeeForm.$invalid">
+                    ng-click="addEmployees()">
+                <!--ng-disabled="EmployeeForm.$invalid"-->
                 <i class="zmdi zmdi-save"></i> Save
             </button>
         </div>
@@ -77,30 +78,7 @@
                                         </div>
                                     </dd>
                                 </dl>
-                                <!--<dl class="dl-horizontal required">
-                                    <dt class="p-t-10">Given Name</dt>
-                                    <dd>
-                                        <div class="fg-line"
-                                             ng-class="{ 'has-error': EmployeeForm.givenName.$touched && EmployeeForm.givenName.$invalid }">
-                                            <input type="text" name="givenName" ng-model="employee.givenName"
-                                                   class="form-control"
-                                                   placeholder="eg. Ashok Kumar" required>
-                                            <span class="help-block" ng-messages="EmployeeForm.givenName.$error"
-                                                  ng-show="EmployeeForm.givenName.$touched">
-                                                <small ng-message="required">Given Name is required</small>
-                                            </span>
-                                        </div>
-                                    </dd>
-                                </dl>-->
-                                <!--<dl class="dl-horizontal">
-                                    <dt class="p-t-10">Father's Name</dt>
-                                    <dd>
-                                        <div class="fg-line">
-                                            <input type="text" name="fatherName" ng-model="employee.fatherName"
-                                                   class="form-control">
-                                        </div>
-                                    </dd>
-                                </dl>-->
+
                                 <dl class="dl-horizontal">
                                     <dt class="p-t-10">Gender</dt>
                                     <dd>
@@ -145,7 +123,7 @@
                                         </div>
                                     </dd>
                                 </dl>
-                                <dl class="dl-horizontal ">
+                                <dl class="dl-horizontal">
                                     <dt class="p-t-10">Phone Number</dt>
                                     <dd>
                                         <div class="form-inline"
@@ -1084,7 +1062,7 @@
                                                    class="form-control"
                                                    placeholder="eg. Maintenance" required>-->
                                             <select chosen class="form-control" ng-model="employee.department"
-                                                    name="department"  placeholder="eg. Maintenance"  required>
+                                                    name="department"  placeholder="eg. Maintenance" required>
                                                 <option ng-value="RegisteredMemberStaff">Registration Member Staff</option>
                                                 <option ng-value="RedistributionMemberStaff">Redistribution Member Staff</option>
                                                 <option ng-value="MaintenenceMemberStaff">Maintenance Center Staff</option>

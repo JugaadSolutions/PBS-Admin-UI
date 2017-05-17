@@ -31,7 +31,11 @@
         <br>
         <form class="pmbb-edit" name="TotalCashReport"  novalidate>
             <div class="card-header ch-alt text-center">
-                &nbsp;&nbsp;<label>From &nbsp;:</label> <span ng-bind="bankCashDepositInput.bankCashDepositfromdate | date : 'dd MMM yy '"></span>&nbsp;&nbsp;-&nbsp;&nbsp;<label>To&nbsp;:</label> <span ng-bind="bankCashDepositInput.bankCashDeposittodate | date : 'dd MMM yy '"></span>&nbsp; | &nbsp;<label>Registration Centre&nbsp;:</label> <span ng-bind="bankCashDepositInput.bankCashDepositlocation"></span>
+                &nbsp;&nbsp;<label>From &nbsp;:</label> <span ng-bind="bankCashDepositInput.bankCashDepositfromdate | date : 'dd MMM yy '"></span>&nbsp;&nbsp;-
+                &nbsp;&nbsp;<label>To&nbsp;:</label> <span ng-bind="bankCashDepositInput.bankCashDeposittodate | date : 'dd MMM yy '"></span>&nbsp; |
+                &nbsp;<label>Registration Centre&nbsp;:</label> <span ng-bind="bankCashDepositInput.bankCashDepositlocation"></span>
+                <span ng-if="bankCashDepositInput.bankCashDepositlocation == '' || bankCashDepositInput.bankCashDepositlocation == null || bankCashDepositInput.bankCashDepositlocation == undefined">All</span>&nbsp;
+                <span ng-if="bankCashDepositInput.bankCashDepositlocation != ''">{{bankCashDepositInput.bankCashDepositlocation}}</span>&nbsp;
             </div>
             <br>
             <div style="text-align: center">

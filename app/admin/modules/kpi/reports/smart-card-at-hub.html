@@ -69,7 +69,6 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
                             ng-click="smartCardAtHub()" ng-disabled="SmartCardAtDS.$invalid">
@@ -96,12 +95,12 @@
                             {{hub.checkOutTime | date :'dd MMM yy h:mm'}}
                         </td>
                         <td data-title="'Start Time'">
-                            {{hub.chechOutInitiatedTime}}
+                            {{hub.checkOutInitiatedTime | date:'dd MMM yy hh:mm:ss a'}}
                         </td>
                         <td data-title="'End Time'">
-                            {{hub.checkOutCompletionTime}}
+                            {{hub.checkOutCompletionTime | date:'dd MMM yy hh:mm:ss a' }}
                         </td>
-                        <td data-title="'Duration'">
+                        <td data-title="'Duration (In Sec)'">
                             {{hub.duration}}
                         </td>
                         <td data-title="'From Port'">

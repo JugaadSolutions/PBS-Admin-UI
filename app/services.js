@@ -119,6 +119,7 @@
                 return deferred.promise;
             },
 
+
            /* cancelMember:function(id){
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.member.save + '/' + id + '/' + APIEndPoint.member.cancel, data).then(function (result) {

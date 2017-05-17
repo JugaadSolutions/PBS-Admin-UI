@@ -11,9 +11,10 @@
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="updateRaisedTicket();" ng-disabled="EditFleets.$invalid">
+                    ng-click="Valid();" ng-disabled="EditFleets.$invalid">
                 <i class="zmdi zmdi-save"></i> Update
             </button>
+            <!--updateRaisedTicket-->
         </div>
     </div>
 
@@ -105,6 +106,14 @@
                                         <i class="input-helper"></i>
                                         Internal usage
                                     </label>
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dd>
+                                <div class="fg-line m-t-10">
+                                    &nbsp;<input type="checkbox" name="complaintType" ng-model="complaintType">&nbsp;&nbsp;Valid Complaint
                                 </div>
                             </dd>
                         </dl>
@@ -273,6 +282,9 @@
                         </div>
                     </dd>
                 </dl>
+
+
+
             </div>
             <div class="modal-footer">
                 <button class="btn btn-link" type="button" ng-click="cancelReassignEmployee()">Cancel</button>
