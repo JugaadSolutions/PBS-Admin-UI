@@ -17,6 +17,7 @@
             $scope.profileName = user.profileName;
            /* $scope.admin = user.role !== 'employee';*/
             $scope.admin = user.role !== 'member';
+
             $scope.role = user.role;
             /*newly added*/
             $scope.email=user.email;
@@ -163,7 +164,7 @@
                     if (!member.profilePic || member.profilePic == '') {
                         member.profilePicUrl = 'assets/images/no-avatar.png'
                     } else {
-                        member.profilePicUrl ='http://www.mytrintrin.com/mytrintrin/Member/' + member.UserID + '/' + member.profilePic + '.png';
+                        member.profilePicUrl ='https://www.mytrintrin.com/mytrintrin2/Member/' + member.UserID + '/' + member.profilePic + '.png';
                     }
                     if (member.membershipId) {
                         member.subscriptionType = member.membershipId.subscriptionType;
@@ -270,6 +271,8 @@
         $scope.loginid=localStorage.LoginID;
         var _logIn_Id=$scope.loginid;
 
+        $scope.Role=localStorage.LoginRole
+
         $scope.member = {
             Name: '',
             lastName: '',
@@ -283,7 +286,7 @@
             address: '',
             city: 'Mysore',
             state: 'Karnataka',
-            country: '',
+            country: 'India',
             countryCode: '91',
             pinCode: '',
             profilePic: '',
@@ -304,10 +307,23 @@
             $scope.display=true;
         };
 
+        if($scope.member.country == 'India')
+        {
+            $scope.Country = 'India';
+        }
+
+
+        if($scope.member.countryCode == 91)
+        {
+            $scope.countryCode = 91;
+        }
+
+
         $scope.ShowMemberShipTab = false;
 
-        $scope.selectedCountry=function (data) {
-          $scope.Country=data;
+        $scope.selectedCountry=function (data)
+        {
+              $scope.Country=data;
         };
 
         $scope.selectedCountryCode=function (data) {
@@ -321,24 +337,25 @@
                 $scope.ShowMemberShipTab = true;
                 $scope.ShowOTPTab=false;
             }
-            else if ($scope.DocumentType == 'Drivers license' &&  $scope.CountryCode == '91' && $scope.Country == 'India')  // send otp
+            /*$scope.CountryCode == '91'*/
+            else if ($scope.DocumentType == 'Drivers license' && $scope.member.countryCode == '91' && $scope.Country == 'India')  // send otp
             {
                 $scope.ShowMemberShipTab = false;
             }
-            else if ($scope.DocumentType == 'Passport' &&  $scope.CountryCode == '91' && $scope.Country == 'India')
+            else if ($scope.DocumentType == 'Passport' &&  $scope.member.countryCode == '91' && $scope.Country == 'India')
             {
                 $scope.ShowMemberShipTab = false;
             }
-            else if ($scope.DocumentType == 'Other' &&  $scope.CountryCode == '91' && $scope.Country == 'India')
+            else if ($scope.DocumentType == 'Other' &&  $scope.member.countryCode == '91' && $scope.Country == 'India')
             {
                 $scope.ShowMemberShipTab = false;
             }
             //Foreigners
-            else if($scope.DocumentType == 'Passport' &&  $scope.CountryCode != '91' && $scope.Country != 'India')
+            else if($scope.DocumentType == 'Passport' &&  $scope.member.countryCode != '91' && $scope.Country != 'India')
             {
                 $scope.ShowMemberShipTab = true;
             }
-            else if ($scope.DocumentType == 'Passport' &&  $scope.CountryCode == '91' && $scope.Country != 'India')
+            else if ($scope.DocumentType == 'Passport' &&  $scope.member.countryCode == '91' && $scope.Country != 'India')
             {
                 $scope.ShowMemberShipTab = false;
             }
@@ -782,11 +799,11 @@
                 if (!$scope.member.profilePic || $scope.member.profilePic == '') {
                     $scope.profilePicUrl = 'assets/images/no-avatar.png'
                 } else {
-                    $scope.profilePicUrl = "http://www.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member.UserID  + '/' + $scope.member.profilePic + '.png';
+                    $scope.profilePicUrl = "https://www.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member.UserID  + '/' + $scope.member.profilePic + '.png';
                 }
                 $scope.member.documents.forEach(function (document) {
                     /*document.documentProof = "http://www.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member.UserID + '/' + document.documentCopy + '.png';*/
-                    document.documentProof = "http://43.251.80.79/mytrintrin/" + 'Member/' + $scope.member.UserID + '/' + document.documentCopy + '.png';
+                    document.documentProof = "https://www.mytrintrin.com/mytrintrin/" + 'Member/' + $scope.member.UserID + '/' + document.documentCopy + '.png';
                 });
                 if ($scope.member.membershipId) {
                     var membershipName = $scope.member.membershipId.subscriptionType;
@@ -1819,7 +1836,6 @@
 
         DataService.cancelRequest($stateParams.id).then(function (response) {
             if (!response.error && response.data != null) {
-                /*alert(response.data.message);*/
 
                 $scope.Message=response.data.message;
                /* $scope.testing_demo=testing_demo;*/
@@ -1970,7 +1986,7 @@
                     if (!employee.profilePic || employee.profilePic== '') {
                         employee.profilePicUrl = 'assets/images/no-avatar.png'
                     } else {
-                        employee.profilePicUrl = "http://www.mytrintrin.com/mytrintrin/" + 'Employee/' + employee.UserID + '/' + employee.profilePic + '.png';
+                        employee.profilePicUrl = "https://www.mytrintrin.com/mytrintrin2/" + 'Employee/' + employee.UserID + '/' + employee.profilePic + '.png';
                     }
                 });
                 $scope.employeesTable.reload();
@@ -2076,6 +2092,7 @@
             country: 'India',
             countryCode: '',
             pinCode: '',
+            profilePic: '',
             emergencyContact: {countryCode: '91'},
             documents: [],
             smartCardDetails: [],
@@ -4935,8 +4952,9 @@
             if (!response.error)
             {
                 $scope.registrations = response.data[0];
-                $scope.registrationCentreMap.center.latitude = parseFloat($scope.registrations[0].gpsCoordinates.latitude);
-                $scope.registrationCentreMap.center.longitude = parseFloat($scope.registrations[0].gpsCoordinates.longitude);
+                $scope.Name =  response.data[0].assignedTo.Name;
+               /* $scope.registrationCentreMap.center.latitude = parseFloat($scope.registrations[0].gpsCoordinates.latitude);
+                $scope.registrationCentreMap.center.longitude = parseFloat($scope.registrations[0].gpsCoordinates.longitude);*/
             }
             else {
                 growl.error(response.message);
@@ -4986,7 +5004,7 @@
 
         $scope.staffSelections = [];
 
-        DataService.getStaffs().then(function (response) {
+        DataService.getStaffsNew().then(function (response) {
                 if (!response.error) {
                     $scope.staffSelections = response.data;
                 } else {
@@ -5004,6 +5022,7 @@
     }]);
 
     /*Tickets*/
+    var _compliant_type;
     app.controller('ManageTicketsDetails', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.loginid=localStorage.LoginID;
@@ -5053,6 +5072,19 @@
                 if (!response.error) {
                     $scope.RaisedTickets = [];
                     $scope.RaisedTickets = response.data;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        if(response.data[i].user)
+                        {
+                            response.data[i].name = response.data[i].user.Name;
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    $scope.RaisedTickets.push(response.data[i]);
+
                     $scope.GeneralTable = new NgTableParams(
                         {
                             count: 10
@@ -5096,6 +5128,19 @@
             if (!response.error) {
                 $scope.RaisedTickets = [];
                 $scope.RaisedTickets = response.data;
+                for(var i=0;i<response.data.length;i++)
+                {
+                    if(response.data[i].user)
+                    {
+                        response.data[i].name = response.data[i].user.Name;
+                    }
+                    else
+                    {
+
+                    }
+                }
+                $scope.RaisedTickets.push(response.data[i]);
+
                 $scope.GeneralTable = new NgTableParams(
                     {
                         count: 10
@@ -5134,6 +5179,9 @@
             assignedEmp:'',
             tickettype:'',
             createdBy:_logIn_Id,
+            email:'',
+            phoneNumber:'',
+            channel:1,
         };
 
         $scope.cancelAddTickets = function () {
@@ -5149,9 +5197,6 @@
             });
         };
 
-        $scope.smember =function () {
-           /* alert("hi");*/
-        };
 
         $scope.addNewTicketDetails = function () {
             // Non member ticket raising
@@ -5166,6 +5211,7 @@
                             }
                         }
                     });
+                    $state.go("admin.tickets.manage");
                 } else {
                     growl.error(response.message);
                 }
@@ -5201,20 +5247,6 @@
                         }
                     );
 
-                    /*_search_member_name = $scope.searchMember.name;*/
-
-
-                   /* return $uibModal.open({
-                        templateUrl: 'member-search-details.html',
-                        controller: 'SearchMemberDetails',
-                        size: 'md',
-                        resolve: {
-                            member: function () {
-                                return _global_search_member_name;
-                                alert(_global_search_member_name)
-                            }
-                        }
-                    });*/
                 } else {
                     growl.error(response.message);
                 }
@@ -5328,11 +5360,13 @@
         };
     }]);
 
-    var _ticket_id
+    var _ticket_id;
+    var assigned_emp;
     app.controller('EditTickets', ['$scope', '$state','$stateParams', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state,$stateParams, DataService, NgTableParams, growl, sweet, $filter, $uibModal,StatusService)
     {
         $scope.loginid=localStorage.LoginID;
         var _logIn_Id=$scope.loginid;
+        /*var complaint_type_valid_invalid;*/
 
         $scope.RaisedTicket = {};
         $scope.ReplyDescriptions=[];
@@ -5343,16 +5377,31 @@
         DataService.getRaisedTicket($stateParams.id).then(function (response) {
             if (!response.error)
             {
-                $scope.RaisedTicket = response.data[0]
-                var i=0
-                for(i=0;i<response.data[0].transactions.length;i++)
+                $scope.RaisedTicket = response.data[0];
+                if(response.data[0].assignedEmp.UserID == '' || response.data[0].assignedEmp.UserID == null || response.data[0].assignedEmp.UserID == undefined)
+                {
+                    assigned_emp = '';
+                }
+                else
+                {
+                    assigned_emp = response.data[0].assignedEmp.UserID;
+                }
+                $scope.complaint_type_valid_invalid= response.data[0].complaintType;
+                if(response.data[0].assignedEmp.Name == '' ||  response.data[0].assignedEmp.Name == null ||  response.data[0].assignedEmp.Name == undefined)
+                {
+                    $scope.AssignedTo ='';
+                }
+                else
+                {
+                    $scope.AssignedTo = response.data[0].assignedEmp.Name;
+                }
+                for(var i=0;i<response.data[0].transactions.length;i++)
                 {
                     $scope.ReplyDescriptions.push(response.data[0].transactions[i]);
                     $scope.ReplyFromanddates.push(response.data[0].transactions[i].replierId)
                 }
 
 
-                $scope.AssignedTo =  $scope.RaisedTicket.assignedEmp.Name;
                 if(response.data[0].priority == 1)
                 {
                     $scope.Priority="Normal";
@@ -5434,7 +5483,7 @@
             }, function (response) {
                 growl.error(response.data.description['0']);
             });
-        }
+        };
 
         $scope.cancelUpdateTickets = function () {
             sweet.show({
@@ -5459,51 +5508,40 @@
                     }
                 }
             });
-        }
-
-       /* $scope.Valid=function()
-        {
-            var ValidTicket =
-                {
-                    complaintType:''
-                };
-            if(ValidTicket.complaintType == 1)
-            {
-            $scope.ValidTicketDetails={
-                ticketid:_ticket_id,
-                complaintType:1
-            };
-                DataService.UpdateValidTicket($scope.ValidTicketDetails).then(function (response) {
-                    if (!response.error) {
-                        growl.success("Replied successfully");
-                    } else {
-                        growl.error(response.message);
-                    }
-                }, function (response) {
-                    growl.error(response.data.description['0']);
-                });
-            }
-        }*/
+        };
 
         $scope.Valid = function ()
         {
-            if($scope.ValidTickets.valid == true)
+            if($scope.ValidTickets == true)
             {
                 $scope.UpdateDetails=
                 {
+                  assignedEmp:assigned_emp,
                   ticketid:_ticket_id,
                   complaintType:1
                 };
-                //alert($scope.UpdateDetails.ticketid);
-                //alert($scope.UpdateDetails.complaintType);
             }
             else
             {
-                alert("Please Choose Valid Complaints option to update");
+                $uibModal.open({
+                    templateUrl: 'ErrorValidateTickets.html',
+                    controller: 'UpdateValidComplaints',
+                    resolve: {
+                        items: function () {
+                        }
+                    }
+                });
+                return;
             }
+            $scope.SetValue = false;
             DataService.UpdateValidTicketDetails($scope.UpdateDetails).then(function (response) {
                 if (!response.error) {
-                    growl.success("Updated successfully");
+                    growl.success("Validated successfully");
+                    if(response.data.complaintType == 1)
+                    {
+                        $scope.SetValue = true;
+                        $scope.complaint_type_valid_invalid = response.data.complaintType;
+                    }
                 } else {
                     growl.error(response.message);
                 }
@@ -5515,44 +5553,20 @@
 
     }]);
 
+    app.controller('UpdateValidComplaints', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance, loggedInUser)
+    {
+        $scope.ok = function () {
+            $uibModalInstance.dismiss();
+        };
+    }]);
 
+    var _member_email;
+    var _member_mobile;
     app.controller('SearchMemberRaiseTickets', ['$scope', '$state','$stateParams', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state,$stateParams, DataService, NgTableParams, growl, sweet, $filter, $uibModal,StatusService)
     {
         $scope.memberDetails = [];
 
-        /*var raiseTicketsDetails = {
-            name:'',
-            user:'',
-            subject:'',
-            description:'',
-            channel:1,
-            priority:'',
-            department:'',
-            tickettype:'',
-            assignedEmp:'',
-            ticketdate:new Date(),
-            createdBy:$scope.loginid,
-        };*/
-
         var _mem_id=$stateParams.id;
-
-
-        DataService.getMember($stateParams.id).then(function (response) {
-            if (!response.error) {
-                $scope.memberDetails = response.data;
-                $scope.MemberName=response.data.Name;
-              /*  raiseTicketsDetails.name= response.data.Name;
-                raiseTicketsDetails.user = response.data.UserID;*/
-            } else {
-                growl.error(response.message);
-            }
-        }, function (response) {
-            growl.error(response.data.description);
-        });
-
-
-        $scope.loginid=localStorage.LoginID;
-
 
         $scope.raiseTicketsDetails = {
             /*name:,*/
@@ -5566,12 +5580,28 @@
             assignedEmp:'',
             ticketdate:new Date(),
             createdBy:$scope.loginid,
+            email:'',
+            phoneNumber:''
         };
+
+        DataService.getMember($stateParams.id).then(function (response) {
+            if (!response.error) {
+                $scope.memberDetails = response.data;
+                $scope.MemberName=response.data.Name;
+                $scope.raiseTicketsDetails.email = response.data.email;
+                $scope.raiseTicketsDetails.phoneNumber = response.data.phoneNumber;
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description);
+        });
+
+        $scope.loginid=localStorage.LoginID;
 
         if($scope.raiseTicketsDetails.department == '' || $scope.raiseTicketsDetails.tickettype || $scope.raiseTicketsDetails.assignedEmp)
         {
             $scope.raiseTicketsDetails = {
-                /*name:raiseTicketsDetails.name,*/
                 user:_mem_id,
                 subject:'',
                 description:'',
@@ -5582,12 +5612,13 @@
                 assignedEmp:'',
                 ticketdate:new Date(),
                 createdBy:$scope.loginid,
+                email:$scope.raiseTicketsDetails.email,
+                phoneNumber:$scope.raiseTicketsDetails.phoneNumber
             };
         }
         else
         {
             $scope.raiseTicketsDetails = {
-                /*name:raiseTicketsDetails.name,*/
                 user:_mem_id,
                 subject:'',
                 description:'',
@@ -5598,6 +5629,8 @@
                 assignedEmp:'',
                 ticketdate:new Date(),
                 createdBy:$scope.loginid,
+                email:$scope.raiseTicketsDetails.email,
+                phoneNumber:$scope.raiseTicketsDetails.phoneNumber
             };
         }
 
@@ -5660,7 +5693,7 @@
                     $scope.TicketTypes=[];
                     DataService.getTicketTypes(_ticket_type).then(function (response) {
                         if (!response.error) {
-                            for(var i=0;i<response.data.value.length;i++)
+                            for(var i=0;i<response.data.length;i++)
                             {
                                 $scope.TicketTypes.push(response.data.value[i])
                             }
@@ -5670,8 +5703,6 @@
                     }, function (response) {
                         growl.error(response.data.description['0']);
                     });
-
-                    growl.success(response.message);
                 } else {
                     growl.error(response.message);
                 }
@@ -5703,6 +5734,7 @@
                             }
                         }
                     });
+                    $state.go("admin.tickets.manage");
                 } else {
                     growl.error(response.message);
                 }
@@ -5710,7 +5742,6 @@
                 growl.error(response.data.description['0']);
             })
         };
-
 
         $scope.cancelRaiseTickets = function () {
             sweet.show({
@@ -5771,7 +5802,6 @@
                     {
                         $scope.Employees.push(response.data[i]);
                     }
-                    growl.success(response.message);
                 } else {
                     growl.error(response.message);
                 }
@@ -6297,12 +6327,9 @@
 
         $scope.toDateKPI = new Date();
 
-        var CurrentDate = new Date();
-     //   alert(CurrentDate);
+       var CurrentDate = new Date();
        var test = CurrentDate.getMonth() + 1;
-     //   alert(test);
-        var demo = CurrentDate.getDate();
-       // alert(demo);
+       var demo = CurrentDate.getDate();
 
         if(test == 10)
         {
@@ -6316,28 +6343,8 @@
             $scope.fromDateKPI  = new Date(CurrentDate.setMonth(CurrentDate.getMonth() - 1));
         }
         else {
-           // var test2;
             $scope.fromDateKPI   = new Date(CurrentDate.setMonth(CurrentDate.getMonth() - 2));
-         /*  alert($scope.fromDateKPI);*/
         }
-
-
-      /*  $scope.kpiDetails={
-            fromDateKPI:'',
-            toDateKPI:''
-        };
-
-        $scope.sendKpiDetails = function () {
-            DataService.SendKPIDetails($scope.kpiDetails).then(function (response) {
-                if (!response.error) {
-                    growl.success(response.message);
-                } else {
-                    growl.error(response.message);
-                }
-            }, function (response) {
-                growl.error(response.data.description['0']);
-            })
-        };*/
 
         $scope.press = function (size) {
             $uibModal.open({
@@ -6351,22 +6358,6 @@
                 }
             });
         };
-
-
-
-        /*$scope.selectedPeriod=function (data) {
-            $scope.kpiPeriod=data;
-
-            if($scope.kpiPeriod == 0 )
-            {
-            $scope.New={
-              fromdate:'',
-                todate:new Date(),
-                stationState:0,
-                duration:0
-            };
-            }
-        };*/
 
         $scope.details={
             fromdate:'',
@@ -6394,7 +6385,7 @@
                  _no_of_days=Math.round(Math.abs((from_date.getTime()-to_date.getTime())/(one_day)))+1;
                 /*_no_of_days = (_to_date) - (_from_date) + 1 ;*/
                 /*var _working_hours = _no_of_days * 16 * 60 * Number_of_DockingStations;*/
-                var _working_hours = _no_of_days * 16 * 60 * 44;
+                var _working_hours = _no_of_days * 16 * 60 * 48;
                 var i=0;
                 var total=0;
                 var total_major_empty_peak=0;
@@ -6757,7 +6748,7 @@
                  _docking_station_clean_count = response.data.length;
 
                 /*clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * Number_of_DockingStations) * 100).toFixed(2);*/
-                clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * 44) * 100).toFixed(2);
+                clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * 48) * 100).toFixed(2);
 
                 if(clean_percentage_value >= 1)
                 {
@@ -6925,7 +6916,8 @@
                         var _channel= response.data[i].channel;
                       if(_channel == 1)
                       {
-                          if(_complaintType == 2)
+                          /*if(_complaintType == 2)*/
+                          if(_complaintType == 1)
                           {
                               _total_complaints ++;
                           }
@@ -6997,7 +6989,6 @@
                             }
                         }
                     }
-                       /* alert(_cycle_repaire_count);*/
                        if(_closed_duration <240)
                        {
                            _cycle_repaire_value = (_closed_duration/_cycle_repaire_count)*100;
@@ -7045,15 +7036,14 @@
             }, function (response) {
                 /*growl.error(response.data.description);*/
             });
-            alert(All_Redistribution_Indicators_Points + percentage_points + _smart_card_kiosk_points + fleet_points + clean_percentage_points
-                + trip_points + downtime_points + _total_complaint_points + _cycle_repaire_points);
+            /*alert(All_Redistribution_Indicators_Points + percentage_points + _smart_card_kiosk_points + fleet_points + clean_percentage_points
+                + trip_points + downtime_points + _total_complaint_points + _cycle_repaire_points);*/
         }
     }]);
 
 
     app.controller('RVDetails', ['$scope', '$state', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet)
     {
-
 
     }]);
 
@@ -7743,7 +7733,10 @@
                     {
                         if(response.data[i].stationtype == "Major")
                         {
-                            $scope.EmptyMojorDSPeak.push(response.data[i])
+                            if(response.data[i].peekduration > 0)
+                            {
+                                $scope.EmptyMojorDSPeak.push(response.data[i])
+                            }
                         }
                     }
                     /*growl.success(response.message);*/
@@ -7784,10 +7777,10 @@
 
         $scope.GetDetails = function ()
         {
-            var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1);
-          //  var _fromdate = new Date("may 1, 2014 12:00:00");
-           var _todate = new Date( $scope.details.year,$scope.details.month, 1);
-           // var _todate = new Date("may 30, 2014 12:00:00");
+           // var _fromdate = new Date($scope.details.year,$scope.details.month - 1, 1,5,30,0,0);
+            var _fromdate = new Date($scope.details.year,$scope.details.month - 1,1,5,30,0);
+        //   var _todate = new Date( $scope.details.year,$scope.details.month, 1);
+            var _todate = new Date( $scope.details.year,$scope.details.month , 0,5,30,0);
 
             var monthNames = ["January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
@@ -7802,12 +7795,16 @@
             DataService.GetRVDetails($scope.details).then(function (response)
             {
                 $scope.EmptyMinorDSPeak=[];
-                if (!response.error) {
+                if (!response.error)
+                {
                     for(var i=0;i<response.data.length;i++)
                     {
                             if (response.data[i].stationtype == "Minor")
                             {
-                                $scope.EmptyMinorDSPeak.push(response.data[i]);
+                                if(response.data[i].peekduration > 0)
+                                {
+                                    $scope.EmptyMinorDSPeak.push(response.data[i]);
+                                }
                             }
                     }
                     $scope.details.month = '';
@@ -7867,9 +7864,12 @@
                 if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
                     {
-                        if(response.data[i].stationtype == 'Major')
+                        if(response.data[i].stationtype == "Major")
                         {
+                            if(response.data[i].offpeekduration > 0)
+                            {
                             $scope.EmptyMajorDSOffPeak.push(response.data[i])
+                            }
                         }
                     }
                     /*growl.success(response.message);*/
@@ -7932,7 +7932,10 @@
                     {
                         if(response.data[i].stationtype == 'Minor')
                         {
-                            $scope.EmptyMinorDSOffPeek.push(response.data[i])
+                            if(response.data[i].offpeekduration > 0)
+                            {
+                                $scope.EmptyMinorDSOffPeek.push(response.data[i])
+                            }
                         }
                     }
                     /*growl.success(response.message);*/
@@ -8044,29 +8047,9 @@
             $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
             $scope.SelectedYear= $scope.details.year;
 
-            /* if($scope.details.fromdate == '' || $scope.details.fromdate == null && $scope.details.todate == '' || $scope.details.todate == null)
-            {
-                $scope.details =
-                    {
-                        fromdate:_fromdate,
-                        todate:_todate,
-                        complaintType:2
-                    };
-            }
-            else if ($scope.details.month == '' || $scope.details.month == null && $scope.details.year == '' || $scope.details.year == null)
-            {
-                $scope.details =
-                    {
-                        fromdate:$scope.details.fromdate,
-                        todate:$scope.details.todate,
-                        complaintType:2
-                    };
-            }*/
-
-
             $scope.details.fromdate = _fromdate;
             $scope.details.todate = _todate;
-            $scope.details.complaintType = 2;
+            $scope.details.complaintType = 1;
 
             DataService.getValidTickets($scope.details).then(function (response)
             {
@@ -8077,10 +8060,10 @@
                     {
                         var _complaint_type = response.data[i].complaintType;
                         var _channel = response.data[i].channel;
-                        var _status = response.data[i].status;
+                        /*var _status = response.data[i].status;*/
                         if(_channel == 1)
                         {
-                            if(_complaint_type == 2)
+                            if(_complaint_type == 1)
                             {
                             $scope.ValidComplaints.push(response.data[i]);
                             }
@@ -8300,11 +8283,8 @@
         $scope.toDateKPI = new Date();
 
         var CurrentDate = new Date();
-        //   alert(CurrentDate);
         var test = CurrentDate.getMonth() + 1;
-        //   alert(test);
         var demo = CurrentDate.getDate();
-        // alert(demo);
 
         if(test == 10)
         {
@@ -8320,7 +8300,6 @@
         else {
             // var test2;
             $scope.fromDateKPI   = new Date(CurrentDate.setMonth(CurrentDate.getMonth() - 2));
-            /*  alert($scope.fromDateKPI);*/
         }
 
 
@@ -8970,7 +8949,8 @@
                         var _channel= response.data[i].channel;
                         if(_channel == 1)
                         {
-                            if(_complaintType == 2)
+                           /* if(_complaintType == 2)*/
+                            if(_complaintType == 1)
                             {
                                 _total_complaints ++;
                             }
@@ -9777,10 +9757,12 @@
             transactionType:''
         };
 
+
         $scope.daywises =[];
 
         $scope.sendDaywiseDetails = function ()
         {
+
             DataService.SendDaywiseCashCollectionDetails($scope.daywiseCollection).then(function (response) {
                 if (!response.error)
                 {
@@ -9838,9 +9820,6 @@
         $scope.SelectedTransaction = function (data) {
             $scope.daywiseCollection.transactionType = data;
         };
-
-        $scope.message = "";
-
     }]);
 
     // daywise-collection summary report print
@@ -10103,8 +10082,6 @@
 
     app.controller('AddDockingStationClean', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter','$window', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter,$window, $uibModal)
     {
-       /* alert(_login_id);*/
-
         $scope.dockingStationCleanInput={
             stationId:'',
             cleaneddate:'',
@@ -11887,74 +11864,11 @@ var _station_id;
 
     app.controller('RedistributionVehicleTracking',  ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
     {
-        // Docking Stations tracking
-      /*  var multiDockingStations = [];
-
-        $scope.dockingStationsData = [];
-
-        DataService.getDockingStations().then(function (response) {
-            if (!response.error) {
-                $scope.dockingStationsData = response.data;
-                $scope.dockingStations = response.data;
-                for (var i = 0; i < $scope.dockingStations.length; i++) {
-                    var longAndLat = {
-                        longitude: $scope.dockingStations[i].gpsCoordinates.longitude,
-                        latitude: $scope.dockingStations[i].gpsCoordinates.latitude,
-                        mapUrl: GOOGLEMAPURL,
-                        show: false,
-                        title: $scope.dockingStations[i].name,
-                        bicycleCount: $scope.dockingStations[i].bicycleCount,
-                        bicycleCapacity: $scope.dockingStations[i].bicycleCapacity,
-                        dockingStationStatus: StatusService.getDockingStationStatus($scope.dockingStations[i].status),
-                        id: i
-                    };
-                    multiDockingStations.push(longAndLat);
-                }
-
-            } else {
-                growl.error(response.message);
-            }
-        }, function (response) {
-            growl.error(response.data.description);
-        });
-
-        $scope.map = {
-            center: {
-                latitude: 12.3024314,
-                longitude: 76.6615633
-            }, zoom: 13
-        };
-
-        $scope.options = {scrollwheel: false};
-        $scope.markers = multiDockingStations;
-
-        $scope.windowOptions = {
-            visible: false
-        };
-
-        $scope.onClick = function (marker, eventName, model) {
-            model.show = !model.show;
-        };
-
-        $scope.closeClick = function () {
-            $scope.windowOptions.visible = false;
-        };
-
-        $scope.swapView = function (viewType) {
-            $scope.view = viewType;
-        };*/
-
         // Redistribution vehicle tracking
-
-
-
         var multiRedistributionVehicle = [];
 
-
         $scope.redistributionVehicleData = [];
-$interval(function () {
-
-
+            $interval(function () {
             DataService.getRedistributionVehicles().then(function (response) {
                 if (!response.error) {
                     $scope.redistributionVehicleData = response.data;
@@ -11965,7 +11879,6 @@ $interval(function () {
                             latitude: $scope.redistributionVehicles[i].gpsCoordinates.latitude,
                             mapUrl: GOOGLEMAPURL,
                             show: false,
-                            /* icon:'http://www.mytrintrin.com/wp-content/uploads/2016/07/logo-final1.png',*/
                             icon: 'assets/images/redistributionVehicle.png',
                             title: $scope.redistributionVehicles[i].Name,
                             bicycleCount: $scope.redistributionVehicles[i].vehicleId.length,
@@ -11983,8 +11896,7 @@ $interval(function () {
             }, function (response) {
                 growl.error(response.data.description);
             });
-
-},10000);
+            },10000);
 
             $scope.map = {
                 center: {

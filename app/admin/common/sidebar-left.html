@@ -36,10 +36,6 @@
                 <li><a ng-class="{'active': $state.includes('admin.reports.monitor-transactions')}"
                        ui-sref="admin.reports.monitor-transactions">Bicycle Transactions</a>
                 </li>
-               <!-- <li>
-                    <a ng-class="{'active': $state.includes('admin.reports.bicycle-availability') || $state.includes('admin.reports.port-information')}"
-                       ui-sref="admin.reports.bicycle-availability">Bicycle Availability</a>
-                </li>-->
                 <li class="sub-menu">
                     <a href="" toggle-submenu>Bicycle Availability</a>
                     <ul>
@@ -64,10 +60,6 @@
                     <a ng-class="{'active': $state.includes('admin.reports.port-status')}"
                        ui-sref="admin.reports.port-status">Port Status</a>
                 </li>
-                <!--<li>
-                    <a ng-class="{'active': $state.includes('admin.reports.bicycle-life-cycle')}"
-                       ui-sref="admin.reports.bicycle-life-cycle">Bicycle Life Cycle</a>
-                </li>-->
                 <li>
                     <a ng-class="{'active': $state.includes('admin.reports.redistribution-vehicle-track')}"
                        ui-sref="admin.reports.redistribution-vehicle-track">Redistribution Vehicle Tracking</a>
@@ -127,9 +119,6 @@
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.cycles-available-6am')}"
                                ui-sref="admin.kpi.reports.cycles-available-6am">Total Cycle Fleet Available at 6 am</a>
                         </li>
-                       <!-- <li><a ng-class="{'active': $state.includes('admin.kpi.reports.docking-station-clean')}"
-                               ui-sref="admin.kpi.reports.docking-station-clean">Bicycle station is cleaned once</a>
-                        </li>-->
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.smart-card-at-hub')}"
                                ui-sref="admin.kpi.reports.smart-card-at-hub">Smart card performance at the hub</a>
                         </li>
@@ -202,13 +191,6 @@
                 </li>
             </ul>
         </li>
-       <!-- <li ng-class="{active: $state.includes('admin.membership')}">
-            <a ui-sref="admin.membership.manage"><i class="zmdi zmdi-card-membership"></i> Membership Plans</a>
-        </li>
-        <li ng-class="{active: $state.includes('admin.fare-plans')}">
-            <a ui-sref="admin.fare-plans.manage"><i class="zmdi zmdi-money-box"></i> Fare Plans</a>
-        </li>-->
-
         <li class="sub-menu"
             ng-class="{'active toggled': $state.includes('admin.employee') || $state.includes('admin.docking-stations') || $state.includes('admin.docking-units') || $state.includes('admin.docking-ports') || $state.includes('admin.bicycles') || $state.includes('admin.redistribution-vehicles') || $state.includes('admin.holding-areas') || $state.includes('admin.maintenance-centres') || $state.includes('admin.registration-centres') || $state.includes('admin.smart-cards') || $state.includes('admin.other-stations.maintenance-centre')}">
             <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Assets</a>
@@ -219,9 +201,6 @@
                 <li><a ng-class="{'active': $state.includes('admin.docking-stations')}"
                        ui-sref="admin.docking-stations.manage">Docking
                     Stations</a></li>
-               <!-- <li><a ng-class="{'active': $state.includes('admin.docking-units')}"
-                       ui-sref="admin.docking-units.manage">Docking
-                    Units</a></li>-->
                 <li><a ng-class="{'active': $state.includes('admin.docking-ports')}"
                        ui-sref="admin.docking-ports.manage">Docking
                     Ports</a></li>
@@ -251,9 +230,6 @@
                     <a ng-class="{active: $state.includes('admin.smart-cards')}" ui-sref="admin.smart-cards.manage">Smart
                         Cards</a>
                 </li>
-<!--                <li ng-if="role=='admin'">
-                    <a ng-class="{active: $state.includes('admin.internal-stations')}" ui-sref="admin.internal-stations.manage">Internal Stations</a>
-                </li>-->
                 <li ng-if="role=='admin'">
                     <a ng-class="{active: $state.includes('admin.fleets')}" ui-sref="admin.fleets.manage">Fleet</a>
                 </li>
@@ -269,7 +245,7 @@
         </li>
 
         <li class="sub-menu">
-            <a href="" toggle-submenu><i class="zmdi zmdi-format-subject"></i>IT</a>
+            <a href="" toggle-submenu><i class="zmdi zmdi-gamepad"></i>IT</a>
             <ul>
                 <li><a ng-class="{'active': $state.includes('admin.website-downtime.manage')}"
                        ui-sref="admin.website-downtime.manage">Website Downtime</a>
@@ -283,63 +259,13 @@
                 <li><a ng-class="{'active': $state.includes('admin.maintenance.new-design')}"
                        ui-sref="admin.maintenance.new-design.manageview">Add Cleaning Details</a>
                 </li>
-              <!--  <li><a ng-class="{'active': $state.includes('admin.maintenance.clean-report')}"
-                       ui-sref="admin.maintenance.clean-report.manage">Cleaning Report</a>
-                </li>-->
             </ul>
         </li>
-
-        <!--new-->
        <!-- <li ng-class="{active: $state.includes('admin.ports-testing')}">
             <a ui-sref="admin.ports-testing.test"><i class="zmdi zmdi-badge-check"></i>Check In Check Out</a>
         </li>
         <li ng-class="{active: $state.includes('admin.checkincheckout-bridge')}">
             <a ui-sref="admin.checkincheckout-bridge.checkincheckout"><i class="zmdi zmdi-swap"></i>Check In Check Out - Bridge</a>
-        </li>-->
-
-
-        <!--maintenance-->
-       <!-- <li class="sub-menu"
-            ng-class="{'active toggled': $state.includes('admin.maintenance')}">
-            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Maintenance</a>
-            <ul>
-                <li><a ng-class="{'active': $state.includes('admin.maintenance')}"
-                       ui-sref="admin.maintenance.manage-view">Docking Station Clean</a>
-                </li>
-                <li><a ng-class="{'active': $state.includes('admin.maintenance.new-design')}"
-                       ui-sref="admin.maintenance.new-design.manageview">New Design</a>
-                </li>
-            </ul>
-        </li>-->
-
-        <!--<li class="sub-menu"
-            ng-class="{'active toggled': $state.includes('admin.maintenance') || $state.includes('admin.maintenance.manage-view') || $state.includes('admin.maintenance.new-design')}">
-            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Maintenance</a>
-            <ul>
-                <li><a ng-class="{'active': $state.includes('admin.maintenance')}"
-                       ui-sref="admin.maintenance.manage-view">Docking Station Clean Report</a>
-                </li>
-                <li><a ng-class="{'active': $state.includes('admin.maintenance.bicyle-maintenance')}"
-                       ui-sref="admin.maintenance.bicycle-maintenance.report">Bicycle Maintenance Report</a>
-                </li>
-                <li><a ng-class="{'active': $state.includes('admin.maintenance.new-design')}"
-                       ui-sref="admin.maintenance.new-design.manageview">Add Cleaning Details</a>
-                </li>
-            </ul>
-        </li>-->
-
-       <!-- <li ng-class="{active: $state.includes('admin.registratiom-details')}">
-            <a ui-sref="admin.registration-details.registration-details"><i class="zmdi zmdi-info "></i>Registration Details</a>
-        </li>--><!--prashanth commented registration details on 19.11.16-->
-
-        <!--<li class="sub-menu"
-            ng-class="{'active toggled': $state.includes('admin.settings') || $state.includes('admin.settings.ticket-type')}">
-            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Settings</a>
-            <ul>
-                <li><a ng-class="{'active': $state.includes('admin.settings.ticket-type')}"
-                       ui-sref="admin.settings.ticket-type.manage">General Type</a>
-                </li>
-            </ul>
         </li>-->
     </ul>
 
@@ -477,6 +403,21 @@
                     <a ng-class="{'active': $state.includes('admin.reports.redistribution-vehicle-track')}"
                        ui-sref="admin.reports.redistribution-vehicle-track">Redistribution Vehicle Tracking</a>
                 </li>
+            </ul>
+        </li>
+
+        <li class="sub-menu"
+            ng-class="{'active toggled': $state.includes('admin.docking-ports') || $state.includes('admin.bicycles')}">
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-widgets"></i> Assets</a>
+            <ul>
+                <li><a ng-class="{'active': $state.includes('admin.docking-ports')}"
+                       ui-sref="admin.docking-ports.manage">Docking
+                    Ports</a></li>
+                <li>
+                    <a ng-class="{active: $state.includes('admin.bicycles')}"
+                       ui-sref="admin.bicycles.manage">Bicycles</a>
+                </li>
+                <li>
             </ul>
         </li>
     </ul>

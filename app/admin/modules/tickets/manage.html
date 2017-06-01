@@ -13,94 +13,6 @@
         <div class="card" id="profile-main">
             <form class="pmbb-edit" name="MemberForm" novalidate>
                 <uib-tabset justified="true">
-                    <!-- <uib-tab heading="Tickets Assigned to You">
-                         <div class="card-body">
-                             <div class="table-responsive" >
-                                 <table ng-table="raisedTicketsTableAssigned" class="table table-striped table-vmiddle" show-filter="true">
-                                     <tr ng-repeat="Assigned in RaisedTicketsAssigned">
-                                         <td data-title="'Date'" filter="{ date: 'text'}">
-                                             {{Assigned.ticketdate | date : "dd MMM yy"}}
-                                         </td>
-                                         <td data-title="'From'" filter="{ pos: 'text'}">
-                                             {{Assigned.name}}
-                                         </td>
-                                         <td data-title="'Ticket Subject'" filter="{ gateway: 'text'}">
-                                             <a ui-sref="admin.tickets.edit({id: Assigned._id})">{{Assigned.subject}}</a>
-                                         </td>
-                                         <td data-title="'Priority'" filter="{ 'cash': 'text'}">
-                                             {{Assigned.priority}}
-                                         </td>
-                                         <td data-title="'Department'" filter="{ 'subscriptionType': 'text'}">
-                                             {{Assigned.department}}
-                                         </td>
-                                         <td data-title="'Status'" filter="{ 'subscriptionType': 'text'}">
-                                             {{Assigned.status}}
-                                         </td>
-                                     </tr>
-                                 </table>
-                             </div>
-                         </div>
-                     </uib-tab>-->
-                    <!--<uib-tab heading="Tickets Created By You">
-                        <div class="card-body">
-                            <div class="table-responsive" >
-                                <table ng-table="raisedTicketsTable" class="table table-striped table-vmiddle" show-filter="true">
-                                    <tr ng-repeat="tickets in RaisedTickets">
-                                        <td data-title="'Date'" filter="{ ticketdate: 'text'}">
-                                            {{tickets.ticketdate | date : "dd MMM yy"}}
-                                        </td>
-                                        <td data-title="'From'" filter="{ name: 'text'}">
-                                            {{tickets.name}}
-                                        </td>
-                                        <td data-title="'Ticket Subject'" filter="{ subject: 'text'}">
-                                            <a ui-sref="admin.tickets.edit({id: tickets._id})">{{tickets.subject}}</a>
-                                        </td>
-                                        <td data-title="'Priority'" filter="{ priority: 'text'}">
-                                            {{tickets.priority}}
-                                        </td>
-                                        <td data-title="'Department'" filter="{ department: 'text'}">
-                                            {{tickets.department}}
-                                        </td>
-                                        <td data-title="'STATUS'" filter="{ status: 'text'}">
-                                            {{tickets.status}}
-                                        </td>
-                                        <td data-title="'Assigned To'" filter="{ 'Type': 'text'}">
-                                            {{tickets.assignedEmp.Name}}
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </uib-tab>-->
-                    <!-- <uib-tab heading="Unassigned Tickets" ng-if="loginRole == 'admin'">
-                         <div class="card-body">
-                             <div class="table-responsive" >
-                                 <table ng-table="UnassignedTicketsTable" class="table table-striped table-vmiddle" show-filter="true">
-                                     <tr ng-repeat="unassign in UnassignedTickets">
-                                         <td data-title="'Date'" filter="{ ticketdate: 'text'}">
-                                             {{unassign.ticketdate | date : "dd MMM yy"}}
-                                         </td>
-                                         <td data-title="'From'" filter="{ name: 'text'}">
-                                             {{unassign.name}}
-                                         </td>
-                                         <td data-title="'Ticket Subject'" filter="{ subject: 'text'}">
-                                             <a ui-sref="admin.tickets.edit({id: unassign._id})">{{unassign.subject}}</a>
-                                         </td>
-                                         <td data-title="'Priority'" filter="{ priority: 'text'}">
-                                             {{unassign.priority}}
-                                         </td>
-                                         <td data-title="'Department'" filter="{ department: 'text'}">
-                                             {{unassign.department}}
-                                         </td>
-                                         <td data-title="'STATUS'" filter="{ status: 'text'}">
-                                             {{unassign.status}}
-                                         </td>
-                                     </tr>
-                                 </table>
-                             </div>
-                         </div>
-                     </uib-tab>-->
-
                     <uib-tab heading="">
                         <div class="card-body">
                             <div class="table-responsive" >
@@ -110,8 +22,7 @@
                                             {{assigntome.ticketdate | date : "dd MMM yy"}}
                                         </td>
                                         <td data-title="'From'" filter="{ name: 'text'}" >
-                                            <label ng-if="assigntome.user.Name != null">{{assigntome.user.Name}}</label>
-                                            <label  ng-if="assigntome.name != null"> {{assigntome.name}}</label>
+                                            <label>{{assigntome.name}}</label>
                                         </td>
                                         <td data-title="'Ticket Subject'" filter="{ subject: 'text'}">
                                             <a ui-sref="admin.tickets.edit({id: assigntome._id})">{{assigntome.subject}}</a>
@@ -134,9 +45,6 @@
                                         <td data-title="'Ticket ID'" filter="{ status: 'text'}">
                                             UT{{assigntome.uuId}}
                                         </td>
-                                        <!-- <td data-title="'Assigned To'" filter="{ 'Type': 'text'}">
-                                             {{tickets.assignedEmp.Name}}
-                                         </td>-->
                                     </tr>
                                 </table>
                             </div>

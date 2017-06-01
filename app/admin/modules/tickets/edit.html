@@ -11,8 +11,8 @@
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="Valid();" ng-disabled="EditFleets.$invalid">
-                <i class="zmdi zmdi-save"></i> Update
+                    ng-click="Valid()" ng-hide="SetValue" ng-if="complaint_type_valid_invalid == 2">
+                <i class="zmdi zmdi-save"></i> Validate Ticket
             </button>
             <!--updateRaisedTicket-->
         </div>
@@ -46,8 +46,8 @@
                         <dd>
                             <div class="fg-line">
                                         <textarea name="comments"
-                                                  ng-model="RaisedTicket.description" class="form-control"
-                                                  rows="4" disabled>
+                                         ng-model="RaisedTicket.description" class="form-control"
+                                         rows="4" disabled>
                             </textarea>
                             </div>
                         </dd>
@@ -113,9 +113,8 @@
                         <dl class="dl-horizontal">
                             <dd>
                                 <div class="fg-line m-t-10">
-                                <!--<input type="checkbox" name="complaintType" ng-model="ValidTickets.complaintType" ng-true-value="'YES'" ng-false-value="'NO'">&nbsp;-->
-                                    <input type="checkbox" ng-model="ValidTickets.valid" checked="true">
-                                Valid Complaint
+                                    <input type="checkbox" ng-model="ValidTickets" checked="true">
+                                    <label>Valid Complaint</label>
                                 </div>
                             </dd>
                         </dl>
@@ -293,4 +292,20 @@
                 <button class="btn btn-link" type="button" ng-click="ReassignEmp()" ng-disabled="reassignForm.$invalid">Assign</button>
             </div>
         </form>
+    </script>
+
+    <script type="text/ng-template" id="ErrorValidateTickets.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Message</h4>
+        </div>
+        <div class="modal-body">
+            <h3>
+                <p>
+                    Please Choose Valid Complaints option to update <br>
+                </p>
+            </h3>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-link" type="button" ng-click="ok();">OK</button>
+        </div>
     </script>

@@ -184,6 +184,17 @@
                 return deferred.promise;
             },
 
+            // User Details
+            getUserDetails:function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.member.get + '/' + data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             // updateing the valid tickets
             UpdateValidTicketDetails: function (data) {
                 var deferred = $q.defer();

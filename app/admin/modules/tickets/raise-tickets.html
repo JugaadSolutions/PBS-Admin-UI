@@ -39,7 +39,7 @@
                     <div class="pmbb-body p-l-30">
 
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10 p-l-30">Member name</dt>
+                            <dt class="p-t-10">Member name</dt>
                             <dd>
                                 <div class="fg-line" >
                                     <input type="text" name="membername"
@@ -89,11 +89,11 @@
                                     <select chosen class="form-control" ng-model="raiseTicketsDetails.priority"
                                             data-placeholder-text-single="'Select Type'"
                                             name="priorityName">
-                                        <option value="0">SELECT THE OPTIONS</option>
                                         <option value="1">Normal</option>
                                         <option value="2">Medium</option>
                                         <option value="3">Urgent</option>
                                         <option value="4">Critical</option>
+                                        <option value="">Select Priority</option>
                                     </select>
                                 </div>
                             </dd>
@@ -108,6 +108,7 @@
                                             ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
                                             ng-model="dept"
                                             ng-change="selecteDept(dept)">
+                                        <option value="">Select Department</option>
                                     </select>
                                 </div>
                             </dd>
@@ -121,12 +122,13 @@
                                             ng-options="Employee as Employee.Name for Employee in Employees"
                                             ng-model="empName"
                                             ng-change="selectedEmp(empName)">
+                                        <option value="">Select Employee</option>
                                     </select>
                                 </div>
                             </dd>
                         </dl>
 
-                        <dl class="dl-horizontal required">
+                        <dl class="dl-horizontal">
                             <dt class="p-t-10">Type</dt>
                             <dd>
                                 <div class="fg-line">
@@ -134,17 +136,16 @@
                                             ng-options="TicketType as TicketType for TicketType in TicketTypes"
                                             ng-model="ticketType"
                                             ng-change="selectedType(ticketType)">
+                                        <option value="">Select Type</option>
                                     </select>
                                 </div>
                             </dd>
                         </dl>
-
                     </div>
                 </div>
             </form>
         </div>
     </div>
-
 </div>
 
 <script type="text/ng-template" id="TicketNumber.html">

@@ -91,12 +91,12 @@
         <div class="card-body">
             <div class="table-responsive" >
                 <table ng-table="EmptyMinorDSPeakTable" class="table table-striped table-vmiddle" show-filter="false">
-                    <tr ng-repeat="peak in $data">
+                    <tr ng-repeat="peak in EmptyMinorDSPeak">
                         <td data-title="'From Time'">
-                            {{peak.starttime |  date : "dd MMM yy h:mm"}}
+                            {{peak.starttime |  date : "dd MMM yy h:mm:ss a"}}
                         </td>
                         <td data-title="'End Time'">
-                            {{peak.endtime |  date : "dd MMM yy h:mm"}}
+                            {{peak.endtime |  date : "dd MMM yy h:mm:ss a"}}
                         </td>
                         <td data-title="'Peak Duration (In Minutes)'">
                             {{(peak.peekduration).toFixed(2)}}

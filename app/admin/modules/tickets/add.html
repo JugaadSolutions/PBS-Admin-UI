@@ -74,7 +74,7 @@
                         <h2><i class="zmdi zmdi-local-store m-r-10"></i>Non Member</h2>
                     </div>
 
-                    <dl class="dl-horizontal">
+                    <dl class="dl-horizontal required">
                         <dt class="p-t-10">Name</dt>
                         <dd>
                             <div class="fg-line"
@@ -92,6 +92,28 @@
                     </dl>
 
                     <dl class="dl-horizontal">
+                        <dt class="p-t-10">Email</dt>
+                        <dd>
+                            <div class="fg-line">
+                                <input type="text" name="membername"
+                                       ng-model="ticketsDetails.email"
+                                       class="form-control" placeholder="ashok@gmail.com">
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl class="dl-horizontal required">
+                        <dt class="p-t-10">Mobile Number</dt>
+                        <dd>
+                            <div class="fg-line" >
+                                <input type="text" name="membername"
+                                       ng-model="ticketsDetails.phoneNumber"
+                                       class="form-control" placeholder="9999999999" maxlength="10" required>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <dl class="dl-horizontal required">
                         <dt class="p-t-10">Ticket Subject</dt>
                         <dd>
                             <div class="fg-line"
@@ -108,7 +130,7 @@
                         </dd>
                     </dl>
 
-                    <dl class="dl-horizontal">
+                    <dl class="dl-horizontal required">
                         <dt class="p-t-10">Description</dt>
                         <dd>
                             <div class="fg-line"
@@ -125,44 +147,46 @@
                         </dd>
                     </dl>
 
-                    <dl class="dl-horizontal">
+                    <dl class="dl-horizontal required">
                         <dt class="p-t-10">Priority</dt>
                         <dd>
                             <div class="fg-line">
                                 <select chosen class="form-control" ng-model="ticketsDetails.priority"
                                         data-placeholder-text-single="'Select Type'"
-                                        name="priorityName">
-                                    <option value="0">SELECT THE OPTIONS</option>
+                                        name="priorityName" required>
                                     <option value="1">Normal</option>
                                     <option value="2">Medium</option>
                                     <option value="3">Urgent</option>
                                     <option value="4">Critical</option>
+                                    <option value="">SELECT PRIORITY</option>
                                 </select>
                             </div>
                         </dd>
                     </dl>
 
-                    <dl class="dl-horizontal">
+                    <dl class="dl-horizontal required">
                         <dt class="p-t-10">Departments</dt>
                         <dd>
                             <div class="fg-line">
                                 <select chosen class="form-control"
                                         ng-options="EmpDepartment as EmpDepartment.department for EmpDepartment in EmpDepartments"
                                         ng-model="dept"
-                                        ng-change="selecteDept(dept)">
+                                        ng-change="selecteDept(dept)" required>
+                                    <option value="">Select Department</option>
                                 </select>
                             </div>
                         </dd>
                     </dl>
 
-                    <dl class="dl-horizontal">
+                    <dl class="dl-horizontal required">
                         <dt class="p-t-10">Employee</dt>
                         <dd>
                             <div class="fg-line">
                                 <select chosen class="form-control"
                                         ng-options="Employee as Employee.Name for Employee in Employees"
                                         ng-model="empName"
-                                        ng-change="selectedEmp(empName)">
+                                        ng-change="selectedEmp(empName)" required>
+                                    <option value="">Select Employee</option>
                                 </select>
                             </div>
                         </dd>
@@ -176,6 +200,7 @@
                                         ng-options="TicketType as TicketType for TicketType in TicketTypes"
                                         ng-model="ticketType"
                                         ng-change="selectedType(ticketType)">
+                                    <option value="">Select Type</option>
                                 </select>
                             </div>
                         </dd>
@@ -233,6 +258,7 @@
     </div>
     <form class="pmbb-edit" name="RaiseTickets">
         <div class="modal-body">
+
             <dl class="dl-horizontal">
                 <dt class="p-t-10 p-l-30">Member name</dt>
                 <dd>
@@ -243,6 +269,7 @@
                     </div>
                 </dd>
             </dl>
+
             <dl class="dl-horizontal required">
                 <dt class="p-t-10">Ticket Subject</dt>
                 <dd>

@@ -30,7 +30,7 @@
                             {{employee.email}}
                         </td>
                         <td data-title="'Phone'" filter="{ 'phoneNumber': 'text'}">
-                            {{employee.phoneNumber}}
+                            {{employee.phoneNumber.substring(3)}}
                         </td>
                         <td data-title="'Department'" filter="{ '_type': 'text'}">
                             {{employee._type}}

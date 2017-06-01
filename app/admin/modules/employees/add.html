@@ -12,7 +12,7 @@
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="addEmployees()">
+                    ng-click="addEmployees()" ng-disabled="EmployeeForm.$invalid">
                 <!--ng-disabled="EmployeeForm.$invalid"-->
                 <i class="zmdi zmdi-save"></i> Save
             </button>
