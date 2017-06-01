@@ -5378,7 +5378,8 @@
             if (!response.error)
             {
                 $scope.RaisedTicket = response.data[0];
-                if(response.data[0].assignedEmp.UserID == '' || response.data[0].assignedEmp.UserID == null || response.data[0].assignedEmp.UserID == undefined)
+                /*if(response.data[0].assignedEmp.UserID == '' || response.data[0].assignedEmp.UserID == null || response.data[0].assignedEmp.UserID == undefined)*/
+                if(response.data[0].assignedEmp == '' || response.data[0].assignedEmp == null || response.data[0].assignedEmp == undefined)
                 {
                     assigned_emp = '';
                 }
