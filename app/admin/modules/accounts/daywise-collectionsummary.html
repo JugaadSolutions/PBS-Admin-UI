@@ -82,10 +82,10 @@
                 <table id="export_table" ng-table="daywiseTable" class="table table-striped table-vmiddle" show-filter="false">
                     <tr ng-repeat="daywises in $data">
                         <td data-title="'Date'" filter="{ creditBalance: 'text'}">
-                            {{daywises.createdAt |  date : "dd MMM yy"}}
+                            {{daywises.createdAt |  date : "dd MMM yy hh:mm"}}
                         </td>
                         <td data-title="'Payer'" filter="{ creditBalance: 'text'}">
-                            {{daywises.memberId.Name}}
+                            {{daywises.memberId.Name}} {{daywises.memberId.lastName}}
                         </td>
                         <td data-title="'Transaction No'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
                             <a ui-sref="admin.members.edit({id: member._id})">{{daywises.invoiceNo}}</a>

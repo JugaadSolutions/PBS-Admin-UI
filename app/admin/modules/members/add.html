@@ -1403,31 +1403,29 @@
                                     </dd>
                                 </dl>
 
-                                <dl class="dl-horizontal required">
+                                <dl class="dl-horizontal required" ng-if="Role != 'Mysoreone-employee'">
                                     <dt class="p-t-10 p-l-30">Mode of Payments</dt>
                                     <dd>
                                         <div class="fg-line">
                                             <select chosen class="form-control" ng-model="member.creditMode"
-                                                    data-placeholder-text-single="'Select Credit Type'"
                                                     name="creditType" required>
                                                 <option value="Debit Card">Debit Card</option>
                                                 <option value="Credit Card">Credit Card</option>
                                                 <option value="Cash">Cash</option>
+                                                <option value="">Select Payment Mode</option>
                                             </select>
                                         </div>
                                     </dd>
                                 </dl>
 
-                                <dl class="dl-horizontal required" ng-if="Role=='Mysoreone-employee'">
+                                <dl class="dl-horizontal required" ng-if="Role == 'Mysoreone-employee'">
                                     <dt class="p-t-10 p-l-30">Mode of Payments</dt>
                                     <dd>
                                         <div class="fg-line">
                                             <select chosen class="form-control" ng-model="member.creditMode"
-                                                    data-placeholder-text-single="'Select Credit Type'"
+                                                    data-placeholder-text-single="'Select Payment Mode'"
                                                     name="creditType" required>
-                                                <option value="Debit Card">Debit Card</option>
-                                                <option value="Credit Card">Credit Card</option>
-                                                <option value="Cash">Cash</option>
+                                                <option value="mone-cash">Cash</option>
                                             </select>
                                         </div>
                                     </dd>

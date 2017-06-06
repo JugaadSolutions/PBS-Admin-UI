@@ -44,7 +44,7 @@
                                             {{assigntome.assignedEmp.Name}}
                                         </td>
                                         <td data-title="'Ticket ID'" filter="{ status: 'text'}">
-                                            UT{{assigntome.uuId}}
+                                            <label ng-if="assigntome.uuId"> UT{{assigntome.uuId}}</label>
                                         </td>
                                        <!-- <td data-title="'Mobile No'" filter="{ status: 'text'}">
                                             {{(assigntome.user.phoneNumber).substring(3)}}
@@ -63,6 +63,7 @@
                         <br>
                         <br>
                         <button class="btn btn-icon-text btn-success waves-effect" ng-click="GetTickets('LoginId','All','Close')">My Closed Tickets</button>
+                        <!--<button class="btn btn-icon-text btn-success waves-effect" ng-if="loginRole == 'Operator'" ng-click="GetTickets('All','All','Open')">All Tickets</button>-->
                     </uib-tab>
 
                 </uib-tabset>

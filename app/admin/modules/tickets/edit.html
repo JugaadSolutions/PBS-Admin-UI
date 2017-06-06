@@ -11,7 +11,7 @@
                 <i class="zmdi zmdi-arrow-left"></i> Back to List
             </button>
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="Valid()" ng-hide="SetValue" ng-if="complaint_type_valid_invalid == 2">
+                    ng-click="Valid()" ng-if="complaint_type_valid_invalid == 2">
                 <i class="zmdi zmdi-save"></i> Validate Ticket
             </button>
             <!--updateRaisedTicket-->
@@ -110,6 +110,7 @@
                             </dd>
                         </dl>
 
+                        <!--<div ng-if="complaint_type_valid_invalid == 2">-->
                         <dl class="dl-horizontal">
                             <dd>
                                 <div class="fg-line m-t-10">
@@ -118,6 +119,8 @@
                                 </div>
                             </dd>
                         </dl>
+                        <!--</div>-->
+
 
                         <div style="margin-left: 180px">
                             <button type="button" class="btn btn-icon-text btn-success waves-effect"

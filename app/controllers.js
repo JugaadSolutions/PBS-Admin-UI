@@ -1747,6 +1747,9 @@
     // Member Credit Modal
     app.controller('CreditModalCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance, loggedInUser)
     {
+
+        $scope.login_role= localStorage.LoginRole
+
         $scope.loginid=localStorage.LoginID;
         var _logIn_Id=$scope.loginid;
 
@@ -5035,7 +5038,7 @@
             $state.go('admin.tickets.add');
         };
 
-        // new process
+        // new process loading the tickets which is created by the employee
         $scope.GetTickets=function (created,assign,status)
         {
             if(created == 'LoginId')
@@ -5106,60 +5109,114 @@
             });
         }
 
-        // on load
-        var _dept_admin="All";
-        var _ticket_type_admin="All";
-        var _to_date_admin=new Date();
-        var _from_date_admin = new Date();
-        _from_date_admin.setDate(_from_date_admin.getDate() - 15);
+        if(_login_role == 'admin')
+        {
+            // on load
+            var _dept_admin = "All";
+            var _ticket_type_admin = "All";
+            var _to_date_admin = new Date();
+            var _from_date_admin = new Date();
+            _from_date_admin.setDate(_from_date_admin.getDate() - 15);
 
-        $scope.ticketsCreatedAll={
-            createdBy:'All',
-            assignedEmp:'All',
-            status:'Open',
-            todate:_to_date_admin,
-            fromdate:_from_date_admin,
-            department:_dept_admin,
-            tickettype:_ticket_type_admin,
-            user:'All'
-        };
+            $scope.ticketsCreatedAll = {
+                createdBy: 'All',
+                assignedEmp: 'All',
+                status: 'Open',
+                todate: _to_date_admin,
+                fromdate: _from_date_admin,
+                department: _dept_admin,
+                tickettype: _ticket_type_admin,
+                user: 'All'
+            };
 
-        DataService.getRaisedTickets($scope.ticketsCreatedAll).then(function (response) {
-            if (!response.error) {
-                $scope.RaisedTickets = [];
-                $scope.RaisedTickets = response.data;
-                for(var i=0;i<response.data.length;i++)
-                {
-                    if(response.data[i].user)
-                    {
-                        response.data[i].name = response.data[i].user.Name;
-                    }
-                    else
-                    {
+            DataService.getRaisedTickets($scope.ticketsCreatedAll).then(function (response) {
+                if (!response.error) {
+                    $scope.RaisedTickets = [];
+                    $scope.RaisedTickets = response.data;
+                    for (var i = 0; i < response.data.length; i++) {
+                        if (response.data[i].user) {
+                            response.data[i].name = response.data[i].user.Name;
+                        }
+                        else {
 
-                    }
-                }
-                $scope.RaisedTickets.push(response.data[i]);
-
-                $scope.GeneralTable = new NgTableParams(
-                    {
-                        count: 10
-                    },
-                    {
-                        getData: function ($defer, params) {
-                            var orderedData = params.filter() ? $filter('filter')($scope.RaisedTickets, params.filter()) : $scope.RaisedTickets;
-                            /* params.total(orderedData.length);
-                             $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));*/
                         }
                     }
-                );
+                    $scope.RaisedTickets.push(response.data[i]);
 
-            } else {
-                growl.error(response.message);
+                    $scope.GeneralTable = new NgTableParams(
+                        {
+                            count: 10
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.RaisedTickets, params.filter()) : $scope.RaisedTickets;
+                                /* params.total(orderedData.length);
+                                 $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));*/
+                            }
+                        }
+                    );
+
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            });
+        }
+
+        else if(_login_role == 'Operator')
+        {
+                var _dept_admin = "All";
+                var _ticket_type_admin = "All";
+                var _to_date_admin = new Date();
+                var _from_date_admin = new Date();
+                _from_date_admin.setDate(_from_date_admin.getDate() - 15);
+
+                $scope.ticketsCreatedAll = {
+                    createdBy: $scope.loginid,
+                    assignedEmp: 'All',
+                    status: 'Open',
+                    todate: _to_date_admin,
+                    fromdate: _from_date_admin,
+                    department: _dept_admin,
+                    tickettype: _ticket_type_admin,
+                    user: 'All'
+                };
+
+                DataService.getRaisedTickets($scope.ticketsCreatedAll).then(function (response) {
+                    if (!response.error) {
+                        $scope.RaisedTickets = [];
+                        $scope.RaisedTickets = response.data;
+                        for (var i = 0; i < response.data.length; i++) {
+                            if (response.data[i].user) {
+                                response.data[i].name = response.data[i].user.Name;
+                            }
+                            else {
+
+                            }
+                        }
+                        $scope.RaisedTickets.push(response.data[i]);
+
+                        $scope.GeneralTable = new NgTableParams(
+                            {
+                                count: 10
+                            },
+                            {
+                                getData: function ($defer, params) {
+                                    var orderedData = params.filter() ? $filter('filter')($scope.RaisedTickets, params.filter()) : $scope.RaisedTickets;
+                                    /* params.total(orderedData.length);
+                                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));*/
+                                }
+                            }
+                        );
+
+                    } else {
+                        growl.error(response.message);
+                    }
+                }, function (response) {
+                    growl.error(response.data.description['0']);
+                });
             }
-        }, function (response) {
-            growl.error(response.data.description['0']);
-        });
     }]);
 
     var _search_member_name;
@@ -5362,6 +5419,7 @@
 
     var _ticket_id;
     var assigned_emp;
+    var _com_type;
     app.controller('EditTickets', ['$scope', '$state','$stateParams', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state,$stateParams, DataService, NgTableParams, growl, sweet, $filter, $uibModal,StatusService)
     {
         $scope.loginid=localStorage.LoginID;
@@ -5374,7 +5432,9 @@
 
         _ticket_id = $stateParams.id;
 
+
         DataService.getRaisedTicket($stateParams.id).then(function (response) {
+
             if (!response.error)
             {
                 $scope.RaisedTicket = response.data[0];
@@ -5388,7 +5448,9 @@
                     assigned_emp = response.data[0].assignedEmp.UserID;
                 }
                 $scope.complaint_type_valid_invalid= response.data[0].complaintType;
-                if(response.data[0].assignedEmp.Name == '' ||  response.data[0].assignedEmp.Name == null ||  response.data[0].assignedEmp.Name == undefined)
+                _com_type = $scope.complaint_type_valid_invalid;
+                alert(_com_type);
+                if(response.data[0].assignedEmp == '' ||  response.data[0].assignedEmp == null ||  response.data[0].assignedEmp == undefined)
                 {
                     $scope.AssignedTo ='';
                 }
@@ -5511,16 +5573,34 @@
             });
         };
 
+        $scope.TestTest = _com_type;
+        alert($scope.TestTest);
         $scope.Valid = function ()
         {
             if($scope.ValidTickets == true)
             {
-                $scope.UpdateDetails=
+                var ObjAssignEmp =
+                    {
+                        assignedEmp:assigned_emp
+                    };
+
+                if(ObjAssignEmp.assignedEmp == "")
                 {
-                  assignedEmp:assigned_emp,
-                  ticketid:_ticket_id,
-                  complaintType:1
-                };
+                    $scope.UpdateDetails=
+                        {
+                            ticketid:_ticket_id,
+                            complaintType:1
+                        };
+                }
+                else
+                {
+                    $scope.UpdateDetails=
+                        {
+                            assignedEmp:assigned_emp,
+                            ticketid:_ticket_id,
+                            complaintType:1
+                        };
+                }
             }
             else
             {
@@ -5534,13 +5614,14 @@
                 });
                 return;
             }
-            $scope.SetValue = false;
+
+            //$scope.SetValue = false;
             DataService.UpdateValidTicketDetails($scope.UpdateDetails).then(function (response) {
                 if (!response.error) {
                     growl.success("Validated successfully");
                     if(response.data.complaintType == 1)
                     {
-                        $scope.SetValue = true;
+                        //$scope.SetValue = true;
                         $scope.complaint_type_valid_invalid = response.data.complaintType;
                     }
                 } else {
@@ -5708,7 +5789,7 @@
                     growl.error(response.message);
                 }
             }, function (response) {
-                growl.error(response.data.description['0']);
+                /*growl.error(response.data.description['0']);*/
             });
         };
 
@@ -9763,7 +9844,6 @@
 
         $scope.sendDaywiseDetails = function ()
         {
-
             DataService.SendDaywiseCashCollectionDetails($scope.daywiseCollection).then(function (response) {
                 if (!response.error)
                 {
@@ -11671,7 +11751,8 @@ var _station_id;
 
     }]);
 
-    app.controller('PortStatus', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal) {
+    app.controller('PortStatus', ['$scope', '$state', 'DataService', 'StatusService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', function ($scope, $state, DataService, StatusService, NgTableParams, growl, sweet, $filter, $uibModal)
+    {
         var multiDockingStations = [];
 
         $scope.view = 0;

@@ -1164,8 +1164,8 @@
                 }
                 var deferred = $q.defer();
                 var daywiseCollection = {
-                    fromdate:data.fromdate,
-                    todate:data.todate,
+                    fromdate:new Date(data.fromdate),
+                    todate:new Date(data.todate),
                     location:_location,
                     transactionType :_transaction_type
                 };
