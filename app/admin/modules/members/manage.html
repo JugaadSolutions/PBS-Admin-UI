@@ -62,6 +62,12 @@
                         <td data-title="'Document Number'" filter="{ documentNumber: 'text'}">
                             {{member.documentNumber = member.documents[0].documentNumber}}
                         </td>
+                       <!-- <td data-title="'Location'">
+                            {{member.registeredLocation}}
+                        </td>
+                        <td data-title="'By'">
+                            {{member.createdBy}}
+                        </td>-->
                         <td class="text-center">
                             <span uib-tooltip="{{member.status}}" tooltip-placement="top" ng-class="{
                              'status-color bgm-green': member.status == 'Registered',

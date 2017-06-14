@@ -1947,6 +1947,16 @@
                 return deferred.promise;
             },
 
+            getBicycleUsage: function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.reports.transactions.complete, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getredistributionVehicleLiveData: function () {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.redistributionVehicles.getAll).then(function (result)

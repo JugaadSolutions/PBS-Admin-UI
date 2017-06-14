@@ -1059,6 +1059,14 @@
                 containerClass: 'sw-toggled'
             })
 
+            // bicycle usage
+            .state("admin.reports.bicycle-usage", {
+                url: "/bicycle-usage",
+                templateUrl: adminViewPath + 'reports/bicycle-usage.html',
+                controller: 'BicycleUsage',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.reports.port-status",{
                 url:"/port-status",
                 templateUrl: adminViewPath + 'reports/port-status.html',

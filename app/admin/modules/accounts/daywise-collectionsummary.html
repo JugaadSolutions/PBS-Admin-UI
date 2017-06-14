@@ -8,7 +8,7 @@
 
                 <div class="card-body card-padding">
                     <div class="row">
-                        <div class="col-sm-3 m-b-20">
+                        <div class="col-sm-2 m-b-20">
                             <div class="form-group fg-line"
                                  ng-class="{ 'has-error': DaywiseCashForm.joiningDate1.$touched && DaywiseCashForm.joiningDate1.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
@@ -22,7 +22,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3 m-b-20">
+                        <div class="col-sm-2 m-b-20">
                             <div class="form-group fg-line"
                                  ng-class="{ 'has-error': DaywiseCashForm.joiningDate2.$touched && DaywiseCashForm.joiningDate2.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
@@ -74,6 +74,7 @@
                         <i class="zmdi zmdi-eye"></i>
                         <a ui-sref="admin.accounts.daywise-collectionsummary-report-print" style="color: white">Print/CSV Report</a>
                     </button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<label><b>Total&nbsp;-&nbsp;</b></label>{{TotalCount}}
                 </div>
             </form>
         </div>
@@ -88,11 +89,17 @@
                             {{daywises.memberId.Name}} {{daywises.memberId.lastName}}
                         </td>
                         <td data-title="'Transaction No'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
-                            <a ui-sref="admin.members.edit({id: member._id})">{{daywises.invoiceNo}}</a>
+                            {{daywises.invoiceNo}}
                         </td>
                         <td data-title="'Transaction Type '" filter="{ emailAddress: 'text'}">{{daywises.paymentDescription}}</td>
                         <td data-title="'Paymode'" filter="{ phoneNumber: 'text'}">
                             {{daywises.paymentMode}}
+                        </td>
+                        <td data-title="'Payment Through'" filter="{ phoneNumber: 'text'}">
+                            {{daywises.paymentThrough}}
+                        </td>
+                        <td data-title="'Location'" filter="{ location: 'text'}">
+                            {{daywises.location}}
                         </td>
                         <td data-title="'Amount'" filter="{ 'subscriptionType': 'text'}">
                             <label ng-if="daywises.credit >0"> {{daywises.credit}}</label>

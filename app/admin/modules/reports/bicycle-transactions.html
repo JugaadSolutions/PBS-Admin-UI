@@ -9,7 +9,7 @@
 
                 <div class="card-body card-padding">
                     <div class="row">
-                        <div class="col-sm-3 m-b-20">
+                        <div class="col-sm-2 m-b-20">
                             <div class="form-group fg-line"
                                  ng-class="{ 'has-error': BicycleTransactions.fromDate.$touched && BicycleTransactions.fromDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
@@ -23,7 +23,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3 m-b-20">
+                        <div class="col-sm-2 m-b-20">
                             <div class="form-group fg-line"
                                  ng-class="{ 'has-error': BicycleTransactions.toDate.$touched && BicycleTransactions.toDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
@@ -49,7 +49,7 @@
                             </div>
                         </div>-->
 
-                        <div class="col-sm-3 m-b-20">
+                        <div class="col-sm-2 m-b-20">
                             <div class="form-group fg-line">
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Bicycle Number</label>
                                 <div class="fg-line">
@@ -58,11 +58,29 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3 m-b-20">
+                        <div class="col-sm-2 m-b-20">
                             <div class="form-group fg-line">
-                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Smart Card Number</label>
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Smart Card No.</label>
                                 <div class="fg-line">
                                     <input type="text" class="form-control" placeholder="Eg: 25" ng-model="bicycleTrans.user">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2 m-b-20">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Minimum Duration</label>
+                                <div class="fg-line">
+                                    <input type="text" class="form-control" placeholder="Eg: 25" ng-model="bicycleTrans.minDuration">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2 m-b-20">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Maximum Duration</label>
+                                <div class="fg-line">
+                                    <input type="text" class="form-control" placeholder="Eg: 25" ng-model="bicycleTrans.maxDuration">
                                 </div>
                             </div>
                         </div>
@@ -73,6 +91,9 @@
                             ng-disabled="BicycleTransactions.$invalid" ng-click="bicycleTransactionDetails()" >
                        Submit
                     </button>
+                    <br>
+                    <br>
+                    <label style="font-size: medium;font-weight: bold">{{ResultSummary}}</label>
                 </div>
             </form>
         </div>

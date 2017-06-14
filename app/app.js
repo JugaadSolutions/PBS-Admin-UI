@@ -40,7 +40,7 @@
             update:'vehicle'
         },
         member: {
-            getAll: 'member',
+            getAll: 'member/qweuird78fj3498asdjkfhahsysd98y4rsdjhf',
             get: 'member',
             save: 'member/add',
             credit: 'credit',

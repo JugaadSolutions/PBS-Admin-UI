@@ -52,6 +52,16 @@
                 <i class="zmdi zmdi-card-membership"></i> Suspend
             </button>
 
+           <!-- <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
+                    ng-if="member.status == 1 && login_role !=='Mysoreone-employee'" ng-click="ccavenu()">
+                <i class="zmdi zmdi-card-membership"></i> CCAvenu Response
+            </button>
+
+            <button type="button" class="btn btn-icon-text btn-info waves-effect m-r-5"
+                    ng-if="member.status == 1 && login_role !=='Mysoreone-employee'" ng-click="cashModeChange()">
+                <i class="zmdi zmdi-card-membership"></i> Cash Mode Change
+            </button>-->
+
             <!--<button type="button" class="btn btn-icon-text btn-success waves-effect"
                     ng-click="addMember()" ng-if="member.status == 0 && member.cardNumber">
                 <i class="zmdi zmdi-save"></i> Save
@@ -64,7 +74,7 @@
             <!--ng-disabled="!member.cardNumber"-->
 
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="updateMember()" ng-disabled="DocumentType" ng-if="!member.documentCopy && !member.membershipId">
+                    ng-click="updateMember()">
                 <i class="zmdi zmdi-save"></i> Update
                 <!--ng-disabled="DocumentType" ng-if="!member.documentCopy && !member.membershipId"-->
             </button>
@@ -1460,7 +1470,7 @@
                                                 <input type="text" name="documentNumber"
                                                        ng-model="document.documentNumber"
                                                        class="form-control"
-                                                       placeholder="eg. AABPS8791R" maxlength="25" chars="only-letters" required>
+                                                       placeholder="eg. AABPS8791R" maxlength="25"  required>
                                                 <span class="help-block"
                                                       ng-messages="MemberForm.documentNumber.$error"
                                                       ng-show="MemberForm.documentNumber.$touched">
@@ -2139,6 +2149,114 @@
             <button class="btn btn-link" type="button" ng-disabled="smartCard.$pristine"
                     ng-click="changeSmartCard()">Update
             </button>
+        </div>
+    </form>
+</script>
+
+
+<script type="text/ng-template" id="ccavenu.html">
+    <form name="CCAvenuDetails" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title">CCAvenu</h4>
+        </div>
+        <div class="modal-body">
+
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10 p-l-30">Credit Amount</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input type="text" name="credit" ng-model="ccavenuResponse.credit"
+                               class="form-control"
+                               placeholder="eg. 65467476" chars="only-letters" required>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10 p-l-30"> Credit Mode</dt>
+                <dd>
+                    <div class="fg-line">
+                        <select chosen class="form-control" ng-model="ccavenuResponse.creditMode"
+                                data-placeholder-text-single="'Select Credit Type'"
+                                name="creditType" required>
+                            <option value="Debit Card">Debit Card</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Cash">Cash</option>
+                        </select>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10 p-l-30">Transaction No</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input type="text" name="transactionNumber" ng-model="ccavenuResponse.transactionNumber"
+                               class="form-control"
+                               placeholder="eg. 65467476" chars="only-letters">
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-l-30">Comments</dt>
+                <dd>
+                    <div class="fg-line">
+                    <textarea name="comments"
+                              ng-model="ccavenuResponse.comments" class="form-control"
+                              rows="4"
+                              placeholder="Additional information about the transaction" chars="only-letters">
+                    </textarea>
+                        <label style="color: red">fields marked as * are mandatory</label>
+                    </div>
+                </dd>
+            </dl>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-link" type="button" ng-click="cancelCCAvenu()">Cancel</button>
+            <button class="btn btn-link" type="button" ng-click="addCCAvenuResponse()" ng-disabled="CCAvenuDetails.$invalid">Submit</button>
+        </div>
+    </form>
+</script>
+
+<script type="text/ng-template" id="cashModeChange.html">
+    <form name="CCAvenuDetails" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title">Cash Mode Change</h4>
+        </div>
+        <div class="modal-body">
+
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10 p-l-30">Transaction No</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input type="text" name="transactionNumber" ng-model="ccavenuResponse.transactionNumber"
+                               class="form-control"
+                               placeholder="eg. 65467476" chars="only-letters">
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal required">
+                <dt class="p-t-10 p-l-30"> Credit Mode</dt>
+                <dd>
+                    <div class="fg-line">
+                        <select chosen class="form-control" ng-model="ccavenuResponse.creditMode"
+                                data-placeholder-text-single="'Select Credit Type'"
+                                name="creditType" required>
+                            <option value="Debit Card">Debit Card</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Cash">Cash</option>
+                        </select>
+                    </div>
+                </dd>
+            </dl>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-link" type="button" ng-click="cancelCashMode()">Cancel</button>
+            <button class="btn btn-link" type="button" ng-click="addCCAvenuResponse()" ng-disabled="CCAvenuDetails.$invalid">Submit</button>
         </div>
     </form>
 </script>

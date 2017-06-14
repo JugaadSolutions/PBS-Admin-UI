@@ -629,6 +629,31 @@
             });
         };
 
+        // ccavenu reponse handling ( when network break downs)
+        $scope.ccavenu = function (size) {
+            $uibModal.open({
+                templateUrl: 'ccavenu.html',
+                controller: 'CCavenuCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                    }
+                }
+            });
+        };
+
+        $scope.cashModeChange = function (size) {
+            $uibModal.open({
+                templateUrl: 'cashModeChange.html',
+                controller: 'CCavenuCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                    }
+                }
+            });
+        };
+
        /* $scope.ConfirmCancelMembership = function (size) {
             $uibModal.open({
                 templateUrl: 'ConfirmCancelMembership.html',
@@ -1966,6 +1991,79 @@
         $scope.cancelSuspend = function () {
             $uibModalInstance.dismiss();
         };
+    }]);
+
+    app.controller('CCavenuCtrl', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance, loggedInUser)
+    {
+        $scope.login_role= localStorage.LoginRole
+
+        $scope.loginid=localStorage.LoginID;
+
+        $scope.ccavenuResponse = {
+            credit:'',
+            creditMode: '',
+            transactionNumber: '',
+            comments: '',
+            createdBy: $scope.loginid
+        };
+
+
+        $scope.addCCAvenuResponse = function () {
+            DataService.saveaddCCAvenuResponse($stateParams.id, $scope.ccavenuResponse).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    $uibModalInstance.dismiss();
+                    $state.reload();
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description);
+            });
+        };
+
+        $scope.cancelCCAvenu = function () {
+            $uibModalInstance.dismiss();
+        };
+
+    }]);
+
+    // cash mode change (when network breaks)
+    app.controller('CashMode', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModalInstance', 'loggedInUser', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModalInstance, loggedInUser)
+    {
+        $scope.login_role= localStorage.LoginRole
+
+        $scope.loginid=localStorage.LoginID;
+
+        $scope.cashMode = {
+            creditMode: '',
+            transactionNumber: '',
+            createdBy: $scope.loginid
+        };
+
+
+        $scope.addCCAvenuResponse = function () {
+            DataService.saveaddCCAvenuResponse($stateParams.id, $scope.ccavenuResponse).then(function (response) {
+                if (!response.error) {
+                    growl.success(response.message);
+                    $uibModalInstance.dismiss();
+                    $state.reload();
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description);
+            });
+        };
+
+        $scope.cancelCashMode = function () {
+            $uibModalInstance.dismiss();
+        };
+
     }]);
 
     // Manage Employees Controller
@@ -9854,6 +9952,8 @@
 
                  $scope.daywises = response.data;
 
+                 $scope.TotalCount = response.data.length;
+
                  DayWise=response.data;
 
                   $scope.daywiseTable = new NgTableParams(
@@ -10535,7 +10635,7 @@ var _station_id;
                 $scope.dayClosureDetails={
                     dateTime:response.data.dateTime,
                     bankDeposits:response.data.bankDeposits,
-                    cashcollected:response.data.cashcollected,
+                    cashCollected:response.data.cashcollected,
                     openingBalance:response.data.openingBalance,
                     refunds:response.data.refunds,
                     closingBalance:response.data.closingBalance,
@@ -11532,6 +11632,69 @@ var _station_id;
 
     }]);
 
+    // bicycle usage
+    app.controller('BicycleUsage', ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
+    {
+        $scope.cycleUsage={
+            fromdate:'',
+            todate:''
+        };
+
+        $scope.bicycleUsageDetails =function () {
+            $scope.BicycleUsage = [];
+
+            DataService.getBicycleUsage($scope.cycleUsage).then(function (response) {
+                if (!response.error) {
+                    var _one_hour=0;
+                    var _two_hour=0;
+                    /*var _three_hour=0;
+                    var _more_than_four_hour = 0;*/
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        if(response.data[i].duration > 60)
+                        {
+                            $scope.OneHourCount =_one_hour ++;
+                        }
+                      else if(response.data[i].duration > 120)
+                        {
+                            $scope.TwoHourCount = _two_hour ++;
+                        }
+                        /*  else if(response.data[i].duration > 180)
+                        {
+                            $scope.ThreeHourCount = _three_hour ++;
+                        }
+                        else if(respone.data[i].duration > 240)
+                        {
+                            $scope.MoreThenFourHourCount = _more_than_four_hour ++;
+                        }
+                        else
+                        {
+
+                        }*/
+                    }
+
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            });
+        };
+
+        $scope.bicycleUsageTable = new NgTableParams(
+            {
+                count: 1
+            },
+            {
+                getData: function ($defer, params) {
+                    params.total($scope.BicycleUsage.length);
+                    $defer.resolve($scope.BicycleUsage.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+    }]);
+
     app.controller('BicycleSummary', ['$scope','$interval', 'DataService', 'growl', 'StatusService', 'NgTableParams', '$filter', 'sweet', 'loggedInUser', '$state', 'GOOGLEMAPURL', function ($scope,$interval, DataService, growl, StatusService, NgTableParams, $filter, sweet, loggedInUser, $state, GOOGLEMAPURL)
     {
         $scope.BicycleSummary={};
@@ -11698,19 +11861,47 @@ var _station_id;
             todate:'',
            /* dockingstation:'',*/
             vehicle:'',
-            user:''
+            user:'',
+            minDuration:'',
+            maxDuration:''
         }
 
         $scope.BicycleTrasaction=[];
 
         $scope.bicycleTransactionDetails=function () {
             DataService.getBicycleTransactions($scope.bicycleTrans).then(function (response) {
-                if (!response.error) {
+                if (!response.error)
+                {
+                    if($scope.bicycleTrans.minDuration == '')
+                    {
+                        $scope.bicycleTrans.minDuration = 0;
+                    }
+                    if($scope.bicycleTrans.maxDuration == '')
+                    {
+                        $scope.bicycleTrans.maxDuration = 99999;
+                    }
                     for(var i=0;i<response.data.length;i++)
                     {
-                        $scope.BicycleTrasaction.push(response.data[i]);
-                        $scope.Num1 = response.data[i].cardNum;
+                        if(response.data[i].duration > $scope.bicycleTrans.minDuration && response.data[i].duration < $scope.bicycleTrans.maxDuration)
+                        {
+                            $scope.BicycleTrasaction.push(response.data[i]);
+                            $scope.Num1 = response.data[i].cardNum;
+                        }
                     }
+                    var _transaction_from = new Date($scope.bicycleTrans.fromdate);
+                    var transaction_from_date = _transaction_from.getDate();
+                    var transaction_from_month = _transaction_from.getMonth() + 1;
+                    var transaction_from_year = _transaction_from.getFullYear();
+                    var _date_from = transaction_from_date + '-' + transaction_from_month + '-' + transaction_from_year;
+
+                    var _transaction_to = new Date($scope.bicycleTrans.todate);
+                    var transaction_to_date = _transaction_to.getDate();
+                    var transaction_to_month = _transaction_to.getMonth() + 1;
+                    var transaction_to_year = _transaction_to.getFullYear();
+                    var _date_to = transaction_to_date + '-' + transaction_to_month + '-' + transaction_to_year;
+
+                    $scope.ResultSummary = 'We found ' + $scope.BicycleTrasaction.length + ' bicycle transactions from ' + _date_from + ' to ' + _date_to + '  with a duration between '+ $scope.bicycleTrans.minDuration+' minutes to '+ $scope.bicycleTrans.maxDuration+' minutes.';
+
                 } else {
                     growl.error(response.description);
                 }
