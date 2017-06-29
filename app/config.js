@@ -911,6 +911,13 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.reports.details", {
+                url: "/details",
+                templateUrl: adminViewPath + 'reports/details.html',
+                controller: 'Details',
+                containerClass: 'sw-toggled'
+            })
+
             // website downtime
             .state("admin.website-downtime", {
                 url: "/website-downtime",
@@ -1133,6 +1140,13 @@
                 url: "/bicycle-transactions",
                 templateUrl: adminViewPath + 'reports/bicycle-transactions.html',
                 controller: 'BicycleTransactions',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.reports.bicycle-transactions-print", {
+                url: "/bicycle-transactions-print",
+                templateUrl: adminViewPath + 'reports/bicycle-transactions-print.html',
+                controller: 'BicycleTransactionsPrint',
                 containerClass: 'sw-toggled'
             })
 

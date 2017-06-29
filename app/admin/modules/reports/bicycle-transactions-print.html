@@ -1,0 +1,96 @@
+<style>
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+    th, td {
+        border: none;
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even){background-color: #f2f2f2}
+</style>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header ch-alt text-center">
+            <img src="assets/images/trintrin.jpg" class="i-logo"/>
+            <h3>Trin Trin</h3>
+            <h2>Mysuru</h2>
+        </div>
+        <br>
+        <div class="card-header ch-alt text-center">
+            <h2>Bicycle Transaction Report</h2>
+        </div>
+        <br>
+        <form class="pmbb-edit" name="TotalCashReport"  novalidate>
+            <div class="card-header ch-alt text-center">
+                &nbsp;&nbsp;<label>From &nbsp;:</label>
+                <span ng-bind="BicycleTransactionPrintDetails.fromdate | date : 'dd MMM yy '"></span>&nbsp;&nbsp;-&nbsp;
+                &nbsp;<label>To&nbsp;:</label>
+                <span ng-bind="BicycleTransactionPrintDetails.todate | date : 'dd MMM yy '"></span>&nbsp; |
+                <label>Card No.</label><span>{{CardNumber}}</span>
+            </div>
+            <br>
+            <div style="text-align: center">
+                <button id="export" data-export="export" class="btn btn-icon-text btn-success waves-effect">Export to CSV</button>
+            </div>
+            <div class="card-body card-padding">
+                <div class="row">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div >
+        <table id="export_table" ng-table="bicycleTransactionPrintTable" class="table" >
+            <tr ng-repeat="transactions in $data">
+                <td data-title="'Member'">
+                        {{transactions.user.Name}}
+                </td>
+                <td data-title="'Bicycle Number'">
+                 {{transactions.vehicle.vehicleNumber}}
+                </td>
+                <td data-title="'Card Number'">
+                    {{transactions.user.cardNum}}
+                </td>
+                <td data-title="'From'">
+                    {{transactions.fromPort.Name}}
+                </td>
+                <td data-title="'At'">
+                    {{transactions.checkOutTime | date : "dd MMM yy', ' h:mma"}}
+                </td>
+                <td data-title="'To'">
+                    <a ng-if="transactions.status != 'Canceled'"
+                       ui-sref="admin.docking-stations.edit({id: transactions.toPort.dockingStationId.StationID})">{{transactions.toPort.Name}}</a>
+                    <a ng-if="transactions.status == 'Canceled'">--</a>
+                </td>
+                <td data-title="'At'">
+                    {{transactions.checkInTime | date : "dd MMM yy', ' h:mma"}}
+                </td>
+                <td data-title="'Duration'">
+                    <a ng-if="transactions.status == 'Canceled'">--</a>
+                    <a ng-if="transactions.status != 'Canceled'">{{(transactions.duration).toFixed(0)}}
+                        {{transactions.duration === undefined ? "" : "mins"}}</a>
+                </td>
+                <td data-title="'Cost'">
+                    &#8377; {{transactions.creditsUsed}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<button  class="btn btn-float bgm-red m-btn" ng-click="myFun()"><i class="zmdi zmdi-print"></i></button>
+<script>
+    $(function(){
+        $("#export").click(function(){
+            $("#export_table").tableToCSV();
+        });
+    });
+</script>
+
+
+
+

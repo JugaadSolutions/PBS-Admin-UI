@@ -63,9 +63,9 @@
 
         <div class="card-body">
             <div class="table-responsive" >
-                <table id="export_table" ng-table="totalCashTable" class="table table-striped table-vmiddle" show-filter="true">
+                <table id="export_table" ng-table="totalCashTable" class="table table-striped table-vmiddle" show-filter="false">
                     <tr ng-repeat="cashTotals in $data">
-                        <td data-title="'Date'" filter="{ date: 'text'}">
+                        <!--<td data-title="'Date'" filter="{ date: 'text'}">
                             {{cashTotals.date | date : "dd MMM yy"}}
                         </td>
                         <td data-title="'POS'" filter="{ pos: 'text'}">
@@ -80,9 +80,41 @@
                         <td data-title="'Refunds'" filter="{ 'cash': 'text'}">
                             {{cashTotals.refunds}}
                         </td>
-                        <td data-title="'Total'" filter="{ 'subscriptionType': 'text'}">
-                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash - cashTotals.refunds }}
+                        <td data-title="'Topups'" filter="{ 'cash': 'text'}">
+                            {{cashTotals.topup}}
+                        </td>-->
+
+                        <td data-title="'Date'" filter="{ date: 'text'}">
+                            {{cashTotals.date | date : "dd MMM yy"}}
                         </td>
+                        <td data-title="'Membership (Cash)'" filter="{ pos: 'text'}">
+                            {{cashTotals.regCash}}
+                        </td>
+                        <td data-title="'Membership (POS)'" filter="{ pos: 'text'}">
+                            {{cashTotals.regPOS}}
+                        </td>
+                        <td data-title="'Membership (PG)'" filter="{ pos: 'text'}">
+                            {{cashTotals.regPG}}
+                        </td>
+                        <td data-title="'Topups (Cash)'" filter="{ pos: 'text'}">
+                            {{cashTotals.topupCash}}
+                        </td>
+                        <td data-title="'Topups (POS)'" filter="{ pos: 'text'}">
+                            {{cashTotals.topupPOS}}
+                        </td>
+                        <td data-title="'Topups (PG)'" filter="{ pos: 'text'}">
+                            {{cashTotals.topupPG}}
+                        </td>
+                        <td data-title="'Refunds'" filter="{ pos: 'text'}">
+                            {{cashTotals.refunds}}
+                        </td>
+
+                        <td data-title="'Total'" filter="{ 'subscriptionType': 'text'}">
+                            {{cashTotals.regCash + cashTotals.regPOS + cashTotals.regPG + cashTotals.topupCash + cashTotals.topupPOS + cashTotals.topupPG - cashTotals.refunds }}
+                        </td>
+                       <!-- <td data-title="'Total'" filter="{ 'subscriptionType': 'text'}">
+                            {{cashTotals.pos + cashTotals.gateway + cashTotals.cash + cashTotals.topup - cashTotals.refunds}}
+                        </td>-->
                     </tr>
                 </table>
             </div>

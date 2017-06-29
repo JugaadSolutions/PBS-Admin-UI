@@ -135,7 +135,8 @@
     }]);*/
 
     // Manage Members Controller
-    app.controller('ManageMembers', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal) {
+    app.controller('ManageMembers', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
+    {
         $scope.membersData = [];
         $scope.memberDocument=[];
 
@@ -271,7 +272,7 @@
         $scope.loginid=localStorage.LoginID;
         var _logIn_Id=$scope.loginid;
 
-        $scope.Role=localStorage.LoginRole
+        $scope.Role=localStorage.LoginRole;
 
         $scope.member = {
             Name: '',
@@ -564,7 +565,7 @@
     // Edit Member Controller
     app.controller('EditMember', ['$scope', '$state', '$stateParams', 'DataService', 'growl', 'sweet', '$uibModal','$filter', 'NgTableParams', function ($scope, $state, $stateParams, DataService, growl, sweet, $uibModal, $filter, NgTableParams)
     {
-        $scope.login_role= localStorage.LoginRole
+        $scope.login_role= localStorage.LoginRole;
 
         $scope.member = {
             countryCode: '91',
@@ -1032,7 +1033,7 @@
 
         $scope.paymentsTable = new NgTableParams(
             {
-                count: 20
+                count: 50
             },
             {
                 counts: [],
@@ -9298,6 +9299,115 @@
     }]);
 
 
+    // dash board details
+    app.controller('Details', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.daywiseCollection={
+            fromdate:'',
+            todate:'',
+            location:'',
+            transactionType:''
+        };
+
+        $scope.RegDetails =[];
+
+        $scope.RegDetails = function ()
+        {
+            DataService.SendDaywiseCashCollectionDetails($scope.daywiseCollection).then(function (response) {
+                if (!response.error)
+                {
+                    _daywise_fromDate=$scope.daywiseCollection.fromdate;
+                    _daywise_toDate=$scope.daywiseCollection.todate;
+                    _location=$scope.daywiseCollection.location.location;
+                    _transaction_type=$scope.daywiseCollection.transactionType;
+
+                    $scope.RegDetails = response.data;
+
+                    var _ccAvenuRegCount = 0;
+                    var _totalRegistrations =0;
+                    var _registration_center_cash =0;     // our registation centers
+                    var _mysuru_one_cash =0;
+
+
+                    for(var i =0;i<response.data.length;i++)
+                    {
+                     if(response.data[i].credit == 360)
+                     {
+                         _ccAvenuRegCount ++;
+                     }
+                     if(response.data[i].memberId.status == 1)
+                     {
+                         if(response.data[i].memberId.securityDeposit == 250)
+                         {
+                             _totalRegistrations ++;
+                         }
+                     }
+                     if(response.data[i].paymentMode == "Cash")
+                     {
+                         _registration_center_cash ++;
+                     }
+                        if(response.data[i].paymentMode == "mone-cash")
+                        {
+                            _mysuru_one_cash ++;
+                        }
+                    }
+                    $scope.OnlineCount = _onlineCount;
+                    $scope.TotalRegistration = _totalRegistrations;
+                    $scope.RegistationCenterCash = _registration_center_cash;
+                    $scope.MysuruOneCash = _mysuru_one_cash;
+
+                    DayWise=response.data;
+
+                    $scope.RegDetailsTable = new NgTableParams(
+                        {
+                            count: 20,
+                            nopager:true,
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.RegDetails, params.filter()) : $scope.RegDetails;
+                               /* params.total(orderedData.length);*/
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.RegistrationCenters=[];
+
+        DataService.getRegistrationCentres().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RegistrationCenters = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRegistrationCenters = function (data) {
+            $scope.daywiseCollection.location = data;
+        };
+
+        $scope.SelectedTransaction = function (data) {
+            $scope.daywiseCollection.transactionType = data;
+        };
+
+    }]);
+
+
 
     app.controller('ManageSmartCards', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService) {
         $scope.smartCards = [];
@@ -10090,7 +10200,7 @@
             DataService.SendTotalCashCollectionDetails($scope.totalCashInput).then(function (response) {
                 if (!response.error)
                     {
-                    growl.success(response.message);
+                   /* growl.success(response.message);*/
                         _totalcash_fromdate=$scope.totalCashInput.fromdate;
                         _total_cash_todate=$scope.totalCashInput.todate;
                         _totalcash_location=$scope.totalCashInput.location;
@@ -10105,7 +10215,7 @@
                         {
                             getData: function ($defer, params) {
                                 var orderedData = params.filter() ? $filter('filter')($scope.cashTotals, params.filter()) : $scope.cashTotals;
-                                params.total(orderedData.length);
+                              /*  params.total(orderedData.length);*/
                                 $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                             }
                         }
@@ -11854,6 +11964,13 @@ var _station_id;
 
     }]);
 
+    var _bicycle_transaction_from_date;
+    var _bicycle_transaction_to_date;
+    var _bicycle_number;
+    var _smart_card_no;
+    var _min_duration;
+    var _max_duration;
+    var BicycleTransactionPrint =[];
     app.controller('BicycleTransactions',['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
     {
         $scope.bicycleTrans={
@@ -11886,6 +12003,7 @@ var _station_id;
                         {
                             $scope.BicycleTrasaction.push(response.data[i]);
                             $scope.Num1 = response.data[i].cardNum;
+                            BicycleTransactionPrint = $scope.BicycleTrasaction;
                         }
                     }
                     var _transaction_from = new Date($scope.bicycleTrans.fromdate);
@@ -11901,6 +12019,13 @@ var _station_id;
                     var _date_to = transaction_to_date + '-' + transaction_to_month + '-' + transaction_to_year;
 
                     $scope.ResultSummary = 'We found ' + $scope.BicycleTrasaction.length + ' bicycle transactions from ' + _date_from + ' to ' + _date_to + '  with a duration between '+ $scope.bicycleTrans.minDuration+' minutes to '+ $scope.bicycleTrans.maxDuration+' minutes.';
+
+                    _bicycle_transaction_from_date = $scope.bicycleTrans.fromdate;
+                    _bicycle_transaction_to_date = $scope.bicycleTrans.todate;
+                     _bicycle_number = $scope.bicycleTrans.vehicle;
+                     _smart_card_no = $scope.bicycleTrans.user;
+                     _min_duration = $scope.bicycleTrans.minDuration;
+                     _max_duration = $scope.bicycleTrans.maxDuration;
 
                 } else {
                     growl.error(response.description);
@@ -11939,6 +12064,47 @@ var _station_id;
         {
             $scope.bicycleTrans.dockingstation=data.name;
         }
+
+    }]);
+
+    // Bicycle Transaction Print
+    app.controller('BicycleTransactionsPrint',['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
+    {
+        
+        $scope.BicycleTransactionPrintDetails={
+            fromdate:_bicycle_transaction_from_date,
+            todate:_bicycle_transaction_to_date,
+            bicycleNo:_bicycle_number,
+            smartCardNo:_smart_card_no,
+            minDuration:_min_duration,
+            maxDuration:_max_duration
+        };
+
+        if($scope.BicycleTransactionPrintDetails.smartCardNo == '')
+        {
+            $scope.CardNumber='';
+        }
+        else
+            {
+                $scope.CardNumber = $scope.BicycleTransactionPrintDetails.smartCardNo;
+            }
+
+        $scope.BicycleTransactionPrint = BicycleTransactionPrint;
+
+        $scope.bicycleTransactionPrintTable = new NgTableParams(
+            {
+                count: 5000,
+                noPager: true
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.BicycleTransactionPrint, params.filter()) : $scope.BicycleTransactionPrint;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
 
     }]);
 

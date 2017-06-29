@@ -1,22 +1,22 @@
 <div class="container">
     <div class="card">
         <div class="card-header ch-alt m-b-20">
-            <h2>Daywise Transaction Report
-                <small>Cash Details</small>
+            <h2>Registration Details
+               <!-- <small>Cash Details</small>-->
                 <br> </h2>
-            <form class="pmbb-edit" name="DaywiseCashForm" novalidate>
+            <form class="pmbb-edit" name="DetailsForm" novalidate>
 
                 <div class="card-body card-padding">
                     <div class="row">
                         <div class="col-sm-2 m-b-20">
                             <div class="form-group fg-line"
-                                 ng-class="{ 'has-error': DaywiseCashForm.joiningDate1.$touched && DaywiseCashForm.joiningDate1.$invalid }" >
+                                 ng-class="{ 'has-error': DetailsForm.joiningDate1.$touched && DetailsForm.joiningDate1.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
                                 <input type="text" name="joiningDate1" ng-model="daywiseCollection.fromdate" ng-change="fromdate" ng-focus="joiningDate1=true" ng-click="joiningDate1=true"
                                        uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate1" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"
-                                      ng-messages="DaywiseCashForm.joiningDate1.$error"
-                                      ng-show="DaywiseCashForm.joiningDate1.$touched">
+                                      ng-messages="DetailsForm.joiningDate1.$error"
+                                      ng-show="DetailsForm.joiningDate1.$touched">
                                                 <small ng-message="required">From Date is required</small>
                                             </span>
                             </div>
@@ -24,19 +24,19 @@
 
                         <div class="col-sm-2 m-b-20">
                             <div class="form-group fg-line"
-                                 ng-class="{ 'has-error': DaywiseCashForm.joiningDate2.$touched && DaywiseCashForm.joiningDate2.$invalid }" >
+                                 ng-class="{ 'has-error': DetailsForm.joiningDate2.$touched && DetailsForm.joiningDate2.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
                                 <input type="text" name="joiningDate2" ng-model="daywiseCollection.todate" ng-change="todate" ng-focus="joiningDate2=true" ng-click="joiningDate2=true"
                                        uib-datepicker-popup="dd/MM/yyyy" is-open="joiningDate2" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
                                 <span class="help-block"
-                                      ng-messages="DaywiseCashForm.joiningDate2.$error"
-                                      ng-show="DaywiseCashForm.joiningDate2.$touched">
+                                      ng-messages="DetailsForm.joiningDate2.$error"
+                                      ng-show="DetailsForm.joiningDate2.$touched">
                                                 <small ng-message="required">To Date is required</small>
                                             </span>
                             </div>
                         </div>
 
-                        <div class="col-sm-3 m-b-20">
+                        <!--<div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line">
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Registration Centres</label>
                                 <select chosen class="form-control"
@@ -63,11 +63,11 @@
                                     <option value="Online Payment Service Charge">Online</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
 
                     </div>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="sendDaywiseDetails()" ng-disabled="DaywiseCashForm.$invalid">
+                            ng-click="RegDetails()" ng-disabled="DaywiseCashForm.$invalid">
                         <i class="zmdi zmdi-save"></i> Generate Report
                     </button>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
@@ -75,43 +75,26 @@
                         <i class="zmdi zmdi-eye"></i>
                         <a ui-sref="admin.accounts.daywise-collectionsummary-report-print" style="color: white">Print/CSV Report</a>
                     </button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<label><b>Total&nbsp;-&nbsp;</b></label>{{TotalCount}}
+                    &nbsp;&nbsp;<!--&nbsp;&nbsp;<label><b>Total&nbsp;-&nbsp;</b></label>{{TotalCount}}-->
                 </div>
             </form>
         </div>
+
         <div class="card-body">
-            <div class="table-responsive" >
-                <table id="export_table" ng-table="daywiseTable" class="table table-striped table-vmiddle" show-filter="false">
-                    <tr ng-repeat="daywises in $data">
-                        <td data-title="'Date'" filter="{ creditBalance: 'text'}">
-                            {{daywises.createdAt |  date : "dd MMM yy hh:mm"}}
+            <div class="table-responsive">
+                <table ng-table="RegDetailsTable" class="table table-striped table-vmiddle" show-filter="false">
+                    <tr>
+                        <td data-title="'Online Registration'">
+                            {{OnlineCount}}
                         </td>
-                        <td data-title="'Payer'" filter="{ creditBalance: 'text'}">
-                            {{daywises.memberId.Name}} {{daywises.memberId.lastName}}
-                            <br>
-                            {{daywises.memberId.UserID}}
-                            <br>
-                            {{daywises.memberId.cardNum}}
-                            <br>
-                            {{daywises.memberId.order_id}}
+                        <td data-title="'Registration Center(cash)'">
+                            {{RegistationCenterCash}}
                         </td>
-                        <td data-title="'Transaction No'" filter="{ name: 'text'}" filter="{ lastName: 'text'}">
-                            {{daywises.invoiceNo}} <br>
-                            {{daywises.gatewayTransactionId}}
+                        <td data-title="'Mysuru One registrations'">
+                            {{MysuruOneCash}}
                         </td>
-                        <td data-title="'Transaction Type '" filter="{ emailAddress: 'text'}">{{daywises.paymentDescription}}</td>
-                        <td data-title="'Paymode'" filter="{ phoneNumber: 'text'}">
-                            {{daywises.paymentMode}}
-                        </td>
-                        <td data-title="'Payment Through'" filter="{ phoneNumber: 'text'}">
-                            {{daywises.paymentThrough}}
-                        </td>
-                        <td data-title="'Location'" filter="{ location: 'text'}">
-                            {{daywises.location}}
-                        </td>
-                        <td data-title="'Amount'" filter="{ 'subscriptionType': 'text'}">
-                            <label ng-if="daywises.credit >0"> {{daywises.credit}}</label>
-                            <label ng-if="daywises.debit >0"> {{daywises.debit}}</label>
+                        <td data-title="'Total Registration'">
+                            {{TotalRegistration}}
                         </td>
                     </tr>
                 </table>
