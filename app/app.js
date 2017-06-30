@@ -210,6 +210,11 @@
             update:'registrationcenter'
         },
 
+        mysuruOneRegistrationCentre:
+            {
+                getAll:'konecenter',
+            },
+
         dockingStationCleaning:{
             save:'dockstation/cleanstation',
             getAll:'dockstation/cleanstation/info'

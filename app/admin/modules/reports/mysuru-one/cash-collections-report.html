@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header ch-alt m-b-20">
+            <h2>Cash Collection Report</h2>
+            <small>Mysuru One</small>
+            <form class="pmbb-edit" name="CashCollectionReport"  novalidate>
+
+                <div class="card-body card-padding">
+                    <div class="row">
+                        <div class="col-sm-3 m-b-10">
+                            <div class="form-group fg-line"
+                                 ng-class="{ 'has-error': CashCollectionReport.TotalCashFrom.$touched && CashCollectionReport.TotalCashFrom.$invalid }" >
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
+                                <input type="text"  name="TotalCashFrom" ng-model="cashCollectionInputs.fromdate" ng-change="totalCashReportFrom" ng-focus="TotalCashFrom=true" ng-click="TotalCashFrom=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashFrom" show-button-bar="true" class="form-control" color="red" chars="none" required >
+                                <span class="help-block"
+                                      ng-messages="CashCollectionReport.TotalCashFrom.$error"
+                                      ng-show="CashCollectionReport.TotalCashFrom.$touched">
+                                                <small ng-message="required">From Date is required</small>
+                                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 m-b-10">
+                            <div class="form-group fg-line"
+                                 ng-class="{ 'has-error': CashCollectionReport.TotalCashTo.$touched && CashCollectionReport.TotalCashTo.$invalid }" >
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
+                                <input type="text" name="TotalCashTo" ng-model="cashCollectionInputs.todate" ng-change="totalCashReportTo" ng-focus="TotalCashTo=true" ng-click="TotalCashTo=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="TotalCashTo" show-button-bar="true" class="form-control" chars="none" required >
+                                <span class="help-block"
+                                      ng-messages="CashCollectionReport.TotalCashTo.$error"
+                                      ng-show="CashCollectionReport.TotalCashTo.$touched">
+                                                <small ng-message="required">To Date is required</small>
+                                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Registration Centres</label>
+                                <select chosen class="form-control"
+                                        ng-options="RegistrationCenter as RegistrationCenter.location for RegistrationCenter in RegistrationCenters"
+                                        ng-model="RegistrationCenter.location"
+                                        ng-change="selectedRegistrationCenters(RegistrationCenter.location)">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                            ng-click="sendCashCollectionDetails()" ng-disabled="CashCollectionReport.$invalid">
+                        <i class="zmdi zmdi-view-list"></i> Generate Report
+                    </button>
+                    <!--<button type="button" class="btn btn-icon-text btn-success waves-effect"
+                            ng-disabled="CashCollectionReport.$invalid" >
+                        <i class="zmdi zmdi-eye"></i>
+                        <a ui-sref="admin.accounts.bankcashdeposits.totalcash-report-print" style="color: white">Print/CSV Report</a>
+                    </button>-->
+                </div>
+            </form>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive" >
+                <table id="export_table" ng-table="totalCashTable" class="table table-striped table-vmiddle" show-filter="false">
+                    <tr ng-repeat="moneCash in MoneCashCollections">
+                        <td data-title="'Date'" filter="{ date: 'text'}">
+                            {{moneCash.date | date : "dd MMM yy"}}
+                        </td>
+                        <td data-title="'Memberships'" filter="{ pos: 'text'}">
+                            {{moneCash.moneregCash}}
+                        </td>
+
+                        <td data-title="'Topups'" filter="{ pos: 'text'}">
+                            {{moneCash.monetopupCash}}
+                        </td>
+                        <td data-title="'Total'" filter="{ 'subscriptionType': 'text'}">
+                            {{moneCash.moneregCash + moneCash.monetopupCash}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+

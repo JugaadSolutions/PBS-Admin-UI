@@ -10095,6 +10095,7 @@
                 if (!response.error)
                 {
                     $scope.RegistrationCenters = response.data;
+
                 } else
                 {
                     growl.error(response.message);
@@ -10727,6 +10728,73 @@ var _station_id;
         $scope.addNewBankCashDetails = function () {
             $state.go('admin.accounts.bankcashdeposits.add');
         };
+    }]);
+
+
+    // Mysuru one cash collection report
+    app.controller('MysuruOneCashCollectionReport', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal)
+    {
+        $scope.cashCollectionInputs=
+            {
+                fromdate:'',
+                todate:'',
+                location:''
+            };
+
+        $scope.MoneCashCollections =[];
+
+        $scope.sendCashCollectionDetails = function ()
+        {
+            DataService.SendTotalCashCollectionDetails($scope.cashCollectionInputs).then(function (response) {
+                if (!response.error)
+                {
+                    $scope.MoneCashCollections = response.data;
+
+                    TotalCash = response.data;
+
+                    $scope.totalCashTable = new NgTableParams(
+                        {
+                            count: 10
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.MoneCashCollections, params.filter()) : $scope.MoneCashCollections;
+                                /*  params.total(orderedData.length);*/
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.data.description['0']);
+            })
+        };
+
+        $scope.RegistrationCenters=[];
+
+        DataService.getMysuruRegistrationCentres().then(function (response)
+            {
+                if (!response.error)
+                {
+                    $scope.RegistrationCenters = response.data;
+                } else
+                {
+                    growl.error(response.message);
+                }
+            },
+            function (response) {
+                growl.error(response.message);
+            });
+
+        $scope.selectedRegistrationCenters = function (data) {
+            $scope.cashCollectionInputs.location = data.location;
+        };
+
+
     }]);
 
     // Accounts Closer

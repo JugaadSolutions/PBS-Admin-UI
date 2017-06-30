@@ -932,6 +932,17 @@
                 return deferred.promise;
             },
 
+            // mysuru one registration centers
+            getMysuruRegistrationCentres: function (data) {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.mysuruOneRegistrationCentre.getAll).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getRegistrationCentre: function (data) {
                 var deferred = $q.defer();
                 $http.get(APINew + APIEndPoint.registrationCentre.get + '/' + data).then(function (result) {

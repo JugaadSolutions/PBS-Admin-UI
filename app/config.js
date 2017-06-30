@@ -1052,6 +1052,20 @@
                 containerClass: 'sw-toggled'
             })
 
+            // Mysuru one report
+            .state("admin.reports.mysuru-one", {
+                url: "/reports/mysuru-one",
+                templateUrl: adminViewPath + 'reports/mysuru-one/mysuru-one.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.reports.mysuru-one.cash-collections-report", {
+                url: "/cash-collections-report",
+                templateUrl: adminViewPath + 'reports/mysuru-one/cash-collections-report.html',
+                controller: 'MysuruOneCashCollectionReport',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.reports.monitor-transactions", {
                 url: "/monitor-transactions",
                 templateUrl: adminViewPath + 'reports/monitor-transactions.html',
