@@ -74,7 +74,7 @@
             <!--ng-disabled="!member.cardNumber"-->
 
             <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                    ng-click="updateMember()" ng-disabled="DocumentType" ng-if="!member.documentCopy && !member.membershipId">
+                    ng-click="updateMember()">
                 <i class="zmdi zmdi-save"></i> Update
                 <!--ng-disabled="DocumentType" ng-if="!member.documentCopy && !member.membershipId"-->
             </button>
@@ -1697,7 +1697,8 @@
                     </uib-tab>
 
 <!--prashanth commented statistics tab on 19.11.16-->
-                    <uib-tab heading="Statistics" ng-if="member.status != 0">
+                    <uib-tab heading="Statistics">
+                        <!--ng-if="member.status != 0"-->
                         <div class="mini-charts">
                             <div class="col-sm-6 col-sm-5">
                                 <div class="mini-charts-item bgm-cyan">
@@ -1781,15 +1782,17 @@
                                                 <th>Description</th>
                                                 <th style="width: 60px">Credit Amount</th>
                                                 <th>Debit Amount</th>
+                                                <th>Balance</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-repeat="payments in $data | limitTo : 10">
+                                            <tr ng-repeat="payments in $data | limitTo : 25">
                                                 <td class="ng-binding">{{payments.createdAt |  date : "dd MMM yy"}}</td>
                                                 <td class="f-500 c-cyan ng-binding">{{payments.invoiceNo}}</td>
                                                 <td class="f-500 c-cyan ng-binding">{{payments.paymentDescription}}</td>
                                                 <td class="f-500 c-cyan ng-binding">&#8377; {{payments.credit}}</td>
                                                 <td class="f-500 c-cyan ng-binding">&#8377; {{payments.debit}}</td>
+                                                <td class="f-500 c-cyan ng-binding">&#8377; {{payments.balance}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -1842,7 +1845,7 @@
             <dt class="p-t-10 p-l-30">Mode of Payments</dt>
             <dd>
                 <div class="fg-line">
-                    <select chosen class="form-control" ng-model="member.creditMode"
+                    <select chosen class="form-control" ng-model="topupsDetails.creditMode"
                             data-placeholder-text-single="'Select Payment Mode'"
                             name="creditType" required>
                         <option value="mone-cash">Cash</option>

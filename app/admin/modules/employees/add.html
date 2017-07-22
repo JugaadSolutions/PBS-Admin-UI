@@ -1063,6 +1063,7 @@
                                                    placeholder="eg. Maintenance" required>-->
                                             <select chosen class="form-control" ng-model="employee.department"
                                                     name="department"  placeholder="eg. Maintenance" required>
+                                                <option value="">Select Department</option>
                                                 <option ng-value="RegisteredMemberStaff">Registration Member Staff</option>
                                                 <option ng-value="RedistributionMemberStaff">Redistribution Member Staff</option>
                                                 <option ng-value="MaintenenceMemberStaff">Maintenance Center Staff</option>
@@ -1073,6 +1074,7 @@
                                                 <option ng-value="AccountsAdmin">Accounts Admin</option>
                                                 <option ng-value="MonitorGroup">Monitor Group</option>
                                                 <option ng-value="MysoreOneStaff">Mysore One Staff</option>
+                                                <option ng-value="KarnatakaOneAdmin">Karnataka One Admin</option>
                                             </select>
                                             <span class="help-block"
                                                   ng-messages="EmployeeForm.department.$error"

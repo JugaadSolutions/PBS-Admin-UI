@@ -108,7 +108,9 @@
                         <td data-title="'Refunds'" filter="{ pos: 'text'}">
                             {{cashTotals.refunds}}
                         </td>
-
+                        <td data-title="'Total Cash Collected'" filter="{ 'subscriptionType': 'text'}">
+                            {{cashTotals.regCash + cashTotals.topupCash - cashTotals.refunds }}
+                        </td>
                         <td data-title="'Total'" filter="{ 'subscriptionType': 'text'}">
                             {{cashTotals.regCash + cashTotals.regPOS + cashTotals.regPG + cashTotals.topupCash + cashTotals.topupPOS + cashTotals.topupPG - cashTotals.refunds }}
                         </td>

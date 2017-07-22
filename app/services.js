@@ -20,6 +20,41 @@
                 });
                 return deferred.promise;
             },
+
+            // Get All ondemand members
+          /*  getOnDemandMembers: function (filters) {
+            var deferred = $q.defer();
+            $http.get(APINew + APIEndPoint.member.ondemand, {
+                params: filters
+            }).then(function (result) {
+                deferred.resolve(result.data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+            },*/
+
+            getOnDemandMembers: function () {
+                var deferred = $q.defer();
+                $http.get(APINew + APIEndPoint.member.ondemand).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
+            // Update ondemand members
+            updateOnDemandMember: function (data) {
+                var deferred = $q.defer();
+                $http.put(APINew + APIEndPoint.member.edit, data).then(function (result) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+
             getUsers: function (filters) {
                 var deferred = $q.defer();
                 $http.get(APINew + 'users', {
@@ -309,6 +344,10 @@
                 else if (_department === 'Mysore One Staff')
                 {
                     _url='monestaff';
+                }
+                else if (_department === 'Karnataka One Admin')
+                {
+                    _url='kone/admin';
                 }
                 $http.post(APINew + APIEndPoint.employee.save + '/' + _url  , data).then(function (result) {
                     deferred.resolve(result.data);

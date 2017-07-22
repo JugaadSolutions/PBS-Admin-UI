@@ -224,6 +224,128 @@
         $scope.auth=function(){
 
         };
+    }]);
+
+    app.controller('ViewOnDemandMembers', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal','$stateParams', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal,$stateParams)
+    {
+        $scope.OnDemandMembers = [];
+
+        DataService.getOnDemandMembers().then(function (response) {
+            if (!response.error) {
+                for(var i=0;i<response.data.length;i++)
+                {
+                    $scope.OnDemandMembers.push(response.data[i]);
+                    $scope.OID=response.data[i].UserID;
+                }
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.message);
+        });
+
+        $scope.onDemandMembersTable = new NgTableParams(
+            {
+                count: 20
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.OnDemandMembers, params.filter()) : $scope.OnDemandMembers;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+        $scope.EditOnDemandMember = function (id) {
+            $state.go('admin.ondemand.edit', {'id': id});
+        };
+
+    }]);
+
+    var _ondemand_member_id='';
+    app.controller('EditOnDemandMember', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', 'StatusService', '$uibModal','$stateParams', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, StatusService, $uibModal,$stateParams)
+    {
+        $scope.OnDemandMemberID = $stateParams.id;
+
+        $scope.OnDemandMemberDetails={
+            Name:'',
+            lastName:'',
+            sex:'',
+            age:'',
+            country:'',
+            email:'',
+            countryCode:'91',
+            phoneNumber:'',
+            address:'',
+            pinCode:'',
+            city:'',
+            state:'',
+            noofDays:'',
+            UserID:$scope.OnDemandMemberID,
+        };
+
+        $scope.EditOnDemand=function () {
+            DataService.updateOnDemandMember($scope.OnDemandMemberDetails).then(function(response) {
+                if (!response.error) {
+                    growl.success("Record updated successfully");
+                    $state.go('admin.ondemand.view-members');
+                } else {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                growl.error(response.message);
+            });
+        };
+
+        // Get member details by id
+        var filters = {
+            filter: {
+                populate: {path: 'membershipId'}
+            }
+        };
+
+        $scope.OnDemandMembers=[];
+        DataService.getMember($stateParams.id,filters).then(function (response) {
+            //$scope.OnDemandMemberDetails={};
+            if (!response.error) {
+                $scope.OnDemandMemberDetails.Name = response.data.Name;
+                $scope.OnDemandMemberDetails.lastName = response.data.lastName;
+                $scope.OnDemandMemberDetails.sex = response.data.sex;
+                $scope.OnDemandMemberDetails.country = response.data.country;
+                $scope.OnDemandMemberDetails.age = response.data.age;
+                $scope.OnDemandMemberDetails.email = response.data.email;
+                $scope.OnDemandMemberDetails.countryCode = response.data.countryCode;
+                $scope.OnDemandMemberDetails.address = response.data.address;
+                $scope.OnDemandMemberDetails.phoneNumber = response.data.phoneNumber;
+                $scope.OnDemandMemberDetails.pinCode = response.data.pinCode;
+                $scope.OnDemandMemberDetails.city = response.data.city;
+                $scope.OnDemandMemberDetails.state = response.data.state;
+                $scope.OnDemandMemberDetails.validity = response.data.validity;
+                $scope.OnDemandMemberDetails.cardNum = response.data.cardNum;
+                $scope.OnDemandMemberDetails.creditBalance = response.data.creditBalance;
+                $scope.OnDemandMemberDetails.subscriptionType = response.data.membershipId.subscriptionType;
+                /*$scope.OnDemandMemberID=$stateParams.id;*/
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description);
+        });
+
+
+        $scope.cancelOnDemand = function () {
+            sweet.show({
+                title: 'Are you sure?',
+                text: 'You may have unsaved data',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, leave!',
+                closeOnConfirm: true
+            }, function () {
+                $state.go('admin.ondemand.view-members');
+            });
+        };
 
 
     }]);
@@ -5673,7 +5795,6 @@
         };
 
         $scope.TestTest = _com_type;
-        alert($scope.TestTest);
         $scope.Valid = function ()
         {
             if($scope.ValidTickets == true)
@@ -6597,7 +6718,7 @@
                     }
 
                     // calculation for major stations empty during peak hour
-                    if(response.data[i].stationtype === "Major")
+                    if(response.data[i].stationtype === "Major" || response.data[i].modelType == "Major")
                     {
                      if(response.data[i].status===2)
                      {
@@ -6793,8 +6914,11 @@
                     percentage_points = 0;
                 }
 
+                var ToFixedValue = (percentage_data).toFixed(2);
+                var ToRoundOffValue = Math.round(ToFixedValue);
+
                 $scope.SmartCardInfo={
-                   value:percentage_data + "%",
+                   value:ToRoundOffValue + "%",
                     points:percentage_points
                 };
 
@@ -6808,7 +6932,6 @@
                     growl.error(response.message);
                 }
             }, function (response) {
-                /*growl.error(response.data.description);*/
             });
 
             // smart card at kiosks
@@ -6921,45 +7044,48 @@
             });
 
             // get docking station clean details
-            var _docking_station_clean_count;
-            var clean_percentage_value;
-            var clean_percentage_points;
+            var _docking_station_clean_count=0;
+            var clean_percentage_value=0;
+            var clean_percentage_points=0;
             DataService.GetDockingStationKPIDetails($scope.details).then(function (response)
             {
-                 _docking_station_clean_count = response.data.length;
-
-                /*clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * Number_of_DockingStations) * 100).toFixed(2);*/
-                clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * 48) * 100).toFixed(2);
-
-                if(clean_percentage_value >= 1)
-                {
-                    clean_percentage_points = 10;
-                }
-                else if (clean_percentage_value >= 2)
-                {
-                    clean_percentage_points =5;
-                }
-                else if (clean_percentage_value >= 4)
-                {
-                    clean_percentage_points =-5;
-                }
-                else if (clean_percentage_value > 5)
-                {
-                    clean_percentage_points =-10;
-                }
-                else
-                {
-                    clean_percentage_value = 0;
-                    clean_percentage_points = 0;
-                }
-
-                $scope.KPIStationClean={
-                    CleanValue:clean_percentage_value + "%",
-                    CleanPoints:clean_percentage_points
-                };
-
                 if (!response.error)
                 {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        _docking_station_clean_count += response.data[i].cleanCount;
+                    }
+                    /*_docking_station_clean_count = response.data.length;*/
+
+                    /*clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * Number_of_DockingStations) * 100).toFixed(2);*/
+                    clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * 49) * 100).toFixed(2);
+
+                    if(clean_percentage_value >= 100)
+                    {
+                        clean_percentage_points = 10;
+                    }
+                    else if (clean_percentage_value >= 50 && clean_percentage_value < 75)
+                    {
+                        clean_percentage_points =5;
+                    }
+                    else if (clean_percentage_value >= 25 && clean_percentage_value <50 )
+                    {
+                        clean_percentage_points =-5;
+                    }
+                    else if (clean_percentage_value <= 25)
+                    {
+                        clean_percentage_points =-10;
+                    }
+                    else
+                    {
+                        clean_percentage_value = 0;
+                        clean_percentage_points = 0;
+                    }
+
+                    $scope.KPIStationClean={
+                        CleanValue:clean_percentage_value + "%",
+                        CleanPoints:clean_percentage_points
+                    };
                     growl.success(response.message);
                 }
                 else
@@ -7706,8 +7832,10 @@
     app.controller('KpiReportDockingStationClean', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.StationClean={
-            fromdate:'',
-            todate:'',
+           /* fromdate:'',
+            todate:'',*/
+            month:'',
+            year:'',
             stationState:0,
             duration:0
         };
@@ -7715,12 +7843,28 @@
         $scope.stationClean=[];
 
         $scope.StationCleanDetails=function () {
-            // get bicycle fleet @ 6 am
+
+            var _fromdate = new Date($scope.StationClean.year,$scope.StationClean.month - 1, 1);
+            var _todate = new Date( $scope.StationClean.year,$scope.StationClean.month, 1);
+
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
+            $scope.SelectedYear= $scope.StationClean.year;
+
+            $scope.StationClean.fromdate = _fromdate;
+            $scope.StationClean.todate = _todate;
+
             DataService.GetDockingStationKPIDetails($scope.StationClean).then(function (response)
             {
                 if (!response.error)
                 {
-                    $scope.stationClean = response.data;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.stationClean.push(response.data[i]);
+                    }
 
                     $scope.StationCleanTable = new NgTableParams(
                         {
@@ -7743,6 +7887,23 @@
             }, function (response) {
                 /*growl.error(response.data.description);*/
             });
+        }
+
+        $scope.DockingHubs = [];
+
+        DataService.getDockingStations().then(function (response) {
+            if (!response.error) {
+                $scope.DockingHubs = response.data;
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
+
+        $scope.selectedDockingHub = function (data)
+        {
+            $scope.bicycleTrans.dockingstation=data.name;
         }
 
     }]);
@@ -7912,7 +8073,7 @@
                     /*$scope.StartDate =  $scope.details.fromdate;*/
                     for(var i=0;i<response.data.length;i++)
                     {
-                        if(response.data[i].stationtype == "Major")
+                        if(response.data[i].stationtype == "Major" || response.data[i].modelType == "Major")
                         {
                             if(response.data[i].peekduration > 0)
                             {
@@ -8559,7 +8720,7 @@
                 _no_of_days=Math.round(Math.abs((from_date.getTime()-to_date.getTime())/(one_day)))+1;
                 /*_no_of_days = (_to_date) - (_from_date) + 1 ;*/
                 /*var _working_hours = _no_of_days * 16 * 60 * Number_of_DockingStations;*/
-                var _working_hours = _no_of_days * 16 * 60 * 44;
+                var _working_hours = _no_of_days * 16 * 60 * 49;
                 var i=0;
                 var total=0;
                 var total_major_empty_peak=0;
@@ -8946,29 +9107,31 @@
             });
 
             // get docking station clean details
-            var _docking_station_clean_count;
-            var clean_percentage_value;
-            var clean_percentage_points;
+            var _docking_station_clean_count = 0;
+            var clean_percentage_value=0;
+            var clean_percentage_points=0;
             DataService.GetDockingStationKPIDetails($scope.details).then(function (response)
             {
-                _docking_station_clean_count = response.data.length;
-
+                for(var i = 0; i<response.data.length; i++)
+                {
+                    _docking_station_clean_count += response.data[i].cleanCount;
+                }
                 /*clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * Number_of_DockingStations) * 100).toFixed(2);*/
-                clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * 44) * 100).toFixed(2);
+                clean_percentage_value = ((_docking_station_clean_count)/(_no_of_days * 48) * 100).toFixed(2);
 
-                if(clean_percentage_value >= 1)
+                if(clean_percentage_value >= 100)
                 {
                     clean_percentage_points = 10;
                 }
-                else if (clean_percentage_value >= 2)
+                else if (clean_percentage_value >= 50 && clean_percentage_value < 75)
                 {
                     clean_percentage_points =5;
                 }
-                else if (clean_percentage_value >= 4)
+                else if (clean_percentage_value >= 25 && clean_percentage_value < 50)
                 {
                     clean_percentage_points =-5;
                 }
-                else if (clean_percentage_value > 5)
+                else if (clean_percentage_value <= 25)
                 {
                     clean_percentage_points =-10;
                 }
@@ -10608,9 +10771,9 @@ var _station_id;
             })
         };
 
-        $scope.employeeSelections = [];
+        /*$scope.employeeSelections = [];
 
-        DataService.getStaffs().then(function (response) {
+      DataService.getStaffs().then(function (response) {
                 if (!response.error) {
 
                     $scope.employeeSelections = response.data;
@@ -10622,12 +10785,25 @@ var _station_id;
             function(response)
             {
                 growl.error(response.data);
-            });
+            });*/
+
+        $scope.Department = "mcstaff";
+
+        $scope.EmployeeSelections = [];
+
+        DataService.getEmp($scope.Department).then(function (response) {
+            if (!response.error) {
+                $scope.EmployeeSelections = response.data;
+            } else {
+                growl.error(response.message);
+            }
+        }, function (response) {
+            growl.error(response.data.description['0']);
+        });
 
         $scope.selectedEmployee = function (data) {
-            $scope.dockingStationCleanInput.empId = data.id;
+            $scope.dockingStationCleanInput.empId = data._id;
         };
-
 
         $scope.cancelAddNewDocknckingStationClean = function () {
             $uibModalInstance.dismiss();
@@ -10947,6 +11123,13 @@ var _station_id;
             DataService.SendBankCashDepositDetails($scope.bankDepositsInput).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
+
+                    var _total_amount = 0;
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        _total_amount += response.data[i].amount;
+                    }
+                    $scope.TotalAmountDeposited = _total_amount;
 
                     _bankcashdeposit_fromdate =$scope.bankDepositsInput.fromdate;
                     _bankcashdeposit_todate =$scope.bankDepositsInput.todate;

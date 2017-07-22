@@ -72,6 +72,27 @@
                 containerClass: 'sw-toggled'
             })
 
+            // ondemand
+            .state("admin.ondemand", {
+                url: "/ondemand",
+                templateUrl: adminViewPath + 'ondemand/ondemand.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.ondemand.view-members", {
+                url: "/view-members",
+                templateUrl: adminViewPath + 'ondemand/view-members.html',
+                controller: 'ViewOnDemandMembers',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.ondemand.edit", {
+                url: "/edit/:id",
+                templateUrl: adminViewPath + 'ondemand/edit.html',
+                controller: 'EditOnDemandMember',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.employees", {
                 url: "/employees",
                 templateUrl: adminViewPath + 'employees/employees.html',

@@ -62,7 +62,9 @@
             suspend:'suspendmembership',
             cancel:'cancelmembership',
             otprequest:'requestotp',
-            verify:'verifyotp'
+            verify:'verifyotp',
+            ondemand:'users/ondemand/qweuird78fj3498asdjkfhahsysd98y4rsdjhf',
+            edit:'users/ondemand'
         },
         employee: {
             getAll: 'employee',

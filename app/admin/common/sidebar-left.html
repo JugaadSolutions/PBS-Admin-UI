@@ -114,41 +114,44 @@
                     <a href="" toggle-submenu>SLA Reports</a>
                     <ul>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.average-cycle-per-day')}"
-                               ui-sref="admin.kpi.reports.average-cycle-per-day">Average(cycle/day)</a>
+                               ui-sref="admin.kpi.reports.average-cycle-per-day">1.Average(cycle/day)</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.cycles-available-6am')}"
-                               ui-sref="admin.kpi.reports.cycles-available-6am">Total Cycle Fleet Available at 6 am</a>
+                               ui-sref="admin.kpi.reports.cycles-available-6am">2.Total Cycle Fleet Available at 6 am</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.smart-card-at-hub')}"
-                               ui-sref="admin.kpi.reports.smart-card-at-hub">Smart card performance at the hub</a>
+                               ui-sref="admin.kpi.reports.smart-card-at-hub">3.Smart card performance at the hub</a>
                         </li>
-                        <li><a ng-class="{'active': $state.includes('admin.kpi.reports.smart-card-at-kiosks')}"
+                        <!--<li><a ng-class="{'active': $state.includes('admin.kpi.reports.smart-card-at-kiosks')}"
                                ui-sref="admin.kpi.reports.smart-card-at-kiosks">Smart Card performance at kiosks.</a>
-                        </li>
+                        </li>-->
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.empty-major-ds-peak-hours')}"
-                               ui-sref="admin.kpi.reports.empty-major-ds-peak-hours">Major DS Empty in Peek hours</a>
+                               ui-sref="admin.kpi.reports.empty-major-ds-peak-hours">4.Major DS Empty in Peak hours</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.empty-minor-ds-peek-hours')}"
-                               ui-sref="admin.kpi.reports.empty-minor-ds-peek-hours">Minor DS Empty in Peek hours</a>
+                               ui-sref="admin.kpi.reports.empty-minor-ds-peek-hours">5.Minor DS Empty in Peak hours</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.empty-major-ds-offpeek-hours')}"
-                               ui-sref="admin.kpi.reports.empty-major-ds-offpeek-hours">Major DS Empty in Off Peek hours</a>
+                               ui-sref="admin.kpi.reports.empty-major-ds-offpeek-hours">6.Major DS Empty in Off Peak hours</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.empty-minor-ds-offpeek-hours')}"
-                               ui-sref="admin.kpi.reports.empty-minor-ds-offpeek-hours">Minor DS Empty in Off Peek hours</a>
+                               ui-sref="admin.kpi.reports.empty-minor-ds-offpeek-hours">7.Minor DS Empty in Off Peak hours</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.stations-full-or-empty-more-than-two-hours')}"
-                               ui-sref="admin.kpi.reports.stations-full-or-empty-more-than-two-hours">Hubs Full or Empty more then 2 hrs</a>
+                               ui-sref="admin.kpi.reports.stations-full-or-empty-more-than-two-hours">8.Hubs Full or Empty more then 2 hrs</a>
+                        </li>
+                        <li><a ng-class="{'active': $state.includes('admin.kpi.reports.docking-station-clean')}"
+                               ui-sref="admin.kpi.reports.docking-station-clean">9.Docking Hub Clean</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.number-of-valid-complaints')}"
-                               ui-sref="admin.kpi.reports.number-of-valid-complaints">Valid Complaints</a>
+                               ui-sref="admin.kpi.reports.number-of-valid-complaints">10.Valid Complaints</a>
                         </li>
                         <li><a ng-class="{'active': $state.includes('admin.kpi.reports.bicycle-repair-within-4hrs')}"
-                               ui-sref="admin.kpi.reports.bicycle-repair-within-4hrs">Bicycle Repair Report</a>
+                               ui-sref="admin.kpi.reports.bicycle-repair-within-4hrs">11.Bicycle Repair Report</a>
                         </li>
-                        <li><a ng-class="{'active': $state.includes('admin.kpi.reports.website-downtime')}"
+                        <!--<li><a ng-class="{'active': $state.includes('admin.kpi.reports.website-downtime')}"
                                ui-sref="admin.kpi.reports.website-downtime">Website DownTime</a>
-                        </li>
+                        </li>-->
                     </ul>
                 </li>
 
@@ -268,7 +271,13 @@
             </ul>
         </li>
 
-        <li class="sub-menu">
+       <!-- <li ng-class="{active: $state.includes('admin.ports-testing')}">
+            <a ui-sref="admin.ports-testing.test"><i class="zmdi zmdi-badge-check"></i>Check In Check Out</a>
+        </li>
+        <li ng-class="{active: $state.includes('admin.checkincheckout-bridge')}">
+            <a ui-sref="admin.checkincheckout-bridge.checkincheckout"><i class="zmdi zmdi-swap"></i>Check In Check Out - Bridge</a>
+        </li>-->
+        <li class="sub-menu" ng-if="role=='Kone-admin' || role=='admin'">
             <a href="" toggle-submenu><i class="zmdi zmdi-star-outline"></i>Mysuru One</a>
             <ul>
                 <li><a ng-class="{'active': $state.includes('admin.reports.mysuru-one')}"
@@ -276,12 +285,10 @@
                 </li>
             </ul>
         </li>
-       <!-- <li ng-class="{active: $state.includes('admin.ports-testing')}">
-            <a ui-sref="admin.ports-testing.test"><i class="zmdi zmdi-badge-check"></i>Check In Check Out</a>
-        </li>
-        <li ng-class="{active: $state.includes('admin.checkincheckout-bridge')}">
-            <a ui-sref="admin.checkincheckout-bridge.checkincheckout"><i class="zmdi zmdi-swap"></i>Check In Check Out - Bridge</a>
-        </li>-->
+    </ul>
+
+    <ul class="main-menu">
+
     </ul>
 
     <!--Login view for Registration employee-->
@@ -329,6 +336,9 @@
         </li>
         <li ng-class="{active: $state.includes('admin.kpi')}">
             <a ui-sref="admin.kpi.dash-board"><i class="zmdi zmdi-star"></i>Key Performance Indicator</a>
+        </li>
+        <li ng-class="{active: $state.includes('admin.ondemand')}">
+            <a ui-sref="admin.ondemand.view-members"><i class="zmdi zmdi-mood"></i> OnDemand</a>
         </li>
     </ul>
 
@@ -443,4 +453,13 @@
             <a ui-sref="admin.members.manage"><i class="zmdi zmdi-mood"></i> Members</a>
         </li>
     </ul>
+
+    <!--Login view for OnDemand Users-->
+    <ul class="main-menu" ng-if="role=='ondemand-staff'">
+        <li ng-class="{active: $state.includes('admin.ondemand')}">
+            <a ui-sref="admin.ondemand.view-members"><i class="zmdi zmdi-mood"></i> OnDemand</a>
+        </li>
+    </ul>
+
+
 </div>

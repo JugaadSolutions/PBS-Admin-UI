@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header ch-alt m-b-20">
-            <h2>Average cycle use per cycle per day</h2>
+            <h2>Average cycle use per cycle/day</h2>
             <br>
             <form class="pmbb-edit" name="AverageCycle" novalidate>
 
@@ -94,9 +94,9 @@
                 <table ng-table="AverageCycleTable" class="table table-striped table-vmiddle" show-filter="false">
                     <tr ng-repeat="avgCycle in $data">
                         <td data-title="'Date'" filter="{ creditBalance: 'text'}">
-                            {{avgCycle.createdDate |  date : "dd MMM yy"}}
+                            {{avgCycle.reportDate |  date : "dd MMM yy"}}
                         </td>
-                        <td data-title="'No. of trips/Time duration'" filter="{ creditBalance: 'text'}">
+                        <td data-title="'No. of trips/Day'" filter="{ creditBalance: 'text'}">
                             {{(avgCycle.noOfTrips/avgCycle.requiredNoOfCycles).toFixed(2)}}
                         </td>
                     </tr>

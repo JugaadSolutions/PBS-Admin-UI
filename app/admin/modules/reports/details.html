@@ -36,7 +36,7 @@
                             </div>
                         </div>
 
-                        <!--<div class="col-sm-3 m-b-20">
+                        <div class="col-sm-3 m-b-15">
                             <div class="form-group fg-line">
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Registration Centres</label>
                                 <select chosen class="form-control"
@@ -48,22 +48,52 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3 m-b-20">
+                        <div class="col-sm-2 m-b-20">
                             <div class="form-group fg-line">
-                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Transaction Type</label>
-                                <select chosen class="form-control" ng-model="daywiseCollection.transactionType"
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Payment Through</label>
+                                <select chosen class="form-control" ng-model="daywiseCollection"
                                         name="transactionType">
                                     <option value="">All</option>
-                                    <option value="Registration" >Registration</option>
-                                    <option value="Refund">Refund</option>
-                                    <option value="Topup">Topup</option>
-                                    <option value="Security Deposit">Security Deposit</option>
-                                    <option value="Processing Fee">Processing Fee</option>
-                                    <option value="Unused Balance">Unused Amount</option>
-                                    <option value="Online Payment Service Charge">Online</option>
+                                    <option value="Cash" >Cash</option>
+                                    <option value="POS">POS</option>
+                                    <option value="mone-cash">MOne-Cash</option>
+                                    <option value="ccavenu">CCAvenu</option>
+                                    <option value="paygov">PayGOv</option>
                                 </select>
                             </div>
-                        </div>-->
+                        </div>
+
+                        <div class="col-sm-2 m-b-20">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Location</label>
+                                <select chosen class="form-control" ng-model="daywiseCollection"
+                                        name="transactionType">
+                                    <option value="">All</option>
+                                    <option value="UserPortal" >User Portal</option>
+                                    <option value="Android">Android App</option>
+                                    <option value="ios">IOS App</option>
+                                    <option value="ccavenu">Registration Centers</option>
+                                    <option value="paygov">KOne Registration Centers</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-sm-3 m-b-20">
+                             <div class="form-group fg-line">
+                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Transaction Type</label>
+                                 <select chosen class="form-control" ng-model="daywiseCollection.transactionType"
+                                         name="transactionType">
+                                     <option value="">All</option>
+                                     <option value="Registration" >Registration</option>
+                                     <option value="Refund">Refund</option>
+                                     <option value="Topup">Topup</option>
+                                     <option value="Security Deposit">Security Deposit</option>
+                                     <option value="Processing Fee">Processing Fee</option>
+                                     <option value="Unused Balance">Unused Amount</option>
+                                     <option value="Online Payment Service Charge">Online</option>
+                                 </select>
+                             </div>
+                         </div>-->
 
                     </div>
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"

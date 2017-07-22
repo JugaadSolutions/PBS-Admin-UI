@@ -7,7 +7,8 @@
 
                 <div class="card-body card-padding">
                     <div class="row">
-                        <div class="col-sm-3 m-b-20">
+
+                        <!--<div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
                                  ng-class="{ 'has-error': StationClean.fromDate.$touched && StationClean.fromDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
@@ -19,9 +20,9 @@
                                                 <small ng-message="required">From Date is required</small>
                                             </span>
                             </div>
-                        </div>
+                        </div>-->
 
-                        <div class="col-sm-3 m-b-20">
+                        <!--<div class="col-sm-3 m-b-20">
                             <div class="form-group fg-line"
                                  ng-class="{ 'has-error': StationClean.toDate.$touched && StationClean.toDate.$invalid }" >
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
@@ -33,14 +34,67 @@
                                                 <small ng-message="required">To Date is required</small>
                                             </span>
                             </div>
+                        </div>-->
+
+                        <div class="col-sm-2 m-b-10">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Month</label>
+                                <select name="month" chosen class="form-control" ng-model="StationClean.month"
+                                        data-placeholder-text-single="'Select Document Type'" required>
+                                    <option value="1">January</option>
+                                    <option value="2">Feb</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                    <option value="">Select Month</option>
+                                </select>
+                            </div>
                         </div>
 
+                        <div class="col-sm-2 m-b-10">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Year</label>
+                                <select name="year" chosen class="form-control" ng-model="StationClean.year"
+                                        data-placeholder-text-single="'Select Document Type'" required>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="">Select Year</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--<div class="col-sm-3 m-b-20">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Docking Hubs</label>
+                                <select chosen class="form-control"
+                                        ng-options="DockingHubs as DockingHub.name for DockingHub in DockingHubs"
+                                        ng-model="DockingHub.name"
+                                        ng-change="selectedDockingHub(DockingHub.name)">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>-->
+
                     </div>
+
                     <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                            ng-click="StationCleanDetails()" ng-disabled="cycleFleet.$invalid">
+                            ng-click="StationCleanDetails()" ng-disabled="StationClean.$invalid">
                         <i class="zmdi zmdi-save"></i> Generate Report
                     </button>
-                    <!--  <button type="button" class="btn btn-icon-text btn-success waves-effect"
+
+                    <br>
+                    <br>
+                    <div ng-if="SelectedMonth && SelectedYear">
+                        <b><span>Selected Month : {{SelectedMonth}}</span></b> &nbsp; | &nbsp;<b><span>Selected Year : {{SelectedYear}}</span></b>
+                    </div>
+                      <!--<button type="button" class="btn btn-icon-text btn-success waves-effect"
                               ng-disabled="DaywiseCashForm.$invalid" >
                           <i class="zmdi zmdi-eye"></i>
                           <a ui-sref="admin.accounts.daywise-collectionsummary-report-print" style="color: white">Print Report</a>
@@ -53,10 +107,22 @@
                 <table ng-table="StationCleanTable" class="table table-striped table-vmiddle" show-filter="false">
                     <tr ng-repeat="clean in $data">
                         <td data-title="'Date'">
-                            {{clean.cleaneddate |  date : "dd MMM yy"}}
+                            {{clean.cleaneddate | date : "dd-MMM-yy"}}
+                        </td>
+                        <td data-title="'From'">
+                            {{clean.fromtime | date:"dd-MM-yy hh:mm"}}
+                        </td>
+                        <td data-title="'To'">
+                            {{clean.totime | date:"dd-MM-yy hh:mm"}}
+                        </td>
+                        <td data-title="'By'">
+                            {{clean.empId.Name}}
+                        </td>
+                        <td data-title="'Station'">
+                            {{clean.stationId.name}}
                         </td>
                         <td data-title="'Instance if the docking station is cleaned'">
-                            cleaned
+                            <label ng-if="clean.cleanCount==1">Cleaned</label>
                         </td>
                     </tr>
                 </table>
