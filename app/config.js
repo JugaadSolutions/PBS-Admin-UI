@@ -829,10 +829,24 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.kpi.reports.average-cycle-per-day-print", {
+                url: "/average-cycle-per-day-print",
+                templateUrl: adminViewPath + 'kpi/reports/average-cycle-per-day-print.html',
+                controller: 'KpiReportAverageCyclePerDayPrint',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.kpi.reports.cycles-available-6am", {
                 url: "/cycles-available-6am",
                 templateUrl: adminViewPath + 'kpi/reports/cycles-available-6am.html',
                 controller: 'KpiReportCycleAvailableAt6am',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.kpi.reports.cycles-available-6am-print", {
+                url: "/cycles-available-6am-print",
+                templateUrl: adminViewPath + 'kpi/reports/cycles-available-6am-print.html',
+                controller: 'KpiReportCycleAvailableAt6amPrint',
                 containerClass: 'sw-toggled'
             })
 
@@ -850,6 +864,13 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.kpi.reports.smart-card-at-hub-print", {
+                url: "/smart-card-at-hub-print",
+                templateUrl: adminViewPath + 'kpi/reports/smart-card-at-hub-print.html',
+                controller: 'KpiReportSmartCardAtHubPrint',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.kpi.reports.smart-card-at-kiosks", {
                 url: "/smart-card-at-kiosks",
                 templateUrl: adminViewPath + 'kpi/reports/smart-card-at-kiosks.html',
@@ -862,6 +883,14 @@
                 url: "/empty-major-ds-peak-hours",
                 templateUrl: adminViewPath + 'kpi/reports/empty-major-ds-peak-hours.html',
                 controller: 'KpiReportEmptyMajorDSPeak',
+                containerClass: 'sw-toggled'
+            })
+
+            /*empty docking station (major) in peak hours (print)*/
+            .state("admin.kpi.reports.empty-major-ds-peak-hours-print", {
+                url: "/empty-major-ds-peak-hours-print",
+                templateUrl: adminViewPath + 'kpi/reports/empty-major-ds-peak-hours-print.html',
+                controller: 'KpiReportEmptyMajorDSPeakPrint',
                 containerClass: 'sw-toggled'
             })
 

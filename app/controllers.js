@@ -7700,6 +7700,9 @@
     }]);
 
     /*sla report - average cycle use per cycle per day */
+    var _selected_month;
+    var _selected_year;
+    var average_cycle_print =[];
     app.controller('KpiReportAverageCyclePerDay', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.AverageCycle={
@@ -7731,11 +7734,15 @@
 
             DataService.GetCycleUsagePerDay($scope.AverageCycle).then(function (response)
             {
+                _selected_month = $scope.SelectedMonth;
+                _selected_year = $scope.SelectedYear;
+
                 if (!response.error)
                 {
                     for(var i=0;i<response.data.length;i++)
                     {
                         $scope.Averagecycle.push(response.data[i]);
+                        average_cycle_print.push(response.data[i]);
                     }
 
                     $scope.AverageCycleTable = new NgTableParams(
@@ -7764,6 +7771,35 @@
         }
     }]);
 
+    app.controller('KpiReportAverageCyclePerDayPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+
+        $scope.CyclePerDayDetails={
+            month:_selected_month,
+            year:_selected_year,
+        };
+
+        $scope.AveragecyclePrint=[];
+        $scope.AveragecyclePrint = average_cycle_print
+
+
+                $scope.AverageCyclePrintTable = new NgTableParams(
+                    {
+                        count: 10
+                    },
+                    {
+                        getData: function ($defer, params) {
+                            var orderedData = params.filter() ? $filter('filter')($scope.AveragecyclePrint, params.filter()) : $scope.AveragecyclePrint;
+                            /*params.total(orderedData.length);*/
+                            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        }
+                    }
+                );
+    }]);
+
+    var _cycle_available_6am_month;
+    var _cycle_availablr_6am_year;
+    var Cycle_Available = [];
     app.controller('KpiReportCycleAvailableAt6am', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.CycleAvailable={
@@ -7793,6 +7829,9 @@
             // get bicycle fleet @ 6 am
             DataService.GetBicycleDetailsAtFleet($scope.CycleAvailable).then(function (response)
             {
+                _cycle_available_6am_month=$scope.SelectedMonth;
+                _cycle_availablr_6am_year=$scope.SelectedYear;
+
                 if (!response.error)
                 {
                     $scope.CyclesAvailable=[];
@@ -7800,6 +7839,7 @@
                     for(var i=0;i<response.data.length;i++)
                     {
                         $scope.CyclesAvailable.push(response.data[i]);
+                        Cycle_Available.push(response.data[i]);
                     }
 
                     $scope.CycleAvailableTable = new NgTableParams(
@@ -7826,6 +7866,32 @@
                 /*growl.error(response.data.description);*/
             });
         }
+
+    }]);
+
+    app.controller('KpiReportCycleAvailableAt6amPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.CycleAvailableDetails={
+            month:_cycle_available_6am_month,
+            year:_cycle_availablr_6am_year
+        };
+
+        $scope.CycleAvailablePrint=[];
+        $scope.CycleAvailablePrint = Cycle_Available;
+
+
+        $scope.CycleAvailablePrintTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.CycleAvailablePrint, params.filter()) : $scope.CycleAvailablePrint;
+                    /*params.total(orderedData.length);*/
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
 
     }]);
 
@@ -7909,6 +7975,9 @@
     }]);
 
     /*SLA - smart card performance at docking hub*/
+    var _perforamnce_at_docking_hub_month;
+    var _perforamnce_at_docking_hub_year;
+    var PerformanceAtDockingHub = [];
     app.controller('KpiReportSmartCardAtHub', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
@@ -7936,6 +8005,9 @@
 
             DataService.GetKPISmartCardReport($scope.details).then(function (response)
             {
+                 _perforamnce_at_docking_hub_month = $scope.SelectedMonth;
+                 _perforamnce_at_docking_hub_year=$scope.SelectedYear;
+
                 if (!response.error)
                 {
                     $scope.SmartCardAtHub=[];
@@ -7945,6 +8017,7 @@
                         for(var i=0;i<response.data.checkouts.length;i++)
                         {
                             $scope.SmartCardAtHub.push(response.data.checkouts[i]);
+                            PerformanceAtDockingHub.push(response.data.checkouts[i]);
                         }
 
                     $scope.SmartCardAtHubTable = new NgTableParams(
@@ -7969,8 +8042,31 @@
             }, function (response) {
             });
         }
+    }]);
+
+    app.controller('KpiReportSmartCardAtHubPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.SmartCardPerformanceAtHubDetails={
+            month:_perforamnce_at_docking_hub_month,
+            year:_perforamnce_at_docking_hub_year
+        };
+
+        $scope.SmartCardPerformanceAtHub=[];
+        $scope.SmartCardPerformanceAtHub = PerformanceAtDockingHub;
 
 
+        $scope.SmartCardPerformanceAtHubPrintTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.SmartCardPerformanceAtHub, params.filter()) : $scope.SmartCardPerformanceAtHub;
+                    /*params.total(orderedData.length);*/
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
 
     }]);
 
@@ -8041,6 +8137,9 @@
 
     }]);
 
+    var _empty_major_hub_peak_month;
+    var _empty_major_hub_peak_year;
+    var EmptyMajorHubPeak=[];
     app.controller('KpiReportEmptyMajorDSPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
@@ -8068,6 +8167,9 @@
             $scope.details.todate = _todate;
             DataService.GetRVDetails($scope.details).then(function (response)
             {
+                _empty_major_hub_peak_month=$scope.SelectedMonth;
+                _empty_major_hub_peak_year=$scope.SelectedYear;
+
                 $scope.EmptyMojorDSPeak=[];
                 if (!response.error) {
                     /*$scope.StartDate =  $scope.details.fromdate;*/
@@ -8078,6 +8180,7 @@
                             if(response.data[i].peekduration > 0)
                             {
                                 $scope.EmptyMojorDSPeak.push(response.data[i])
+                                EmptyMajorHubPeak.push(response.data[i]);
                             }
                         }
                     }
@@ -8104,6 +8207,30 @@
                 }
             );
         }
+    }]);
+
+    app.controller('KpiReportEmptyMajorDSPeakPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.EmptyMajorHubPeak={
+            month:_empty_major_hub_peak_month,
+            year:_empty_major_hub_peak_year
+        };
+
+        $scope.EmptyMajorHubPeakPrint=[];
+        $scope.EmptyMajorHubPeakPrint=EmptyMajorHubPeak;
+
+        $scope.EmptyMojorDSPeakPrintTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.EmptyMajorHubPeakPrint, params.filter()) : $scope.EmptyMajorHubPeakPrint;
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
     }]);
 
     app.controller('KpiReportEmptyMinorDSPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
@@ -12564,19 +12691,22 @@ var _station_id;
                     $scope.redistributionVehicleData = response.data;
                     $scope.redistributionVehicles = response.data;
                     for (var i = 0; i < $scope.redistributionVehicles.length; i++) {
-                        var longAndLat = {
-                            longitude: $scope.redistributionVehicles[i].gpsCoordinates.longitude,
-                            latitude: $scope.redistributionVehicles[i].gpsCoordinates.latitude,
-                            mapUrl: GOOGLEMAPURL,
-                            show: false,
-                            icon: 'assets/images/redistributionVehicle.png',
-                            title: $scope.redistributionVehicles[i].Name,
-                            bicycleCount: $scope.redistributionVehicles[i].vehicleId.length,
-                            bicycleCapacity: $scope.redistributionVehicles[i].portCapacity,
-                            dockingStationStatus: StatusService.getRedistributionVehicleStatus($scope.redistributionVehicles[i].portStatus),
-                            id: i
-                        };
-                        multiRedistributionVehicle.push(longAndLat);
+                        if ($scope.redistributionVehicles[i].tracking == true)
+                        {
+                            var longAndLat = {
+                                longitude: $scope.redistributionVehicles[i].gpsCoordinates.longitude,
+                                latitude: $scope.redistributionVehicles[i].gpsCoordinates.latitude,
+                                mapUrl: GOOGLEMAPURL,
+                                show: false,
+                                icon: 'assets/images/redistributionVehicle.png',
+                                title: $scope.redistributionVehicles[i].Name,
+                                bicycleCount: $scope.redistributionVehicles[i].vehicleId.length,
+                                bicycleCapacity: $scope.redistributionVehicles[i].portCapacity,
+                                dockingStationStatus: StatusService.getRedistributionVehicleStatus($scope.redistributionVehicles[i].portStatus),
+                                id: i
+                            };
+                            multiRedistributionVehicle.push(longAndLat);
+                        }
                     }
                 }
                 else
