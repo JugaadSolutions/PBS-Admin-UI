@@ -12683,40 +12683,81 @@ var _station_id;
     {
         // Redistribution vehicle tracking
         var multiRedistributionVehicle = [];
+        var DockingStations = [];
 
         $scope.redistributionVehicleData = [];
-            $interval(function () {
-            DataService.getRedistributionVehicles().then(function (response) {
-                if (!response.error) {
-                    $scope.redistributionVehicleData = response.data;
-                    $scope.redistributionVehicles = response.data;
-                    for (var i = 0; i < $scope.redistributionVehicles.length; i++) {
-                        if ($scope.redistributionVehicles[i].tracking == true)
-                        {
-                            var longAndLat = {
-                                longitude: $scope.redistributionVehicles[i].gpsCoordinates.longitude,
-                                latitude: $scope.redistributionVehicles[i].gpsCoordinates.latitude,
-                                mapUrl: GOOGLEMAPURL,
-                                show: false,
-                                icon: 'assets/images/redistributionVehicle.png',
-                                title: $scope.redistributionVehicles[i].Name,
-                                bicycleCount: $scope.redistributionVehicles[i].vehicleId.length,
-                                bicycleCapacity: $scope.redistributionVehicles[i].portCapacity,
-                                dockingStationStatus: StatusService.getRedistributionVehicleStatus($scope.redistributionVehicles[i].portStatus),
-                                id: i
-                            };
-                            multiRedistributionVehicle.push(longAndLat);
-                        }
+
+        $scope.RefreshMapView=function ()
+        {
+            var interval = $interval(function ()
+            {
+                DataService.getRedistributionVehicles().then(function (response) {
+                    if (!response.error) {
+                        $scope.RDV(response);
+                        /*$scope.redistributionVehicleData = response.data;*/
+                       /* $scope.redistributionVehicles = response.data;*/
                     }
+                    else
+                    {
+                        growl.error(response.message);
+                    }
+                }, function (response) {
+                    growl.error(response.data.description);
+                });
+            },10000);
+            }
+        $scope.RDV=function (response) {
+            $scope.redistributionVehicles = response.data;
+            multiRedistributionVehicle = [];
+            for (var i = 0; i < $scope.redistributionVehicles.length; i++) {
+                if ($scope.redistributionVehicles[i].tracking == true) {
+                    var longAndLat = {
+                        longitude: $scope.redistributionVehicles[i].gpsCoordinates.longitude,
+                        latitude: $scope.redistributionVehicles[i].gpsCoordinates.latitude,
+                        mapUrl: GOOGLEMAPURL,
+                        show: false,
+                        icon: 'assets/images/redistributionVehicle.png',
+                        title: $scope.redistributionVehicles[i].Name,
+                        bicycleCount: $scope.redistributionVehicles[i].vehicleId.length,
+                        bicycleCapacity: $scope.redistributionVehicles[i].portCapacity,
+                        dockingStationStatus: StatusService.getRedistributionVehicleStatus($scope.redistributionVehicles[i].portStatus),
+                        id: i
+                    };
+                    multiRedistributionVehicle.push(longAndLat);
                 }
-                else
-                {
+            }
+            $scope.markers = multiRedistributionVehicle;
+        }
+            // Get All Docking Stations
+            DataService.getDockingStations().then(function (response) {
+                if (!response.error) {
+                    $scope.dockingStationsData = response.data;
+                    $scope.dockingStations = response.data;
+                    for (var i = 0; i < $scope.dockingStations.length; i++) {
+                        var longAndLat = {
+                            longitude: $scope.dockingStations[i].gpsCoordinates.longitude,
+                            latitude: $scope.dockingStations[i].gpsCoordinates.latitude,
+                            mapUrl: GOOGLEMAPURL,
+                            show: false,
+                            icon: 'assets/images/cycle.png',
+                            title: $scope.dockingStations[i].name,
+                            bicycleCount: $scope.dockingStations[i].bicycleCount,
+                            bicycleCapacity: $scope.dockingStations[i].bicycleCapacity,
+                            dockingStationStatus: StatusService.getDockingStationStatus($scope.dockingStations[i].operationStatus),
+                            id: i
+                        };
+                        DockingStations.push(longAndLat);
+                    }
+
+                } else {
                     growl.error(response.message);
                 }
             }, function (response) {
                 growl.error(response.data.description);
             });
-            },10000);
+
+
+        $scope.RefreshMapView();
 
             $scope.map = {
                 center: {
@@ -12726,7 +12767,9 @@ var _station_id;
             };
 
             $scope.options = {scrollwheel: true};
-            $scope.markers = multiRedistributionVehicle;
+
+        $scope.markers = multiRedistributionVehicle;
+            $scope.markersDockingHub = DockingStations;
 
             $scope.windowOptions = {
                 visible: false
