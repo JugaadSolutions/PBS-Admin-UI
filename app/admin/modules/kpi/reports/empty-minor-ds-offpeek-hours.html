@@ -75,17 +75,16 @@
                             ng-click="GetDetails()" ng-disabled="MinorDSEmptyOffPeak.$invalid">
                         <i class="zmdi zmdi-save"></i> Generate Report
                     </button>
+                    <button type="button" class="btn btn-icon-text btn-success waves-effect">
+                        <i class="zmdi zmdi-eye"></i>
+                        <a ui-sref="admin.kpi.reports.empty-minor-ds-offpeek-hours-print" style="color: white">Print/CSV Report</a>
+                    </button>
 
                     <br>
                     <br>
                     <div ng-if="SelectedMonth && SelectedYear">
                         <b><span>Selected Month : {{SelectedMonth}}</span></b> &nbsp; | &nbsp;<b><span>Selected Year : {{SelectedYear}}</span></b>
                     </div>
-                    <!--  <button type="button" class="btn btn-icon-text btn-success waves-effect"
-                              ng-disabled="DaywiseCashForm.$invalid" >
-                          <i class="zmdi zmdi-eye"></i>
-                          <a ui-sref="admin.accounts.daywise-collectionsummary-report-print" style="color: white">Print Report</a>
-                      </button>-->
                 </div>
             </form>
         </div>

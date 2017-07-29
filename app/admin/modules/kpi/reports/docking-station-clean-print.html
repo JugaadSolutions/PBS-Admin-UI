@@ -22,15 +22,15 @@
         </div>
         <br>
         <div class="card-header ch-alt text-center">
-            <h2>Average cycle use per cycle/day</h2>
+            <h2>Bicycle station is cleaned once</h2>
         </div>
         <br>
         <form class="pmbb-edit" name="TotalCashReport"  novalidate>
             <div class="card-header ch-alt text-center">
                 &nbsp;&nbsp;<label>Month &nbsp;:</label>
-                <b><span ng-bind="CyclePerDayDetails.month"></span></b> &nbsp;|&nbsp;
+                <b><span ng-bind="StationCleanDetails.month"></span></b> &nbsp;|&nbsp;
                 &nbsp;<label>Year&nbsp;:</label>
-                <b><span ng-bind="CyclePerDayDetails.year"></span></b>
+                <b><span ng-bind="StationCleanDetails.year"></span></b>
             </div>
             <br>
             <div style="text-align: center">
@@ -43,14 +43,26 @@
         </form>
     </div>
 
-    <div >
-        <table id="export_table" ng-table="AverageCyclePrintTable" class="table" >
-            <tr ng-repeat="avgCycle in AveragecyclePrint">
+    <div>
+        <table id="export_table" ng-table="StationCleanPrintTable" class="table" >
+            <tr ng-repeat="clean in StationCleanData">
                 <td data-title="'Date'">
-                    {{avgCycle.reportDate | date : "dd MMM yy"}}
+                    {{clean.cleaneddate | date : "dd-MMM-yy"}}
                 </td>
-                <td data-title="'No. of trips/Day'">
-                    {{(avgCycle.noOfTrips/avgCycle.requiredNoOfCycles).toFixed(2)}}
+                <td data-title="'From'">
+                    {{clean.fromtime | date:"dd-MM-yy hh:mm"}}
+                </td>
+                <td data-title="'To'">
+                    {{clean.totime | date:"dd-MM-yy hh:mm"}}
+                </td>
+                <td data-title="'By'">
+                    {{clean.empId.Name}}
+                </td>
+                <td data-title="'Station'">
+                    {{clean.stationId.name}}
+                </td>
+                <td data-title="'Instance if the docking station is cleaned'">
+                    <label ng-if="clean.cleanCount==1">Cleaned</label>
                 </td>
             </tr>
         </table>

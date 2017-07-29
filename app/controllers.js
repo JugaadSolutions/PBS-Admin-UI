@@ -7795,6 +7795,11 @@
                         }
                     }
                 );
+
+        $scope.Print = function ()
+        {
+            window.print();
+        };
     }]);
 
     var _cycle_available_6am_month;
@@ -7893,8 +7898,16 @@
             }
         );
 
+        $scope.Print = function ()
+        {
+            window.print();
+        };
+
     }]);
 
+    var _station_clean_month;
+    var _station_clean_year;
+    var StationClean =[];
     app.controller('KpiReportDockingStationClean', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.StationClean={
@@ -7925,11 +7938,15 @@
 
             DataService.GetDockingStationKPIDetails($scope.StationClean).then(function (response)
             {
+                _station_clean_month = $scope.SelectedMonth;
+                _station_clean_year = $scope.SelectedYear;
+
                 if (!response.error)
                 {
                     for(var i=0;i<response.data.length;i++)
                     {
                         $scope.stationClean.push(response.data[i]);
+                        StationClean.push(response.data[i]);
                     }
 
                     $scope.StationCleanTable = new NgTableParams(
@@ -7971,6 +7988,36 @@
         {
             $scope.bicycleTrans.dockingstation=data.name;
         }
+
+    }]);
+
+    app.controller('KpiReportDockingStationCleanPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.StationCleanDetails={
+          month:_station_clean_month,
+            year:_station_clean_year
+        };
+
+        $scope.StationCleanData =[];
+        $scope.StationCleanData = StationClean;
+
+        $scope.StationCleanPrintTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.StationCleanData, params.filter()) : $scope.StationCleanData;
+                    params.total(orderedData.length);
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+        $scope.Print = function ()
+        {
+            window.print();
+        };
 
     }]);
 
@@ -8067,6 +8114,11 @@
                 }
             }
         );
+
+        $scope.Print = function ()
+        {
+            window.print();
+        };
 
     }]);
 
@@ -8231,8 +8283,15 @@
             }
         );
 
+        $scope.Print = function ()
+        {
+            window.print();
+        };
     }]);
 
+    var _empty_minor_peak_month;
+    var _empty_minor_peak_year;
+    var EmptyMinorPeak =[];
     app.controller('KpiReportEmptyMinorDSPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
@@ -8263,6 +8322,9 @@
 
             DataService.GetRVDetails($scope.details).then(function (response)
             {
+                 _empty_minor_peak_month= $scope.SelectedMonth;
+                 _empty_minor_peak_year=$scope.SelectedYear;
+
                 $scope.EmptyMinorDSPeak=[];
                 if (!response.error)
                 {
@@ -8273,6 +8335,7 @@
                                 if(response.data[i].peekduration > 0)
                                 {
                                     $scope.EmptyMinorDSPeak.push(response.data[i]);
+                                    EmptyMinorPeak.push(response.data[i]);
                                 }
                             }
                     }
@@ -8301,6 +8364,37 @@
         }
     }]);
 
+    app.controller('KpiReportEmptyMinorDSPeakPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.EmptyMinorDSPeakDetails={
+            month:_empty_minor_peak_month,
+            year:_empty_minor_peak_year
+        };
+
+        $scope.EmptyMinorPeak=[];
+        $scope.EmptyMinorPeak = EmptyMinorPeak;
+
+        $scope.EmptyMinorDSPeakPrintTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.EmptyMinorPeak, params.filter()) : $scope.EmptyMinorPeak;
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+        $scope.Print = function ()
+        {
+            window.print();
+        };
+
+    }]);
+
+    var _empty_major_offpeak_month;
+    var _empty_major_offpeak_year;
+    var EmptyMajorOffPeak=[];
     app.controller('KpiReportEmptyMajorDSOffPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
@@ -8329,6 +8423,9 @@
 
             DataService.GetRVDetails($scope.details).then(function (response)
             {
+                _empty_major_offpeak_month=$scope.SelectedMonth;
+                _empty_major_offpeak_year=$scope.SelectedYear;
+
                 $scope.EmptyMajorDSOffPeak=[];
                 if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
@@ -8337,7 +8434,8 @@
                         {
                             if(response.data[i].offpeekduration > 0)
                             {
-                            $scope.EmptyMajorDSOffPeak.push(response.data[i])
+                            $scope.EmptyMajorDSOffPeak.push(response.data[i]);
+                            EmptyMajorOffPeak.push(response.data[i]);
                             }
                         }
                     }
@@ -8367,6 +8465,38 @@
         }
     }]);
 
+    app.controller('KpiReportEmptyMajorDSOffPeakPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.EmptyMajorOffPeakDetails={
+            month:_empty_major_offpeak_month,
+            year:_empty_major_offpeak_year
+        };
+
+        $scope.EmptyMajorOffPeak=[];
+        $scope.EmptyMajorOffPeak = EmptyMajorOffPeak;
+
+        $scope.EmptyMajorDSOffPeakPrintTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.EmptyMajorOffPeak, params.filter()) : $scope.EmptyMajorOffPeak;
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+
+        $scope.Print = function ()
+        {
+            window.print();
+        };
+
+    }]);
+
+    var _empty_minor_offpeak_month;
+    var _empty_minor_offpeak_year;
+    var EmptyMinorOffPeak=[];
     app.controller('KpiReportEmptyMinorDSOffPeak', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
@@ -8395,6 +8525,9 @@
 
             DataService.GetRVDetails($scope.details).then(function (response)
             {
+                _empty_minor_offpeak_month = $scope.SelectedMonth;
+                _empty_minor_offpeak_year =$scope.SelectedYear;
+
                 $scope.EmptyMinorDSOffPeek=[];
                 if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
@@ -8403,7 +8536,8 @@
                         {
                             if(response.data[i].offpeekduration > 0)
                             {
-                                $scope.EmptyMinorDSOffPeek.push(response.data[i])
+                                $scope.EmptyMinorDSOffPeek.push(response.data[i]);
+                                EmptyMinorOffPeak.push(response.data[i]);
                             }
                         }
                     }
@@ -8432,6 +8566,36 @@
         }
     }]);
 
+    app.controller('KpiReportEmptyMinorDSOffPeakPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.EmptyMinorOffPeakDetails={
+          month:_empty_minor_offpeak_month,
+          year:_empty_minor_offpeak_year
+        };
+
+        $scope.EmptyMinorOffPeak=[];
+        $scope.EmptyMinorOffPeak = EmptyMinorOffPeak;
+
+        $scope.EmptyMinorDSOffPeekPrintTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.EmptyMinorOffPeak, params.filter()) : $scope.EmptyMinorOffPeak;
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+        $scope.Print = function ()
+        {
+            window.print();
+        };
+    }]);
+
+    var _station_empty_full_month;
+    var _station_empty_full_year;
+    var StationEmptyFull =[];
     app.controller('KpiReportEmptyFull', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
     {
         $scope.details={
@@ -8460,6 +8624,9 @@
 
             DataService.GetRVDetails($scope.details).then(function (response)
             {
+                 _station_empty_full_month = $scope.SelectedMonth;
+                 _station_empty_full_year=$scope.SelectedYear;
+
                 $scope.DSEmptyFull=[];
                 if (!response.error) {
                     for(var i=0;i<response.data.length;i++)
@@ -8467,7 +8634,8 @@
                        var Start_Month = new Date(response.data[i].starttime).getMonth() + 1;
                        if( Start_Month == $scope.details.month)
                        {
-                           $scope.DSEmptyFull.push(response.data[i])
+                           $scope.DSEmptyFull.push(response.data[i]);
+                           StationEmptyFull.push(response.data[i]);
                        }
                     }
                     $scope.details.month='';
@@ -8492,6 +8660,34 @@
                 }
             );
         }
+    }]);
+
+    app.controller('KpiReportEmptyFullPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
+    {
+        $scope.StationFullEmptyDetails={
+            month:_station_empty_full_month,
+            year:_station_empty_full_year
+        };
+
+        $scope.StationEmptyFullTwoHours=[];
+        $scope.StationEmptyFullTwoHours=StationEmptyFull;
+
+        $scope.DSEmptyFullPrintTable = new NgTableParams(
+            {
+                count: 10
+            },
+            {
+                getData: function ($defer, params) {
+                    var orderedData = params.filter() ? $filter('filter')($scope.StationEmptyFullTwoHours, params.filter()) : $scope.StationEmptyFullTwoHours;
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            }
+        );
+        $scope.Print = function ()
+        {
+            window.print();
+        };
+
     }]);
 
     app.controller('NumberOfValidComplaints', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
@@ -10801,7 +10997,7 @@
        $scope.StationCleanPrint =[];
         $scope.StationCleanPrint = StationCleanData;
 
-        $scope.StationCleanTable = new NgTableParams(
+        $scope.StationCleanPrintTable = new NgTableParams(
             {
                 count: 500,
                 noPager: true
@@ -10815,7 +11011,7 @@
             }
         );
 
-        $scope.print = function ()
+        $scope.Print = function ()
         {
             window.print();
         };
@@ -12704,7 +12900,7 @@ var _station_id;
                 }, function (response) {
                     growl.error(response.data.description);
                 });
-            },10000);
+            },45000);
             }
         $scope.RDV=function (response) {
             $scope.redistributionVehicles = response.data;

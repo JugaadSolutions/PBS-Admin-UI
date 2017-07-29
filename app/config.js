@@ -857,6 +857,13 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.kpi.reports.docking-station-clean-print", {
+                url: "/docking-station-clean-print",
+                templateUrl: adminViewPath + 'kpi/reports/docking-station-clean-print.html',
+                controller: 'KpiReportDockingStationCleanPrint',
+                containerClass: 'sw-toggled'
+            })
+
             .state("admin.kpi.reports.smart-card-at-hub", {
                 url: "/smart-card-at-hub",
                 templateUrl: adminViewPath + 'kpi/reports/smart-card-at-hub.html',
@@ -902,11 +909,25 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.kpi.reports.empty-minor-ds-peek-hours-print", {
+                url: "/empty-minor-ds-peek-hours-print",
+                templateUrl: adminViewPath + 'kpi/reports/empty-minor-ds-peek-hours-print.html',
+                controller: 'KpiReportEmptyMinorDSPeakPrint',
+                containerClass: 'sw-toggled'
+            })
+
             /*empty docking station (minor) in offpeak hours*/
             .state("admin.kpi.reports.empty-major-ds-offpeek-hours", {
                 url: "/empty-major-ds-offpeek-hours",
                 templateUrl: adminViewPath + 'kpi/reports/empty-major-ds-offpeek-hours.html',
                 controller: 'KpiReportEmptyMajorDSOffPeak',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.kpi.reports.empty-major-ds-offpeek-hours-print", {
+                url: "/empty-major-ds-offpeek-hours-print",
+                templateUrl: adminViewPath + 'kpi/reports/empty-major-ds-offpeek-hours-print.html',
+                controller: 'KpiReportEmptyMajorDSOffPeakPrint',
                 containerClass: 'sw-toggled'
             })
 
@@ -918,11 +939,25 @@
                 containerClass: 'sw-toggled'
             })
 
+            .state("admin.kpi.reports.empty-minor-ds-offpeek-hours-print", {
+                url: "/empty-minor-ds-offpeek-hours-print",
+                templateUrl: adminViewPath + 'kpi/reports/empty-minor-ds-offpeek-hours-print.html',
+                controller: 'KpiReportEmptyMinorDSOffPeakPrint',
+                containerClass: 'sw-toggled'
+            })
+
             /*Station neither empty nor full more than 2 hours*/
             .state("admin.kpi.reports.stations-full-or-empty-more-than-two-hours", {
                 url: "/stations-full-or-empty-more-than-two-hours",
                 templateUrl: adminViewPath + 'kpi/reports/stations-full-or-empty-more-than-two-hours.html',
                 controller: 'KpiReportEmptyFull',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.kpi.reports.stations-full-or-empty-more-than-two-hours-print", {
+                url: "/stations-full-or-empty-more-than-two-hours-print",
+                templateUrl: adminViewPath + 'kpi/reports/stations-full-or-empty-more-than-two-hours-print.html',
+                controller: 'KpiReportEmptyFullPrint',
                 containerClass: 'sw-toggled'
             })
 
