@@ -70,13 +70,13 @@
                             </div>
                         </div>
 
-                        <!--<div class="col-sm-3 m-b-20">
+                        <!--<div class="col-sm-2 m-b-10">
                             <div class="form-group fg-line">
                                 <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Docking Hubs</label>
                                 <select chosen class="form-control"
-                                        ng-options="DockingHubs as DockingHub.name for DockingHub in DockingHubs"
-                                        ng-model="DockingHub.name"
-                                        ng-change="selectedDockingHub(DockingHub.name)">
+                                        ng-options="DockingHub as DockingHub.name for DockingHub in DockingHubs"
+                                        ng-model="details.name"
+                                        ng-change="selectedDockingHub(details.name)">
                                     <option value="">All</option>
                                 </select>
                             </div>
@@ -114,10 +114,10 @@
                             {{clean.cleaneddate | date : "dd-MMM-yy"}}
                         </td>
                         <td data-title="'From'">
-                            {{clean.fromtime | date:"dd-MM-yy hh:mm"}}
+                            {{clean.fromtime | date:"dd-MM-yy hh:mm a"}}
                         </td>
                         <td data-title="'To'">
-                            {{clean.totime | date:"dd-MM-yy hh:mm"}}
+                            {{clean.totime | date:"hh:mm a"}}
                         </td>
                         <td data-title="'By'">
                             {{clean.empId.Name}}
@@ -128,6 +128,9 @@
                         <td data-title="'Instance if the docking station is cleaned'">
                             <label ng-if="clean.cleanCount==1">Cleaned</label>
                         </td>
+                     <!--   <td data-title="'ID'">
+                            {{clean._id}}
+                        </td>-->
                     </tr>
                 </table>
             </div>

@@ -1067,6 +1067,18 @@
                 var _entered_from_time=data.fromtime;
                 var _entered_to_time=data.totime;
 
+                // clean date entered from view
+                var _entered_date=data.cleaneddate.getDate();
+                var _entered_month=data.cleaneddate.getMonth();
+                var _entered_year =data.cleaneddate.getYear();
+
+                var enteredDate = new Date();
+
+                enteredDate.setDate(_entered_date);
+                enteredDate.setMonth(_entered_month);
+                enteredDate.setYear(_entered_year);
+                // clean date entered from view
+
                var Date_time_from =new Date();
                var Date_time_to=new Date();
 

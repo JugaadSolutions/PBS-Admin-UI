@@ -7872,6 +7872,29 @@
             });
         }
 
+        // to get all Docking stations
+        $scope.DockingHubs = [];
+
+        DataService.getDockingStations().then(function (response) {
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.DockingHubs.push(response.data[i]);
+                    }
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
+
+        $scope.selectedDockingHub = function (data) {
+            $scope.details.stationId = data._id;
+        };
+
     }]);
 
     app.controller('KpiReportCycleAvailableAt6amPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
@@ -7970,25 +7993,31 @@
             }, function (response) {
                 /*growl.error(response.data.description);*/
             });
+
         }
 
+        // to get all Docking stations
         $scope.DockingHubs = [];
 
         DataService.getDockingStations().then(function (response) {
-            if (!response.error) {
-                $scope.DockingHubs = response.data;
-            } else {
-                growl.error(response.message);
-            }
-        }, function (response) {
-            growl.error(response.data.description['0']);
-        });
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.DockingHubs.push(response.data[i]);
+                    }
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
 
-        $scope.selectedDockingHub = function (data)
-        {
-            $scope.bicycleTrans.dockingstation=data.name;
-        }
-
+        $scope.selectedDockingHub = function (data) {
+            $scope.details.stationId = data._id;
+        };
     }]);
 
     app.controller('KpiReportDockingStationCleanPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
@@ -8008,7 +8037,7 @@
             {
                 getData: function ($defer, params) {
                     var orderedData = params.filter() ? $filter('filter')($scope.StationCleanData, params.filter()) : $scope.StationCleanData;
-                    params.total(orderedData.length);
+                    /*params.total(orderedData.length);*/
                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 }
             }
@@ -8259,6 +8288,31 @@
                 }
             );
         }
+
+        // to get all Docking stations
+        $scope.DockingHubs = [];
+
+        DataService.getDockingStations().then(function (response) {
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.DockingHubs.push(response.data[i]);
+                    }
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
+
+        $scope.selectedDockingHub = function (data) {
+            $scope.details.stationId = data._id;
+        };
+
+
     }]);
 
     app.controller('KpiReportEmptyMajorDSPeakPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
@@ -8604,7 +8658,7 @@
            month:'',
             year:'',
             stationState:0,
-            duration:0
+            duration:120
         };
 
         $scope.GetDetails = function ()
@@ -8660,6 +8714,30 @@
                 }
             );
         }
+
+        // to get all Docking stations
+        $scope.DockingHubs = [];
+
+        DataService.getDockingStations().then(function (response) {
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.DockingHubs.push(response.data[i]);
+                    }
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
+
+        $scope.selectedDockingHub = function (data) {
+            $scope.details.stationId = data._id;
+        };
+
     }]);
 
     app.controller('KpiReportEmptyFullPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
@@ -10697,12 +10775,12 @@
 
                         $scope.totalCashTable = new NgTableParams(
                         {
-                            count: 10
+                            count: 30
                         },
                         {
                             getData: function ($defer, params) {
                                 var orderedData = params.filter() ? $filter('filter')($scope.cashTotals, params.filter()) : $scope.cashTotals;
-                              /*  params.total(orderedData.length);*/
+                                params.total(orderedData.length);
                                 $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                             }
                         }
@@ -11083,6 +11161,7 @@ var _station_id;
         };
 
         $scope.addDockingStationClean = function () {
+            /*$scope.dockingStationCleanInput.cleaneddate =new Date();*/
             DataService.saveDockingStationCleaning($scope.dockingStationCleanInput).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);

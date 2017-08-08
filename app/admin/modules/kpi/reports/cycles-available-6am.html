@@ -70,6 +70,19 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-2 m-b-10">
+                            <div class="form-group fg-line">
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Docking Hubs</label>
+                                <select chosen class="form-control"
+                                        ng-options="DockingHub as DockingHub.name for DockingHub in DockingHubs"
+                                        ng-model="details.name"
+                                        ng-change="selectedDockingHub(details.name)">
+                                    <option value="">All</option>
+                                    <!--<option value="UserPortal">UserPortal</option>-->
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
 
 
