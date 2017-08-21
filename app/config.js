@@ -626,6 +626,50 @@
                 containerClass:'sw-toggled'
             })
 
+                /*Mis Summary*/
+            .state("admin.missummary", {
+                url: "/missummary",
+                templateUrl: adminViewPath + 'missummary/missummary.html',
+                containerClass: 'sw-toggled'
+            })
+
+            .state("admin.missummary.trintrinregistration", {
+                url: "/trintrinregistration",
+                templateUrl: adminViewPath + 'missummary/trintrinregistration.html',
+                controller: 'MISTrinTrinRegistration',
+                containerClass: 'sw-toggled'
+            })
+            .state("admin.missummary.mysuruoneregistration", {
+                url: "/mysuruoneregistration",
+                templateUrl: adminViewPath + 'missummary/mysuruoneregistration.html',
+                controller: 'MISMysuruOneRegistration',
+                containerClass: 'sw-toggled'
+            })
+            .state("admin.missummary.hourlycheckout", {
+                url: "/hourlycheckout",
+                templateUrl: adminViewPath + 'missummary/hourlycheckout.html',
+                controller: 'MISHourlyCheckOut',
+                containerClass: 'sw-toggled'
+            })
+            .state("admin.missummary.hourlycheckin", {
+                url: "/hourlycheckin",
+                templateUrl: adminViewPath + 'missummary/hourlycheckin.html',
+                controller: 'MISHourlyCheckIn',
+                containerClass: 'sw-toggled'
+            })
+            .state("admin.missummary.transactions", {
+                url: "/transactions",
+                templateUrl: adminViewPath + 'missummary/transactions.html',
+                controller: 'MISTransactions',
+                containerClass: 'sw-toggled'
+            })
+            .state("admin.missummary.membership", {
+                url: "/membership",
+                templateUrl: adminViewPath + 'missummary/membership.html',
+                controller: 'MISMembership',
+                containerClass: 'sw-toggled'
+            })
+
             /*Accounts*/
             .state("admin.accounts", {
                 url: "/accounts",

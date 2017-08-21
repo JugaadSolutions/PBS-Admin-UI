@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header ch-alt m-b-20">
+            <h2>Hourly CheckOuts
+                <small>Complete Transaction</small>
+                <br> </h2>
+            <form class="pmbb-edit" name="HourlycheckoutForm" novalidate>
+
+                <div class="card-body card-padding">
+                    <div class="row">
+                        <div class="col-sm-2 m-b-20">
+                            <div class="form-group fg-line"
+                                 ng-class="{ 'has-error': HourlycheckoutForm.fromdate.$touched && HourlycheckoutForm.fromdate.$invalid }" >
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>From Date</label>
+                                <input type="text" name="fromdate" ng-model="HourlyCheckOut.fromdate" ng-change="fromdate" ng-focus="fromdate=true" ng-click="fromdate=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="fromdate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
+                                <span class="help-block"
+                                      ng-messages="HourlycheckoutForm.fromdate.$error"
+                                      ng-show="HourlycheckoutForm.fromdate.$touched">
+                                                <small ng-message="required">From Date is required</small>
+                                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2 m-b-20">
+                            <div class="form-group fg-line"
+                                 ng-class="{ 'has-error': HourlycheckoutForm.todate.$touched && HourlycheckoutForm.todate.$invalid }" >
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>To Date</label>
+                                <input type="text" name="todate" ng-model="HourlyCheckOut.todate" ng-change="todate" ng-focus="todate=true" ng-click="todate=true"
+                                       uib-datepicker-popup="dd/MM/yyyy" is-open="todate" show-button-bar="true" class="form-control" placeholder="eg. 16/09/2012" chars="none" required >
+                                <span class="help-block"
+                                      ng-messages="HourlycheckoutForm.todate.$error"
+                                      ng-show="HourlycheckoutForm.todate.$touched">
+                                                <small ng-message="required">To Date is required</small>
+                                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2 m-b-20">
+                            <div class="form-group fg-line"
+                                 ng-class="{ 'has-error': HourlycheckoutForm.duration.$touched && HourlycheckoutForm.duration.$invalid }" >
+                                <i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;<label>Duration</label>
+                                <input type="text" name="duration" ng-model="duration"
+                                        class="form-control" placeholder="eg. 30 mins"  required >
+                                <span class="help-block"
+                                      ng-messages="HourlycheckoutForm.duration.$error"
+                                      ng-show="HourlycheckoutForm.duration.$touched">
+                                                <small ng-message="required">Duration is required</small>
+                                            </span>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                    <button type="button" class="btn btn-icon-text btn-success waves-effect"
+                            ng-click="sendMisHourlycheckout()" ng-disabled="HourlycheckoutForm.$invalid">
+                        <i class="zmdi zmdi-save"></i> Generate Report
+                    </button>
+                    <!--<button type="button" class="btn btn-icon-text btn-success waves-effect"-->
+                            <!--ng-disabled="HourlycheckoutForm.$invalid" >-->
+                        <!--<i class="zmdi zmdi-eye"></i>-->
+                        <!--<a ui-sref="admin.accounts.daywise-collectionsummary-report-print" style="color: white">Print/CSV Report</a>-->
+                    <!--</button>-->
+                    <!--&nbsp;&nbsp;&nbsp;&nbsp;<label><b>Total&nbsp;-&nbsp;</b></label>{{TotalCount}}-->
+                </div>
+            </form>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" >
+                <table id="export_table" ng-table="daywiseTable" class="table table-striped table-vmiddle" show-filter="false">
+                    <tr ng-repeat="hourlyCheckout in Hourlycheckout">
+                        <td data-title="'Stations'" filter="{ creditBalance: 'text'}">
+                            {{hourlyCheckout.name}}
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

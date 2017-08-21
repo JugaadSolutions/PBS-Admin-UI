@@ -285,6 +285,39 @@
                 </li>
             </ul>
         </li>
+        <!-- MIS Summary -->
+        <li class="sub-menu"
+            ng-class="{'active toggled': $state.includes('admin.missummary') || $state.includes('admin.missummary.trintrinregistration') || $state.includes('admin.missummary.mysuruoneregistration')}">
+            <a href="javascript:void(0);" toggle-submenu><i class="zmdi zmdi-collection-item"></i> MIS_Summary</a>
+            <ul>
+                <li class="sub-menu">
+                    <a href="" toggle-submenu>Registration</a>
+                    <ul>
+                        <li><a ng-class="{'active': $state.includes('admin.missummary.trintrinregistration')}"
+                               ui-sref="admin.missummary.trintrinregistration">TrinTrin</a>
+                        </li>
+                        <li><a ng-class="{'active': $state.includes('admin.missummary.mysuruoneregistration')}"
+                               ui-sref="admin.missummary.mysuruoneregistration">Mysuru One</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a ng-class="{active: $state.includes('admin.missummary.hourlycheckout')}"
+                       ui-sref="admin.missummary.hourlycheckout">Hourly CheckOut</a>
+                </li>
+                <!--<li><a ng-class="{active: $state.includes('admin.reports.bicycle-usage')}"
+                        ui-sref="admin.reports.bicycle-usage">Bicycle Usage</a>
+                 </li>-->
+                <li><a ng-class="{'active': $state.includes('admin.missummary.hourlycheckin')}"
+                       ui-sref="admin.missummary.hourlycheckin">Hourly CheckIn</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.missummary.transactions')}"
+                       ui-sref="admin.missummary.transactions">Transaction</a>
+                </li>
+                <li><a ng-class="{'active': $state.includes('admin.missummary.membership')}"
+                       ui-sref="admin.missummary.membership">MemberShip</a>
+                </li>
+            </ul>
+        </li>
     </ul>
 
     <ul class="main-menu">

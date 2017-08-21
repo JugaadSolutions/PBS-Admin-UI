@@ -451,6 +451,7 @@
                 return deferred.promise;
             },
             saveDockingStation: function (data) {
+
                 var deferred = $q.defer();
                 $http.post(API + APIEndPoint.dockingStations.save, data).then(function (result) {
                     deferred.resolve(result.data);
@@ -1070,14 +1071,13 @@
                 // clean date entered from view
                 var _entered_date=data.cleaneddate.getDate();
                 var _entered_month=data.cleaneddate.getMonth();
-                var _entered_year =data.cleaneddate.getYear();
+                var _entered_year =data.cleaneddate.getFullYear();
 
                 var enteredDate = new Date();
 
                 enteredDate.setDate(_entered_date);
                 enteredDate.setMonth(_entered_month);
                 enteredDate.setYear(_entered_year);
-                // clean date entered from view
 
                var Date_time_from =new Date();
                var Date_time_to=new Date();
@@ -1100,7 +1100,8 @@
                 var CleanDockingStation={
                     stationId:data.stationId,
                     stationIdnew:data.stationIdnew,
-                    cleaneddate:data.cleaneddate,
+                    //cleaneddate:data.cleaneddate,
+                    cleaneddate:enteredDate,
                     fromtime:Date_time_from,
                     totime:Date_time_to,
                     empId:data.empId,
@@ -1379,6 +1380,17 @@
                     deferred.resolve(result.data);
                 }, function (error) {
                     deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+            // Mis Summary HourlycheckOut
+
+            SendMisHourlycheckoutDetails:function (data) {
+                var deferred = $q.defer();
+                $http.post(APINew + APIEndPoint.reports.transactions.complete,data).then(function (result) {
+                    deferred.resolve(result.data);
+                },function (error) {
+                    deferred.reject(error)
                 });
                 return deferred.promise;
             },

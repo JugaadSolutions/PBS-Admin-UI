@@ -125,7 +125,7 @@
                         </td>
                         <td data-title="'At'">
                             <!--{{transaction.checkOutTime | date : "dd MMM yy', ' h:mma"}}-->
-                            {{transaction.checkOutTime | date : "dd MMM yy hh:mm:ss:mmm"}}
+                            {{transaction.checkOutTime | date : "dd MMM yy hh:mm:ss"}}
                         </td>
                           <td data-title="'To'">
                               <a ng-if="transaction.status != 'Canceled'"
@@ -133,7 +133,7 @@
                               <a ng-if="transaction.status == 'Canceled'">--</a>
                           </td>
                          <td data-title="'At'">
-                             {{transaction.checkInTime | date : "dd MMM yy', ' h:mma"}}
+                             {{transaction.checkInTime | date : "dd MMM yy hh:mm:ss"}}
                          </td>
                         <td data-title="'Duration'">
                             <a ng-if="transaction.status == 'Canceled'">--</a>

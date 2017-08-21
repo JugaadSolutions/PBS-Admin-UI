@@ -6712,6 +6712,7 @@
 
                     // calculation for stations neither empty nor full for more then 1 minute
                     /*if(total_duration > 1)*/
+
                     if(total_duration > 120)
                     {
                     total += total_duration;
@@ -8244,8 +8245,30 @@
             $scope.SelectedMonth =  monthNames[_fromdate.getMonth()];
             $scope.SelectedYear= $scope.details.year;
 
-            $scope.details.fromdate = _fromdate;
-            $scope.details.todate = _todate;
+            /*$scope.details.fromdate = _fromdate;
+            $scope.details.todate = _todate;*/
+
+
+            if(_station_id == '' || _station_id == null || _station_id == undefined)
+            {
+                $scope.details={
+                    fromdate:_fromdate,
+                    todate:_todate,
+                    stationState:0,
+                    duration:0
+                };
+            }
+            else
+                {
+                    $scope.details={
+                        fromdate:_fromdate,
+                        todate:_todate,
+                        stationState:0,
+                        duration:0,
+                        stationId:_station_id
+                    };
+                }
+
             DataService.GetRVDetails($scope.details).then(function (response)
             {
                 _empty_major_hub_peak_month=$scope.SelectedMonth;
@@ -8268,6 +8291,7 @@
                     /*growl.success(response.message);*/
                     $scope.details.month ='';
                     $scope.details.year='';
+                    $scope.details.stationId='';
                 } else {
                     growl.error(response.message);
                 }
@@ -8308,8 +8332,9 @@
                 growl.error(response.data);
             });
 
+        var _station_id;
         $scope.selectedDockingHub = function (data) {
-            $scope.details.stationId = data._id;
+            _station_id = data._id;
         };
 
 
@@ -8374,6 +8399,26 @@
             $scope.details.fromdate = _fromdate;
             $scope.details.todate = _todate;
 
+            if(_station_id == '' || _station_id == null || _station_id == undefined)
+            {
+                $scope.details={
+                    fromdate:_fromdate,
+                    todate:_todate,
+                    stationState:0,
+                    duration:0
+                };
+            }
+            else
+            {
+                $scope.details={
+                    fromdate:_fromdate,
+                    todate:_todate,
+                    stationState:0,
+                    duration:0,
+                    stationId:_station_id
+                };
+            }
+
             DataService.GetRVDetails($scope.details).then(function (response)
             {
                  _empty_minor_peak_month= $scope.SelectedMonth;
@@ -8416,6 +8461,31 @@
                 }
             );
         }
+        // to get all Docking stations
+        $scope.DockingHubs = [];
+
+        DataService.getDockingStations().then(function (response) {
+                if (!response.error) {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.DockingHubs.push(response.data[i]);
+                    }
+                }
+                else {
+                    growl.error(response.message)
+                }
+            },
+            function(response)
+            {
+                growl.error(response.data);
+            });
+
+        var _station_id;
+        $scope.selectedDockingHub = function (data) {
+            _station_id = data._id;
+        };
+
+
     }]);
 
     app.controller('KpiReportEmptyMinorDSPeakPrint', ['$scope', '$state', 'DataService', 'NgTableParams', 'growl', 'sweet', '$filter', '$uibModal', 'StatusService', function ($scope, $state, DataService, NgTableParams, growl, sweet, $filter, $uibModal, StatusService)
@@ -8676,7 +8746,27 @@
             $scope.details.fromdate = _fromdate;
             $scope.details.todate = _todate;
 
-            DataService.GetRVDetails($scope.details).then(function (response)
+            if($scope.details.stationId == '' || $scope.details.stationId == null || $scope.details.stationId == undefined)
+            {
+                var objStationEmptyFull ={
+                    fromdate:$scope.details.fromdate,
+                    todate:$scope.details.todate,
+                    stationState:$scope.details.stationState,
+                    duration:$scope.details.duration
+                };
+            }
+            else
+            {
+                var objStationEmptyFull ={
+                    fromdate:$scope.details.fromdate,
+                    todate:$scope.details.todate,
+                    stationState:$scope.details.stationState,
+                    duration:$scope.details.duration,
+                    stationId:$scope.details.stationId
+                };
+            }
+
+            DataService.GetRVDetails(objStationEmptyFull).then(function (response)
             {
                  _station_empty_full_month = $scope.SelectedMonth;
                  _station_empty_full_year=$scope.SelectedYear;
@@ -8694,6 +8784,7 @@
                     }
                     $scope.details.month='';
                     $scope.details.year ='';
+                    $scope.details.stationId ='';
                 } else {
                     growl.error(response.message);
                 }
@@ -11161,7 +11252,6 @@ var _station_id;
         };
 
         $scope.addDockingStationClean = function () {
-            /*$scope.dockingStationCleanInput.cleaneddate =new Date();*/
             DataService.saveDockingStationCleaning($scope.dockingStationCleanInput).then(function (response) {
                 if (!response.error) {
                     growl.success(response.message);
@@ -13062,6 +13152,55 @@ var _station_id;
                 $scope.view = viewType;
             };
     }]);
+
+
+    // Mis_Summary hourlycheckout
+    app.controller('MISHourlyCheckOut', ['$scope', '$state', 'DataService', 'growl','$uibModal', 'sweet', function ($scope, $state, DataService, growl,$uibModal,sweet)
+    {
+        $scope.HourlyCheckOut={
+            fromdate:'',
+            todate:''
+        };
+
+        $scope.Hourlycheckout =[];
+
+        $scope.sendMisHourlycheckout = function ()
+        {
+            DataService.SendMisHourlycheckoutDetails($scope.HourlyCheckOut).then(function (response) {
+                if (!response.error)
+                {
+                    for(var i=0;i<response.data.length;i++)
+                    {
+                        $scope.Hourlycheckout.push(response.data[i]);
+                    }
+                    $scope.daywiseTable = new NgTableParams(
+                        {
+                            count: 20
+                        },
+                        {
+                            getData: function ($defer, params) {
+                                var orderedData = params.filter() ? $filter('filter')($scope.daywises, params.filter()) : $scope.daywises;
+                                params.total(orderedData.length);
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+                }
+                else
+                {
+                    growl.error(response.message);
+                }
+            }, function (response) {
+                /*growl.error(response.data.description['0']);*/
+            })
+
+            // Dataservice
+        };
+
+    }]);
+
+
+
 
     app.controller('headerCtrl',  ['$timeout','messageService', function ($timeout,messageService) {
         // Top Search
